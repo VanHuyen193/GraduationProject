@@ -2,42 +2,78 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using System.Collections;
 
 public class MLAgent : Agent
 {
     [SerializeField] private Transform _goal;
+    [SerializeField] private Renderer _groundRenderer;
     [SerializeField] private float _moveSpeed = 1.5f;
     [SerializeField] private float _rotationSpeed = 180f;
 
     private Renderer _renderer;
 
-    private int _currentEpisode = 0;
-    private float _cumulativeReward = 0f;
+    [HideInInspector] public int CurrentEpisode = 0;
+    [HideInInspector] public float CumulativeReward = 0f;
 
+
+    private Color _defaultGroundColor;
+    private Coroutine _flashGroundCoroutine;
     public override void Initialize()
     {
         Debug.Log("Initialize()");
 
         _renderer = GetComponent<Renderer>();
-        _currentEpisode = 0;
-        _cumulativeReward = 0f;
+        CurrentEpisode = 0;
+        CumulativeReward = 0f;
+
+        if (_groundRenderer != null)
+        {
+            _defaultGroundColor = _groundRenderer.material.color;
+        }
     }
 
     public override void OnEpisodeBegin()
     {
         Debug.Log("OnEpisodeBegin()");
 
-        _currentEpisode++;
-        _cumulativeReward = 0f;
+        if(_groundRenderer != null && CumulativeReward != 0f)
+        {
+            Color flashColor = (CumulativeReward > 0f) ? Color.green : Color.red;
+
+            if (_flashGroundCoroutine != null)
+            {
+                StopCoroutine(_flashGroundCoroutine);
+            }
+
+            _flashGroundCoroutine = StartCoroutine(FlashGround(flashColor, 3.0f));
+        }
+
+        CurrentEpisode++;
+        CumulativeReward = 0f;
         _renderer.material.color = Color.blue;
 
         SpawnObjects();
     }
 
+    private IEnumerator FlashGround(Color targetColor, float duration)
+    {
+        float elapedTime = 0f;
+
+        _groundRenderer.material.color = targetColor;
+
+        while (elapedTime < duration)
+        {
+            elapedTime += Time.deltaTime;
+            _groundRenderer.material.color = Color.Lerp(targetColor, _defaultGroundColor, elapedTime / duration);
+            yield return null;
+        }
+    }
+
     private void SpawnObjects()
     {
         transform.localRotation = Quaternion.identity;
-        transform.localPosition = new Vector3(0f, 0.3f, 0f);
+        transform.localPosition = new Vector3(0f, 0.15f, 0f);
 
         float randomAngle = Random.Range(0f, 360f);
         Vector3 randomDirection = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward;
@@ -66,11 +102,31 @@ public class MLAgent : Agent
         sensor.AddObservation(agentRotation_nomalized);
     }
 
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
+        var discreteActionsOut = actionsOut.DiscreteActions;
+        discreteActionsOut[0] = 0;
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            discreteActionsOut[0] = 1;
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            discreteActionsOut[0] = 2;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            discreteActionsOut[0] = 3;
+        }    
+
+    }
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         MoveAgent(actions.DiscreteActions);
         AddReward(-2f / MaxStep);
-        _cumulativeReward = GetCumulativeReward();
+        CumulativeReward = GetCumulativeReward();
     }
 
     public void MoveAgent(ActionSegment<int> act)
@@ -102,7 +158,7 @@ public class MLAgent : Agent
     private void GoalReached()
     {
         AddReward(1.0f);
-        _cumulativeReward = GetCumulativeReward();
+        CumulativeReward = GetCumulativeReward();
 
         EndEpisode();
     }
