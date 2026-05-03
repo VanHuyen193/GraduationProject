@@ -1,0 +1,30 @@
+{
+    "Football": {
+        "elo": 1195.4874032030286,
+        "checkpoints": [
+            {
+                "steps": 54541,
+                "file_path": "results\\football-table-agent\\Football\\Football-54541.onnx",
+                "reward": -1.5827717787149,
+                "creation_time": 1777829977.7938457,
+                "auxillary_file_paths": [
+                    "results\\football-table-agent\\Football\\Football-54541.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 54541,
+            "file_path": "results\\football-table-agent\\Football.onnx",
+            "reward": -1.5827717787149,
+            "creation_time": 1777829977.7938457,
+            "auxillary_file_paths": [
+                "results\\football-table-agent\\Football\\Football-54541.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cpu"
+    }
+}

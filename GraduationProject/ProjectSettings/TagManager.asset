@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Goal
+  - Table
+  - Field
   layers:
   - Default
   - TransparentFX
@@ -15,13 +17,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Table
+  - Player
+  - Ball
+  - Field
+  - PlayerAlt
+  - Trail
+  - Misc
   - 
   - 
   - 

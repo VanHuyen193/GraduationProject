@@ -1,23 +1,23 @@
 {
-    "Agent": {
+    "Football": {
         "checkpoints": [
             {
-                "steps": 7345,
-                "file_path": "results\\agent1\\Agent\\Agent-7345.onnx",
-                "reward": -0.5236768785577554,
-                "creation_time": 1776177465.910675,
+                "steps": 4190,
+                "file_path": "results\\agent1\\Football\\Football-4190.onnx",
+                "reward": 0.9134479374042712,
+                "creation_time": 1777823905.6207092,
                 "auxillary_file_paths": [
-                    "results\\agent1\\Agent\\Agent-7345.pt"
+                    "results\\agent1\\Football\\Football-4190.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 7345,
-            "file_path": "results\\agent1\\Agent.onnx",
-            "reward": -0.5236768785577554,
-            "creation_time": 1776177465.910675,
+            "steps": 4190,
+            "file_path": "results\\agent1\\Football.onnx",
+            "reward": 0.9134479374042712,
+            "creation_time": 1777823905.6207092,
             "auxillary_file_paths": [
-                "results\\agent1\\Agent\\Agent-7345.pt"
+                "results\\agent1\\Football\\Football-4190.pt"
             ]
         }
     },
