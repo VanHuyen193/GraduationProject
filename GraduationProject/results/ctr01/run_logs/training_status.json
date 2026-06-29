@@ -1,0 +1,56 @@
+{
+    "CrossTheRoad": {
+        "checkpoints": [
+            {
+                "steps": 499998,
+                "file_path": "results\\ctr01\\CrossTheRoad\\CrossTheRoad-499998.onnx",
+                "reward": null,
+                "creation_time": 1782719271.4128716,
+                "auxillary_file_paths": [
+                    "results\\ctr01\\CrossTheRoad\\CrossTheRoad-499998.pt"
+                ]
+            },
+            {
+                "steps": 999976,
+                "file_path": "results\\ctr01\\CrossTheRoad\\CrossTheRoad-999976.onnx",
+                "reward": null,
+                "creation_time": 1782721640.758434,
+                "auxillary_file_paths": [
+                    "results\\ctr01\\CrossTheRoad\\CrossTheRoad-999976.pt"
+                ]
+            },
+            {
+                "steps": 1499969,
+                "file_path": "results\\ctr01\\CrossTheRoad\\CrossTheRoad-1499969.onnx",
+                "reward": 1.0,
+                "creation_time": 1782723961.8527708,
+                "auxillary_file_paths": [
+                    "results\\ctr01\\CrossTheRoad\\CrossTheRoad-1499969.pt"
+                ]
+            },
+            {
+                "steps": 1500033,
+                "file_path": "results\\ctr01\\CrossTheRoad\\CrossTheRoad-1500033.onnx",
+                "reward": 1.0,
+                "creation_time": 1782723961.9187853,
+                "auxillary_file_paths": [
+                    "results\\ctr01\\CrossTheRoad\\CrossTheRoad-1500033.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1500033,
+            "file_path": "results\\ctr01\\CrossTheRoad.onnx",
+            "reward": 1.0,
+            "creation_time": 1782723961.9187853,
+            "auxillary_file_paths": [
+                "results\\ctr01\\CrossTheRoad\\CrossTheRoad-1500033.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
