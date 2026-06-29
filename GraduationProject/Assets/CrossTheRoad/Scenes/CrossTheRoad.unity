@@ -1100,9 +1100,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: CrossTheRoadArea
       objectReference: {fileID: 0}
+    - target: {fileID: 1562032062036464529, guid: 361ae1ea563fa456db5ba08231237322, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 85c64546e8722fd4a9edafa9dd34d557, type: 3}
     - target: {fileID: 2369094324981541069, guid: 361ae1ea563fa456db5ba08231237322, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4569523924960369229, guid: 361ae1ea563fa456db5ba08231237322, type: 3}
       propertyPath: m_PresetInfoIsWorld
