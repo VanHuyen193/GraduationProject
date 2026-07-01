@@ -1,0 +1,33 @@
+# POCA training configuration for CaptureTheFlag (PuzzleBehavior)
+# Note: Since the environment uses SimpleMultiAgentGroup and Group Rewards, POCA is recommended.
+
+behaviors:
+  PuzzleBehavior:
+    trainer_type: poca                  # Changed from ppo to poca for cooperative multi-agent group training
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 0.0003
+      beta: 0.01                        # Entropy coefficient for group exploration
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: constant
+    network_settings:
+      normalize: false
+      hidden_units: 256                 # 256 hidden units for complex coordination
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      # Curiosity is supported under POCA to encourage individual exploration
+      curiosity:
+        gamma: 0.99
+        strength: 0.02
+        learning_rate: 0.0003
+    keep_checkpoints: 5
+    max_steps: 5000000                  # Recommended steps for POCA cooperative learning
+    time_horizon: 128
+    summary_freq: 20000
