@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1782978053",
+        "python_version": "3.10.12 | packaged by Anaconda, Inc. | (main, Jul  5 2023, 19:01:18) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Admin\\miniconda3\\envs\\mlagents\\Scripts\\mlagents-learn config\\football_ppo.yaml --run-id=football_ppo_v1 --results-dir=results --time-scale=20 --base-port=5005 --force",
+        "mlagents_version": "1.2.0.dev0",
+        "mlagents_envs_version": "1.2.0.dev0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.2.2+cu121",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1782978115"
+    },
+    "total": 61.689273200012394,
+    "count": 1,
+    "self": 0.00884680001763627,
+    "children": {
+        "run_training.setup": {
+            "total": 0.06831509999756236,
+            "count": 1,
+            "self": 0.06831509999756236
+        },
+        "TrainerController.start_learning": {
+            "total": 61.612111299997196,
+            "count": 1,
+            "self": 0.000148899998748675,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 61.611907300000894,
+                    "count": 1,
+                    "self": 61.611907300000894
+                },
+                "TrainerController._save_models": {
+                    "total": 5.509999755304307e-05,
+                    "count": 1,
+                    "self": 5.509999755304307e-05
+                }
+            }
+        }
+    }
+}

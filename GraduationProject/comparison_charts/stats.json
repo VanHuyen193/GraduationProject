@@ -1,0 +1,92 @@
+{
+  "football_ppo_v1": {
+    "env": "Football Table",
+    "algo": "PPO",
+    "found": true,
+    "reward_final": -1.559677004814148,
+    "reward_max": -1.408333659172058,
+    "reward_mean_last10pct": -1.559677004814148,
+    "reward_converge_step": 200000,
+    "ep_len_final": 274.9570007324219
+  },
+  "football_sac_v1": {
+    "env": "Football Table",
+    "algo": "SAC",
+    "found": false,
+    "reward_final": null,
+    "reward_max": null,
+    "reward_mean_last10pct": null,
+    "reward_converge_step": null,
+    "ep_len_final": null
+  },
+  "football_poca_v1": {
+    "env": "Football Table",
+    "algo": "MA-POCA",
+    "found": false,
+    "reward_final": null,
+    "reward_max": null,
+    "reward_mean_last10pct": null,
+    "reward_converge_step": null,
+    "ep_len_final": null
+  },
+  "ctr_ppo_v1": {
+    "env": "Cross The Road",
+    "algo": "PPO",
+    "found": true,
+    "reward_final": 0.7405063509941101,
+    "reward_max": 0.7842105031013489,
+    "reward_mean_last10pct": 0.65250324010849,
+    "reward_converge_step": 315000,
+    "ep_len_final": 63.0379753112793
+  },
+  "ctr_sac_v1": {
+    "env": "Cross The Road",
+    "algo": "SAC",
+    "found": true,
+    "reward_final": 0.873630166053772,
+    "reward_max": 0.8811594247817993,
+    "reward_mean_last10pct": 0.8233300149440765,
+    "reward_converge_step": 85000,
+    "ep_len_final": 67.98611450195312
+  },
+  "ctr_poca_v1": {
+    "env": "Cross The Road",
+    "algo": "MA-POCA",
+    "found": false,
+    "reward_final": null,
+    "reward_max": null,
+    "reward_mean_last10pct": null,
+    "reward_converge_step": null,
+    "ep_len_final": null
+  },
+  "ctf_ppo_v1": {
+    "env": "Capture The Flag",
+    "algo": "PPO",
+    "found": false,
+    "reward_final": null,
+    "reward_max": null,
+    "reward_mean_last10pct": null,
+    "reward_converge_step": null,
+    "ep_len_final": null
+  },
+  "ctf_sac_v1": {
+    "env": "Capture The Flag",
+    "algo": "SAC",
+    "found": false,
+    "reward_final": null,
+    "reward_max": null,
+    "reward_mean_last10pct": null,
+    "reward_converge_step": null,
+    "ep_len_final": null
+  },
+  "ctf_poca_v1": {
+    "env": "Capture The Flag",
+    "algo": "MA-POCA",
+    "found": false,
+    "reward_final": null,
+    "reward_max": null,
+    "reward_mean_last10pct": null,
+    "reward_converge_step": null,
+    "ep_len_final": null
+  }
+}
