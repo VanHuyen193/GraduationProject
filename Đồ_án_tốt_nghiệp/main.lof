@@ -1,0 +1,11 @@
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Vòng lặp tương tác giữa agent và môi trường trong học tăng cường}}{9}{figure.caption.2}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kiến trúc tổng thể của Unity ML-Agents Toolkit}}{19}{figure.caption.4}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}}{35}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}}{36}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}}{37}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}}{38}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}}{39}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}}{40}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}}{40}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}}{42}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}}{43}{figure.caption.22}%

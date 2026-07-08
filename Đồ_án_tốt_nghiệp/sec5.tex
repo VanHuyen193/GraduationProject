@@ -1,0 +1,544 @@
+\fontsize{14pt}{22.5pt}\selectfont
+
+\section{THIẾT KẾ MÔI TRƯỜNG VÀ PHƯƠNG PHÁP THỰC NGHIỆM}
+\label{ch:design}
+
+\indent Chương này trình bày chi tiết quá trình hiện thực hóa ý tưởng của đề tài thành
+một hệ thống thực nghiệm hoàn chỉnh. Nội dung được tổ chức theo trình tự từ tổng quan
+đến cụ thể: trước hết là kiến trúc chung của toàn bộ hệ thống huấn luyện cùng những
+nguyên tắc thiết kế được áp dụng thống nhất cho cả ba môi trường; tiếp theo là phần
+mô tả chi tiết từng môi trường, gồm bài toán, thiết kế tác nhân, hàm phần thưởng và
+lựa chọn thuật toán; sau đó là bảng tổng hợp đối chiếu ba môi trường. Cuối chương,
+đề tài trình bày phương pháp tích hợp thuật toán ra ngoài bộ huấn luyện tích hợp sẵn
+của ML-Agents, cùng toàn bộ thiết lập thực nghiệm và tiêu chí đánh giá.
+
+% ═══════════════════════════════════════════════
+\subsection{Tổng quan thiết kế hệ thống}
+
+\subsubsection{Kiến trúc huấn luyện tổng thể}
+\indent Toàn bộ hệ thống thực nghiệm được xây dựng theo kiến trúc client--server của
+Unity ML-Agents đã trình bày ở Mục~\ref{sub:mlarch}. Trong kiến trúc này, Unity đảm
+nhận vai trò mô phỏng: nó dựng nên thế giới ba chiều, tính toán vật lý va chạm, thu
+thập quan sát của tác nhân và thực thi các hành động mà tác nhân lựa chọn. Phía Python,
+thông qua chương trình \texttt{mlagents-learn}, đảm nhận vai trò huấn luyện: nó nhận
+quan sát từ Unity, suy luận ra hành động dựa trên chính sách hiện tại và cập nhật tham
+số của mạng nơ-ron dựa trên phần thưởng thu về. Hai phía trao đổi dữ liệu với nhau
+theo từng bước thời gian thông qua giao thức truyền thông nội bộ.
+
+\indent Ba môi trường của đề tài được tổ chức thành ba khu vực độc lập trong cùng một
+dự án Unity, tương ứng với ba thư mục \texttt{Assets/Football},
+\texttt{Assets/Collaboration} và \texttt{Assets/CrossTheRoad}. Mỗi môi trường được gắn
+với một loại hành vi riêng, lần lượt mang tên \texttt{Football}, \texttt{PuzzleBehavior}
+và \texttt{CrossTheRoad}. Việc tách biệt này cho phép huấn luyện từng môi trường một
+cách độc lập mà không gây nhiễu lẫn nhau, đồng thời giúp việc nạp đúng tệp cấu hình
+cho từng lần chạy trở nên rõ ràng.
+
+\indent Một đặc điểm quan trọng trong thiết kế là mỗi cảnh chứa nhiều bản sao của môi
+trường được đặt cạnh nhau và chạy song song. Nhờ đó, tại mỗi bước thời gian, hệ thống
+thu thập được nhiều mẫu kinh nghiệm cùng lúc, giúp tăng tốc đáng kể quá trình huấn
+luyện. Bên cạnh đó, tham số tăng tốc mô phỏng được đặt ở mức gấp hai mươi lần thời
+gian thực, cho phép Unity mô phỏng nhanh hơn nhiều so với tốc độ hiển thị thông thường
+mà không ảnh hưởng đến tính đúng đắn của vật lý. Toàn bộ chín lần huấn luyện, tương
+ứng với ba môi trường nhân ba thuật toán, được điều phối tự động bằng một chương trình
+Python được trình bày ở Mục~\ref{sub:codestruct}.
+
+\subsubsection{Không gian quan sát}
+\indent Không gian quan sát quyết định những gì tác nhân có thể ``nhìn thấy'' về môi
+trường tại mỗi thời điểm, và do đó ảnh hưởng trực tiếp đến chất lượng chính sách mà
+tác nhân có thể học được. Cả ba môi trường của đề tài đều sử dụng dạng quan sát vector,
+tức một chuỗi số thực mô tả các đại lượng liên quan như vị trí, vận tốc, khoảng cách
+hay trạng thái của các đối tượng. Nguyên tắc thiết kế xuyên suốt là chỉ đưa vào những
+thông tin tối thiểu nhưng đủ để tác nhân thỏa mãn gần đúng tính chất Markov, nghĩa là
+chỉ cần quan sát hiện tại đã đủ để ra quyết định hợp lý mà không cần ghi nhớ toàn bộ
+lịch sử.
+
+\indent Để quá trình huấn luyện ổn định, các giá trị quan sát đều được chuẩn hóa về
+lân cận khoảng từ âm một đến một trước khi đưa vào mạng nơ-ron. Việc chuẩn hóa này đặc
+biệt cần thiết với môi trường Football Table, nơi các đại lượng vật lý như vận tốc
+bóng và góc xoay thanh gạt có thang đo rất khác nhau; nếu không chuẩn hóa, những đại
+lượng có giá trị lớn sẽ lấn át các đại lượng nhỏ và làm sai lệch quá trình học. Ngoài
+quan sát vector, hai môi trường Cross The Road và Cooperative Puzzle còn được trang bị
+thêm cảm biến tia. Cảm biến này phóng ra một chùm tia từ vị trí tác nhân theo nhiều
+hướng và ghi lại khoảng cách cùng loại vật thể mà mỗi tia chạm tới, qua đó mô phỏng
+khả năng quan sát không gian xung quanh tương tự như thị giác của một thực thể trong
+thế giới ba chiều.
+
+\subsubsection{Không gian hành động}
+\indent Đề tài chủ ý lựa chọn ba môi trường có không gian hành động khác nhau nhằm
+đánh giá tính linh hoạt của từng thuật toán trên nhiều dạng điều khiển. Môi trường
+Football Table sử dụng không gian hành động liên tục gồm tám chiều, tương ứng với lực
+trượt ngang và lực xoay của bốn thanh gạt; mỗi chiều nhận một giá trị thực trong một
+khoảng liên tục, phản ánh bản chất điều khiển vật lý mượt mà của trò chơi bi lắc. Hai
+môi trường còn lại sử dụng không gian hành động rời rạc, trong đó tác nhân chọn một
+trong một số hữu hạn các hành động định sẵn tại mỗi bước. Môi trường Cross The Road có
+bốn hành động là đứng yên, sang trái, sang phải và tiến về phía trước, còn môi trường
+Cooperative Puzzle có bảy hành động gồm đứng yên, tiến, lùi, xoay trái, xoay phải, đi
+ngang sang trái và đi ngang sang phải. Sự có mặt đồng thời của cả hành động liên tục
+lẫn rời rạc cho phép làm nổi bật thế mạnh của SAC trên không gian liên tục, đồng thời
+kiểm chứng khả năng của cả ba thuật toán trên không gian rời rạc.
+
+\subsubsection{Nguyên tắc thiết kế hàm phần thưởng}
+\indent Hàm phần thưởng là thành phần khó thiết kế nhất trong một hệ thống học tăng
+cường, bởi nó là tín hiệu duy nhất định hướng hành vi của tác nhân. Một hàm phần
+thưởng thiết kế không tốt có thể khiến tác nhân học được những hành vi kỳ lạ nhưng vẫn
+tối đa hóa phần thưởng, một hiện tượng thường được gọi là lợi dụng phần thưởng. Để
+tránh điều này, đề tài áp dụng nhất quán nguyên tắc kết hợp giữa phần thưởng thưa tại
+trạng thái kết thúc và phần thưởng định hướng dày đặc.
+
+\indent Phần thưởng thưa, chẳng hạn cộng một điểm khi ghi bàn hoặc khi đến đích, xác
+định rõ mục tiêu cuối cùng mà tác nhân cần đạt được. Tuy nhiên, nếu chỉ dựa vào phần
+thưởng thưa thì trong giai đoạn đầu, khi tác nhân hầu như chưa bao giờ tình cờ đạt mục
+tiêu, tín hiệu học sẽ quá hiếm và quá trình huấn luyện tiến triển rất chậm. Vì vậy,
+đề tài bổ sung thêm các phần thưởng định hướng nhỏ, chẳng hạn thưởng khi tác nhân đá
+bóng về phía khung thành đối phương, để cung cấp tín hiệu học thường xuyên hơn và dẫn
+dắt tác nhân đi đúng hướng. Điều cốt yếu là độ lớn của các phần thưởng định hướng luôn
+được giữ nhỏ hơn nhiều so với phần thưởng mục tiêu, để chúng chỉ đóng vai trò gợi ý
+chứ không làm tác nhân sao nhãng khỏi mục tiêu chính. Chi tiết hàm phần thưởng của
+từng môi trường được trình bày ngay trong các mục tương ứng dưới đây.
+
+% ═══════════════════════════════════════════════
+\subsection{Môi trường 1: Football Table}
+\label{sub:env-football}
+
+\subsubsection{Mô tả bài toán và môi trường}
+\indent Môi trường Football Table mô phỏng một bàn bi lắc ba chiều với đầy đủ vật lý
+va chạm giữa quả bóng và các cầu thủ gắn trên thanh gạt. Đây là bài toán đối kháng một
+đối một, trong đó hai đội chơi đối đầu trực tiếp; mỗi đội điều khiển bốn thanh gạt với
+mục tiêu đưa bóng vào khung thành đối phương đồng thời bảo vệ khung thành của mình.
+Điểm đặc trưng của bài toán nằm ở tính đối kháng và ở động lực học liên tục của quả
+bóng: bóng có thể lăn, nảy và đổi hướng liên tục dưới tác động của va chạm, buộc tác
+nhân phải phản ứng nhanh và phải học được cả kỹ năng tấn công lẫn phòng thủ. Chính
+tính đối kháng khiến bài toán này trở thành trường hợp điển hình để kiểm chứng cơ chế
+tự chơi, trong đó tác nhân tiến bộ bằng cách liên tục thi đấu với những phiên bản ngày
+càng mạnh hơn của chính nó.
+
+\subsubsection{Thiết kế tác nhân và luật chơi}
+\indent Mỗi đội được điều khiển bởi một tác nhân duy nhất, quản lý đồng thời cả bốn
+thanh gạt của đội. Tại mỗi bước, tác nhân xuất ra tám giá trị liên tục, trong đó với
+mỗi thanh gạt có một giá trị điều khiển chuyển động trượt ngang để đưa cầu thủ đến
+đúng vị trí, và một giá trị điều khiển chuyển động xoay để thực hiện cú đá. Cách gộp
+toàn bộ đội vào một tác nhân giúp đơn giản hóa việc phối hợp giữa các thanh gạt, đồng
+thời phù hợp với cơ chế tự chơi khi mỗi phía chỉ cần một chính sách.
+
+\indent Vector quan sát của tác nhân bao gồm ba nhóm thông tin. Nhóm thứ nhất mô tả
+trạng thái quả bóng, gồm vận tốc và vị trí của bóng trong không gian ba chiều sau khi
+đã chuẩn hóa. Nhóm thứ hai mô tả trạng thái đội nhà, trong đó với mỗi thanh gạt, tác
+nhân quan sát được vận tốc trượt, vận tốc xoay, vị trí và góc xoay hiện tại. Nhóm thứ
+ba mô tả trạng thái đội đối phương với các đại lượng tương tự. Toàn bộ các giá trị này
+được nhân với một hệ số dấu tùy theo phía của đội, nhờ đó một chính sách duy nhất có
+thể vận hành đối xứng cho cả hai phía bàn mà không cần huấn luyện riêng.
+
+\indent Một lượt chơi kết thúc khi có bàn thắng, tức khi bóng đi vào một trong hai
+khung thành. Để tạo ra đối thủ trong quá trình huấn luyện, môi trường sử dụng cơ chế
+tự chơi: tác nhân thi đấu với chính các phiên bản trước đó của mình được lưu lại theo
+định kỳ, nhờ đó trình độ của cả hai phía cùng tăng lên theo thời gian và tạo thành một
+chương trình học tự nhiên với độ khó tăng dần. Bên cạnh đó, môi trường còn được trang
+bị một đối thủ điều khiển bằng luật đơn giản, hoạt động dựa trên vị trí quả bóng, để
+phục vụ việc huấn luyện những thuật toán không hỗ trợ cơ chế tự chơi cũng như để làm
+mốc đánh giá chung cho cả ba thuật toán.
+
+\subsubsection{Hàm phần thưởng}
+\indent Hàm phần thưởng của môi trường Football Table được tổng hợp trong
+Bảng~\ref{tab:reward_football}. Thành phần chính là phần thưởng thưa: tác nhân được
+cộng một điểm khi ghi bàn và bị trừ một điểm khi bị thủng lưới, qua đó xác lập rõ mục
+tiêu thắng thua của trận đấu. Hai thành phần định hướng được bổ sung để tăng tốc quá
+trình học ở giai đoạn đầu. Thành phần thứ nhất thưởng cho tác nhân khi nó đá bóng theo
+hướng về phía khung thành đối phương, với độ lớn tỉ lệ thuận với mức độ trùng khớp
+giữa hướng bóng và hướng tới khung thành; thành phần này chỉ được kích hoạt khi tác
+nhân đang kiểm soát bóng. Thành phần thứ hai là một hình phạt nhỏ khi tác nhân xoay
+thanh gạt quá mạnh, nhằm hạn chế hành vi xoay tít vô nghĩa vốn có thể tình cờ ghi bàn
+nhưng không phản ánh kỹ năng thực sự.
+
+\begin{table}[H]
+\centering
+\caption{Hàm phần thưởng của môi trường Football Table}
+\label{tab:reward_football}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{6cm}|>{\centering\arraybackslash}p{3cm}|p{4cm}|}
+\hline
+\textbf{Sự kiện} & \textbf{Giá trị} & \textbf{Loại} \\
+\hline
+Ghi bàn vào khung thành đối phương & $+1{,}0$ & Thưởng mục tiêu \\
+\hline
+Bị thủng lưới & $-1{,}0$ & Phạt mục tiêu \\
+\hline
+Đá bóng hướng về khung thành đối phương & $+0{,}1 \times \cos\theta$ & Định hướng \\
+\hline
+Xoay thanh gạt quá mức & $-0{,}01 \times \text{độ xoay}$ & Phạt định hướng \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent trong đó $\theta$ là góc giữa hướng chuyển động của bóng và hướng nối từ
+bóng tới khung thành đối phương.
+
+\subsubsection{Lựa chọn và cấu hình thuật toán}
+\indent Do bản chất đối kháng và không gian hành động liên tục, môi trường này được
+huấn luyện chính bằng PPO kết hợp cơ chế tự chơi, đây là lựa chọn tự nhiên nhất và
+được ML-Agents hỗ trợ đầy đủ. Mạng nơ-ron sử dụng ba lớp ẩn với năm trăm mười hai đơn
+vị mỗi lớp, đủ dung lượng để nắm bắt động lực học phức tạp của quả bóng, và bật chế độ
+chuẩn hóa quan sát do các đại lượng vật lý có thang đo khác nhau. Cơ chế tự chơi được
+cấu hình để lưu lại các phiên bản đối thủ theo định kỳ và theo dõi tiến bộ qua chỉ số
+xếp hạng, khởi tạo ở mức một nghìn hai trăm. Hai thuật toán còn lại được đưa vào để so
+sánh: SAC huấn luyện bằng cách đấu với đối thủ luật cố định do không hỗ trợ tự chơi,
+còn MA-POCA vận hành với phê bình tập trung nhưng không sử dụng phần thưởng nhóm. Cấu
+hình siêu tham số đầy đủ của cả ba thuật toán được liệt kê trong các Phụ lục A, B và C.
+
+% ═══════════════════════════════════════════════
+\subsection{Môi trường 2: Cooperative Puzzle (hợp tác đa tác nhân)}
+\label{sub:env-coop}
+
+\subsubsection{Mô tả bài toán và môi trường}
+\indent Môi trường thứ hai là một bài toán giải đố mang tính hợp tác, trong đó hai
+tác nhân phải phối hợp chặt chẽ để cùng vượt qua một câu đố không gian. Điểm mấu chốt
+của bài toán là nhiệm vụ được thiết kế sao cho không một tác nhân nào có thể tự mình
+hoàn thành: cả hai phải cùng đứng lên các bàn đạp áp lực để mở cửa, cùng rời khỏi căn
+phòng ban đầu và cuối cùng cùng đến được điểm đích. Sự phụ thuộc lẫn nhau này biến bài
+toán thành một trường hợp điển hình để làm nổi bật thách thức gán công lao trong học
+tăng cường hợp tác, tức việc xác định đóng góp thực sự của từng tác nhân vào thành quả
+chung của cả nhóm. Đây cũng chính là dạng bài toán mà MA-POCA được thiết kế để giải
+quyết.
+
+\subsubsection{Thiết kế tác nhân và cơ chế phối hợp}
+\indent Mỗi tác nhân điều khiển một robot di chuyển trong không gian ba chiều với bảy
+hành động rời rạc gồm đứng yên, tiến, lùi, xoay trái, xoay phải, đi ngang sang trái và
+đi ngang sang phải. Tập hành động này đủ phong phú để robot vừa di chuyển linh hoạt
+vừa định hướng chính xác khi cần đứng vào đúng vị trí bàn đạp. Về quan sát, tác nhân
+nhận biết trạng thái đã được nhấn hay chưa của hai bàn đạp áp lực, trạng thái đã tìm
+thấy điểm đích hay chưa, kết hợp với cảm biến tia để xác định vị trí của đồng đội, các
+bức tường và các mục tiêu xung quanh.
+
+\indent Cơ chế phối hợp được hiện thực thông qua một bộ điều khiển môi trường sử dụng
+nhóm đa tác nhân của ML-Agents. Cả hai tác nhân được đăng ký vào cùng một nhóm, và
+phần thưởng nhóm được trao cho toàn nhóm khi các điều kiện hợp tác được thỏa mãn. Chính
+cách tổ chức này cho phép huấn luyện hành vi phối hợp thực sự, thay vì để mỗi tác nhân
+chỉ tối ưu lợi ích riêng của mình. Bên cạnh phần thưởng nhóm, hệ thống còn có các khoản
+phạt nhóm khi một tác nhân hành động lệch nhịp với đồng đội, chẳng hạn khi một tác
+nhân đứng lên bàn đạp trong lúc đồng đội vẫn còn kẹt lại trong phòng; những hình phạt
+này buộc hai tác nhân phải học cách hành động đồng bộ với nhau.
+
+\subsubsection{Hàm phần thưởng}
+\indent Hệ thống phần thưởng của môi trường, được tổng hợp trong
+Bảng~\ref{tab:reward_capture}, kết hợp giữa phần thưởng nhóm và phần thưởng cá nhân
+định hướng. Đáng chú ý, phần lớn các khoản thưởng và phạt định hướng đều được chia cho
+số bước tối đa của một lượt chơi, nhờ đó tổng phần thưởng tích lũy qua toàn bộ lượt
+chơi được giữ ở một thang đo hợp lý và không bị phình to quá mức. Phần thưởng lớn nhất,
+bằng một điểm cho cả nhóm, chỉ được trao khi cả hai tác nhân cùng đến được điểm đích,
+qua đó nhấn mạnh rằng thành công chỉ có ý nghĩa khi cả nhóm cùng hoàn thành. Các khoản
+thưởng nhỏ khuyến khích những hành vi trung gian đúng hướng như đứng lên bàn đạp, rời
+khỏi phòng hay đẩy khối vật cản, trong khi các khoản phạt xử lý những hành vi lệch
+nhịp và một khoản phạt thời gian nhỏ ở mỗi bước thúc đẩy nhóm hoàn thành nhiệm vụ
+nhanh hơn.
+
+\begin{table}[H]
+\centering
+\caption{Hàm phần thưởng của môi trường Cooperative Puzzle}
+\label{tab:reward_capture}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{6.5cm}|>{\centering\arraybackslash}p{3.2cm}|>{\centering\arraybackslash}p{3cm}|}
+\hline
+\textbf{Sự kiện} & \textbf{Giá trị} & \textbf{Phạm vi} \\
+\hline
+Cả hai tác nhân đến điểm đích & $+1{,}0$ & Nhóm \\
+\hline
+Tác nhân đứng trên bàn đạp áp lực & $+0{,}25/\text{số bước}$ & Cá nhân \\
+\hline
+Tác nhân đã rời khỏi phòng ban đầu & $+0{,}5/\text{số bước}$ & Cá nhân \\
+\hline
+Cả hai tác nhân cùng rời phòng & $+0{,}5/\text{số bước}$ & Nhóm \\
+\hline
+Tác nhân đẩy khối vật cản & $+0{,}25/\text{số bước}$ & Cá nhân \\
+\hline
+Hành động lệch nhịp với đồng đội & từ $-2{,}0$ đến $-4{,}0$ chia số bước & Nhóm \\
+\hline
+Phạt thời gian mỗi bước & $-0{,}25/\text{số bước}$ & Nhóm \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Lựa chọn và cấu hình thuật toán}
+\indent Vì môi trường sử dụng cơ chế phần thưởng nhóm, MA-POCA là thuật toán phù hợp
+nhất về mặt lý thuyết và được kỳ vọng đạt kết quả tốt nhất. Mạng nơ-ron sử dụng ba lớp
+ẩn với hai trăm năm mươi sáu đơn vị mỗi lớp, kèm theo một tín hiệu tò mò với cường độ
+nhỏ để khuyến khích tác nhân khám phá trong môi trường có phần thưởng thưa. Để so sánh,
+đề tài cũng huấn luyện PPO, trong đó mỗi tác nhân học độc lập và phần thưởng nhóm được
+phân bổ thủ công về từng tác nhân, cùng với SAC, trong đó mỗi tác nhân sử dụng một bộ
+đệm kinh nghiệm riêng. Số bước huấn luyện tối đa cho môi trường này được đặt ở mức năm
+triệu bước nhằm bảo đảm đủ thời gian cho hành vi phối hợp phức tạp hình thành.
+
+% ═══════════════════════════════════════════════
+\subsection{Môi trường 3: Vượt đường tránh phương tiện}
+\label{sub:env-crossroad}
+
+\subsubsection{Mô tả bài toán và môi trường}
+\indent Môi trường Cross The Road là bài toán điều hướng đơn tác nhân, trong đó một
+tác nhân phải băng qua một con đường có các phương tiện di chuyển liên tục để đến được
+vạch đích ở phía bên kia mà không bị va chạm. Dù đơn giản về hình thức, đây lại là mô
+hình thu nhỏ của rất nhiều tình huống điều hướng tránh vật cản động thường gặp trong
+game, chẳng hạn nhân vật phải né tránh đạn, né tránh kẻ địch hay vượt qua các chướng
+ngại chuyển động. Thách thức cốt lõi nằm ở chỗ tác nhân phải học được thời điểm nào
+nên di chuyển và thời điểm nào nên chờ đợi, bởi lao lên đúng lúc có phương tiện đi qua
+sẽ dẫn đến va chạm, còn chờ đợi quá lâu lại không đạt được mục tiêu.
+
+\subsubsection{Thiết kế tác nhân và chướng ngại vật}
+\indent Tác nhân di chuyển theo từng ô lưới với bốn hành động rời rạc là đứng yên,
+sang trái, sang phải và tiến về phía trước; mỗi hành động di chuyển đưa tác nhân đi một
+khoảng cố định. Vector quan sát gồm sáu giá trị, tương ứng với tọa độ ba chiều của tác
+nhân và tọa độ ba chiều của điểm đích, kết hợp với cảm biến tia để phát hiện các phương
+tiện đang tiến lại gần. Sự kết hợp giữa thông tin vị trí tuyệt đối và thông tin cảm
+biến khoảng cách cho phép tác nhân vừa biết mình cần đi về hướng nào, vừa nhận biết
+nguy cơ va chạm tức thời.
+
+\indent Các chướng ngại vật là những phương tiện di chuyển qua lại trên các làn đường
+với tốc độ và thời điểm xuất hiện thay đổi, tạo nên tính động và tính ngẫu nhiên cho
+môi trường. Chính sự thay đổi này ngăn tác nhân học vẹt một chuỗi hành động cố định,
+buộc nó phải học một chính sách phản ứng thực sự dựa trên tình huống quan sát được.
+Khi tác nhân va chạm với một phương tiện, lượt chơi kết thúc kèm một hình phạt; ngược
+lại, khi tác nhân chạm được vạch đích, lượt chơi kết thúc kèm một phần thưởng.
+
+\subsubsection{Hàm phần thưởng}
+\indent Hàm phần thưởng của môi trường, trình bày trong Bảng~\ref{tab:reward_crossroad},
+được thiết kế theo hướng đơn giản và trực tiếp: một phần thưởng lớn khi đến đích và
+một hình phạt nhỏ khi va chạm. Điểm đáng lưu ý là hình phạt va chạm được giữ ở mức rất
+nhỏ. Nếu hình phạt va chạm quá lớn, tác nhân có xu hướng trở nên quá thận trọng và
+chọn cách đứng yên vĩnh viễn để tránh mọi rủi ro, một hành vi tuy an toàn nhưng không
+bao giờ hoàn thành nhiệm vụ. Việc giữ hình phạt nhỏ, kết hợp với một tín hiệu tò mò
+khuyến khích khám phá, giúp tác nhân duy trì được động lực tiến về phía trước trong
+khi vẫn học được cách né tránh.
+
+\begin{table}[H]
+\centering
+\caption{Hàm phần thưởng của môi trường Cross The Road}
+\label{tab:reward_crossroad}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{6.5cm}|>{\centering\arraybackslash}p{3cm}|p{3.5cm}|}
+\hline
+\textbf{Sự kiện} & \textbf{Giá trị} & \textbf{Loại} \\
+\hline
+Đến được vạch đích & $+1{,}0$ & Thưởng mục tiêu \\
+\hline
+Va chạm với phương tiện & $-0{,}025$ & Phạt mục tiêu \\
+\hline
+Tín hiệu tò mò khuyến khích khám phá & cường độ $0{,}02$ & Nội tại \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Lựa chọn và cấu hình thuật toán}
+\indent Đây là môi trường đơn tác nhân với không gian hành động rời rạc nhỏ, rất phù
+hợp để so sánh trực tiếp cả ba thuật toán trên cùng một bài toán trong điều kiện tương
+đương. Mạng nơ-ron sử dụng hai lớp ẩn với một trăm hai mươi tám đơn vị mỗi lớp, một
+kích thước vừa phải tương xứng với độ phức tạp của bài toán. PPO và MA-POCA sử dụng
+cấu hình on-policy tương đương nhau về kích thước lô và bộ đệm, trong khi SAC sử dụng
+một bộ đệm kinh nghiệm lớn để khai thác tối đa lợi thế tái sử dụng dữ liệu của cơ chế
+off-policy. Số bước huấn luyện tối đa được đặt ở mức hai triệu bước cho cả ba thuật
+toán, bảo đảm một mặt bằng so sánh công bằng.
+
+% ═══════════════════════════════════════════════
+\subsection{Bảng tổng hợp đặc trưng ba môi trường}
+
+\indent Ba môi trường vừa trình bày tuy khác nhau về hình thức nhưng được lựa chọn một
+cách có chủ đích để bao phủ ba dạng bài toán học tăng cường điển hình, đồng thời tương
+ứng với ba dạng cơ chế thường gặp trong game. Bảng~\ref{tab:env_summary} tổng hợp và
+đối chiếu nhanh các đặc trưng chính của ba môi trường, làm cơ sở cho việc phân tích
+kết quả ở Chương~\ref{ch:results}. Có thể thấy mỗi môi trường không chỉ khác nhau ở
+dạng bài toán và số lượng tác nhân, mà còn khác nhau ở dạng không gian hành động, ở
+việc có hay không sử dụng phần thưởng nhóm, và ở cơ chế đặc thù đi kèm.
+
+\begin{table}[H]
+\centering
+\caption{Tổng hợp đặc trưng ba môi trường thực nghiệm}
+\label{tab:env_summary}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{3cm}|>{\centering\arraybackslash}p{3.2cm}
+                |>{\centering\arraybackslash}p{3.2cm}
+                |>{\centering\arraybackslash}p{3.2cm}|}
+\hline
+\textbf{Đặc trưng} & \textbf{Football Table} & \textbf{Cooperative Puzzle} & \textbf{Cross The Road} \\
+\hline
+Dạng bài toán & Đối kháng một đối một & Hợp tác đa tác nhân & Điều hướng đơn tác nhân \\
+\hline
+Số tác nhân & Hai, đối kháng & Hai, hợp tác & Một \\
+\hline
+Không gian hành động & Liên tục, tám chiều & Rời rạc, bảy hành động & Rời rạc, bốn hành động \\
+\hline
+Quan sát & Bóng và hai đội & Bàn đạp và cảm biến tia & Vị trí và cảm biến tia \\
+\hline
+Phần thưởng nhóm & Không & Có & Không \\
+\hline
+Cơ chế đặc thù & Tự chơi & Phần thưởng nhóm & Vật cản động \\
+\hline
+Số bước tối đa & Mười triệu & Năm triệu & Hai triệu \\
+\hline
+Thuật toán kỳ vọng tốt nhất & PPO tự chơi & MA-POCA & SAC \\
+\hline
+\end{tabular}
+\end{table}
+
+% ═══════════════════════════════════════════════
+\subsection{Triển khai thuật toán ngoài ML-Agents}
+\label{sub:custom}
+
+\subsubsection{Vấn đề với SAC trong ML-Agents}
+\indent Như đã phân tích ở Mục~\ref{sub:mllimits}, bộ huấn luyện SAC tích hợp sẵn của
+ML-Agents gặp hai giới hạn quan trọng đối với đề tài. Giới hạn thứ nhất liên quan đến
+cơ chế tự chơi. Môi trường Football Table đối kháng cần một cơ chế sinh đối thủ có
+trình độ tăng dần, nhưng cơ chế tự chơi chỉ được ML-Agents hỗ trợ chính thức cho các
+thuật toán on-policy. Nguyên nhân sâu xa là SAC lưu trữ kinh nghiệm cũ trong một bộ
+đệm và tái sử dụng chúng nhiều lần; khi đối thủ liên tục thay đổi trong quá trình tự
+chơi, những kinh nghiệm cũ trở nên lỗi thời vì chúng phản ánh cách chơi của các đối
+thủ đã không còn tồn tại, và điều này gây nhiễu nghiêm trọng cho quá trình học.
+
+\indent Giới hạn thứ hai liên quan đến phần thưởng nhóm trong môi trường hợp tác. Cơ
+chế phần thưởng nhóm của ML-Agents được thiết kế tối ưu cho MA-POCA; khi muốn áp dụng
+cho SAC, phần thưởng nhóm buộc phải được phân bổ thủ công về từng tác nhân, và cách
+phân bổ này làm mất đi phần lớn lợi thế gán công lao chính xác. Hệ quả là, để đưa SAC
+vào so sánh một cách công bằng trên môi trường đối kháng, đề tài cần một hướng tiếp cận
+cho phép kiểm soát vòng lặp huấn luyện linh hoạt hơn so với việc chỉ nạp một tệp cấu
+hình vào chương trình huấn luyện có sẵn.
+
+\subsubsection{Cách tích hợp thuật toán tùy chỉnh qua Python API}
+\label{sub:pyapi}
+\indent Giải pháp được lựa chọn là sử dụng giao diện lập trình cấp thấp bằng Python
+mà ML-Agents cung cấp. Thay vì để chương trình huấn luyện có sẵn điều khiển toàn bộ
+quá trình, đề tài sử dụng một lớp cho phép kết nối trực tiếp với môi trường Unity đang
+chạy, rồi bọc môi trường đó lại thành một môi trường tuân theo giao diện chuẩn thường
+dùng trong cộng đồng học tăng cường. Nhờ lớp bọc này, môi trường Unity có thể được đưa
+vào bất kỳ thư viện học tăng cường bên ngoài nào; ở đây đề tài sử dụng thư viện
+Stable-Baselines3 \cite{raffin2021stable}, một thư viện đã cài đặt sẵn và kiểm chứng
+kỹ lưỡng thuật toán SAC.
+
+\indent Quy trình tích hợp diễn ra theo trình tự sau. Trước hết, môi trường Unity được
+khởi chạy ở chế độ chờ kết nối. Sau đó, chương trình Python tạo một đối tượng kết nối
+tới môi trường và bọc nó bằng lớp chuyển đổi giao diện. Tiếp theo, một tác nhân SAC
+được khởi tạo với kiến trúc mạng và các siêu tham số mong muốn, rồi vòng lặp huấn luyện
+của thư viện được gọi để thu thập kinh nghiệm và cập nhật mạng. Trong suốt quá trình,
+các chỉ số huấn luyện được ghi lại theo định dạng tương thích với TensorBoard, nhờ đó
+kết quả của SAC có thể được so sánh trực tiếp với kết quả của các thuật toán khác. Ưu
+điểm lớn của cách tiếp cận này là giữ nguyên môi trường Unity mà không phải sửa đổi mã
+nguồn của nó, đồng thời trao toàn quyền kiểm soát vòng lặp huấn luyện cho thuật toán
+off-policy.
+
+\subsubsection{Cấu trúc mã nguồn bổ sung}
+\label{sub:codestruct}
+\indent Ngoài các tệp cấu hình cho từng lần huấn luyện, hệ thống bổ sung một số thành
+phần mã nguồn Python nhằm tự động hóa và phân tích. Thành phần thứ nhất là một chương
+trình điều phối tuần tự chín lần huấn luyện, tự động nạp đúng tệp cấu hình cho từng tổ
+hợp môi trường và thuật toán, quản lý trạng thái tiến độ, ghi nhật ký và cho phép tiếp
+tục từ điểm dừng khi quá trình bị gián đoạn. Thành phần thứ hai là lớp bọc môi trường
+đã mô tả ở mục trên, phục vụ việc huấn luyện SAC tùy chỉnh. Thành phần thứ ba là một
+chương trình phân tích, có nhiệm vụ đọc các tệp sự kiện TensorBoard của toàn bộ chín
+lần chạy, trích xuất các chỉ số như phần thưởng, độ dài lượt chơi, hàm mất mát và
+entropy, rồi tự động sinh ra các biểu đồ so sánh cùng một báo cáo tổng hợp. Một số
+trích đoạn mã nguồn minh họa của các thành phần này được đặt trong Phụ lục D.
+
+% ═══════════════════════════════════════════════
+\subsection{Thiết lập thực nghiệm}
+\label{sub:experiment-setup}
+
+\subsubsection{Cấu hình phần cứng và phần mềm}
+\label{sub:hardware}
+\indent Toàn bộ thực nghiệm được tiến hành trên một máy tính cá nhân với cấu hình cố
+định, được tóm tắt trong Bảng~\ref{tab:hardware}. Việc sử dụng chung một cấu hình cho
+tất cả các lần chạy là điều kiện cần thiết để bảo đảm tính công bằng khi so sánh thời
+gian huấn luyện và tốc độ hội tụ giữa các thuật toán, bởi các chỉ số này phụ thuộc
+đáng kể vào năng lực tính toán của phần cứng. Cấu hình sử dụng một bộ xử lý đồ họa tầm
+trung, phản ánh điều kiện thực tế mà phần lớn sinh viên và nhà phát triển độc lập có
+thể tiếp cận, qua đó làm cho các kết luận của đề tài trở nên thực tiễn hơn.
+
+\begin{table}[H]
+\centering
+\caption{Cấu hình phần cứng và phần mềm thực nghiệm}
+\label{tab:hardware}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{4.5cm}|p{9cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Chi tiết} \\
+\hline
+Bộ xử lý trung tâm & Intel Core i5-14600KF \\
+\hline
+Bộ xử lý đồ họa & NVIDIA GeForce RTX 3050 \\
+\hline
+Bộ nhớ trong & 32 GB \\
+\hline
+Hệ điều hành & Windows 11 \\
+\hline
+Unity ML-Agents & phiên bản 1.2.0 \\
+\hline
+Nền tảng học sâu & PyTorch 2.2.2 với CUDA 12.1 \\
+\hline
+Thư viện bổ sung & Stable-Baselines3 và giao diện Python của ML-Agents \\
+\hline
+Hệ số tăng tốc mô phỏng & gấp hai mươi lần thời gian thực \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Tham số huấn luyện từng thuật toán}
+\indent Các siêu tham số chính của ba thuật toán trên từng môi trường được tóm tắt
+trong Bảng~\ref{tab:hyperparams}. Nguyên tắc thiết lập là giữ cho các tham số chung
+như tốc độ học, hệ số chiết khấu và kiến trúc mạng giống nhau nhiều nhất có thể giữa
+ba thuật toán trên cùng một môi trường, nhằm bảo đảm sự khác biệt về kết quả phản ánh
+đúng bản chất thuật toán chứ không phải do chênh lệch tham số. Những khác biệt về tham
+số chỉ nằm ở các thành phần đặc thù của từng loại thuật toán, chẳng hạn kích thước bộ
+đệm kinh nghiệm rất lớn của SAC hay hệ số cập nhật mềm của mạng mục tiêu. Cấu hình đầy
+đủ cho từng thuật toán được liệt kê trong các Phụ lục A, B và C.
+
+\begin{table}[H]
+\centering
+\caption{Tóm tắt siêu tham số huấn luyện chính}
+\label{tab:hyperparams}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{|p{3.2cm}|>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.2cm}|}
+\hline
+\textbf{Tham số} & \textbf{PPO} & \textbf{SAC} & \textbf{MA-POCA} & \textbf{Ghi chú} \\
+\hline
+Tốc độ học & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ & Chung \\
+\hline
+Hệ số chiết khấu & $0{,}99$ & $0{,}99$ & $0{,}99$ & Chung \\
+\hline
+Kích thước lô & 512--2048 & 256--1024 & 512--2048 & Theo môi trường \\
+\hline
+Kích thước bộ đệm & 10K--41K & 100K--500K & 10K--41K & SAC lớn hơn \\
+\hline
+Số đơn vị ẩn & 128--512 & 128--512 & 128--512 & Theo môi trường \\
+\hline
+Số lớp ẩn & 2--3 & 2--3 & 2--3 & Theo môi trường \\
+\hline
+Cơ chế riêng & cắt tỉ lệ $0{,}2$ & cập nhật mềm $0{,}005$ & phê bình tập trung & --- \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Tiêu chí đánh giá}
+\label{sub:evalcriteria}
+\indent Hiệu năng của mỗi thuật toán trên mỗi môi trường được đánh giá theo bốn tiêu
+chí định lượng, được lựa chọn để phản ánh các khía cạnh khác nhau của chất lượng học.
+Tiêu chí thứ nhất là tỷ lệ hoàn thành nhiệm vụ, tức tỷ lệ số lượt chơi mà tác nhân đạt
+được mục tiêu như ghi bàn, đến đích hoặc giải xong câu đố; tiêu chí này phản ánh chất
+lượng cuối cùng của chính sách học được. Tiêu chí thứ hai là tổng phần thưởng trung
+bình trên mỗi lượt chơi, được đo bằng trung bình của mười phần trăm cuối cùng trong
+quá trình huấn luyện, nhằm phản ánh mức hiệu năng ổn định sau khi tác nhân đã hội tụ.
+
+\indent Tiêu chí thứ ba là tốc độ hội tụ, được đo bằng số bước huấn luyện cần thiết để
+phần thưởng đạt tới chín mươi phần trăm giá trị cực đại của nó; tiêu chí này phản ánh
+hiệu quả sử dụng dữ liệu của thuật toán, tức thuật toán cần bao nhiêu kinh nghiệm để
+đạt được năng lực tốt. Tiêu chí thứ tư là độ ổn định huấn luyện, được đo bằng mức dao
+động của đường cong phần thưởng sau khi đã hội tụ; đường cong càng ít dao động thì quá
+trình học càng bền vững và đáng tin cậy. Toàn bộ các chỉ số này được thu thập tự động
+từ tệp sự kiện TensorBoard của mỗi lần chạy và được trực quan hóa dưới dạng biểu đồ và
+bảng ở Chương~\ref{ch:results}.
+
+\indent Về mặt dữ liệu, cần lưu ý rằng do giới hạn về thời gian và tài nguyên phần
+cứng khi chỉ sử dụng một bộ xử lý đồ họa tầm trung, không phải toàn bộ chín tổ hợp
+thực nghiệm đều được huấn luyện đến số bước tối đa. Những tổ hợp đã được huấn luyện đầy
+đủ, bao gồm PPO trên Football Table, cả ba thuật toán trên Cross The Road và MA-POCA
+trên môi trường Cooperative Puzzle, sử dụng số liệu thực đo được trích xuất trực tiếp từ
+TensorBoard. Những tổ hợp còn lại, gồm SAC và MA-POCA trên Football Table cùng PPO và
+SAC trên môi trường Cooperative Puzzle, được ước lượng dựa trên các lần chạy một phần và
+dựa trên đặc tính đã biết của từng thuật toán; các giá trị ước lượng này được ghi chú
+rõ ràng trong từng bảng và biểu đồ ở Chương~\ref{ch:results} để bảo đảm tính minh bạch.

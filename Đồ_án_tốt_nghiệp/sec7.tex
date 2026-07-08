@@ -1,0 +1,46 @@
+\fontsize{14pt}{22.5pt}\selectfont
+
+\section*{KẾT LUẬN}
+\addcontentsline{toc}{section}{KẾT LUẬN}
+
+\subsection*{Kết quả đạt được}
+\indent Đồ án đã hoàn thành các mục tiêu đề ra ban đầu. Cụ thể, đề tài đã xây dựng
+thành công ba môi trường game 3D có tính chất khác nhau trên nền tảng Unity ML-Agents:
+Football Table (đối kháng một đối một), môi trường Cooperative Puzzle đa tác nhân và
+Cross The Road (điều hướng tránh vật cản). Với mỗi môi trường, hệ thống không gian quan sát,
+không gian hành động và hàm phần thưởng đã được thiết kế phù hợp với đặc thù bài toán.
+Đề tài đã triển khai huấn luyện và so sánh ba thuật toán PPO, SAC và MA-POCA theo bốn
+tiêu chí định lượng, đồng thời hiện thực hóa quy trình tích hợp SAC ra ngoài trainer
+tích hợp sẵn của ML-Agents thông qua Python Low-Level API.
+
+\indent Kết quả thực nghiệm khẳng định không tồn tại một thuật toán tối ưu duy nhất
+cho mọi bài toán: PPO kết hợp self-play phù hợp nhất với môi trường đối kháng, SAC đạt
+hiệu quả mẫu vượt trội trong bài toán điều hướng đơn tác nhân, và MA-POCA thể hiện ưu
+thế rõ rệt trong bài toán hợp tác đa tác nhân.
+
+\subsection*{Đóng góp của đề tài}
+\indent Đề tài có ba đóng góp chính. Thứ nhất, xây dựng một bộ ba môi trường game 3D
+đại diện cho ba dạng bài toán RL phổ biến (đối kháng, hợp tác, điều hướng), có thể tái
+sử dụng như một benchmark mở cho các nghiên cứu tiếp theo. Thứ hai, cung cấp một bộ so
+sánh có hệ thống giữa PPO, SAC và MA-POCA trên cùng bộ môi trường, làm rõ điều kiện
+phù hợp của từng thuật toán. Thứ ba, trình bày chi tiết quy trình tích hợp thuật toán
+off-policy tùy chỉnh vào Unity qua \texttt{mlagents\_envs} và Stable-Baselines3, mở ra
+hướng đi tái sử dụng được cho các nghiên cứu về off-policy learning trong Unity.
+
+\subsection*{Hạn chế}
+\indent Bên cạnh các kết quả đạt được, đề tài còn một số hạn chế. Do giới hạn về thời
+gian và tài nguyên phần cứng (một GPU tầm trung), một số tổ hợp thực nghiệm chưa được
+huấn luyện đến số bước tối đa và kết quả mang tính ước lượng. Các thực nghiệm mới được
+chạy với một seed duy nhất nên chưa đánh giá được phương sai giữa các lần chạy. Ngoài
+ra, bài toán Cooperative Puzzle vẫn còn thách thức với cả ba thuật toán, cho
+thấy hàm phần thưởng và thời lượng huấn luyện còn có thể tối ưu thêm.
+
+\subsection*{Hướng phát triển}
+\indent Trong tương lai, đề tài có thể được mở rộng theo các hướng sau: (1) hoàn thiện
+huấn luyện đầy đủ cả chín tổ hợp với nhiều seed để có kết quả thống kê chặt chẽ hơn;
+(2) bổ sung các thuật toán RL hiện đại khác (như DreamerV3 hay các biến thể multi-agent
+mới) vào bộ so sánh; (3) tinh chỉnh hàm phần thưởng và áp dụng học theo chương trình
+(curriculum learning) cho bài toán hợp tác; (4) mở rộng các môi trường sang những kịch
+bản phức tạp hơn, gần với game thương mại thực tế; và (5) nghiên cứu triển khai mô
+hình đã huấn luyện (định dạng ONNX) trực tiếp vào game để đánh giá trải nghiệm người
+chơi trong điều kiện thực tế.

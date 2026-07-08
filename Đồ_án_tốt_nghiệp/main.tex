@@ -1,0 +1,387 @@
+\documentclass[12pt,a4paper]{article}
+
+% 1. Thiết lập Font và Ngôn ngữ (Dùng với trình biên dịch XeLaTeX)
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{vietnamese}
+\setmainfont{Times New Roman}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{groupplots}
+\usepackage{changepage}
+\usepackage{longtable}
+\usepackage{array}
+
+% 2. Các gói lệnh cơ bản
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{anyfontsize}
+\usepackage{setspace}
+\usepackage{tocloft,calc}
+\usepackage{booktabs}
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=2cm]{geometry} % căn lề theo quy chuẩn KLTN
+\usepackage{amsmath,latexsym,amscd,amsfonts,amssymb,mathrsfs,enumerate}
+\usepackage{upgreek}
+\usepackage[thref,thmmarks,standard,amsmath,hyperref]{ntheorem}
+\usepackage[mathscr]{eucal}
+\usepackage{makecell} % Đặt ở phần preamble
+\usepackage{graphicx}
+\usepackage{fancybox,cite}
+\usepackage{xcolor} % Để dùng màu
+\usepackage{listings} % Gói để hiển thị code
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+% 3. Cấu hình Hyperref
+\usepackage[unicode,colorlinks=true, bookmarks=true, pdfstartview=FitH,]{hyperref} 
+\hypersetup{
+    pdftitle={Học tăng cường để tối ưu hóa khả năng tương tác của AI trong game},
+    pdfauthor={Văn Thị Minh Huyền},
+    colorlinks = true,
+    linkcolor = blue,
+    citecolor = blue,
+}
+
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\numberwithin{equation}{section}
+
+% 4. Định nghĩa font caption 13pt và nghiêng cho toàn bộ hình vẽ, bảng biểu
+\DeclareCaptionFont{myfontsize}{\fontsize{14pt}{22.5pt}\selectfont}
+\captionsetup{
+    font={myfontsize,it}, 
+    labelfont={myfontsize,it},
+    justification=centering
+}
+
+% Đổi nhãn Figure thành Hình, Table thành Bảng (cho tiếng Việt)
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+
+% 5. Cấu hình tiêu đề (Titlesec)
+% Các đề mục cấp một (Mở đầu, Cơ sở lý thuyết...) đánh số liên tục từ 1, căn trái.
+\titleformat{\section}
+  {\normalfont\fontsize{15pt}{22.5pt}\selectfont\bfseries}{\thesection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{10pt}
+\titleformat{\subsection}
+  {\normalfont\fontsize{14pt}{21pt}\selectfont\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{13pt}{20pt}\selectfont\bfseries\itshape}{\thesubsubsection}{1em}{}
+
+% 6. Cấu hình Header / Footer (Fancyhdr)
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% 7. Cấu hình hiển thị code (Listings)
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Màu cho ba thuật toán (dùng trong biểu đồ pgfplots)
+\definecolor{ppocolor}{HTML}{2196F3}
+\definecolor{saccolor}{HTML}{4CAF50}
+\definecolor{pocacolor}{HTML}{FF9800}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize, % Kích thước chữ
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle} % Áp dụng style đã định nghĩa
+
+% 8. Thiết lập môi trường Định lý, Mệnh đề, v.v. (ntheorem)
+\newtheorem{tc}{Tính chất}[section]
+\newtheorem{md}{Mệnh đề}[section]
+\newtheorem{bd}{Bổ đề}[section]
+\newtheorem{hq}{Hệ quả}[section]
+\newtheorem{dl}{Định lý}[section]
+ 
+\allowdisplaybreaks
+
+% Môi trường định nghĩa
+\theoremheaderfont{\bfseries}
+\theorembodyfont{}
+\theoremseparator {.}         
+\newtheorem{dn}{Định nghĩa}[section]
+
+% Môi trường Ví dụ
+\theoremheaderfont{\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator {.}         
+\newtheorem{vd}{Ví dụ}[section]
+
+% Môi trường Chú ý
+\theoremstyle{plain} 
+\theoremheaderfont{\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator {.}         
+\newtheorem{cy}{Chú ý} 
+
+% Môi trường Bài tập
+\theoremheaderfont{\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator {.}         
+\newtheorem{bt}{Bài tập} 
+
+% Môi trường nhận xét
+\theoremheaderfont{\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator {.}         
+\newtheorem{nx}{Nhận xét}[section] 
+
+% Môi trường định lý
+\theoremstyle{plain} 
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator {.}         
+\renewtheorem{theorem}{Định lý} 
+
+% Môi trường Mệnh đề
+\theoremstyle{plain}
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator {.}         
+\renewtheorem{proposition}{Mệnh đề} 
+
+% Môi trường Chứng minh
+\theoremstyle{nonumberplain}  
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\normalfont}
+\theoremseparator{.} 
+\theoremsymbol{\ensuremath{\square}}
+\newtheorem{cm}{Chứng minh}[section]
+
+% ================= BẮT ĐẦU TÀI LIỆU ================= %
+\begin{document}
+
+\begin{titlepage}
+ \thisfancypage{\setlength{\fboxsep}{0.2cm}\setlength{\fboxrule}{1pt}\doublebox}{}
+\thispagestyle{empty}
+
+\begin{center}
+
+{\bfseries\fontsize{14pt}{16pt}\selectfont
+BỘ GIÁO DỤC VÀ ĐÀO TẠO
+}
+
+\vspace{0.2cm}
+
+{\bfseries\fontsize{14pt}{16pt}\selectfont
+TRƯỜNG CÔNG NGHỆ THÔNG TIN PHENIKAA
+}
+
+\vspace{0.1cm}
+
+\rule{5cm}{0.5pt}
+
+\vspace{2cm}
+
+\includegraphics[width=6cm]{image/Logo.jpg}
+
+\vspace{2cm}
+
+{\bfseries\fontsize{22pt}{24pt}\selectfont
+BÁO CÁO ĐỒ ÁN TỐT NGHIỆP
+}
+
+\vspace{1.2cm}
+
+{\bfseries\fontsize{16pt}{20pt}\selectfont
+HỌC TĂNG CƯỜNG ĐỂ TỐI ƯU HÓA\\[0.2cm]
+KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME
+}
+
+\end{center}
+
+\begin{adjustwidth}{1.5cm}{1.5cm}
+\vspace{1.5cm}
+
+\noindent\fontsize{14pt}{20pt}\selectfont{\bfseries Sinh viên:} Văn Thị Minh Huyền
+
+\vspace{0.5cm}
+
+\noindent{\bfseries Mã số sinh viên:} 22010329
+\hfill
+{\bfseries Khóa:} K16
+
+\vspace{0.5cm}
+
+\noindent{\bfseries Ngành:} Khoa học máy tính (Tài năng)
+\hfill
+{\bfseries Hệ:} Đại học chính quy
+
+\vspace{0.5cm}
+
+\noindent{\bfseries Giảng viên hướng dẫn:} Th.S. Nguyễn Văn Sơn
+
+\end{adjustwidth}
+
+\vfill
+
+\begin{center}
+{\bfseries\fontsize{14pt}{16pt}\selectfont
+\large {\bf HÀ NỘI, THÁNG 8 NĂM 2026}
+}
+\end{center}
+\end{titlepage}
+ 
+ %%%%%%%%%%%%%%%%%%%%
+ \begin{titlepage}
+ \thisfancypage{\setlength{\fboxsep}{0.2cm}\setlength{\fboxrule}{1pt}\doublebox}{}
+ 
+\begin{center}
+    {\bfseries\fontsize{14pt}{16pt}\selectfont
+    BỘ GIÁO DỤC VÀ ĐÀO TẠO
+    }
+    
+    \vspace{0.2cm}
+    
+    {\bfseries\fontsize{14pt}{16pt}\selectfont
+    TRƯỜNG CÔNG NGHỆ THÔNG TIN PHENIKAA
+    }
+    
+    \vspace{0.1cm}
+    
+    \rule{5cm}{0.5pt}
+\end{center}
+\vspace{6cm}
+\begin{center}
+    {\bfseries\fontsize{22pt}{24pt}\selectfont BÁO CÁO ĐỒ ÁN TỐT NGHIỆP}
+\end{center}
+\vspace{0.6cm}
+\begin{center}
+    {\bfseries\fontsize{16pt}{20pt}\selectfont
+    HỌC TĂNG CƯỜNG ĐỂ TỐI ƯU HÓA\\[0.2cm]
+    KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME
+    }
+\end{center}
+\vspace{60pt}
+
+\begin{adjustwidth}{1.5cm}{1.5cm}
+
+\noindent\fontsize{14pt}{20pt}\selectfont{\bfseries Họ và tên:} Văn Thị Minh Huyền
+
+\vspace{0.5cm}
+
+\noindent{\bfseries Mã sinh viên:} 22010329
+\hfill
+{\bfseries Khóa:} K16
+
+\vspace{0.5cm}
+
+\noindent{\bfseries Ngành:} Khoa học máy tính (Tài năng)
+\hfill
+{\bfseries Hệ:} Đại học chính quy
+
+\vspace{0.5cm}
+
+\noindent{\bfseries Giảng viên hướng dẫn:} Th.S. Nguyễn Văn Sơn
+
+\end{adjustwidth}
+
+\begin{center}
+\fontsize{14pt}{22.5pt}\selectfont
+\renewcommand{\arraystretch}{1.4} 
+\setlength\tabcolsep{6pt} 
+
+
+
+
+\end{center}
+\vspace{0.6cm}
+\vspace{4cm}
+\begin{center}
+    \large {\bf HÀ NỘI, THÁNG 8 NĂM 2026}
+\end{center}
+ \end{titlepage}
+
+ %%%%%%%%%%%%%%%%%%%%
+\fontsize{14pt}{22.5pt}\selectfont
+\pagestyle{fancy}
+\fancyhf{} 
+\hypersetup{linkcolor=black}
+
+% Chèn mục lục
+\pagenumbering{roman}  
+\fancyhead[C]{\thepage} 
+\renewcommand{\headrulewidth}{0pt}  
+
+\input{sec1_intro}
+\newpage
+\input{sec_1_5}
+\newpage
+\input{sec_abstract}
+\newpage
+
+\fancyhead[C]{\thepage}
+\tableofcontents
+
+\newpage
+\pagestyle{fancy}
+\fancyhead[C]{\thepage}
+\listoffigures
+
+\newpage
+\listoftables
+
+\newpage
+\input{sec_abbrev}
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% Cài lại fancy cho phần nội dung
+\pagestyle{fancy}
+\lhead{}
+\chead{\thepage}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}  
+
+\input{sec2_new_risk}
+\input{sec3_opt_strategy}
+\input{sec5}
+\input{sec6}
+\input{sec7}
+
+\newpage
+
+\renewcommand{\refname}{Tài liệu tham khảo}
+\bibliographystyle{plain}
+\bibliography{ref}
+
+\newpage
+\input{appendix}
+
+\end{document}

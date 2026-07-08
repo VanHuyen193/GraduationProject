@@ -62,7 +62,7 @@ env_settings:
   base_port: 5005
   num_envs: 1
   num_areas: 1
-  timeout_wait: 120
+  timeout_wait: 60
   seed: -1
   max_lifetime_restarts: 10
   restarts_rate_limit_n: 1
@@ -81,8 +81,8 @@ checkpoint_settings:
   run_id: ctf_poca_v1
   initialize_from: null
   load_model: false
-  resume: false
-  force: true
+  resume: true
+  force: false
   train_model: false
   inference: false
   results_dir: results

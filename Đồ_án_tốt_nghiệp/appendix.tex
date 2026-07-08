@@ -1,0 +1,250 @@
+\fontsize{13pt}{20pt}\selectfont
+
+% ═══════════════════════════════════════════════
+\section*{PHỤ LỤC A. Cấu hình huấn luyện PPO}
+\addcontentsline{toc}{section}{PHỤ LỤC A. Cấu hình huấn luyện PPO}
+
+Dưới đây là tệp cấu hình YAML của thuật toán PPO cho môi trường Football Table
+(kết hợp self-play). Các môi trường khác dùng cấu trúc tương tự với siêu tham số
+điều chỉnh theo Bảng~\ref{tab:hyperparams}.
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={football\_ppo.yaml},captionpos=b]
+behaviors:
+  Football:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 2048
+      buffer_size: 40960
+      learning_rate: 3.0e-4
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 5
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: true
+      hidden_units: 512
+      num_layers: 3
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+    self_play:
+      save_steps: 50000
+      team_change: 200000
+      swap_steps: 2000000
+      window: 10
+      play_against_latest_model_ratio: 0.5
+      initial_elo: 1200.0
+    keep_checkpoints: 10
+    max_steps: 10000000
+    time_horizon: 1000
+    summary_freq: 50000
+\end{lstlisting}
+
+% ═══════════════════════════════════════════════
+\section*{PHỤ LỤC B. Cấu hình huấn luyện SAC (bao gồm code tùy chỉnh)}
+\addcontentsline{toc}{section}{PHỤ LỤC B. Cấu hình huấn luyện SAC}
+
+Tệp cấu hình YAML của SAC cho môi trường Cross The Road:
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctr\_sac.yaml},captionpos=b]
+behaviors:
+  CrossTheRoad:
+    trainer_type: sac
+    hyperparameters:
+      batch_size: 256
+      buffer_size: 100000
+      learning_rate: 3.0e-4
+      learning_rate_schedule: constant
+      buffer_init_steps: 1000
+      tau: 0.005
+      steps_per_update: 1
+      save_replay_buffer: false
+      init_entcoef: 0.5
+      reward_signal_steps_per_update: 1
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      curiosity:
+        gamma: 0.99
+        strength: 0.02
+        learning_rate: 3.0e-4
+    keep_checkpoints: 5
+    max_steps: 2000000
+    time_horizon: 64
+    summary_freq: 10000
+\end{lstlisting}
+
+Đối với môi trường đối kháng, SAC được tích hợp qua Python Low-Level API và
+Stable-Baselines3 (xem Mục~2.6.2). Đoạn mã minh họa lớp bọc môi trường:
+
+\begin{lstlisting}[language=Python,caption={Tích hợp SAC qua mlagents\_envs + Stable-Baselines3},captionpos=b]
+from mlagents_envs.environment import UnityEnvironment
+from mlagents_envs.envs.unity_gym_env import UnityToGymWrapper
+from stable_baselines3 import SAC
+
+# Ket noi truc tiep voi moi truong Unity dang chay
+unity_env = UnityEnvironment(file_name=None, base_port=5005)
+env = UnityToGymWrapper(unity_env, allow_multiple_obs=False)
+
+# Khoi tao tac nhan SAC voi mang 3 lop x 512 don vi
+model = SAC(
+    "MlpPolicy", env,
+    learning_rate=3e-4,
+    buffer_size=500000,
+    batch_size=1024,
+    tau=0.005,
+    gamma=0.99,
+    ent_coef="auto",
+    policy_kwargs=dict(net_arch=[512, 512, 512]),
+    tensorboard_log="./results/football_sac_v1",
+    verbose=1,
+)
+model.learn(total_timesteps=10_000_000)
+model.save("results/football_sac_v1/Football_sac")
+env.close()
+\end{lstlisting}
+
+% ═══════════════════════════════════════════════
+\section*{PHỤ LỤC C. Cấu hình huấn luyện MA-POCA}
+\addcontentsline{toc}{section}{PHỤ LỤC C. Cấu hình huấn luyện MA-POCA}
+
+Tệp cấu hình YAML của MA-POCA cho môi trường Cooperative Puzzle:
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctf\_poca.yaml},captionpos=b]
+behaviors:
+  PuzzleBehavior:
+    trainer_type: poca
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 20480
+      learning_rate: 3.0e-4
+      beta: 0.01
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 256
+      num_layers: 3
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      curiosity:
+        gamma: 0.99
+        strength: 0.02
+        learning_rate: 3.0e-4
+    keep_checkpoints: 10
+    max_steps: 5000000
+    time_horizon: 128
+    summary_freq: 20000
+\end{lstlisting}
+
+% ═══════════════════════════════════════════════
+\section*{PHỤ LỤC D. Mã nguồn minh họa}
+\addcontentsline{toc}{section}{PHỤ LỤC D. Mã nguồn minh họa}
+
+\noindent\textbf{D.1. Không gian quan sát (Cross The Road):}
+\begin{lstlisting}[language=Java,caption={CollectObservations - CrossTheRoadAgent.cs},captionpos=b]
+public override void CollectObservations(VectorSensor sensor)
+{
+    // 3 gia tri: toa do x, y, z cua agent
+    sensor.AddObservation(transform.localPosition);
+    // 3 gia tri: toa do x, y, z cua dich
+    sensor.AddObservation(goal.transform.localPosition);
+}
+\end{lstlisting}
+
+\noindent\textbf{D.2. Hàm phần thưởng (Cross The Road):}
+\begin{lstlisting}[language=Java,caption={GivePoints / TakeAwayPoints - CrossTheRoadAgent.cs},captionpos=b]
+public void GivePoints()          // Khi den dich
+{
+    AddReward(1.0f);
+    EndEpisode();
+}
+
+public void TakeAwayPoints()      // Khi va cham phuong tien
+{
+    AddReward(-0.025f);
+    EndEpisode();
+}
+\end{lstlisting}
+
+\noindent\textbf{D.3. Phần thưởng nhóm (môi trường Cooperative Puzzle):}
+\begin{lstlisting}[language=Java,caption={Group reward - EnvController.cs (trich doan)},captionpos=b]
+// Ca hai agent cung roi phong -> thuong nhom
+if (agents[0].agent.ThisAgentLeft && agents[1].agent.ThisAgentLeft)
+    agentGroup.AddGroupReward(0.5f / MaxEnvironmentSteps);
+
+// Phat thoi gian (hurry-up penalty)
+agentGroup.AddGroupReward(-0.25f / MaxEnvironmentSteps);
+
+// Ca hai den checkpoint -> thuong lon + ket thuc episode
+if (allFound) {
+    agentGroup.AddGroupReward(reward);
+    agentGroup.EndGroupEpisode();
+}
+\end{lstlisting}
+
+\noindent\textbf{D.4. Phần thưởng định hướng (Football Table):}
+\begin{lstlisting}[language=Java,caption={AddShotReward - FootballAgent.cs},captionpos=b]
+void AddShotReward()
+{
+    if (Stats.HasBall) {
+        Vector3 delta = opponentTeam.Goal.transform.position
+                        - ball.transform.position;
+        float reward = shotRewardMultiplier *
+                       Vector3.Dot(delta.normalized, ball.Velocity);
+        AddReward(reward);
+    }
+}
+\end{lstlisting}
+
+% ═══════════════════════════════════════════════
+\section*{PHỤ LỤC E. Kết quả TensorBoard}
+\addcontentsline{toc}{section}{PHỤ LỤC E. Kết quả TensorBoard}
+
+Toàn bộ số liệu huấn luyện (Cumulative Reward, Episode Length, Policy Loss, Entropy,
+ELO\ldots) được ghi lại tự động qua TensorBoard cho từng lần chạy trong thư mục
+\texttt{results/}. Bảng~\ref{tab:tb_summary} tóm tắt các chỉ số cuối cùng thực đo được
+của những lần chạy đã huấn luyện đầy đủ.
+
+\begin{table}[H]
+\centering
+\caption{Tóm tắt chỉ số cuối thực đo từ TensorBoard}
+\label{tab:tb_summary}
+\renewcommand{\arraystretch}{1.4}
+\small
+\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.3cm}
+                |>{\centering\arraybackslash}p{2.5cm}
+                |>{\centering\arraybackslash}p{2.3cm}|}
+\hline
+\textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward/ELO} & \textbf{Thời gian} \\
+\hline
+FB01 (Football) & PPO & 500K & ELO 1219 & $\sim$109 phút \\
+\hline
+ctr01 (CrossRoad) & PPO & 1{,}5M & $0{,}74$ & $\sim$114 phút \\
+\hline
+CrossRoad\_SAC & SAC & 200K & $0{,}87$ & $\sim$104 phút \\
+\hline
+ctr\_poca (CrossRoad) & MA-POCA & 2M & $0{,}69$ & $\sim$67 phút \\
+\hline
+ctf\_poca (Capture) & MA-POCA & 4{,}86M & $0{,}033$ & $\sim$116 phút \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.5cm}
+\noindent\textbf{Mã nguồn và mô hình:} Toàn bộ mã nguồn dự án Unity, các tệp cấu hình,
+script huấn luyện và các mô hình đã huấn luyện (định dạng \texttt{.onnx}) được lưu trữ
+tại kho mã nguồn của đề tài.

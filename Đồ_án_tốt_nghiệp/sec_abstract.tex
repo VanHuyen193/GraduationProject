@@ -1,0 +1,33 @@
+\begin{center}
+    {\large\bfseries TÓM TẮT ĐỒ ÁN}
+\end{center}
+
+\vspace{0.5cm}
+
+\indent Đồ án nghiên cứu việc ứng dụng học tăng cường (Reinforcement Learning --- RL)
+để tối ưu hóa khả năng tương tác của các tác nhân trí tuệ nhân tạo (AI agent) trong
+môi trường game ba chiều. Trọng tâm của đề tài là xây dựng ba môi trường game 3D
+đặc trưng trên nền tảng Unity ML-Agents --- \textit{Football Table} (đối kháng
+một--một), môi trường \textit{Cooperative Puzzle} (hợp tác đa tác nhân) và \textit{Cross The Road}
+(điều hướng tránh phương tiện) --- rồi tiến hành huấn luyện và so sánh có hệ thống ba
+thuật toán tiêu biểu: PPO (Proximal Policy Optimization), SAC (Soft Actor-Critic) và
+MA-POCA (Multi-Agent POsthumous Credit Assignment).
+
+\indent Mỗi thuật toán được huấn luyện trên từng môi trường với cùng điều kiện phần
+cứng và được đánh giá theo bốn tiêu chí định lượng: tốc độ hội tụ, tỷ lệ hoàn thành
+nhiệm vụ, tổng phần thưởng trung bình và độ ổn định huấn luyện. Đề tài cũng trình bày
+quy trình tích hợp thuật toán off-policy (SAC) ra ngoài trainer tích hợp sẵn của
+ML-Agents thông qua Python Low-Level API, nhằm khắc phục giới hạn của ML-Agents khi
+SAC không hỗ trợ cơ chế self-play và group reward.
+
+\indent Kết quả thực nghiệm cho thấy không tồn tại một thuật toán tối ưu duy nhất cho
+mọi bài toán: PPO kết hợp self-play phù hợp nhất với môi trường đối kháng, SAC đạt
+hiệu quả mẫu (sample efficiency) vượt trội trong bài toán điều hướng đơn tác nhân,
+còn MA-POCA thể hiện ưu thế rõ rệt trong bài toán hợp tác đa tác nhân nhờ cơ chế
+centralized critic. Những kết luận này cung cấp cơ sở tham khảo cho việc lựa chọn
+thuật toán RL phù hợp với từng cơ chế game trong thực tiễn phát triển.
+
+\vspace{0.5cm}
+
+\noindent\textbf{Từ khóa:} Học tăng cường, Deep Reinforcement Learning, Unity
+ML-Agents, PPO, SAC, MA-POCA, AI trong game, đa tác nhân.

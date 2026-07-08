@@ -1,4 +1,107 @@
 {
+    "PuzzleBehavior": {
+        "checkpoints": [
+            {
+                "steps": 1499922,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-1499922.onnx",
+                "reward": 0.01758875241239366,
+                "creation_time": 1783321491.492741,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-1499922.pt"
+                ]
+            },
+            {
+                "steps": 1999922,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-1999922.onnx",
+                "reward": 0.042390004826302174,
+                "creation_time": 1783324646.8075678,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-1999922.pt"
+                ]
+            },
+            {
+                "steps": 2323122,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-2323122.onnx",
+                "reward": null,
+                "creation_time": 1783326715.3366072,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-2323122.pt"
+                ]
+            },
+            {
+                "steps": 2499906,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-2499906.onnx",
+                "reward": 0.014690002126371837,
+                "creation_time": 1783390763.4263146,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-2499906.pt"
+                ]
+            },
+            {
+                "steps": 2999906,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-2999906.onnx",
+                "reward": 0.02800937838082973,
+                "creation_time": 1783393813.6263793,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-2999906.pt"
+                ]
+            },
+            {
+                "steps": 3499906,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-3499906.onnx",
+                "reward": 0.036890004186716396,
+                "creation_time": 1783397023.9966547,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-3499906.pt"
+                ]
+            },
+            {
+                "steps": 3565938,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-3565938.onnx",
+                "reward": 0.021242502731183777,
+                "creation_time": 1783397524.0445023,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-3565938.pt"
+                ]
+            },
+            {
+                "steps": 3999906,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-3999906.onnx",
+                "reward": null,
+                "creation_time": 1783403862.3092394,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-3999906.pt"
+                ]
+            },
+            {
+                "steps": 4499906,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-4499906.onnx",
+                "reward": 0.021235002714092843,
+                "creation_time": 1783406304.2906966,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-4499906.pt"
+                ]
+            },
+            {
+                "steps": 4864130,
+                "file_path": "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-4864130.onnx",
+                "reward": null,
+                "creation_time": 1783408546.9366217,
+                "auxillary_file_paths": [
+                    "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-4864130.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 4864130,
+            "file_path": "results\\ctf_poca_v1\\PuzzleBehavior.onnx",
+            "reward": null,
+            "creation_time": 1783408546.9366217,
+            "auxillary_file_paths": [
+                "results\\ctf_poca_v1\\PuzzleBehavior\\PuzzleBehavior-4864130.pt"
+            ]
+        }
+    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "1.2.0.dev0",
