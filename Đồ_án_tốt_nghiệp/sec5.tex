@@ -110,7 +110,15 @@ bóng: bóng có thể lăn, nảy và đổi hướng liên tục dưới tác 
 nhân phải phản ứng nhanh và phải học được cả kỹ năng tấn công lẫn phòng thủ. Chính
 tính đối kháng khiến bài toán này trở thành trường hợp điển hình để kiểm chứng cơ chế
 tự chơi, trong đó tác nhân tiến bộ bằng cách liên tục thi đấu với những phiên bản ngày
-càng mạnh hơn của chính nó.
+càng mạnh hơn của chính nó. Toàn cảnh môi trường được thể hiện trong
+Hình~\ref{fig:env_football}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{image/app/env_football.png}
+\caption{Môi trường Football Table: hai đội Xanh --- Đỏ, mỗi đội bốn thanh gạt}
+\label{fig:env_football}
+\end{figure}
 
 \subsubsection{Thiết kế tác nhân và luật chơi}
 \indent Mỗi đội được điều khiển bởi một tác nhân duy nhất, quản lý đồng thời cả bốn
@@ -197,7 +205,17 @@ phòng ban đầu và cuối cùng cùng đến được điểm đích. Sự ph
 toán thành một trường hợp điển hình để làm nổi bật thách thức gán công lao trong học
 tăng cường hợp tác, tức việc xác định đóng góp thực sự của từng tác nhân vào thành quả
 chung của cả nhóm. Đây cũng chính là dạng bài toán mà MA-POCA được thiết kế để giải
-quyết.
+quyết. Bố cục môi trường được thể hiện trong Hình~\ref{fig:env_puzzle}: hai tác nhân
+(khối xanh) xuất phát trong căn phòng bên trái cùng khối vật cản (khối cam), hai bàn
+đạp áp lực đặt hai bên cánh cửa trượt ở giữa, và vạch đích màu xanh lá nằm ở mép phải.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{image/app/env_puzzle.png}
+\caption{Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa
+để cùng tới vạch đích bên phải}
+\label{fig:env_puzzle}
+\end{figure}
 
 \subsubsection{Thiết kế tác nhân và cơ chế phối hợp}
 \indent Mỗi tác nhân điều khiển một robot di chuyển trong không gian ba chiều với bảy
@@ -278,7 +296,18 @@ hình thu nhỏ của rất nhiều tình huống điều hướng tránh vật 
 game, chẳng hạn nhân vật phải né tránh đạn, né tránh kẻ địch hay vượt qua các chướng
 ngại chuyển động. Thách thức cốt lõi nằm ở chỗ tác nhân phải học được thời điểm nào
 nên di chuyển và thời điểm nào nên chờ đợi, bởi lao lên đúng lúc có phương tiện đi qua
-sẽ dẫn đến va chạm, còn chờ đợi quá lâu lại không đạt được mục tiêu.
+sẽ dẫn đến va chạm, còn chờ đợi quá lâu lại không đạt được mục tiêu. Một khu vực
+huấn luyện của môi trường được thể hiện trong Hình~\ref{fig:env_crossroad}; trong
+scene huấn luyện thực tế, chín khu vực như vậy chạy song song để tăng tốc độ thu
+thập kinh nghiệm.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{image/app/env_crossroad.png}
+\caption{Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng)
+phải băng qua các làn đường có phương tiện di chuyển}
+\label{fig:env_crossroad}
+\end{figure}
 
 \subsubsection{Thiết kế tác nhân và chướng ngại vật}
 \indent Tác nhân di chuyển theo từng ô lưới với bốn hành động rời rạc là đứng yên,

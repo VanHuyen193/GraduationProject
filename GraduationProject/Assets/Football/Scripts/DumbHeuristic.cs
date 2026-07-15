@@ -10,6 +10,9 @@ namespace TableFootball
         [SerializeField]
         Transform ball;
 
+        // Truy cập cho GameHub (bật bot đúng team ở chế độ người chơi)
+        public Team Team => team;
+
         float[] actions = new float[8];
 
         void Start()

@@ -18,8 +18,19 @@ namespace TableFootball
         GameObject highlightReset;
         int flashCount;
 
+        // Agent.OnEnable có thể gọi ReSet trước khi Initializer.Awake chạy,
+        // nên Team phải tự khởi tạo được khi cần
+        bool initialized;
+
         public void Initialize()
         {
+            if (initialized)
+            {
+                return;
+            }
+
+            initialized = true;
+
             Sign = transform.localEulerAngles.y < 90 ? 1f : -1f;
 
             foreach (PlayerPosition pp in Positions)
@@ -30,6 +41,8 @@ namespace TableFootball
 
         public void ReSet()
         {
+            Initialize();
+
             foreach (PlayerPosition pp in Positions)
             {
                 pp.ReSet();

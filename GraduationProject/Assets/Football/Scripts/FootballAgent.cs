@@ -27,6 +27,10 @@ namespace TableFootball
         [SerializeField] Team opponentTeam;
         [SerializeField] Ball ball;
 
+        // Truy cập cho GameHub (chọn team cho người chơi / bot)
+        public Team AgentTeam => agentTeam;
+        public Team OpponentTeam => opponentTeam;
+
         [Header("Observation")]
         [Tooltip("Chỉ dùng XZ thay vì full 3D")]
         [SerializeField] bool use2DBallObs;
@@ -87,6 +91,20 @@ namespace TableFootball
 
             if (useSpinPenalty)
                 AddSpinPenalty();
+        }
+
+        // =========================
+        // HEURISTIC (người chơi điều khiển)
+        // =========================
+        public override void Heuristic(in ActionBuffers actionsOut)
+        {
+            // Chế độ người chơi (GameHub): đọc bàn phím từ FootballHumanInput
+            var humanInput = GetComponent<FootballHumanInput>();
+
+            if (humanInput != null)
+            {
+                humanInput.WriteActions(actionsOut.ContinuousActions);
+            }
         }
 
         // =========================

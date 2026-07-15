@@ -52,12 +52,12 @@
   "ctr_poca_v1": {
     "env": "Cross The Road",
     "algo": "MA-POCA",
-    "found": false,
-    "reward_final": null,
-    "reward_max": null,
-    "reward_mean_last10pct": null,
-    "reward_converge_step": null,
-    "ep_len_final": null
+    "found": true,
+    "reward_final": 0.6948837041854858,
+    "reward_max": 0.7231042385101318,
+    "reward_mean_last10pct": 0.6615808635950089,
+    "reward_converge_step": 530000,
+    "ep_len_final": 45.51852035522461
   },
   "ctf_ppo_v1": {
     "env": "Capture The Flag",
@@ -82,11 +82,11 @@
   "ctf_poca_v1": {
     "env": "Capture The Flag",
     "algo": "MA-POCA",
-    "found": false,
-    "reward_final": null,
-    "reward_max": null,
-    "reward_mean_last10pct": null,
-    "reward_converge_step": null,
-    "ep_len_final": null
+    "found": true,
+    "reward_final": 0.03245187923312187,
+    "reward_max": 0.06894438713788986,
+    "reward_mean_last10pct": 0.037918545926610626,
+    "reward_converge_step": 3840000,
+    "ep_len_final": 4999.0
   }
 }

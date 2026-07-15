@@ -60,7 +60,7 @@ nghiên cứu và dự án phát triển game về sau.
 
 \indent Mục tiêu tổng quát của đề tài là nghiên cứu, xây dựng và đánh giá quy trình
 ứng dụng học tăng cường để huấn luyện tác nhân trí tuệ nhân tạo trong môi trường game
-ba chiều trên nền tảng Unity ML-Agents. Từ mục tiêu tổng quát đó, đề tài hướng đến bốn
+ba chiều trên nền tảng Unity ML-Agents. Từ mục tiêu tổng quát đó, đề tài hướng đến năm
 mục tiêu cụ thể.
 
 \indent Thứ nhất, đề tài xây dựng ba môi trường game ba chiều có tính chất khác biệt
@@ -84,6 +84,12 @@ phần thưởng trung bình và độ ổn định của quá trình huấn luy
 \indent Thứ tư, trên cơ sở các kết quả thu được, đề tài so sánh và phân tích ưu nhược
 điểm của từng thuật toán ứng với từng loại bài toán, từ đó đưa ra khuyến nghị lựa chọn
 thuật toán phù hợp cho các cơ chế game khác nhau trong thực tiễn phát triển.
+
+\indent Thứ năm, đề tài xây dựng một ứng dụng trình diễn tương tác hoàn chỉnh, trong
+đó các mô hình đã huấn luyện (định dạng ONNX) được triển khai trực tiếp vào game.
+Ứng dụng cung cấp menu lựa chọn môi trường, ba chế độ chơi (người chơi tự điều khiển,
+tác nhân tự chơi, người chơi cùng tác nhân) và cơ chế lựa chọn mô hình cho tác nhân,
+qua đó khép kín quy trình từ huấn luyện đến trải nghiệm thực tế trong game.
 
 % ───────────────────────────────────────────────
 \subsection{Đối tượng và phạm vi nghiên cứu}
@@ -192,7 +198,7 @@ tích hợp trí tuệ nhân tạo.
 
 % ───────────────────────────────────────────────
 \subsection{Bố cục đồ án}
-\indent Ngoài phần Mở đầu và Kết luận, nội dung chính của đồ án được tổ chức thành ba
+\indent Ngoài phần Mở đầu và Kết luận, nội dung chính của đồ án được tổ chức thành bốn
 chương. Chương~\ref{ch:theory} trình bày cơ sở lý thuyết, bao gồm tổng quan về trí tuệ
 nhân tạo trong game, nền tảng lý thuyết của học tăng cường với quá trình quyết định
 Markov, chính sách và hàm giá trị, các kiến trúc học tăng cường sâu, cùng đặc điểm của
@@ -203,7 +209,13 @@ và các giới hạn tích hợp liên quan đến việc triển khai thuật 
 game ba chiều trong Unity, bao gồm không gian quan sát, không gian hành động và hàm
 phần thưởng của từng môi trường; đồng thời mô tả phương pháp tích hợp thuật toán SAC
 ra ngoài bộ huấn luyện tích hợp sẵn của ML-Agents, thiết lập thực nghiệm và các tiêu
-chí đánh giá được sử dụng. Cuối cùng, Chương~\ref{ch:results} trình bày kết quả huấn
+chí đánh giá được sử dụng. Chương~\ref{ch:results} trình bày kết quả huấn
 luyện của từng thuật toán trên từng môi trường thông qua biểu đồ và bảng số liệu, tiến
 hành so sánh tổng hợp, phân tích ưu nhược điểm của từng thuật toán theo từng dạng bài
 toán và thảo luận về khả năng ứng dụng thực tiễn cùng hướng phát triển tiếp theo.
+
+\indent Cuối cùng, Chương~\ref{ch:app} trình bày quá trình xây dựng ứng dụng trình
+diễn tương tác: kiến trúc hệ thống lựa chọn chế độ chơi, giao diện menu, cơ chế nạp
+mô hình ONNX tại thời gian chạy, cách ánh xạ ba chế độ chơi (người chơi, tác nhân tự
+chơi, người chơi cùng tác nhân) vào từng môi trường, cùng các vấn đề kỹ thuật phát
+sinh và kết quả kiểm thử ứng dụng.

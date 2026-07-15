@@ -1,0 +1,422 @@
+\fontsize{14pt}{22.5pt}\selectfont
+
+% ═══════════════════════════════════════════════════════════════
+\section{XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}
+\label{ch:app}
+
+\indent Các chương trước đã trình bày quá trình huấn luyện và so sánh ba thuật toán
+học tăng cường trên ba môi trường game ba chiều. Tuy nhiên, kết quả huấn luyện dưới
+dạng biểu đồ và bảng số liệu chưa cho phép cảm nhận trực tiếp chất lượng hành vi của
+tác nhân trong game. Để khép kín quy trình từ huấn luyện đến triển khai, đề tài xây
+dựng thêm một ứng dụng trình diễn tương tác, cho phép người dùng lựa chọn môi trường,
+lựa chọn chế độ chơi và lựa chọn mô hình đã huấn luyện cho tác nhân ngay trong game.
+Ứng dụng này vừa là công cụ minh họa trực quan cho các kết quả so sánh ở
+Chương~\ref{ch:results}, vừa chứng minh tính khả thi của việc triển khai các mô hình
+ONNX đã huấn luyện vào một sản phẩm game hoàn chỉnh.
+
+% ───────────────────────────────────────────────
+\subsection{Mục tiêu và yêu cầu chức năng}
+\label{sub:app-goal}
+
+\indent Ứng dụng trình diễn được thiết kế với ba nhóm yêu cầu chức năng chính. Nhóm
+thứ nhất liên quan đến việc lựa chọn nội dung chơi: ứng dụng phải cung cấp một màn
+hình menu cho phép người dùng chọn một trong ba môi trường (Cross The Road, Capture
+The Flag\footnote{Trong ứng dụng trình diễn, môi trường Cooperative Puzzle được đặt
+tên hiển thị là \textit{Capture The Flag} theo tên scene gốc trong dự án Unity.} và
+Football Table) và một trong ba chế độ chơi tương ứng với ba cách phân vai giữa người
+và máy.
+
+\indent Nhóm thứ hai liên quan đến các chế độ chơi. Chế độ \textit{Người chơi} cho
+phép người dùng trực tiếp điều khiển tác nhân bằng bàn phím, qua đó tự mình trải
+nghiệm độ khó của nhiệm vụ mà tác nhân phải học. Chế độ \textit{Agent tự chơi} để
+mô hình đã huấn luyện điều khiển toàn bộ tác nhân, phục vụ việc quan sát và đánh giá
+trực quan chất lượng chính sách. Chế độ \textit{Chơi với Agent} kết hợp cả hai: người
+chơi và tác nhân máy cùng xuất hiện trong một phiên chơi, với vai trò đồng đội hoặc
+đối thủ tùy theo bản chất của từng môi trường.
+
+\indent Nhóm thứ ba liên quan đến việc lựa chọn mô hình: ở mọi chế độ có sự tham gia
+của tác nhân máy, người dùng phải chọn được mô hình cụ thể (tương ứng với thuật toán
+PPO, SAC, MA-POCA hoặc các phiên bản huấn luyện khác nhau) cho tác nhân sử dụng. Yêu
+cầu này biến ứng dụng thành một công cụ so sánh trực quan: người dùng có thể lần lượt
+chạy cùng một môi trường với các mô hình khác nhau để cảm nhận sự khác biệt về hành
+vi, thậm chí cho hai mô hình đối đầu trực tiếp trong môi trường Football Table.
+
+\indent Bên cạnh các yêu cầu chức năng, ứng dụng còn phải thỏa mãn một ràng buộc quan
+trọng về mặt kỹ thuật: không được phá vỡ cấu hình huấn luyện hiện có của các scene.
+Ba scene môi trường vẫn được sử dụng hằng ngày cho việc huấn luyện, do đó mọi thay
+đổi phục vụ chế độ chơi chỉ được phép diễn ra tại thời gian chạy khi người dùng đi
+vào từ menu, còn khi mở scene trực tiếp trong Unity Editor để huấn luyện thì mọi
+thứ phải giữ nguyên như cũ.
+
+% ───────────────────────────────────────────────
+\subsection{Kiến trúc hệ thống}
+\label{sub:app-arch}
+
+\indent Toàn bộ mã nguồn của ứng dụng trình diễn được tổ chức trong một thư mục riêng
+\texttt{Assets/GameHub}, tách biệt hoàn toàn với mã nguồn của ba môi trường. Hệ thống
+gồm sáu thành phần chính, được tóm tắt trong Bảng~\ref{tab:app_modules}.
+
+\begin{table}[H]
+\centering
+\caption{Các thành phần chính của ứng dụng trình diễn}
+\label{tab:app_modules}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{4.6cm}|p{8.9cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Vai trò} \\
+\hline
+\texttt{GameModeSelection} & Lớp tĩnh lưu lựa chọn của người dùng (môi trường, chế độ
+chơi, tên mô hình); tồn tại xuyên suốt giữa các scene. \\
+\hline
+\texttt{ModelRegistry} & Liệt kê và nạp các mô hình ONNX từ thư mục
+\texttt{Resources/AgentModels} tại thời gian chạy. \\
+\hline
+\texttt{MainMenuUI} & Dựng toàn bộ giao diện menu bằng mã lệnh khi scene
+\texttt{MainMenu} khởi động. \\
+\hline
+\texttt{GameModeApplier} & Lắng nghe sự kiện nạp scene; cấu hình lại các tác nhân
+(loại hành vi, mô hình, chu kỳ quyết định) theo lựa chọn từ menu. \\
+\hline
+\texttt{InGameHUD} & Giao diện phủ trong game: nút quay về menu, thông tin chế độ
+và dòng hướng dẫn phím. \\
+\hline
+Các thành phần điều khiển & \texttt{CrossRoadHumanInput}, \texttt{PuzzleHumanInput},
+\texttt{FootballHumanInput}: chuyển tín hiệu bàn phím thành hành động của tác nhân
+ở chế độ người chơi. \\
+\hline
+\end{tabular}
+\end{table}
+
+\indent Luồng hoạt động của hệ thống được minh họa trong Hình~\ref{fig:app_flow}.
+Khi người dùng bấm nút bắt đầu ở menu, các lựa chọn được ghi vào
+\texttt{GameModeSelection} rồi scene môi trường tương ứng được nạp.
+\texttt{GameModeApplier} đăng ký với sự kiện \texttt{sceneLoaded} của Unity ngay từ
+khi ứng dụng khởi động; khi scene môi trường được nạp xong, thành phần này kiểm tra
+xem người dùng có đi vào từ menu hay không. Nếu có, nó tìm các tác nhân trong scene
+và cấu hình lại từng tác nhân theo chế độ đã chọn; nếu không (trường hợp mở scene
+trực tiếp để huấn luyện), nó không can thiệp gì và scene giữ nguyên cấu hình gốc.
+Cách tiếp cận dựa trên sự kiện này cho phép bổ sung đầy đủ chức năng chơi game mà
+không cần sửa đổi bất kỳ scene môi trường nào.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    node distance=0.9cm and 1.1cm,
+    box/.style={draw, rounded corners=2pt, align=center, minimum height=1.1cm,
+                inner sep=6pt, font=\fontsize{12pt}{15pt}\selectfont},
+    arr/.style={->, thick}
+]
+\node[box, fill=blue!10] (menu) {Scene \texttt{MainMenu}\\ \texttt{MainMenuUI}};
+\node[box, fill=orange!15, right=of menu] (sel) {\texttt{GameModeSelection}\\ (môi trường, chế độ, mô hình)};
+\node[box, fill=blue!10, below=of sel] (scene) {Nạp scene môi trường\\ (CrossTheRoad / CaptureTheFlag / Football)};
+\node[box, fill=orange!15, below=of menu] (applier) {\texttt{GameModeApplier}\\ (sự kiện \texttt{sceneLoaded})};
+\node[box, fill=green!12, below=of applier] (agent) {Cấu hình tác nhân\\ Heuristic / Inference + mô hình ONNX};
+\node[box, fill=green!12, below=of scene] (hud) {\texttt{InGameHUD}\\ + thành phần điều khiển};
+
+\draw[arr] (menu) -- node[above, font=\scriptsize]{ghi lựa chọn} (sel);
+\draw[arr] (sel) -- (scene);
+\draw[arr] (scene) -- node[above, font=\scriptsize]{thông báo} (applier);
+\draw[arr] (applier) -- (agent);
+\draw[arr] (applier) -- (hud);
+\end{tikzpicture}
+\caption{Luồng hoạt động của ứng dụng trình diễn}
+\label{fig:app_flow}
+\end{figure}
+
+\indent Điểm mấu chốt trong khâu cấu hình tác nhân là việc chuyển đổi giữa các loại
+hành vi của ML-Agents. Mỗi tác nhân trong ML-Agents có một thành phần
+\texttt{BehaviorParameters} quy định nguồn ra quyết định: ở chế độ người chơi, loại
+hành vi được đặt thành \texttt{HeuristicOnly} để hành động lấy từ hàm
+\texttt{Heuristic} đọc bàn phím; ở chế độ tác nhân máy, loại hành vi được đặt thành
+\texttt{InferenceOnly} và mô hình ONNX được nạp vào để mạng nơ-ron suy luận trực tiếp
+trong engine. Nhờ hạ tầng suy luận tích hợp sẵn của Unity, quá trình suy luận diễn ra
+cục bộ trên máy người chơi với chi phí tính toán không đáng kể, không cần bất kỳ tiến
+trình Python nào như khi huấn luyện.
+
+% ───────────────────────────────────────────────
+\subsection{Giao diện menu và luồng sử dụng}
+\label{sub:app-menu}
+
+{\sloppy
+\indent Khi khởi động ứng dụng, người dùng được đưa vào màn hình menu chính
+(Hình~\ref{fig:app_menu}). Menu được chia thành bốn khu vực theo trục dọc: hàng nút
+chọn môi trường, hàng nút chọn chế độ chơi, khu vực chọn mô hình cho tác nhân và
+khối mô tả kèm nút bắt đầu. Khối mô tả thay đổi động theo tổ hợp đang chọn, hiển
+thị tóm tắt luật chơi cùng sơ đồ phím điều khiển tương ứng, giúp người dùng nắm
+được cách chơi trước khi vào game.\par}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{image/app/app_menu_main.png}
+\caption{Màn hình menu chính của ứng dụng trình diễn}
+\label{fig:app_menu}
+\end{figure}
+
+\indent Khu vực chọn mô hình chỉ xuất hiện khi chế độ đang chọn có sự tham gia của
+tác nhân máy. Số lượng ô chọn mô hình cũng thay đổi theo ngữ cảnh: các môi trường chỉ
+cần một mô hình sẽ hiển thị một ô duy nhất, riêng môi trường Football Table ở chế độ
+\textit{Agent tự chơi} hiển thị hai ô riêng biệt cho đội Xanh và đội Đỏ
+(Hình~\ref{fig:app_menu_models}), cho phép hai mô hình khác nhau đối đầu trực tiếp.
+Danh sách mô hình trong mỗi ô được liệt kê tự động từ thư mục tài nguyên, vì vậy khi
+bổ sung một mô hình mới chỉ cần sao chép tệp ONNX vào đúng thư mục mà không phải sửa
+bất kỳ dòng mã nào.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{image/app/app_menu_models.png}
+\caption{Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi:
+hai ô chọn riêng cho đội Xanh và đội Đỏ}
+\label{fig:app_menu_models}
+\end{figure}
+
+\indent Trong mọi phiên chơi, một thanh thông tin mỏng được phủ ở mép trên màn hình,
+hiển thị tên môi trường, chế độ chơi, mô hình đang sử dụng và nút quay về menu (hoặc
+phím Esc); mép dưới màn hình là dòng nhắc phím điều khiển. Người dùng vì thế luôn
+biết mình đang ở tổ hợp thực nghiệm nào và có thể quay lại menu để đổi lựa chọn bất
+cứ lúc nào mà không phải khởi động lại ứng dụng.
+
+% ───────────────────────────────────────────────
+\subsection{Nạp mô hình ONNX tại thời gian chạy}
+\label{sub:app-model}
+
+\indent Mỗi lần huấn luyện trong Chương~\ref{ch:results} kết thúc, ML-Agents xuất
+chính sách đã học ra một tệp ONNX. Để các tệp này dùng được trong ứng dụng, chúng
+được sao chép vào cây thư mục tài nguyên của Unity theo quy ước mỗi môi trường một
+thư mục con:
+
+\begin{center}
+\texttt{Assets/GameHub/Resources/AgentModels/\{CrossTheRoad | CaptureTheFlag |
+Football\}/}
+\end{center}
+
+{\sloppy
+\noindent Tên tệp được đặt theo thuật toán huấn luyện (ví dụ \texttt{PPO.onnx},
+\texttt{SAC.onnx}, \texttt{POCA.onnx}), và tên này cũng chính là nhãn hiển thị trong
+menu. Unity nhập mỗi tệp ONNX thành một tài sản \texttt{ModelAsset} của gói suy luận
+tích hợp. Nhờ đó, ứng dụng liệt kê được danh sách mô hình bằng lời gọi
+\texttt{Resources.LoadAll}, rồi gán mô hình đã chọn cho tác nhân qua giao diện
+\texttt{SetModel} của ML-Agents, như minh họa trong đoạn mã dưới đây.\par}
+
+\begin{lstlisting}[language={[Sharp]C}, caption={Liệt kê và gán mô hình ONNX tại thời gian chạy}]
+// Liet ke cac model cua mot moi truong (dung cho menu)
+ModelAsset[] models =
+    Resources.LoadAll<ModelAsset>("AgentModels/" + envName);
+
+// Gan model da chon cho tac nhan va chuyen sang che do suy luan
+agent.SetModel(behaviorName, selectedModel);
+behaviorParameters.BehaviorType = BehaviorType.InferenceOnly;
+\end{lstlisting}
+
+\indent Cách tổ chức này tách hoàn toàn dữ liệu mô hình khỏi mã nguồn: danh mục mô
+hình trong menu phản ánh trực tiếp nội dung thư mục tài nguyên. Trong phạm vi đồ án,
+ứng dụng được đóng gói sẵn tám mô hình: ba mô hình PPO, SAC, POCA cho Cross The Road,
+hai mô hình cho Capture The Flag và ba mô hình cho Football Table, bao phủ các kết
+quả huấn luyện tốt nhất của từng thuật toán trên từng môi trường.
+
+% ───────────────────────────────────────────────
+\subsection{Ba chế độ chơi trong từng môi trường}
+\label{sub:app-modes}
+
+\indent Do bản chất khác nhau (đơn tác nhân, hợp tác, đối kháng), ba chế độ chơi được
+ánh xạ vào mỗi môi trường theo một cách riêng, tổng hợp trong
+Bảng~\ref{tab:app_mode_matrix}.
+
+\begin{table}[H]
+\centering
+\caption{Ánh xạ ba chế độ chơi vào ba môi trường}
+\label{tab:app_mode_matrix}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{2.9cm}|p{3.4cm}|p{3.3cm}|p{3.9cm}|}
+\hline
+\textbf{Môi trường} & \textbf{Người chơi} & \textbf{Agent tự chơi} & \textbf{Chơi với Agent} \\
+\hline
+Cross The Road & Điều khiển nhân vật ở một khu vực & Mô hình chạy đồng thời trên cả
+chín khu vực & Người và tác nhân đua song song ở hai khu vực liền kề \\
+\hline
+Capture The Flag & Hai người chơi trên cùng bàn phím & Hai tác nhân cùng dùng một
+mô hình & Người phối hợp cùng tác nhân đồng đội \\
+\hline
+Football Table & Người đấu với bot luật đơn giản & Mô hình đấu với mô hình
+(có thể khác nhau) & Người đấu với mô hình \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Cross The Road: đua song song với tác nhân}
+
+\indent Ở chế độ \textit{Agent tự chơi}, cả chín khu vực huấn luyện trong scene được
+giữ nguyên hoạt động và tất cả tác nhân cùng chạy mô hình đã chọn
+(Hình~\ref{fig:app_ctr_agent}). Hình ảnh chín tác nhân hành động song song --- em nào
+va chạm thì nền khu vực nhấp nháy đỏ, em nào về đích thì nhấp nháy xanh --- cho một
+ấn tượng trực quan về tính ngẫu nhiên của môi trường và độ ổn định của chính sách,
+điều mà các đường cong huấn luyện khó truyền tải.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{image/app/app_ctr_agent.png}
+\caption{Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực
+Cross The Road}
+\label{fig:app_ctr_agent}
+\end{figure}
+
+\indent Ở chế độ \textit{Người chơi}, chỉ một khu vực được giữ lại và camera tự động
+đóng khung vào khu vực đó; người chơi điều khiển bằng các phím mũi tên. Chế độ
+\textit{Chơi với Agent} giữ lại hai khu vực cạnh nhau: người chơi ở khu vực bên trái,
+tác nhân máy ở khu vực bên phải, tạo thành một cuộc đua xem bên nào băng qua đường
+thành công nhiều lần hơn (Hình~\ref{fig:app_ctr_pva}). Đây là cách trực tiếp nhất để
+người dùng cảm nhận trình độ của mô hình: nhiều người chơi thử nghiệm nhận thấy việc
+thắng được mô hình SAC đã hội tụ là không hề dễ dàng.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{image/app/app_ctr_pva.png}
+\caption{Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với
+tác nhân dùng mô hình SAC (phải)}
+\label{fig:app_ctr_pva}
+\end{figure}
+
+\subsubsection{Capture The Flag: phối hợp người --- máy}
+
+\indent Môi trường hợp tác cho phép một kịch bản đặc biệt thú vị: con người phối hợp
+với tác nhân máy trong cùng một đội. Ở chế độ \textit{Chơi với Agent}, người chơi
+điều khiển một nhân vật bằng các phím W A S D, còn nhân vật thứ hai do mô hình
+MA-POCA điều khiển (Hình~\ref{fig:app_ctf_pva}). Nhiệm vụ đòi hỏi đúng chuỗi phối
+hợp đã phân tích ở Mục~\ref{sub:env-coop}: một bên đứng lên bàn đạp giữ cửa, bên kia
+đi qua, rồi đổi vai --- người chơi vì vậy phải ``đọc'' được ý định của đồng đội máy
+và hành động ăn khớp, một trải nghiệm minh họa sinh động cho khái niệm phối hợp đa
+tác nhân.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{image/app/app_ctf_pva.png}
+\caption{Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng
+tác nhân đồng đội dùng mô hình MA-POCA}
+\label{fig:app_ctf_pva}
+\end{figure}
+
+\indent Ở chế độ \textit{Người chơi}, cả hai nhân vật đều do con người điều khiển
+theo kiểu hai người chơi chung bàn phím: người thứ nhất dùng cụm W A S D, người thứ
+hai dùng cụm phím mũi tên. Chế độ \textit{Agent tự chơi} để cả hai nhân vật chạy cùng
+một mô hình, tái hiện đúng cấu hình lúc huấn luyện.
+
+\subsubsection{Football Table: đối đầu người --- máy và máy --- máy}
+
+\indent Trong môi trường đối kháng, chế độ \textit{Chơi với Agent} cho người chơi
+cầm đội Xanh đấu trực tiếp với mô hình ở đội Đỏ. Vì mỗi đội có bốn thanh gạt với tám
+kênh điều khiển liên tục, sơ đồ phím được thiết kế theo nguyên tắc ``một thanh tại
+một thời điểm'': phím Q/E hoặc các phím số 1--4 chọn thanh đang điều khiển, W/S trượt
+thanh và A/D xoay thanh để sút (Hình~\ref{fig:app_fb_player}); tên thanh đang chọn
+(thủ môn, hậu vệ, tiền vệ, tiền đạo) hiển thị ở góc trên trái màn hình. Ở chế độ
+\textit{Người chơi}, đối thủ là bot luật cố định bám theo vị trí bóng --- chính là
+đối thủ mốc đã dùng khi huấn luyện SAC ở Mục~\ref{sub:env-football} --- với độ khó
+vừa phải, phù hợp để người dùng làm quen với sơ đồ điều khiển trước khi thách đấu
+các mô hình.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{image/app/app_fb_player.png}
+\caption{Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh,
+góc trên trái hiển thị thanh gạt đang được chọn}
+\label{fig:app_fb_player}
+\end{figure}
+
+\indent Đáng chú ý nhất là chế độ \textit{Agent tự chơi} với hai ô chọn mô hình độc
+lập: người dùng có thể cho mô hình PPO huấn luyện bằng self-play đấu với mô hình
+huấn luyện ít bước hơn, hoặc cho hai bản sao của cùng một mô hình đối đầu. Đây thực
+chất là một công cụ đánh giá đối kháng (head-to-head evaluation) thu nhỏ, bổ sung một
+kênh so sánh định tính cho các kết quả định lượng ở Chương~\ref{ch:results}.
+
+% ───────────────────────────────────────────────
+\subsection{Các vấn đề kỹ thuật và giải pháp}
+\label{sub:app-issues}
+
+\indent Quá trình xây dựng ứng dụng phát sinh một số vấn đề kỹ thuật đặc thù của việc
+ghép nối vòng lặp quyết định của ML-Agents với tương tác thời gian thực của người
+chơi; các vấn đề tiêu biểu và giải pháp tương ứng được tổng hợp dưới đây.
+
+\indent \textbf{Độ trễ điều khiển do chu kỳ quyết định.} Khi huấn luyện, các tác nhân
+chỉ yêu cầu quyết định sau mỗi 2 đến 20 bước vật lý (thành phần
+\texttt{DecisionRequester}) nhằm giảm chi phí tính toán. Tần suất này khiến nhân vật
+phản hồi phím rất chậm ở chế độ người chơi. Giải pháp là khi cấu hình tác nhân cho
+người điều khiển, chu kỳ quyết định được hạ xuống 1 --- tác nhân yêu cầu quyết định
+ở mọi bước vật lý --- trong khi các tác nhân máy giữ nguyên chu kỳ gốc để tái hiện
+đúng điều kiện huấn luyện.
+
+\indent \textbf{Mất phím bấm giữa hai lần quyết định.} Hàm \texttt{Heuristic} của
+Cross The Road đọc sự kiện nhấn phím tức thời; nếu người chơi nhấn phím vào một khung
+hình không trùng thời điểm lấy quyết định thì thao tác bị bỏ sót. Đề tài bổ sung một
+thành phần đệm đầu vào: phím được ghi nhận trong vòng lặp \texttt{Update} (chạy mỗi
+khung hình) và giữ lại cho đến khi hàm \texttt{Heuristic} tiêu thụ ở lần quyết định
+kế tiếp, bảo đảm không thao tác nào bị mất.
+
+\indent \textbf{Đóng khung camera với máy quay trực giao.} Scene Cross The Road dùng
+một máy quay trực giao bao quát cả chín khu vực huấn luyện; khi chỉ giữ lại một hoặc
+hai khu vực cho chế độ người chơi, khung hình gốc trở nên quá rộng. Ứng dụng tính
+hộp bao của các khu vực còn hoạt động, dời máy quay về trục nhìn đi qua tâm hộp và
+đặt lại kích thước trực giao bằng cách chiếu tám đỉnh hộp lên hai trục ngang --- dọc
+của máy quay. Phép đóng khung này được hoãn đến cuối khung hình đầu tiên, vì tại thời
+điểm scene vừa nạp xong, các phương tiện chưa được đặt về đúng vị trí xuất phát nên
+hộp bao tính sớm sẽ bị sai lệch.
+
+\indent \textbf{Xung đột thứ tự khởi tạo trong Football Table.} Thành phần
+\texttt{Agent} của ML-Agents có thể gọi \texttt{OnEpisodeBegin} (kéo theo việc đặt
+lại bàn và bóng) ngay trong pha \texttt{OnEnable}, trước khi bộ khởi tạo của scene
+kịp chạy, gây lỗi tham chiếu rỗng ngắt quãng. Đề tài sửa các lớp \texttt{Team} và
+\texttt{Ball} theo hướng tự khởi tạo an toàn: thao tác đặt lại sẽ tự gọi khởi tạo
+nếu phát hiện chưa được khởi tạo, và việc khởi tạo lặp được chặn bằng cờ trạng thái.
+
+\indent \textbf{Tác nhân thừa ở chế độ người chơi.} Trong Football Table chế độ
+\textit{Người chơi}, đội Đỏ do bot luật điều khiển trực tiếp, nhưng tác nhân
+ML-Agents của đội này vẫn tồn tại trong scene và có thể phát sinh hành động nhiễu.
+Giải pháp là vô hiệu hóa bộ yêu cầu quyết định của tác nhân đó (để nó không bao giờ
+hành động) nhưng vẫn giữ thành phần tác nhân hoạt động, nhờ vậy các sự kiện bàn thắng
+và việc đặt lại trận đấu vẫn được xử lý bình thường.
+
+% ───────────────────────────────────────────────
+\subsection{Kiểm thử ứng dụng}
+\label{sub:app-testing}
+
+\indent Ứng dụng được kiểm thử trực tiếp trong Unity Editor theo từng luồng chức
+năng. Với mỗi tổ hợp môi trường --- chế độ, quá trình kiểm thử xác nhận bốn điểm:
+(1) scene được nạp và cấu hình đúng vai trò từng tác nhân (loại hành vi, mô hình,
+chu kỳ quyết định); (2) mô hình ONNX được nạp thành công và tác nhân hành xử đúng
+như kỳ vọng từ kết quả huấn luyện; (3) giao diện phủ hiển thị đúng thông tin và nút
+quay về menu hoạt động; (4) không phát sinh lỗi nào trong bảng điều khiển của Unity.
+Kết quả kiểm thử được tổng hợp trong Bảng~\ref{tab:app_test}.
+
+\begin{table}[H]
+\centering
+\caption{Kết quả kiểm thử các luồng chức năng của ứng dụng}
+\label{tab:app_test}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|p{6.2cm}|p{5.2cm}|>{\centering\arraybackslash}p{2.2cm}|}
+\hline
+\textbf{Luồng kiểm thử} & \textbf{Nội dung xác nhận} & \textbf{Kết quả} \\
+\hline
+Menu: chọn môi trường, chế độ, mô hình & Giao diện cập nhật đúng; ô mô hình
+hiện/ẩn theo ngữ cảnh & Đạt \\
+\hline
+Cross The Road --- cả 3 chế độ & Số khu vực hoạt động, camera, mô hình đúng
+lựa chọn & Đạt \\
+\hline
+Capture The Flag --- cả 3 chế độ & Phân vai người/máy đúng; hai sơ đồ phím
+độc lập & Đạt \\
+\hline
+Football Table --- cả 3 chế độ & Người cầm đội Xanh; bot/mô hình cầm đội Đỏ;
+chọn được 2 mô hình & Đạt \\
+\hline
+Quay về menu (nút và phím Esc) & Trở về menu, đổi lựa chọn, vào lại bình
+thường & Đạt \\
+\hline
+Mở scene trực tiếp (không qua menu) & Cấu hình huấn luyện gốc được giữ
+nguyên & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\indent Về hiệu năng, suy luận mạng nơ-ron cho tối đa mười tác nhân đồng thời (chín
+khu vực Cross The Road cộng giao diện) không gây sụt giảm tốc độ khung hình đáng kể
+trên cấu hình thực nghiệm ở Mục~\ref{sub:hardware}, khẳng định tính khả thi của việc
+nhúng trực tiếp các mô hình đã huấn luyện vào sản phẩm game. Toàn bộ tám mô hình
+ONNX đi kèm ứng dụng đều nạp và vận hành chính xác với đúng phổ quan sát --- hành
+động đã khai báo khi huấn luyện.

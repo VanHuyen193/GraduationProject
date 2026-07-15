@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.8)  8 JUL 2026 17:29
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.8)  11 JUL 2026 10:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -475,6 +475,10 @@ File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)
+(C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/latex/pgfplots\pgfplots.sty
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.rev
@@ -1563,7 +1567,7 @@ Overfull \hbox (15.16994pt too wide) in paragraph at lines 507--515
 ập quan sát CollectObservations,
  []
 
-
+[18]
 Overfull \hbox (7.49435pt too wide) in paragraph at lines 516--522
 \TU/TimesNewRoman(0)/m/n/14 (PPOTrainer, POCATrainer) thực hiện logic huấn luyệ
 n, bao gồm thu thập trajectory,
@@ -1577,38 +1581,96 @@ heckpoint. Thư viện mlagents_envs
 
 File: image/learning_environment_full.png Graphic file (type bmp)
 <image/learning_environment_full.png>
-[18] [19]) (sec5.tex [20]
+[19] [20]) (sec5.tex [21]
 Overfull \hbox (14.78055pt too wide) in paragraph at lines 28--35
 \TU/TimesNewRoman(0)/m/n/14 dự án Unity, tương ứng với ba thư mục \TU/lmtt/m/n/
 14 Assets/Football\TU/TimesNewRoman(0)/m/n/14 , \TU/lmtt/m/n/14 Assets/Collabor
 ation
  []
 
-[21] [22] [23] [24]
-Underfull \hbox (badness 7099) in paragraph at lines 161--161
+[22] [23]
+File: image/app/env_football.png Graphic file (type bmp)
+<image/app/env_football.png>
+ [24] [25]
+Underfull \hbox (badness 7099) in paragraph at lines 169--169
 []|\TU/TimesNewRoman(0)/m/n/12 Ghi bàn vào khung thành đối
  []
 
-[25] [26] [27] [28] [29]
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+[26]
+File: image/app/env_puzzle.png Graphic file (type bmp)
+<image/app/env_puzzle.png>
+ [27] [28] [29]
+File: image/app/env_crossroad.png Graphic file (type bmp)
+<image/app/env_crossroad.png>
+ [30] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 396--396
 []|\TU/TimesNewRoman(0)/m/n/12 Phần thưởng
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--373
+Underfull \hbox (badness 10000) in paragraph at lines 402--402
 []|\TU/TimesNewRoman(0)/m/n/12 Thuật toán kỳ
  []
 
-[30] [31]
-Underfull \hbox (badness 2635) in paragraph at lines 470--471
+[32] [33] [34]
+Underfull \hbox (badness 2635) in paragraph at lines 499--500
 []|\TU/TimesNewRoman(0)/m/n/12 Stable-Baselines3 và giao diện Python của ML-
  []
 
-[32] [33]) (sec6.tex [34] [35] [36] [37] [38] [39] [40] [41] [42]
+[35]) (sec6.tex [36] [37] [38] [39] [40] [41] [42] [43] [44] [45]
 Package pgfplots info on input line 477: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
- [43] [44]
-[45]) (sec7.tex [46]) [47] [48] (main.bbl
+ [46] [47]
+[48]) (sec6_5_app.tex [49] [50]
+Underfull \hbox (badness 10000) in paragraph at lines 83--86
+[]|\TU/lmtt/m/n/12 CrossRoadHumanInput\TU/TimesNewRoman(0)/m/n/12 , \TU/lmtt/m/
+n/12 PuzzleHumanInput\TU/TimesNewRoman(0)/m/n/12 ,
+ []
+
+[51]
+File: image/app/app_menu_main.png Graphic file (type bmp)
+<image/app/app_menu_main.png>
+ [52]
+File: image/app/app_menu_models.png Graphic file (type bmp)
+<image/app/app_menu_models.png>
+ [53] [54]
+(C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 200.
+
+Underfull \hbox (badness 4416) in paragraph at lines 233--234
+\TU/TimesNewRoman(0)/m/n/12 thời trên cả chín
+ []
+
+
+Underfull \hbox (badness 1442) in paragraph at lines 234--235
+\TU/TimesNewRoman(0)/m/n/12 song song ở hai khu
+ []
+
+
+Underfull \hbox (badness 2932) in paragraph at lines 239--240
+[]|\TU/TimesNewRoman(0)/m/n/12 Mô hình đấu với
+ []
+
+
+Underfull \hbox (badness 6658) in paragraph at lines 239--240
+\TU/TimesNewRoman(0)/m/n/12 mô hình (có thể
+ []
+
+[55]
+File: image/app/app_ctr_agent.png Graphic file (type bmp)
+<image/app/app_ctr_agent.png>
+File: image/app/app_ctr_pva.png Graphic file (type bmp)
+<image/app/app_ctr_pva.png>
+ [56]
+File: image/app/app_ctf_pva.png Graphic file (type bmp)
+<image/app/app_ctf_pva.png>
+ [57]
+File: image/app/app_fb_player.png Graphic file (type bmp)
+<image/app/app_fb_player.png>
+ [58] [59] [60]) (sec7.tex [61] [62]) [63] (main.bbl
 Underfull \hbox (badness 1838) in paragraph at lines 30--35
 []\TU/TimesNewRoman(0)/m/n/14 Tuomas Haarnoja, Aurick Zhou, Kristian Hartikaine
 n, George Tucker,
@@ -1632,7 +1694,7 @@ Underfull \hbox (badness 3058) in paragraph at lines 49--54
 s in Neural Information Processing Systems
  []
 
-[49]
+[64]
 Underfull \hbox (badness 1057) in paragraph at lines 68--73
 \TU/TimesNewRoman(0)/m/n/14 Fidjeland, Georg Ostrovski, et al.  Human-level con
 trol through deep
@@ -1644,18 +1706,15 @@ Underfull \hbox (badness 3803) in paragraph at lines 88--92
 t/14 Journal of Machine Learning Research\TU/TimesNewRoman(0)/m/n/14 ,
  []
 
-[50]) [51] (appendix.tex
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 11.
- [52]
+[65]) [66] (appendix.tex [67]
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
-[53]
+[68]
 (C:\Users\Admin\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
-[54]
+[69]
 Overfull \hbox (4.68022pt too wide) in paragraph at lines 216--220
 \TU/TimesNewRoman(0)/m/n/13 ELO…) được ghi lại tự động qua TensorBoard cho từng
  lần chạy trong thư mục \TU/lmtt/m/n/13 results/\TU/TimesNewRoman(0)/m/n/13 .
@@ -1665,21 +1724,21 @@ Overfull \hbox (4.68022pt too wide) in paragraph at lines 216--220
 \tf@thm=\write9
 \openout9 = `main.thm'.
 
- [55] (main.aux)
+ [70] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FD0F640F800909E126E1105D6C0202DA;18210.
+(rerunfilecheck)             Checksum: 412F7F72FD567D7130D46343595B24C2;21113.
  ) 
 Here is how much of TeX's memory you used:
- 40779 strings out of 402987
- 936132 string characters out of 5448525
- 1868123 words of memory out of 5000000
- 68840 multiletter control sequences out of 15000+600000
- 643417 words of font info for 148 fonts, out of 8000000 for 9000
+ 41045 strings out of 402987
+ 941933 string characters out of 5448525
+ 1873155 words of memory out of 5000000
+ 69087 multiletter control sequences out of 15000+600000
+ 644116 words of font info for 152 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,17n,104p,1717b,2400s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,17n,104p,1717b,2401s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (67 pages).
+Output written on main.pdf (82 pages).

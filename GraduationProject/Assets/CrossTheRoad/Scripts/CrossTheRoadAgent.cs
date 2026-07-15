@@ -161,6 +161,16 @@ public class CrossTheRoadAgent : BaseAgent
         // Mặc định đứng yên
         discreteActions[0] = 0;
 
+        // Chế độ người chơi (GameHub): dùng input đã được đệm trong Update
+        // để không bị mất phím khi decision không trùng frame nhấn phím
+        var humanInput = GetComponent<GameHub.CrossRoadHumanInput>();
+
+        if (humanInput != null)
+        {
+            discreteActions[0] = humanInput.Consume();
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             discreteActions[0] = 1;

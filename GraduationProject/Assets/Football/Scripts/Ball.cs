@@ -69,8 +69,20 @@ namespace TableFootball
             return Util.Sigmoid(rb.linearVelocity);
         }
 
+        // Agent.OnEnable có thể gọi ReSet trước khi Initializer.Awake chạy,
+        // nên Ball phải tự khởi tạo được khi cần (và không init 2 lần
+        // vì fieldWidth/fieldLength bị tính lại mỗi lần gọi)
+        bool initialized;
+
         public void Initialize()
         {
+            if (initialized)
+            {
+                return;
+            }
+
+            initialized = true;
+
             rb = GetComponent<Rigidbody>();
             defPos = transform.localPosition;
             float r = transform.localScale.x;
@@ -80,6 +92,7 @@ namespace TableFootball
 
         public void ReSet()
         {
+            Initialize();
             DispatchResetEvent();
             SetToCenter();
         }

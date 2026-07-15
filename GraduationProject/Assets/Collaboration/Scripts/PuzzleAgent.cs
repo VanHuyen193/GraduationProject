@@ -160,6 +160,16 @@ public class PuzzleAgent : Agent
         // Điều khiển bằng bàn phím để test agent
         var discreteActionsOut = actionsOut.DiscreteActions;
 
+        // Chế độ người chơi (GameHub): dùng sơ đồ phím riêng (WASD / mũi tên)
+        // để 2 người chơi có thể điều khiển 2 agent trên cùng bàn phím
+        var humanInput = GetComponent<GameHub.PuzzleHumanInput>();
+
+        if (humanInput != null)
+        {
+            discreteActionsOut[0] = humanInput.GetAction();
+            return;
+        }
+
         // D -> xoay phải
         if (Input.GetKey(KeyCode.D))
         {
