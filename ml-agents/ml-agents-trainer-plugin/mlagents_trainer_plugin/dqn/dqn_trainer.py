@@ -10,6 +10,7 @@ from mlagents.trainers.trajectory import Trajectory, ObsUtil
 from mlagents.trainers.behavior_id_utils import BehaviorIdentifiers
 from mlagents_envs.base_env import BehaviorSpec
 from mlagents.trainers.settings import TrainerSettings
+from mlagents.trainers.exception import UnityTrainerException
 from .dqn_optimizer import DQNOptimizer, DQNSettings, QNetwork
 
 logger = get_logger(__name__)
@@ -127,6 +128,14 @@ class DQNTrainer(OffPolicyTrainer):
         :param behavior_spec: specifications for policy construction
         :return policy
         """
+        action_spec = behavior_spec.action_spec
+        if action_spec.continuous_size > 0 or len(action_spec.discrete_branches) == 0:
+            raise UnityTrainerException(
+                f"DQN only supports discrete action spaces, but behavior "
+                f"'{parsed_behavior_id.behavior_id}' has {action_spec.continuous_size} continuous "
+                f"actions. Switch the agent's Behavior Parameters to discrete "
+                f"actions before training with DQN."
+            )
         # initialize online Q-network which works as actor
         exploration_initial_eps = cast(
             DQNSettings, self.trainer_settings.hyperparameters

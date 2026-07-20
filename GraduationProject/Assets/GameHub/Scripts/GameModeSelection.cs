@@ -15,7 +15,8 @@ namespace GameHub
     {
         Player,          // Người chơi tự điều khiển
         Agent,           // Agent tự chơi (inference bằng model đã train)
-        PlayerWithAgent  // Người chơi cùng / đấu với agent
+        PlayerWithAgent, // Người chơi cùng / đấu với agent
+        AgentVsLLM       // Agent đã train đấu / phối hợp với LLM (ChatGPT, Gemini)
     }
 
     /// <summary>
@@ -36,6 +37,9 @@ namespace GameHub
 
         // Tên model thứ hai (chỉ dùng cho Football chế độ Agent vs Agent - đội Đỏ)
         public static string ModelB;
+
+        // LLM được chọn cho chế độ AgentVsLLM
+        public static LLMOption LLM;
 
         public static string SceneNameFor(GameEnvironment env)
         {
@@ -66,6 +70,7 @@ namespace GameHub
                 case PlayMode.Player: return "Người chơi";
                 case PlayMode.Agent: return "Agent tự chơi";
                 case PlayMode.PlayerWithAgent: return "Chơi với Agent";
+                case PlayMode.AgentVsLLM: return "Agent đấu LLM";
                 default: return mode.ToString();
             }
         }
@@ -81,6 +86,7 @@ namespace GameHub
             HasSelection = false;
             ModelA = null;
             ModelB = null;
+            LLM = null;
         }
     }
 }

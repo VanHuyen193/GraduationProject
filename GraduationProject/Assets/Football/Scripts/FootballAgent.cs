@@ -75,12 +75,33 @@ namespace TableFootball
             ball.ReSet();
         }
 
+        // Buffer tái sử dụng khi chạy chế độ action rời rạc (DQN)
+        float[] discreteActBuffer;
+
         // =========================
         // ACTION (Agent output)
         // =========================
         public override void OnActionReceived(ActionBuffers actions)
         {
-            float[] act = actions.ContinuousActions.Array;
+            float[] act;
+
+            if (actions.DiscreteActions.Length > 0)
+            {
+                // Chế độ DQN: mỗi branch có 3 mức {0, 1, 2} -> {-1, 0, +1}
+                int n = actions.DiscreteActions.Length;
+
+                if (discreteActBuffer == null || discreteActBuffer.Length != n)
+                    discreteActBuffer = new float[n];
+
+                for (int i = 0; i < n; i++)
+                    discreteActBuffer[i] = actions.DiscreteActions[i] - 1f;
+
+                act = discreteActBuffer;
+            }
+            else
+            {
+                act = actions.ContinuousActions.Array;
+            }
 
             // Điều khiển các rod
             agentTeam.StepUpdate(act);
@@ -98,10 +119,41 @@ namespace TableFootball
         // =========================
         public override void Heuristic(in ActionBuffers actionsOut)
         {
+            // Chế độ LLM (GameHub): đội do mô hình ngôn ngữ lớn điều khiển
+            var llmDriver = GetComponent<GameHub.LLMFootballDriver>();
+
+            if (llmDriver != null)
+            {
+                llmDriver.WriteActions(actionsOut.ContinuousActions);
+                return;
+            }
+
             // Chế độ người chơi (GameHub): đọc bàn phím từ FootballHumanInput
             var humanInput = GetComponent<FootballHumanInput>();
 
-            if (humanInput != null)
+            if (humanInput == null)
+                return;
+
+            if (actionsOut.DiscreteActions.Length > 0)
+            {
+                // Behavior đang ở chế độ rời rạc (DQN):
+                // lấy input liên tục rồi lượng tử hoá {-1, 0, +1} -> {0, 1, 2}
+                int n = actionsOut.DiscreteActions.Length;
+
+                if (discreteActBuffer == null || discreteActBuffer.Length != n)
+                    discreteActBuffer = new float[n];
+
+                humanInput.WriteActions(new ActionSegment<float>(discreteActBuffer));
+
+                var discreteOut = actionsOut.DiscreteActions;
+
+                for (int i = 0; i < n; i++)
+                {
+                    discreteOut[i] =
+                        Mathf.RoundToInt(Mathf.Clamp(discreteActBuffer[i], -1f, 1f)) + 1;
+                }
+            }
+            else
             {
                 humanInput.WriteActions(actionsOut.ContinuousActions);
             }

@@ -33,6 +33,15 @@ namespace GameHub
         private readonly int[] modelIndex = { 0, 0 };
         private string[] availableModels = new string[0];
 
+        // LLM đang chọn (chế độ AgentVsLLM — slot thứ hai)
+        private int llmIndex;
+
+        /// <summary>Slot 1 là bộ chọn LLM thay vì model?</summary>
+        private bool IsLLMSlot(int slot)
+        {
+            return selectedMode == PlayMode.AgentVsLLM && slot == 1;
+        }
+
         private RectTransform modelPanel;
         private readonly Text[] slotLabels = new Text[2];
         private readonly Text[] slotValues = new Text[2];
@@ -215,6 +224,19 @@ namespace GameHub
                 return new string[0];
             }
 
+            if (selectedMode == PlayMode.AgentVsLLM)
+            {
+                switch (selectedEnv)
+                {
+                    case GameEnvironment.CrossTheRoad:
+                        return new[] { "Model agent RL:", "LLM đua cùng:" };
+                    case GameEnvironment.CaptureTheFlag:
+                        return new[] { "Model agent RL:", "LLM đồng đội:" };
+                    default:
+                        return new[] { "Model đội Xanh:", "LLM đội Đỏ:" };
+                }
+            }
+
             switch (selectedEnv)
             {
                 case GameEnvironment.CrossTheRoad:
@@ -239,6 +261,14 @@ namespace GameHub
 
         private void CycleModel(int slot, int delta)
         {
+            if (IsLLMSlot(slot))
+            {
+                int count = LLMConfig.Options.Length;
+                llmIndex = (llmIndex + delta + count) % count;
+                Refresh();
+                return;
+            }
+
             if (availableModels.Length == 0)
             {
                 return;
@@ -289,25 +319,45 @@ namespace GameHub
                 bool active = i < slotNames.Length;
                 slotRows[i].gameObject.SetActive(active);
 
-                if (active)
+                if (!active)
                 {
-                    slotLabels[i].text = slotNames[i];
-                    slotValues[i].text = hasModels
+                    continue;
+                }
+
+                slotLabels[i].text = slotNames[i];
+
+                slotValues[i].text = IsLLMSlot(i)
+                    ? LLMConfig.Options[llmIndex].DisplayName
+                    : hasModels
                         ? availableModels[modelIndex[i]]
                         : "(chưa có model)";
-                }
             }
 
             // Mô tả + trạng thái nút chơi
             descriptionText.text = GetDescription();
 
             bool canPlay = !needModels || hasModels;
-            playButton.interactable = canPlay;
-
-            warningText.text = canPlay
+            string warning = canPlay
                 ? ""
                 : "Chưa có model nào trong Assets/GameHub/Resources/AgentModels/"
                   + selectedEnv + " — hãy thêm file .onnx vào đó.";
+
+            // Chế độ LLM: cần thêm API key của nhà cung cấp đã chọn
+            if (canPlay && selectedMode == PlayMode.AgentVsLLM)
+            {
+                LLMOption option = LLMConfig.Options[llmIndex];
+
+                if (!LLMConfig.HasApiKey(option.Provider))
+                {
+                    canPlay = false;
+                    warning = "Thiếu API key cho " + option.Provider
+                        + " — thêm vào Assets/StreamingAssets/llm_config.json"
+                        + " (xem llm_config.example.json).";
+                }
+            }
+
+            playButton.interactable = canPlay;
+            warningText.text = warning;
         }
 
         private string GetDescription()
@@ -322,6 +372,9 @@ namespace GameHub
                                  + "Phím: ← → ↑ (hoặc A / D / W).";
                         case PlayMode.Agent:
                             return "Agent tự chơi trên cả 9 khu vực bằng model đã huấn luyện.";
+                        case PlayMode.AgentVsLLM:
+                            return "Agent RL (trái) đua với LLM (phải): LLM nhận mô tả trạng thái"
+                                 + " bằng text và chọn hành động qua API.\nAi qua đường giỏi hơn?";
                         default:
                             return "Đua với agent: bạn ở khu vực bên trái, agent ở khu vực bên cạnh.\n"
                                  + "Phím: ← → ↑ (hoặc A / D / W).";
@@ -335,6 +388,10 @@ namespace GameHub
                                  + "Người 1: W A S D (Q / E đi ngang)  —  Người 2: phím mũi tên ( [ ] đi ngang).";
                         case PlayMode.Agent:
                             return "Hai agent tự phối hợp vượt màn bằng model đã huấn luyện.";
+                        case PlayMode.AgentVsLLM:
+                            return "Agent RL phối hợp cùng LLM: một nhân vật do model điều khiển,"
+                                 + " nhân vật kia do LLM quyết định qua API.\n"
+                                 + "LLM có hợp tác tốt như agent RL không?";
                         default:
                             return "Bạn điều khiển 1 nhân vật (W A S D, Q / E đi ngang), agent điều khiển nhân vật còn lại.\n"
                                  + "Phối hợp cùng nhau để qua màn!";
@@ -348,6 +405,9 @@ namespace GameHub
                                  + "Q / E hoặc 1-4: chọn thanh  —  W / S: trượt thanh  —  A / D: xoay sút.";
                         case PlayMode.Agent:
                             return "Model vs Model: hai đội do hai model điều khiển — quan sát và so sánh.";
+                        case PlayMode.AgentVsLLM:
+                            return "Đội Xanh (model RL) đấu với đội Đỏ (LLM điều khiển 4 thanh qua API).\n"
+                                 + "RL phản xạ từng frame, LLM suy nghĩ ~1-2 giây/lượt — ai thắng?";
                         default:
                             return "Bạn (đội Xanh) đấu với agent (đội Đỏ).\n"
                                  + "Q / E hoặc 1-4: chọn thanh  —  W / S: trượt thanh  —  A / D: xoay sút.";
@@ -368,6 +428,11 @@ namespace GameHub
 
             GameModeSelection.ModelB =
                 hasModels ? availableModels[modelIndex[1]] : null;
+
+            GameModeSelection.LLM =
+                selectedMode == PlayMode.AgentVsLLM
+                    ? LLMConfig.Options[llmIndex]
+                    : null;
 
             Time.timeScale = 1f;
 

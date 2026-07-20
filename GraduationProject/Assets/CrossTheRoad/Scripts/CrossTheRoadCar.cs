@@ -24,10 +24,14 @@ public class CrossTheRoadCar : MonoBehaviour
     private Vector3 originalPosition;
 
     public enum CarDirection
-    { 
+    {
         South,
         North
     }
+
+    // Cho GameHub/LLM mô tả trạng thái xe
+    public bool MovesTowardNegativeX => carDirection == CarDirection.North;
+    public float Speed => speed;
 
     void Awake()
     {

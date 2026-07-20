@@ -12,6 +12,9 @@ public class DetectTrigger : MonoBehaviour
     [SerializeField]
     private bool isCheckpoint = false;
 
+    // Cho GameHub/LLM tìm vị trí checkpoint
+    public bool IsCheckpoint => isCheckpoint;
+
     private Collider m_col;
     [System.Serializable]
     public class TriggerEvent : UnityEvent<Collider, float>

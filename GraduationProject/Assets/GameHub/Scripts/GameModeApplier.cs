@@ -125,6 +125,7 @@ namespace GameHub
             PlayMode mode = GameModeSelection.Mode;
             string info = ModeInfo();
             string help = null;
+            LLMDriverBase llmDriver = null;
 
             switch (mode)
             {
@@ -166,9 +167,28 @@ namespace GameHub
                     help = "Bạn: khu vực bên trái (← → ↑) — Agent: khu vực bên phải. Ai qua đường giỏi hơn?";
                     break;
                 }
+
+                case PlayMode.AgentVsLLM:
+                {
+                    KeepAreas(areas, 2);
+
+                    Configure(agents[0], LoadModel(GameModeSelection.ModelA));
+
+                    llmDriver = agents[1].gameObject
+                        .AddComponent<LLMCrossRoadDriver>();
+                    Configure(agents[1], null, 1);
+
+                    FrameCamera(new[] { areas[0], areas[1] });
+
+                    info += "  |  RL: " + GameModeSelection.ModelA
+                          + "  vs  LLM: " + GameModeSelection.LLM.DisplayName;
+                    help = "Agent RL: khu vực bên trái — LLM: khu vực bên phải. Ai qua đường giỏi hơn?";
+                    break;
+                }
             }
 
-            InGameHUD.Spawn(info, help);
+            InGameHUD hud = InGameHUD.Spawn(info, help);
+            hud.TrackLLM(llmDriver);
         }
 
         private static void KeepAreas(GameObject[] areas, int keepCount)
@@ -204,6 +224,7 @@ namespace GameHub
             PlayMode mode = GameModeSelection.Mode;
             string info = ModeInfo();
             string help = null;
+            LLMDriverBase llmDriver = null;
 
             switch (mode)
             {
@@ -238,9 +259,24 @@ namespace GameHub
                          + "Phối hợp đứng lên nút để mở cửa!";
                     break;
                 }
+
+                case PlayMode.AgentVsLLM:
+                {
+                    Configure(agents[0], LoadModel(GameModeSelection.ModelA));
+
+                    llmDriver = agents[1].gameObject
+                        .AddComponent<LLMPuzzleDriver>();
+                    Configure(agents[1], null, 1);
+
+                    info += "  |  RL: " + GameModeSelection.ModelA
+                          + "  +  LLM: " + GameModeSelection.LLM.DisplayName;
+                    help = "Agent RL và LLM phối hợp: đứng lên nút mở cửa, cùng tới checkpoint.";
+                    break;
+                }
             }
 
-            InGameHUD.Spawn(info, help);
+            InGameHUD hud = InGameHUD.Spawn(info, help);
+            hud.TrackLLM(llmDriver);
         }
 
         private static void SetupHumanPuzzle(
@@ -276,6 +312,7 @@ namespace GameHub
             string info = ModeInfo();
             string help = null;
             FootballHumanInput humanInput = null;
+            LLMDriverBase llmDriver = null;
 
             switch (mode)
             {
@@ -309,6 +346,25 @@ namespace GameHub
                          + "Bạn là đội Xanh, agent là đội Đỏ.";
                     break;
                 }
+
+                case PlayMode.AgentVsLLM:
+                {
+                    Configure(blue, LoadModel(GameModeSelection.ModelA));
+
+                    var footballLLM = red.gameObject
+                        .AddComponent<LLMFootballDriver>();
+                    footballLLM.team = red.AgentTeam;
+                    footballLLM.ball = Object.FindFirstObjectByType<Ball>();
+                    llmDriver = footballLLM;
+
+                    Configure(red, null, 1);
+
+                    info += "  |  Xanh (RL): " + GameModeSelection.ModelA
+                          + "  vs  Đỏ (LLM): " + GameModeSelection.LLM.DisplayName;
+                    help = "Đội Xanh: model RL — Đội Đỏ: " + GameModeSelection.LLM.DisplayName
+                         + " quyết định qua API (~1-2s/lượt).";
+                    break;
+                }
             }
 
             InGameHUD hud = InGameHUD.Spawn(info, help);
@@ -317,6 +373,8 @@ namespace GameHub
             {
                 hud.TrackFootballInput(humanInput);
             }
+
+            hud.TrackLLM(llmDriver);
         }
 
         private static FootballHumanInput SetupHumanFootball(FootballAgent agent)

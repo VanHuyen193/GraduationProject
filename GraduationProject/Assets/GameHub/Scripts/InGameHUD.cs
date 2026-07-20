@@ -20,6 +20,9 @@ namespace GameHub
         private Text rodText;
         private TableFootball.FootballHumanInput footballInput;
 
+        private Text llmText;
+        private LLMDriverBase llmDriver;
+
         public static InGameHUD Spawn(string info, string help)
         {
             var go = new GameObject("GameHubHUD");
@@ -33,6 +36,12 @@ namespace GameHub
         public void TrackFootballInput(TableFootball.FootballHumanInput input)
         {
             footballInput = input;
+        }
+
+        /// <summary>Gắn hiển thị trạng thái LLM (chế độ Agent đấu LLM). Null = bỏ qua.</summary>
+        public void TrackLLM(LLMDriverBase driver)
+        {
+            llmDriver = driver;
         }
 
         private void Start()
@@ -87,6 +96,16 @@ namespace GameHub
                 UIBuilder.Place((RectTransform)rodText.transform,
                     new Vector2(0f, 1f), new Vector2(180, -95), new Vector2(340, 40));
             }
+
+            // ===== Trạng thái LLM (chế độ Agent đấu LLM) =====
+            if (llmDriver != null)
+            {
+                llmText = UIBuilder.CreateText(
+                    canvas.transform, "LLMText", "", 22, AccentColor,
+                    TextAnchor.MiddleLeft);
+                UIBuilder.Place((RectTransform)llmText.transform,
+                    new Vector2(0.5f, 1f), new Vector2(0, -95), new Vector2(1400, 40));
+            }
         }
 
         private void Update()
@@ -99,6 +118,11 @@ namespace GameHub
             if (rodText != null && footballInput != null)
             {
                 rodText.text = "Thanh: " + footballInput.SelectedRodName;
+            }
+
+            if (llmText != null && llmDriver != null)
+            {
+                llmText.text = llmDriver.StatusLine;
             }
         }
 

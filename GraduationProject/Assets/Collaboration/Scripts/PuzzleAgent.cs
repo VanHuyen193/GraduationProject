@@ -160,6 +160,16 @@ public class PuzzleAgent : Agent
         // Điều khiển bằng bàn phím để test agent
         var discreteActionsOut = actionsOut.DiscreteActions;
 
+        // Chế độ LLM (GameHub): action do mô hình ngôn ngữ lớn quyết định,
+        // giữ nguyên giữa 2 lần trả lời (di chuyển bằng lực cần bấm giữ)
+        var llmDriver = GetComponent<GameHub.LLMPuzzleDriver>();
+
+        if (llmDriver != null)
+        {
+            discreteActionsOut[0] = llmDriver.CurrentAction;
+            return;
+        }
+
         // Chế độ người chơi (GameHub): dùng sơ đồ phím riêng (WASD / mũi tên)
         // để 2 người chơi có thể điều khiển 2 agent trên cùng bàn phím
         var humanInput = GetComponent<GameHub.PuzzleHumanInput>();

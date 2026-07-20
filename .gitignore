@@ -1,1 +1,5 @@
 *.pt
+
+# API key cho che do Agent dau LLM - KHONG commit
+GraduationProject/Assets/StreamingAssets/llm_config.json
+GraduationProject/Assets/StreamingAssets/llm_config.json.meta

@@ -44,6 +44,9 @@ public class CrossTheRoadAgent : BaseAgent
 
     private MoveToDirection moveToDirection = MoveToDirection.Idle;
 
+    // Vị trí đích (cho GameHub/LLM mô tả trạng thái)
+    public Vector3 GoalLocalPosition => goal.transform.localPosition;
+
     private void Awake()
     {
         goal = transform.parent.GetComponentInChildren<CrossTheRoadGoal>();
@@ -160,6 +163,15 @@ public class CrossTheRoadAgent : BaseAgent
 
         // Mặc định đứng yên
         discreteActions[0] = 0;
+
+        // Chế độ LLM (GameHub): action do mô hình ngôn ngữ lớn quyết định
+        var llmDriver = GetComponent<GameHub.LLMCrossRoadDriver>();
+
+        if (llmDriver != null)
+        {
+            discreteActions[0] = llmDriver.ConsumeAction();
+            return;
+        }
 
         // Chế độ người chơi (GameHub): dùng input đã được đệm trong Update
         // để không bị mất phím khi decision không trùng frame nhấn phím
