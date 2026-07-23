@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
@@ -36,13 +36,13 @@ namespace TableFootball
         [SerializeField] bool use2DBallObs;
 
         [Header("Reward")]
-        [SerializeField] float goalScoredReward = 1f;
-        [SerializeField] float goalConcededPenalty = 1f;
+        [SerializeField] float goalScoredReward = 5f;
+        [SerializeField] float goalConcededPenalty = 5f;
 
         [SerializeField] float shotRewardMultiplier = 0.1f;
         bool useShotReward;
 
-        [SerializeField] float maxSpinPenalty = 0.01f;
+        [SerializeField] float maxSpinPenalty = 0f;
         bool useSpinPenalty;
 
         // =========================
@@ -50,6 +50,9 @@ namespace TableFootball
         // =========================
         public override void Initialize()
         {
+            // Set MaxStep for an episode (approx 1 minute at 50 FPS)
+            MaxStep = 3000;
+
             ID = gameObject.GetInstanceID();
 
             Stats = new AgentStats(agentTeam.transform.name);
@@ -105,6 +108,9 @@ namespace TableFootball
 
             // Điều khiển các rod
             agentTeam.StepUpdate(act);
+
+            // Time penalty để ép agent thi đấu nhanh hơn
+            AddReward(-1f / MaxStep);
 
             // Reward nên đặt ở đây (KHÔNG phải CollectObservations)
             if (useShotReward)
@@ -227,8 +233,12 @@ namespace TableFootball
                 float reward = shotRewardMultiplier *
                                Vector3.Dot(delta.normalized, ball.Velocity);
 
-                AddReward(reward);
-                Stats.AddReward(AgentStats.SHOT_REWARD, reward);
+                // Chỉ thưởng khi bóng tiến lên, không phạt khi bóng lùi về
+                if (reward > 0)
+                {
+                    AddReward(reward);
+                    Stats.AddReward(AgentStats.SHOT_REWARD, reward);
+                }
             }
         }
 

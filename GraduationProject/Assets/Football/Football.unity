@@ -3531,10 +3531,10 @@ MonoBehaviour:
   opponentTeam: {fileID: 1587964001708956429}
   ball: {fileID: 468120020}
   use2DBallObs: 0
-  goalScoredReward: 1
+  goalScoredReward: 5
   goalConcededPenalty: 1
   shotRewardMultiplier: 0
-  maxSpinPenalty: 0.005
+  maxSpinPenalty: 0
 --- !u!114 &1688371587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3740,10 +3740,10 @@ MonoBehaviour:
   opponentTeam: {fileID: 8882337539177371955}
   ball: {fileID: 468120020}
   use2DBallObs: 0
-  goalScoredReward: 1
+  goalScoredReward: 5
   goalConcededPenalty: 1
   shotRewardMultiplier: 0
-  maxSpinPenalty: 0.005
+  maxSpinPenalty: 0
 --- !u!1 &1864375937
 GameObject:
   m_ObjectHideFlags: 0
