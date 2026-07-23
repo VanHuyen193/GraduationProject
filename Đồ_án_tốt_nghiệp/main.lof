@@ -1,21 +1,21 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Vòng lặp tương tác giữa agent và môi trường trong học tăng cường}}{10}{figure.caption.2}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kiến trúc tổng thể của Unity ML-Agents Toolkit}}{19}{figure.caption.4}%
-\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}}{25}{figure.caption.5}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}}{28}{figure.caption.7}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}}{30}{figure.caption.9}%
-\contentsline {figure}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}}{38}{figure.caption.14}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}}{38}{figure.caption.15}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}}{40}{figure.caption.17}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}}{41}{figure.caption.19}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}}{42}{figure.caption.20}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}}{43}{figure.caption.21}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}}{43}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}}{45}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}}{46}{figure.caption.25}%
-\contentsline {figure}{\numberline {5.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Luồng hoạt động của ứng dụng trình diễn}}{52}{figure.caption.29}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Màn hình menu chính của ứng dụng trình diễn}}{53}{figure.caption.30}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi: hai ô chọn riêng cho đội Xanh và đội Đỏ}}{54}{figure.caption.31}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực Cross The Road}}{56}{figure.caption.33}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với tác nhân dùng mô hình SAC (phải)}}{57}{figure.caption.34}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng tác nhân đồng đội dùng mô hình MA-POCA}}{58}{figure.caption.35}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh, góc trên trái hiển thị thanh gạt đang được chọn}}{59}{figure.caption.36}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}}{28}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}}{32}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}}{37}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}}{45}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}}{45}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}}{47}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}}{48}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}}{49}{figure.caption.20}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}}{50}{figure.caption.21}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}}{50}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}}{52}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}}{53}{figure.caption.25}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Luồng hoạt động của ứng dụng trình diễn}}{59}{figure.caption.29}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Màn hình menu chính của ứng dụng trình diễn}}{60}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi: hai ô chọn riêng cho đội Xanh và đội Đỏ}}{61}{figure.caption.31}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực Cross The Road}}{63}{figure.caption.33}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với tác nhân dùng mô hình SAC (phải)}}{64}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng tác nhân đồng đội dùng mô hình MA-POCA}}{65}{figure.caption.35}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh, góc trên trái hiển thị thanh gạt đang được chọn}}{66}{figure.caption.36}%

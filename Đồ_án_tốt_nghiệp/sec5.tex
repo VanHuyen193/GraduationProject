@@ -43,58 +43,193 @@ mà không ảnh hưởng đến tính đúng đắn của vật lý. Toàn bộ
 Python được trình bày ở Mục~\ref{sub:codestruct}.
 
 \subsubsection{Không gian quan sát}
-\indent Không gian quan sát quyết định những gì tác nhân có thể ``nhìn thấy'' về môi
-trường tại mỗi thời điểm, và do đó ảnh hưởng trực tiếp đến chất lượng chính sách mà
-tác nhân có thể học được. Cả ba môi trường của đề tài đều sử dụng dạng quan sát vector,
-tức một chuỗi số thực mô tả các đại lượng liên quan như vị trí, vận tốc, khoảng cách
-hay trạng thái của các đối tượng. Nguyên tắc thiết kế xuyên suốt là chỉ đưa vào những
-thông tin tối thiểu nhưng đủ để tác nhân thỏa mãn gần đúng tính chất Markov, nghĩa là
-chỉ cần quan sát hiện tại đã đủ để ra quyết định hợp lý mà không cần ghi nhớ toàn bộ
-lịch sử.
+\label{sub:obs-space}
+\indent Trong một hệ thống học tăng cường, cần phân biệt rành mạch giữa \emph{trạng
+thái} của môi trường và \emph{quan sát} mà tác nhân nhận được. Trạng thái là toàn bộ
+lượng thông tin mô tả đầy đủ tình huống hiện tại của thế giới mô phỏng, bao gồm cả
+những đại lượng mà tác nhân không thể trực tiếp cảm nhận; trong khi đó quan sát chỉ là
+phần thông tin mà tác nhân thực sự tiếp cận được thông qua các cảm biến của nó. Sự phân
+biệt này là điểm xuất phát cho mọi quyết định thiết kế về sau, vì thế trước hết đề tài
+phát biểu nó một cách hình thức.
 
-\indent Để quá trình huấn luyện ổn định, các giá trị quan sát đều được chuẩn hóa về
-lân cận khoảng từ âm một đến một trước khi đưa vào mạng nơ-ron. Việc chuẩn hóa này đặc
-biệt cần thiết với môi trường Football Table, nơi các đại lượng vật lý như vận tốc
-bóng và góc xoay thanh gạt có thang đo rất khác nhau; nếu không chuẩn hóa, những đại
-lượng có giá trị lớn sẽ lấn át các đại lượng nhỏ và làm sai lệch quá trình học. Ngoài
-quan sát vector, hai môi trường Cross The Road và Cooperative Puzzle còn được trang bị
-thêm cảm biến tia. Cảm biến này phóng ra một chùm tia từ vị trí tác nhân theo nhiều
-hướng và ghi lại khoảng cách cùng loại vật thể mà mỗi tia chạm tới, qua đó mô phỏng
-khả năng quan sát không gian xung quanh tương tự như thị giác của một thực thể trong
-thế giới ba chiều.
+\begin{dn}[Không gian quan sát]
+\label{dn:obs}
+Cho môi trường có không gian trạng thái $S$. Không gian quan sát $\Omega$ là tập hợp
+tất cả các quan sát khả dĩ mà tác nhân có thể nhận được. Hàm quan sát
+$O: S \to \Omega$ ánh xạ mỗi trạng thái $s \in S$ sang một quan sát $o = O(s)$ mà tác
+nhân dùng làm căn cứ duy nhất để ra quyết định tại bước thời gian tương ứng.
+\end{dn}
+
+\indent Khi hàm quan sát $O$ là song ánh, mỗi quan sát tương ứng với đúng một trạng
+thái, và tác nhân có thể coi như ``nhìn thấy'' toàn bộ trạng thái; bài toán khi đó là
+một quá trình quyết định Markov (MDP) đầy đủ như đã trình bày ở Mục~\ref{sub:mdp}.
+Ngược lại, khi $O$ không song ánh, tức khi nhiều trạng thái khác nhau cùng cho ra một
+quan sát, tác nhân không thể phân biệt các trạng thái đó và bài toán trở thành một
+\emph{quá trình quyết định Markov quan sát một phần} (Partially Observable MDP, viết
+tắt POMDP). Phần lớn các môi trường trong game, kể cả ba môi trường của đề tài, về bản
+chất là POMDP: một tác nhân không thể biết chính xác vận tốc tương lai của một phương
+tiện, cũng như không thể nhìn xuyên qua tường để biết vị trí đồng đội. Nhiệm vụ của
+người thiết kế, do đó, không phải là cung cấp toàn bộ trạng thái, mà là chọn ra một
+tập quan sát \emph{đủ} để bài toán xấp xỉ được tính chất Markov, tức là để quan sát
+hiện tại một mình đã chứa gần như toàn bộ thông tin cần thiết cho một quyết định hợp
+lý, mà không buộc tác nhân phải ghi nhớ toàn bộ lịch sử.
+
+\begin{dn}[Tính chất Markov của quan sát]
+\label{dn:markov-obs}
+Một biểu diễn quan sát được gọi là thỏa mãn tính chất Markov nếu phân phối xác suất
+của trạng thái kế tiếp và phần thưởng chỉ phụ thuộc vào quan sát và hành động hiện tại,
+mà không phụ thuộc thêm vào bất kỳ quan sát nào trong quá khứ:
+\[
+\Pr\bigl(o_{t+1}, r_{t+1} \mid o_t, a_t, o_{t-1}, a_{t-1}, \dots\bigr)
+= \Pr\bigl(o_{t+1}, r_{t+1} \mid o_t, a_t\bigr).
+\]
+\end{dn}
+
+\indent Trong thực tế, hiếm khi đạt được tính chất Markov một cách tuyệt đối, nên mục
+tiêu thiết kế là làm cho nó \emph{gần đúng} nhất có thể với chi phí quan sát thấp nhất.
+Có hai kỹ thuật bổ trợ thường dùng khi một quan sát tức thời chưa đủ Markov. Thứ nhất
+là \emph{chồng khung} (frame stacking): ghép nối một số quan sát liên tiếp gần nhất
+thành một vector duy nhất, nhờ đó thông tin về xu hướng chuyển động, chẳng hạn vận tốc
+suy ra từ hiệu vị trí giữa hai khung, được đưa vào tường minh. Thứ hai là sử dụng
+mạng có bộ nhớ hồi tiếp để tác nhân tự tổng hợp lịch sử. Đề tài chủ yếu dùng cách thứ
+nhất và bổ sung trực tiếp các đại lượng động như vận tốc vào vector quan sát, nhằm giữ
+cho mạng chính sách đơn giản và ổn định.
+
+\indent Cả ba môi trường của đề tài đều dùng dạng quan sát \emph{vector}, tức một chuỗi
+số thực có độ dài cố định, trong đó mỗi phần tử mã hóa một đại lượng có ý nghĩa vật lý
+hoặc logic. Có ba loại đại lượng thường gặp. Loại thứ nhất là các đại lượng liên tục
+như tọa độ, vận tốc, khoảng cách hay góc xoay. Loại thứ hai là các cờ nhị phân biểu
+diễn trạng thái logic, chẳng hạn một bàn đạp đã được nhấn hay chưa, được mã hóa bằng
+giá trị không hoặc một. Loại thứ ba, khi cần biểu diễn một biến rời rạc có nhiều mức,
+là mã hóa một-nóng (one-hot). Nguyên tắc xuyên suốt là chỉ đưa vào những đại lượng
+tối thiểu nhưng đủ; mỗi phần tử thừa đều làm tăng số chiều đầu vào của mạng và khiến
+việc học chậm hơn, trong khi mỗi phần tử thiếu có thể phá vỡ tính chất Markov và khiến
+bài toán trở nên bất khả học.
+
+\indent Để quá trình huấn luyện ổn định, các giá trị quan sát liên tục được
+\emph{chuẩn hóa} về lân cận khoảng $[-1, 1]$ trước khi đưa vào mạng nơ-ron. Với một
+đại lượng $x$ có kỳ vọng $\mu$ và độ lệch chuẩn $\sigma$ ước lượng trực tuyến trong
+quá trình chạy, giá trị chuẩn hóa là $\hat{x} = (x - \mu)/\sigma$. Việc chuẩn hóa đặc
+biệt thiết yếu với môi trường Football Table, nơi các đại lượng như vận tốc bóng và
+góc xoay thanh gạt có thang đo chênh nhau nhiều bậc; nếu để nguyên, những đại lượng
+giá trị lớn sẽ tạo ra gradient lấn át và làm sai lệch việc học của các đại lượng nhỏ.
+
+\indent Bên cạnh quan sát vector, hai môi trường Cross The Road và Cooperative Puzzle
+còn được trang bị \emph{cảm biến tia} (Ray Perception Sensor), một cơ chế quan sát
+không gian mô phỏng thị giác của thực thể trong thế giới ba chiều. Cảm biến phóng ra
+một chùm gồm nhiều tia từ vị trí tác nhân, trải đều trong một góc quạt phía trước và
+hai bên. Mỗi tia dò tìm vật thể đầu tiên mà nó chạm tới trong một tầm xa giới hạn, rồi
+trả về hai loại thông tin: một là loại vật thể bị chạm, mã hóa một-nóng trên tập các
+nhãn cần phát hiện, hai là khoảng cách chuẩn hóa từ tác nhân tới điểm chạm. Nếu gọi
+$k$ là số tia và $m$ là số nhãn vật thể cần phát hiện, thì mỗi tia sinh ra $m + 2$ giá
+trị, gồm $m$ giá trị một-nóng cho nhãn, một giá trị báo tia có chạm gì không, và một
+giá trị khoảng cách; tổng số chiều quan sát do cảm biến tia đóng góp là $k \times
+(m + 2)$. Nhờ cảm biến này, một tác nhân trong môi trường Cooperative Puzzle có thể
+phát hiện được tường, cửa, bàn đạp, điểm đích và cả đồng đội ở trong tầm nhìn, mà không
+cần được cung cấp tọa độ tuyệt đối của chúng.
 
 \subsubsection{Không gian hành động}
-\indent Đề tài chủ ý lựa chọn ba môi trường có không gian hành động khác nhau nhằm
-đánh giá tính linh hoạt của từng thuật toán trên nhiều dạng điều khiển. Môi trường
-Football Table sử dụng không gian hành động liên tục gồm tám chiều, tương ứng với lực
-trượt ngang và lực xoay của bốn thanh gạt; mỗi chiều nhận một giá trị thực trong một
-khoảng liên tục, phản ánh bản chất điều khiển vật lý mượt mà của trò chơi bi lắc. Hai
-môi trường còn lại sử dụng không gian hành động rời rạc, trong đó tác nhân chọn một
-trong một số hữu hạn các hành động định sẵn tại mỗi bước. Môi trường Cross The Road có
-bốn hành động là đứng yên, sang trái, sang phải và tiến về phía trước, còn môi trường
-Cooperative Puzzle có bảy hành động gồm đứng yên, tiến, lùi, xoay trái, xoay phải, đi
-ngang sang trái và đi ngang sang phải. Sự có mặt đồng thời của cả hành động liên tục
-lẫn rời rạc cho phép làm nổi bật thế mạnh của SAC trên không gian liên tục, đồng thời
-kiểm chứng khả năng của cả ba thuật toán trên không gian rời rạc.
+\label{sub:action-space}
+\indent Tương ứng với quan sát ở đầu vào, hành động là đầu ra mà chính sách của tác
+nhân sinh ra ở mỗi bước để tác động lên môi trường.
+
+\begin{dn}[Không gian hành động]
+\label{dn:action}
+Không gian hành động $A$ là tập hợp tất cả các hành động mà tác nhân được phép thực
+hiện. Không gian này được gọi là \emph{rời rạc} nếu $A$ là một tập hữu hạn các lựa
+chọn, và được gọi là \emph{liên tục} nếu $A$ là một tập con của không gian số thực
+nhiều chiều $\mathbb{R}^{n}$, khi đó mỗi hành động là một vector số thực bị chặn trong
+một khoảng cho trước.
+\end{dn}
+
+\indent Sự khác nhau giữa hai dạng không gian hành động dẫn tới hai cách mà mạng chính
+sách biểu diễn đầu ra. Với không gian rời rạc, mạng xuất ra một phân phối xác suất trên
+tập hành động và tác nhân lấy mẫu một hành động từ phân phối đó; trường hợp có nhiều
+nhóm hành động độc lập, ML-Agents dùng dạng \emph{đa rời rạc} (multi-discrete), trong
+đó mỗi nhóm là một nhánh có phân phối riêng. Với không gian liên tục, mạng thường xuất
+ra các tham số của một phân phối chuẩn nhiều chiều, gồm kỳ vọng và độ lệch chuẩn cho
+mỗi chiều, rồi hành động được lấy mẫu và cắt về khoảng hợp lệ. Chính vì cách biểu diễn
+khác nhau này mà một số thuật toán tỏ ra phù hợp hơn với một dạng không gian nhất định;
+đặc biệt, SAC được thiết kế nguyên thủy cho điều khiển liên tục và phát huy thế mạnh
+rõ nhất ở đó.
+
+\indent Đề tài chủ ý lựa chọn ba môi trường phủ cả hai dạng không gian hành động nhằm
+đánh giá tính linh hoạt của từng thuật toán. Môi trường Football Table dùng không gian
+hành động \emph{liên tục} tám chiều: bốn thanh gạt, mỗi thanh gồm một chiều điều khiển
+lực trượt ngang và một chiều điều khiển lực xoay, mỗi chiều nhận một giá trị thực phản
+ánh bản chất điều khiển vật lý mượt mà của trò chơi bi lắc. Hai môi trường còn lại dùng
+không gian hành động \emph{rời rạc} một nhánh. Cross The Road có bốn hành động gồm đứng
+yên, sang trái, sang phải và tiến; Cooperative Puzzle có bảy hành động gồm đứng yên,
+tiến, lùi, xoay trái, xoay phải, đi ngang sang trái và đi ngang sang phải. Một điểm cần
+nhấn mạnh là quan hệ giữa hành động được chọn và tác động vật lý thực tế: trong hai môi
+trường rời rạc, mỗi hành động di chuyển không dịch chuyển tác nhân tức thời mà cộng một
+xung lực vào vật thể vật lý của tác nhân, sau đó vật lý của Unity mới quyết định chuyển
+động cuối cùng dưới tác động của lực cản. Chi tiết định lượng của cơ chế này được phân
+tích trong phần thiết kế của từng môi trường.
 
 \subsubsection{Nguyên tắc thiết kế hàm phần thưởng}
+\label{sub:reward-principle}
 \indent Hàm phần thưởng là thành phần khó thiết kế nhất trong một hệ thống học tăng
-cường, bởi nó là tín hiệu duy nhất định hướng hành vi của tác nhân. Một hàm phần
-thưởng thiết kế không tốt có thể khiến tác nhân học được những hành vi kỳ lạ nhưng vẫn
-tối đa hóa phần thưởng, một hiện tượng thường được gọi là lợi dụng phần thưởng. Để
-tránh điều này, đề tài áp dụng nhất quán nguyên tắc kết hợp giữa phần thưởng thưa tại
-trạng thái kết thúc và phần thưởng định hướng dày đặc.
+cường, bởi nó là tín hiệu \emph{duy nhất} định hướng hành vi của tác nhân: tác nhân
+không được cho biết phải làm gì, mà chỉ học cách tối đa hóa tổng phần thưởng chiết khấu
+mà nó nhận về.
 
-\indent Phần thưởng thưa, chẳng hạn cộng một điểm khi ghi bàn hoặc khi đến đích, xác
-định rõ mục tiêu cuối cùng mà tác nhân cần đạt được. Tuy nhiên, nếu chỉ dựa vào phần
-thưởng thưa thì trong giai đoạn đầu, khi tác nhân hầu như chưa bao giờ tình cờ đạt mục
-tiêu, tín hiệu học sẽ quá hiếm và quá trình huấn luyện tiến triển rất chậm. Vì vậy,
-đề tài bổ sung thêm các phần thưởng định hướng nhỏ, chẳng hạn thưởng khi tác nhân đá
-bóng về phía khung thành đối phương, để cung cấp tín hiệu học thường xuyên hơn và dẫn
-dắt tác nhân đi đúng hướng. Điều cốt yếu là độ lớn của các phần thưởng định hướng luôn
-được giữ nhỏ hơn nhiều so với phần thưởng mục tiêu, để chúng chỉ đóng vai trò gợi ý
-chứ không làm tác nhân sao nhãng khỏi mục tiêu chính. Chi tiết hàm phần thưởng của
-từng môi trường được trình bày ngay trong các mục tương ứng dưới đây.
+\begin{dn}[Hàm phần thưởng]
+\label{dn:reward}
+Hàm phần thưởng $R: S \times A \times S \to \mathbb{R}$ gán cho mỗi phép chuyển trạng
+thái, khi tác nhân thực hiện hành động $a$ ở trạng thái $s$ và môi trường chuyển sang
+trạng thái $s'$, một số thực $r = R(s, a, s')$. Mục tiêu của tác nhân là tối đa hóa kỳ
+vọng của tổng phần thưởng chiết khấu $G_t = \sum_{k=0}^{\infty} \gamma^{k}\, r_{t+k+1}$,
+với $\gamma \in [0,1)$ là hệ số chiết khấu.
+\end{dn}
+
+\indent Một hàm phần thưởng thiết kế kém có thể khiến tác nhân học được những hành vi
+kỳ quặc nhưng vẫn tối đa hóa phần thưởng, hiện tượng gọi là \emph{lợi dụng phần thưởng}
+(reward hacking). Để phòng tránh, đề tài áp dụng nhất quán nguyên tắc kết hợp giữa phần
+thưởng thưa tại trạng thái kết thúc và phần thưởng định hướng dày đặc. Phần thưởng thưa,
+chẳng hạn cộng một điểm khi ghi bàn hoặc khi tới đích, xác định rõ mục tiêu cuối cùng;
+nhưng nếu chỉ có phần thưởng thưa thì ở giai đoạn đầu, khi tác nhân hầu như chưa bao
+giờ tình cờ đạt mục tiêu, tín hiệu học quá hiếm và việc huấn luyện tiến triển rất chậm.
+Vì vậy đề tài bổ sung các phần thưởng định hướng nhỏ để cung cấp tín hiệu học thường
+xuyên và dẫn dắt tác nhân đi đúng hướng.
+
+\indent Tuy nhiên, việc thêm phần thưởng định hướng một cách tùy tiện lại chính là
+nguồn gốc phổ biến của lợi dụng phần thưởng, vì nó có thể vô tình tạo ra những vòng lặp
+hành vi cho điểm cao mà không tiến tới mục tiêu. Một khuôn khổ lý thuyết giúp thêm phần
+thưởng định hướng một cách \emph{an toàn} là \emph{định hình phần thưởng theo thế năng}
+(potential-based reward shaping) của Ng và cộng sự \cite{ng1999policy}.
+
+\begin{dn}[Định hình phần thưởng theo thế năng]
+\label{dn:pbrs}
+Cho một hàm thế năng $\Phi: S \to \mathbb{R}$ gán cho mỗi trạng thái một giá trị vô
+hướng. Phần thưởng định hình được cộng thêm vào phép chuyển từ $s$ sang $s'$ có dạng
+\[
+F(s, s') = \gamma\, \Phi(s') - \Phi(s).
+\]
+Khi đó chính sách tối ưu của bài toán với phần thưởng $R + F$ trùng đúng với chính sách
+tối ưu của bài toán gốc với phần thưởng $R$; nói cách khác, phần thưởng định hình dạng
+này không làm thay đổi lời giải tối ưu, mà chỉ định hướng lại quá trình học.
+\end{dn}
+
+\indent Tính chất bất biến này có ý nghĩa thực tiễn rất quan trọng: nó cho phép người
+thiết kế đưa vào tín hiệu định hướng dày đặc mà không lo làm sai lệch mục tiêu, đồng
+thời loại trừ khả năng lợi dụng phần thưởng bằng cách đi tới đi lui, bởi tổng phần
+thưởng định hình trên một chu trình khép kín luôn bằng không. Một lựa chọn tự nhiên
+cho hàm thế năng trong các bài toán điều hướng là lấy $\Phi(s) = -d(s)$ với $d(s)$ là
+khoảng cách từ tác nhân tới mục tiêu, khi đó $F$ thưởng cho mỗi bước làm giảm khoảng
+cách và phạt cho mỗi bước làm tăng khoảng cách. Nguyên tắc này được đề tài vận dụng
+trực tiếp trong môi trường Cooperative Puzzle và sẽ được trình bày chi tiết ở
+Mục~\ref{sub:env-coop}.
+
+\indent Bên cạnh việc gán công lao theo thời gian, các môi trường hợp tác còn đặt ra
+bài toán \emph{gán công lao giữa nhiều tác nhân}: khi cả nhóm cùng nhận một phần thưởng
+chung, làm sao xác định được đóng góp thực sự của từng tác nhân để cập nhật chính sách
+cho đúng. Đây là bài toán mà cơ chế phần thưởng nhóm và thuật toán MA-POCA được thiết
+kế để giải quyết; mối liên hệ giữa thiết kế phần thưởng nhóm và khả năng gán công lao
+sẽ được làm rõ trong môi trường Cooperative Puzzle. Điểm cốt yếu chung cho mọi môi
+trường là độ lớn của các phần thưởng định hướng luôn được giữ nhỏ hơn nhiều so với phần
+thưởng mục tiêu, để chúng chỉ đóng vai trò gợi ý chứ không lấn át mục tiêu chính. Chi
+tiết hàm phần thưởng của từng môi trường được trình bày trong các mục tương ứng dưới đây.
 
 % ═══════════════════════════════════════════════
 \subsection{Môi trường 1: Football Table}
@@ -122,40 +257,68 @@ Hình~\ref{fig:env_football}.
 
 \subsubsection{Thiết kế tác nhân và luật chơi}
 \indent Mỗi đội được điều khiển bởi một tác nhân duy nhất, quản lý đồng thời cả bốn
-thanh gạt của đội. Tại mỗi bước, tác nhân xuất ra tám giá trị liên tục, trong đó với
-mỗi thanh gạt có một giá trị điều khiển chuyển động trượt ngang để đưa cầu thủ đến
-đúng vị trí, và một giá trị điều khiển chuyển động xoay để thực hiện cú đá. Cách gộp
-toàn bộ đội vào một tác nhân giúp đơn giản hóa việc phối hợp giữa các thanh gạt, đồng
-thời phù hợp với cơ chế tự chơi khi mỗi phía chỉ cần một chính sách.
+thanh gạt của đội. Tại mỗi bước, tác nhân xuất ra tám giá trị liên tục; với mỗi thanh
+gạt có một giá trị điều khiển chuyển động trượt ngang để đưa cầu thủ đến đúng vị trí và
+một giá trị điều khiển chuyển động xoay để thực hiện cú đá. Việc gộp toàn bộ đội vào một
+tác nhân duy nhất, thay vì mỗi thanh gạt một tác nhân, có hai lợi ích. Thứ nhất, nó biến
+bài toán phối hợp giữa bốn thanh gạt thành một bài toán điều khiển tập trung mà một
+chính sách duy nhất có thể học, tránh được sự phức tạp của việc đồng bộ nhiều tác nhân
+độc lập. Thứ hai, nó phù hợp trực tiếp với cơ chế tự chơi, vì khi đó mỗi phía của bàn
+chỉ cần đúng một chính sách để thi đấu.
 
-\indent Vector quan sát của tác nhân bao gồm ba nhóm thông tin. Nhóm thứ nhất mô tả
-trạng thái quả bóng, gồm vận tốc và vị trí của bóng trong không gian ba chiều sau khi
-đã chuẩn hóa. Nhóm thứ hai mô tả trạng thái đội nhà, trong đó với mỗi thanh gạt, tác
-nhân quan sát được vận tốc trượt, vận tốc xoay, vị trí và góc xoay hiện tại. Nhóm thứ
-ba mô tả trạng thái đội đối phương với các đại lượng tương tự. Toàn bộ các giá trị này
-được nhân với một hệ số dấu tùy theo phía của đội, nhờ đó một chính sách duy nhất có
-thể vận hành đối xứng cho cả hai phía bàn mà không cần huấn luyện riêng.
+\indent Vì đây là không gian hành động liên tục, quan hệ giữa giá trị hành động và tác
+động vật lý là quan hệ liên tục: mỗi giá trị điều khiển được diễn giải thành một lực
+hoặc một vận tốc đặt lên thanh gạt tương ứng, và vật lý của Unity tính ra chuyển động
+mượt của thanh gạt cùng va chạm của nó với quả bóng. Chính tính liên tục này khiến môi
+trường Football Table trở thành phép thử tiêu biểu cho các thuật toán điều khiển liên
+tục, khác hẳn với hai môi trường rời rạc còn lại.
 
-\indent Một lượt chơi kết thúc khi có bàn thắng, tức khi bóng đi vào một trong hai
-khung thành. Để tạo ra đối thủ trong quá trình huấn luyện, môi trường sử dụng cơ chế
-tự chơi: tác nhân thi đấu với chính các phiên bản trước đó của mình được lưu lại theo
-định kỳ, nhờ đó trình độ của cả hai phía cùng tăng lên theo thời gian và tạo thành một
-chương trình học tự nhiên với độ khó tăng dần. Bên cạnh đó, môi trường còn được trang
-bị một đối thủ điều khiển bằng luật đơn giản, hoạt động dựa trên vị trí quả bóng, để
-phục vụ việc huấn luyện những thuật toán không hỗ trợ cơ chế tự chơi cũng như để làm
-mốc đánh giá chung cho cả ba thuật toán.
+\indent Một lượt chơi kết thúc khi có bàn thắng, tức khi bóng đi vào một trong hai khung
+thành. Để tạo ra đối thủ trong quá trình huấn luyện, môi trường sử dụng cơ chế tự chơi:
+tác nhân thi đấu với chính các phiên bản trước đó của mình được lưu lại theo định kỳ,
+nhờ đó trình độ của cả hai phía cùng tăng lên theo thời gian và tạo thành một chương
+trình học tự nhiên với độ khó tăng dần. Bên cạnh đó, môi trường còn được trang bị một
+đối thủ điều khiển bằng luật đơn giản, hoạt động dựa trên vị trí quả bóng, vừa để làm
+mốc đánh giá chung cho cả ba thuật toán, vừa để phục vụ những cấu hình huấn luyện không
+dùng tự chơi.
+
+\subsubsection{Không gian quan sát của tác nhân}
+\label{sub:football-obs}
+\indent Theo nguyên tắc thiết kế quan sát ở Mục~\ref{sub:obs-space}, vector quan sát của
+tác nhân trong môi trường Football Table gồm ba nhóm thông tin bổ sung cho nhau. Nhóm
+thứ nhất mô tả trạng thái quả bóng, gồm vận tốc và vị trí của bóng trong không gian ba
+chiều; đây là thông tin trung tâm vì mọi quyết định tấn công hay phòng thủ đều xoay
+quanh vị trí và hướng đi của bóng. Nhóm thứ hai mô tả trạng thái đội nhà: với mỗi thanh
+gạt, tác nhân quan sát được vận tốc trượt, vận tốc xoay, vị trí trượt và góc xoay hiện
+tại, tức đủ để biết chính xác tư thế của toàn bộ hàng cầu thủ của mình. Nhóm thứ ba mô
+tả trạng thái đội đối phương với các đại lượng tương tự, cho phép tác nhân dự đoán ý đồ
+và phản ứng của đối thủ.
+
+\indent Do các đại lượng này có thang đo rất khác nhau, chẳng hạn vận tốc bóng lớn hơn
+nhiều so với góc xoay thanh gạt, toàn bộ quan sát được bật chế độ chuẩn hóa như đã phân
+tích ở Mục~\ref{sub:obs-space}, để không đại lượng nào lấn át đại lượng khác trong quá
+trình học. Một chi tiết thiết kế đáng chú ý là toàn bộ các giá trị quan sát được nhân
+với một hệ số dấu tùy theo phía của đội. Nhờ phép đổi dấu này, bàn cờ được ``soi gương''
+sao cho cả hai phía đều thấy khung thành đối phương ở cùng một hướng quy ước; hệ quả là
+một chính sách duy nhất có thể vận hành đối xứng cho cả hai phía mà không cần huấn luyện
+riêng, đồng thời làm cho cơ chế tự chơi trở nên nhất quán vì hai phía thực sự dùng chung
+một hàm chính sách.
 
 \subsubsection{Hàm phần thưởng}
 \indent Hàm phần thưởng của môi trường Football Table được tổng hợp trong
-Bảng~\ref{tab:reward_football}. Thành phần chính là phần thưởng thưa: tác nhân được
-cộng một điểm khi ghi bàn và bị trừ một điểm khi bị thủng lưới, qua đó xác lập rõ mục
-tiêu thắng thua của trận đấu. Hai thành phần định hướng được bổ sung để tăng tốc quá
-trình học ở giai đoạn đầu. Thành phần thứ nhất thưởng cho tác nhân khi nó đá bóng theo
-hướng về phía khung thành đối phương, với độ lớn tỉ lệ thuận với mức độ trùng khớp
-giữa hướng bóng và hướng tới khung thành; thành phần này chỉ được kích hoạt khi tác
-nhân đang kiểm soát bóng. Thành phần thứ hai là một hình phạt nhỏ khi tác nhân xoay
-thanh gạt quá mạnh, nhằm hạn chế hành vi xoay tít vô nghĩa vốn có thể tình cờ ghi bàn
-nhưng không phản ánh kỹ năng thực sự.
+Bảng~\ref{tab:reward_football}. Thành phần chính là phần thưởng thưa: tác nhân được cộng
+một điểm khi ghi bàn và bị trừ một điểm khi bị thủng lưới, qua đó xác lập rõ mục tiêu
+thắng thua của trận đấu. Hai thành phần định hướng được bổ sung để tăng tốc quá trình
+học ở giai đoạn đầu. Thành phần thứ nhất thưởng cho tác nhân khi nó đá bóng theo hướng
+về phía khung thành đối phương, với độ lớn tỉ lệ thuận với cô-sin của góc $\theta$ giữa
+hướng chuyển động của bóng và hướng nối từ bóng tới khung thành; giá trị $\cos\theta$
+đạt cực đại bằng một khi bóng đi thẳng về khung thành và giảm dần khi hướng bóng lệch
+đi, nhờ đó tín hiệu định hướng biến thiên trơn theo chất lượng cú đá. Thành phần này chỉ
+được kích hoạt khi tác nhân đang kiểm soát bóng, để tránh thưởng nhầm cho những pha bóng
+ngẫu nhiên. Thành phần thứ hai là một hình phạt nhỏ khi tác nhân xoay thanh gạt quá
+mạnh, nhằm hạn chế hành vi xoay tít vô nghĩa vốn có thể tình cờ ghi bàn nhưng không phản
+ánh kỹ năng thực sự. Cả hai thành phần định hướng đều được giữ ở độ lớn nhỏ hơn nhiều so
+với phần thưởng ghi bàn, đúng theo nguyên tắc ở Mục~\ref{sub:reward-principle}.
 
 \begin{table}[H]
 \centering
@@ -188,26 +351,40 @@ vị mỗi lớp, đủ dung lượng để nắm bắt động lực học ph�
 chuẩn hóa quan sát do các đại lượng vật lý có thang đo khác nhau. Cơ chế tự chơi được
 cấu hình để lưu lại các phiên bản đối thủ theo định kỳ và theo dõi tiến bộ qua chỉ số
 xếp hạng, khởi tạo ở mức một nghìn hai trăm. Hai thuật toán còn lại được đưa vào để so
-sánh: SAC huấn luyện bằng cách đấu với đối thủ luật cố định do không hỗ trợ tự chơi,
-còn MA-POCA vận hành với phê bình tập trung nhưng không sử dụng phần thưởng nhóm. Cấu
-hình siêu tham số đầy đủ của cả ba thuật toán được liệt kê trong các Phụ lục A, B và C.
+sánh là MAPPO và MA-POCA, cả hai đều dùng phê bình tập trung nhìn quan sát của cả hai
+phía. Trên môi trường đối kháng không sử dụng phần thưởng nhóm này, cả hai về cơ bản
+vận hành như PPO nhưng kèm một hàm giá trị tập trung; chúng được huấn luyện dưới cùng
+điều kiện với PPO để bảo đảm mặt bằng so sánh công bằng. Cấu hình siêu tham số đầy đủ
+của cả ba thuật toán được liệt kê trong các Phụ lục A, B và C.
 
 % ═══════════════════════════════════════════════
 \subsection{Môi trường 2: Cooperative Puzzle (hợp tác đa tác nhân)}
 \label{sub:env-coop}
 
-\subsubsection{Mô tả bài toán và môi trường}
-\indent Môi trường thứ hai là một bài toán giải đố mang tính hợp tác, trong đó hai
-tác nhân phải phối hợp chặt chẽ để cùng vượt qua một câu đố không gian. Điểm mấu chốt
-của bài toán là nhiệm vụ được thiết kế sao cho không một tác nhân nào có thể tự mình
-hoàn thành: cả hai phải cùng đứng lên các bàn đạp áp lực để mở cửa, cùng rời khỏi căn
-phòng ban đầu và cuối cùng cùng đến được điểm đích. Sự phụ thuộc lẫn nhau này biến bài
-toán thành một trường hợp điển hình để làm nổi bật thách thức gán công lao trong học
-tăng cường hợp tác, tức việc xác định đóng góp thực sự của từng tác nhân vào thành quả
-chung của cả nhóm. Đây cũng chính là dạng bài toán mà MA-POCA được thiết kế để giải
-quyết. Bố cục môi trường được thể hiện trong Hình~\ref{fig:env_puzzle}: hai tác nhân
-(khối xanh) xuất phát trong căn phòng bên trái cùng khối vật cản (khối cam), hai bàn
-đạp áp lực đặt hai bên cánh cửa trượt ở giữa, và vạch đích màu xanh lá nằm ở mép phải.
+\subsubsection{Mô tả bài toán và bố cục không gian}
+\indent Môi trường thứ hai là một bài toán giải đố mang tính hợp tác, trong đó hai tác
+nhân phải phối hợp chặt chẽ để cùng vượt qua một câu đố không gian. Điểm mấu chốt của
+bài toán là nhiệm vụ được thiết kế sao cho \emph{không một tác nhân nào có thể tự mình
+hoàn thành}: để đi từ khu vực xuất phát tới đích, cả hai bắt buộc phải thực hiện một
+màn \emph{bàn giao} (handoff) trong đó lần lượt mỗi tác nhân giữ cửa mở cho tác nhân
+kia đi qua. Sự phụ thuộc lẫn nhau này biến bài toán thành một trường hợp điển hình để
+làm nổi bật thách thức gán công lao trong học tăng cường hợp tác, tức việc xác định
+đóng góp thực sự của từng tác nhân vào thành quả chung của cả nhóm; đây cũng chính là
+dạng bài toán mà MA-POCA được thiết kế để giải quyết.
+
+\indent Bố cục không gian, thể hiện trong Hình~\ref{fig:env_puzzle}, là một hành lang
+dài trải theo một trục, được chia thành ba khoang bởi hai bức tường ngăn có khe hở
+\emph{lệch nhau}. Khoang thứ nhất là phòng xuất phát, nơi hai tác nhân (khối xanh) và
+một khối vật cản (khối cam) được đặt ban đầu; lối ra khỏi khoang này là một khe hở nằm
+lệch về một bên của bức tường ngăn thứ nhất. Khoang thứ hai ở giữa chứa bàn đạp áp lực
+thứ nhất. Ngăn cách khoang giữa với khoang thứ ba là một \emph{cổng cửa} nằm ở khe hở
+chính giữa của bức tường ngăn thứ hai; cổng này gồm hai cánh cửa có thể hạ xuống để mở
+và nâng lên để chặn. Khoang thứ ba chứa bàn đạp áp lực thứ hai và, ở tận cùng, là vạch
+đích trải suốt chiều rộng hành lang. Điểm thiết kế cốt lõi là \emph{cả hai bàn đạp đều
+điều khiển chung một cổng cửa}, và chúng nằm ở hai phía đối diện của cổng: bàn đạp thứ
+nhất ở phía trong (cùng khoang với điểm xuất phát), bàn đạp thứ hai ở phía ngoài (đã
+qua cổng). Chính sự bố trí đối xứng này tạo nên cấu trúc bàn giao mà lời giải bắt buộc
+phải tuân theo.
 
 \begin{figure}[H]
 \centering
@@ -217,72 +394,144 @@ quyết. Bố cục môi trường được thể hiện trong Hình~\ref{fig:en
 \label{fig:env_puzzle}
 \end{figure}
 
-\subsubsection{Thiết kế tác nhân và cơ chế phối hợp}
+\subsubsection{Thiết kế tác nhân và điều khiển vật lý}
 \indent Mỗi tác nhân điều khiển một robot di chuyển trong không gian ba chiều với bảy
 hành động rời rạc gồm đứng yên, tiến, lùi, xoay trái, xoay phải, đi ngang sang trái và
-đi ngang sang phải. Tập hành động này đủ phong phú để robot vừa di chuyển linh hoạt
-vừa định hướng chính xác khi cần đứng vào đúng vị trí bàn đạp. Về quan sát, tác nhân
-nhận biết trạng thái đã được nhấn hay chưa của hai bàn đạp áp lực, trạng thái đã tìm
-thấy điểm đích hay chưa, kết hợp với cảm biến tia để xác định vị trí của đồng đội, các
-bức tường và các mục tiêu xung quanh.
+đi ngang sang phải. Tập hành động này đủ phong phú để robot vừa di chuyển linh hoạt vừa
+định hướng chính xác khi cần đứng vào đúng vị trí bàn đạp. Đúng như đã nêu ở
+Mục~\ref{sub:action-space}, mỗi hành động di chuyển không dịch chuyển robot tức thời mà
+cộng một xung lực vào vật thể vật lý của nó theo hướng tương ứng, sau đó vật lý của
+Unity mới quyết định chuyển động thực dưới tác động của lực cản. Cụ thể, mỗi lệnh tiến
+cộng thêm một lượng vận tốc cố định theo hướng nhìn của robot, trong khi lực cản tuyến
+tính liên tục hãm vận tốc lại; kết quả là robot có một vận tốc tối đa hữu hạn thay vì
+tăng tốc vô hạn. Sự tồn tại của vận tốc tối đa hữu hạn này không chỉ là chi tiết vật
+lý, mà còn là yếu tố then chốt bảo đảm tính đúng đắn của cơ chế bàn giao, như sẽ phân
+tích ở phần sau.
 
-\indent Cơ chế phối hợp được hiện thực thông qua một bộ điều khiển môi trường sử dụng
-nhóm đa tác nhân của ML-Agents. Cả hai tác nhân được đăng ký vào cùng một nhóm, và
-phần thưởng nhóm được trao cho toàn nhóm khi các điều kiện hợp tác được thỏa mãn. Chính
-cách tổ chức này cho phép huấn luyện hành vi phối hợp thực sự, thay vì để mỗi tác nhân
-chỉ tối ưu lợi ích riêng của mình. Bên cạnh phần thưởng nhóm, hệ thống còn có các khoản
-phạt nhóm khi một tác nhân hành động lệch nhịp với đồng đội, chẳng hạn khi một tác
-nhân đứng lên bàn đạp trong lúc đồng đội vẫn còn kẹt lại trong phòng; những hình phạt
-này buộc hai tác nhân phải học cách hành động đồng bộ với nhau.
+\subsubsection{Không gian quan sát của tác nhân}
+\label{sub:coop-obs}
+\indent Quan sát của mỗi tác nhân được thiết kế theo đúng nguyên tắc tối thiểu nhưng
+đủ đã trình bày ở Mục~\ref{sub:obs-space}, và gồm ba nguồn thông tin bổ sung cho nhau.
+Nguồn thứ nhất là một vector bốn phần tử mang tính logic, gồm: trạng thái đã được nhấn
+hay chưa của bàn đạp thứ nhất, trạng thái đã được nhấn hay chưa của bàn đạp thứ hai,
+trạng thái bản thân tác nhân đã vượt qua cổng hay chưa, và trạng thái đồng đội đã vượt
+qua cổng hay chưa. Hai cờ đầu cho tác nhân biết cửa hiện có đang được giữ mở hay không
+mà không cần nhìn thấy cổng; hai cờ sau chính là mấu chốt để một tác nhân biết khi nào
+nên rời bàn đạp: chỉ khi đồng đội đã sang bên kia thì việc nhả bàn đạp mới hợp lý. Nếu
+thiếu cờ trạng thái của đồng đội, chính sách phi tập trung của tác nhân sẽ không có căn
+cứ trực tiếp để định thời điểm bàn giao, và bài toán trở nên khó học hơn nhiều.
+
+\indent Nguồn thứ hai là một cảm biến bổ sung ghi trạng thái đã tìm thấy điểm đích hay
+chưa. Nguồn thứ ba là cảm biến tia đã mô tả ở Mục~\ref{sub:obs-space}, với tập nhãn cần
+phát hiện gồm tường, hộp, bàn đạp, cửa, cờ, điểm đích và tác nhân khác; nhờ đó robot
+nhận biết được cấu trúc không gian xung quanh cùng vị trí tương đối của đồng đội trong
+tầm nhìn, mà không cần được cung cấp tọa độ tuyệt đối. Sự kết hợp giữa các cờ logic
+tường minh và cảm biến tia không gian cho phép tác nhân vừa suy luận về trạng thái phối
+hợp của cả nhóm, vừa điều hướng chính xác trong hành lang.
+
+\subsubsection{Cơ chế cửa và pha bàn giao}
+\label{sub:coop-handoff}
+\indent Cổng cửa chỉ mở khi có tác nhân đang đứng trên một trong hai bàn đạp. Tuy nhiên,
+nếu cửa đóng lại ngay lập tức vào đúng khoảnh khắc tác nhân rời bàn đạp thì màn bàn giao
+gần như không thể khám phá được bằng thử-sai, vì nó đòi hỏi một sự đồng bộ thời gian
+hoàn hảo. Để làm cho hành vi hợp tác trở nên khả học, đề tài đưa vào một khoảng
+\emph{ân hạn} (grace period): sau khi tác nhân rời khỏi bàn đạp, cửa vẫn giữ mở thêm
+khoảng một giây mô phỏng rồi mới đóng. Khoảng ân hạn này tạo ra một cửa sổ thời gian đủ
+để đồng đội kịp lên giữ bàn đạp còn lại, qua đó làm mượt quá trình học mà không làm thay
+đổi bản chất bài toán.
+
+\indent Một câu hỏi thiết kế quan trọng là liệu khoảng ân hạn có vô tình cho phép một
+tác nhân \emph{tự mình} vượt cổng hay không, tức bước lên bàn đạp thứ nhất rồi chạy thật
+nhanh qua cổng trước khi cửa kịp đóng, khiến sự hợp tác trở nên không cần thiết. Có thể
+loại trừ khả năng này bằng một lập luận định lượng. Khoảng cách từ bàn đạp thứ nhất tới
+cổng vào khoảng mười chín đơn vị, trong khi khoảng ân hạn là một giây. Do cơ chế điều
+khiển bằng xung lực kết hợp lực cản, vận tốc tối đa mà một robot đạt được bị chặn ở mức
+xấp xỉ mười tám phẩy chín đơn vị trên giây, tức nhỏ hơn quãng đường cần vượt trong một
+giây. Vì robot còn phải mất thời gian tăng tốc từ trạng thái đứng yên nên vận tốc trung
+bình thực tế còn thấp hơn nhiều; do đó, không tồn tại quỹ đạo nào giúp một tác nhân đơn
+độc vượt cổng trong khoảng ân hạn. Kết luận này bảo đảm rằng mọi lần vượt cổng thành
+công đều là bằng chứng của sự hợp tác thực sự, chứ không phải của một lối tắt cá nhân;
+nó cũng là cơ sở để diễn giải đúng các chỉ số phần thưởng ở Chương~\ref{ch:results}.
 
 \subsubsection{Hàm phần thưởng}
 \indent Hệ thống phần thưởng của môi trường, được tổng hợp trong
-Bảng~\ref{tab:reward_capture}, kết hợp giữa phần thưởng nhóm và phần thưởng cá nhân
-định hướng. Đáng chú ý, phần lớn các khoản thưởng và phạt định hướng đều được chia cho
-số bước tối đa của một lượt chơi, nhờ đó tổng phần thưởng tích lũy qua toàn bộ lượt
-chơi được giữ ở một thang đo hợp lý và không bị phình to quá mức. Phần thưởng lớn nhất,
-bằng một điểm cho cả nhóm, chỉ được trao khi cả hai tác nhân cùng đến được điểm đích,
-qua đó nhấn mạnh rằng thành công chỉ có ý nghĩa khi cả nhóm cùng hoàn thành. Các khoản
-thưởng nhỏ khuyến khích những hành vi trung gian đúng hướng như đứng lên bàn đạp, rời
-khỏi phòng hay đẩy khối vật cản, trong khi các khoản phạt xử lý những hành vi lệch
-nhịp và một khoản phạt thời gian nhỏ ở mỗi bước thúc đẩy nhóm hoàn thành nhiệm vụ
-nhanh hơn.
+Bảng~\ref{tab:reward_capture}, kết hợp giữa phần thưởng nhóm cho các cột mốc hợp tác và
+phần thưởng cá nhân định hướng cho việc điều hướng. Phần thưởng lớn nhất, bằng một điểm
+cho cả nhóm, chỉ được trao khi cả hai tác nhân cùng đến được điểm đích, qua đó nhấn mạnh
+rằng thành công chỉ có ý nghĩa khi cả nhóm cùng hoàn thành.
+
+\indent Thành phần định hướng cốt lõi là một phần thưởng theo khoảng cách được xây dựng
+đúng theo khuôn khổ định hình phần thưởng theo thế năng đã phát biểu ở
+Định nghĩa~\ref{dn:pbrs}. Cụ thể, đề tài lấy hàm thế năng bằng đối số của khoảng cách
+từ tác nhân tới điểm đích, nhờ đó mỗi bước làm giảm khoảng cách được thưởng và mỗi bước
+làm tăng khoảng cách bị phạt, với hệ số nhỏ. Nhờ tính bất biến chính sách của định hình
+theo thế năng, tín hiệu dẫn đường dày đặc này phủ kín toàn bộ hành lang mà không làm sai
+lệch lời giải tối ưu, đồng thời tự động miễn nhiễm với kiểu lợi dụng phần thưởng đi tới
+đi lui, vì tổng phần thưởng định hình trên một chu trình khép kín luôn bằng không. Một
+tác nhân đứng yên giữ bàn đạp không bị thành phần này phạt, do khoảng cách của nó tới
+đích không đổi.
+
+\indent Thành phần hợp tác then chốt là phần thưởng bàn giao: mỗi khi một tác nhân vừa
+vượt qua cổng đang khóa, cả nhóm được cộng một khoản thưởng cố định, và mỗi tác nhân
+chỉ được nhận khoản này \emph{một lần duy nhất} trong mỗi lượt chơi. Việc chỉ vượt được
+cổng đang khóa mới kích hoạt phần thưởng, kết hợp với kết luận ở
+Mục~\ref{sub:coop-handoff} rằng vượt cổng đòi hỏi hợp tác, khiến khoản thưởng này trở
+thành một tín hiệu trực tiếp và mạnh cho hành vi bàn giao. Đặc tính \emph{một lần} bảo
+đảm khoản thưởng không thể bị farm bằng cách lặp lại; đây là điểm khác biệt cốt yếu so
+với một phần thưởng cộng dồn theo từng bước, vốn có thể bị tác nhân lợi dụng bằng cách
+nấn ná ở trạng thái cho điểm thay vì hoàn thành nhiệm vụ. Ngoài ra, một khoản thưởng
+nhỏ khuyến khích tác nhân đứng trên bàn đạp để gieo mầm hành vi giữ cửa, và một khoản
+phạt thời gian rất nhỏ ở mỗi bước thúc đẩy nhóm hoàn thành nhanh hơn.
 
 \begin{table}[H]
 \centering
 \caption{Hàm phần thưởng của môi trường Cooperative Puzzle}
 \label{tab:reward_capture}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabular}{|p{6.5cm}|>{\centering\arraybackslash}p{3.2cm}|>{\centering\arraybackslash}p{3cm}|}
+\begin{tabular}{|p{7cm}|>{\centering\arraybackslash}p{3.4cm}|>{\centering\arraybackslash}p{2.8cm}|}
 \hline
 \textbf{Sự kiện} & \textbf{Giá trị} & \textbf{Phạm vi} \\
 \hline
 Cả hai tác nhân đến điểm đích & $+1{,}0$ & Nhóm \\
 \hline
-Tác nhân đứng trên bàn đạp áp lực & $+0{,}25/\text{số bước}$ & Cá nhân \\
+Vượt được cổng đang khóa (một lần mỗi tác nhân) & $+0{,}5$ & Nhóm \\
 \hline
-Tác nhân đã rời khỏi phòng ban đầu & $+0{,}5/\text{số bước}$ & Cá nhân \\
+Giảm khoảng cách tới đích (định hình thế năng) & $0{,}01 \times \Delta d$ & Cá nhân \\
 \hline
-Cả hai tác nhân cùng rời phòng & $+0{,}5/\text{số bước}$ & Nhóm \\
+Đứng trên bàn đạp áp lực & $+0{,}5/\text{số bước}$ & Cá nhân \\
 \hline
-Tác nhân đẩy khối vật cản & $+0{,}25/\text{số bước}$ & Cá nhân \\
-\hline
-Hành động lệch nhịp với đồng đội & từ $-2{,}0$ đến $-4{,}0$ chia số bước & Nhóm \\
-\hline
-Phạt thời gian mỗi bước & $-0{,}25/\text{số bước}$ & Nhóm \\
+Phạt thời gian mỗi bước & $-0{,}1/\text{số bước}$ & Nhóm \\
 \hline
 \end{tabular}
 \end{table}
 
+\noindent trong đó $\Delta d$ là mức giảm khoảng cách từ tác nhân tới điểm đích giữa
+hai bước liên tiếp, và ``số bước'' là số bước tối đa của một lượt chơi, dùng để giữ
+tổng phần thưởng tích lũy ở một thang đo hợp lý.
+
+\subsubsection{Học theo chương trình}
+\label{sub:coop-curriculum}
+\indent Ngay cả với đầy đủ các tín hiệu phần thưởng ở trên, việc học màn bàn giao ngay
+từ đầu vẫn rất khó, vì tác nhân phải đồng thời học cả kỹ năng điều hướng lẫn kỹ năng
+phối hợp theo trình tự. Để giảm độ khó ban đầu, đề tài áp dụng cơ chế học theo chương
+trình với một tham số môi trường điều khiển trạng thái cổng. Ở bài học thứ nhất, cổng
+được để mở sẵn: hai cánh cửa được vô hiệu hóa, nhờ đó tác nhân chỉ cần học kỹ năng điều
+hướng tới điểm đích mà chưa cần bàn giao. Khi phần thưởng trung bình vượt một ngưỡng
+cho trước và duy trì đủ số lượt, hệ thống tự động chuyển sang bài học thứ hai, trong đó
+cổng bị khóa và màn bàn giao trở thành bắt buộc. Cách chia hai giai đoạn này cho phép
+tác nhân xây dựng nền tảng điều hướng vững trước khi đối mặt với thách thức phối hợp,
+qua đó cải thiện đáng kể khả năng hội tụ tới lời giải hợp tác.
+
 \subsubsection{Lựa chọn và cấu hình thuật toán}
 \indent Vì môi trường sử dụng cơ chế phần thưởng nhóm, MA-POCA là thuật toán phù hợp
-nhất về mặt lý thuyết và được kỳ vọng đạt kết quả tốt nhất. Mạng nơ-ron sử dụng ba lớp
-ẩn với hai trăm năm mươi sáu đơn vị mỗi lớp, kèm theo một tín hiệu tò mò với cường độ
-nhỏ để khuyến khích tác nhân khám phá trong môi trường có phần thưởng thưa. Để so sánh,
-đề tài cũng huấn luyện PPO, trong đó mỗi tác nhân học độc lập và phần thưởng nhóm được
-phân bổ thủ công về từng tác nhân, cùng với SAC, trong đó mỗi tác nhân sử dụng một bộ
-đệm kinh nghiệm riêng. Số bước huấn luyện tối đa cho môi trường này được đặt ở mức năm
-triệu bước nhằm bảo đảm đủ thời gian cho hành vi phối hợp phức tạp hình thành.
+nhất về mặt lý thuyết và được kỳ vọng đạt kết quả tốt nhất, nhờ phê bình tập trung kết
+hợp cơ sở phản thực giúp gán công lao chính xác cho từng tác nhân. Mạng nơ-ron sử dụng
+ba lớp ẩn với hai trăm năm mươi sáu đơn vị mỗi lớp, kèm một tín hiệu tò mò cường độ nhỏ
+để khuyến khích khám phá trong môi trường phần thưởng thưa. Để so sánh, đề tài huấn
+luyện thêm các thuật toán khác trên cùng môi trường và cùng bộ tham số nền, giữ nguyên
+thiết kế phần thưởng, quan sát và chương trình học nhằm bảo đảm khác biệt về kết quả
+phản ánh đúng bản chất thuật toán. Số bước huấn luyện tối đa được đặt ở mức năm triệu
+bước nhằm bảo đảm đủ thời gian cho hành vi phối hợp phức tạp hình thành.
 
 % ═══════════════════════════════════════════════
 \subsection{Môi trường 3: Vượt đường tránh phương tiện}
@@ -310,20 +559,37 @@ phải băng qua các làn đường có phương tiện di chuyển}
 \end{figure}
 
 \subsubsection{Thiết kế tác nhân và chướng ngại vật}
-\indent Tác nhân di chuyển theo từng ô lưới với bốn hành động rời rạc là đứng yên,
-sang trái, sang phải và tiến về phía trước; mỗi hành động di chuyển đưa tác nhân đi một
-khoảng cố định. Vector quan sát gồm sáu giá trị, tương ứng với tọa độ ba chiều của tác
-nhân và tọa độ ba chiều của điểm đích, kết hợp với cảm biến tia để phát hiện các phương
-tiện đang tiến lại gần. Sự kết hợp giữa thông tin vị trí tuyệt đối và thông tin cảm
-biến khoảng cách cho phép tác nhân vừa biết mình cần đi về hướng nào, vừa nhận biết
-nguy cơ va chạm tức thời.
+\indent Tác nhân di chuyển theo từng ô lưới với bốn hành động rời rạc là đứng yên, sang
+trái, sang phải và tiến về phía trước; mỗi hành động di chuyển đưa tác nhân đi một khoảng
+cố định theo hướng tương ứng. Việc rời rạc hóa chuyển động theo ô lưới có chủ đích: nó
+làm cho không gian trạng thái trở nên gọn gàng và làm nổi bật bản chất cốt lõi của bài
+toán là quyết định \emph{thời điểm}, tức chọn đúng khoảnh khắc để tiến hay để chờ, thay
+vì quyết định về điều khiển vận động tinh vi. Hành động đứng yên vì thế không phải một
+lựa chọn thừa mà là một hành động chiến lược quan trọng: đứng yên đúng lúc để nhường một
+phương tiện đi qua thường là mấu chốt của một lượt chơi thành công.
 
 \indent Các chướng ngại vật là những phương tiện di chuyển qua lại trên các làn đường
-với tốc độ và thời điểm xuất hiện thay đổi, tạo nên tính động và tính ngẫu nhiên cho
-môi trường. Chính sự thay đổi này ngăn tác nhân học vẹt một chuỗi hành động cố định,
-buộc nó phải học một chính sách phản ứng thực sự dựa trên tình huống quan sát được.
-Khi tác nhân va chạm với một phương tiện, lượt chơi kết thúc kèm một hình phạt; ngược
-lại, khi tác nhân chạm được vạch đích, lượt chơi kết thúc kèm một phần thưởng.
+với tốc độ và thời điểm xuất hiện thay đổi, tạo nên tính động và tính ngẫu nhiên cho môi
+trường. Chính sự thay đổi này ngăn tác nhân học vẹt một chuỗi hành động cố định, buộc nó
+phải học một chính sách phản ứng thực sự dựa trên tình huống quan sát được. Khi tác nhân
+va chạm với một phương tiện, lượt chơi kết thúc kèm một hình phạt; ngược lại, khi tác
+nhân chạm được vạch đích, lượt chơi kết thúc kèm một phần thưởng. Trong scene huấn luyện,
+nhiều khu vực như vậy chạy song song, mỗi khu vực có một tác nhân độc lập, nhằm tăng tốc
+độ thu thập kinh nghiệm mà không làm thay đổi bản chất bài toán đơn tác nhân.
+
+\subsubsection{Không gian quan sát của tác nhân}
+\label{sub:cross-obs}
+\indent Vector quan sát của tác nhân gồm sáu giá trị, tương ứng với tọa độ ba chiều của
+chính tác nhân và tọa độ ba chiều của điểm đích. Từ hai bộ tọa độ này, tác nhân có thể
+suy ra hướng và khoảng cách cần đi để tới đích, tức thông tin định hướng tầm xa. Tuy
+nhiên, chỉ riêng thông tin vị trí là chưa đủ, vì nó không cho biết gì về các phương tiện
+đang di chuyển. Vì vậy, quan sát vị trí được bổ sung bằng cảm biến tia mô tả ở
+Mục~\ref{sub:obs-space}, với nhiệm vụ phát hiện các phương tiện đang tiến lại gần cùng
+khoảng cách tới chúng, tức thông tin an toàn tầm gần. Sự phân vai này phản ánh đúng cấu
+trúc của bài toán: thông tin vị trí trả lời câu hỏi ``đi về đâu'', còn cảm biến tia trả
+lời câu hỏi ``lúc nào thì an toàn để đi''. Nếu thiếu cảm biến tia, tác nhân sẽ không có
+căn cứ để né tránh và buộc phải đoán mù thời điểm băng qua; nếu thiếu thông tin vị trí,
+tác nhân có thể né tránh tốt nhưng không biết phải tiến về hướng nào để tới đích.
 
 \subsubsection{Hàm phần thưởng}
 \indent Hàm phần thưởng của môi trường, trình bày trong Bảng~\ref{tab:reward_crossroad},
@@ -354,14 +620,17 @@ Tín hiệu tò mò khuyến khích khám phá & cường độ $0{,}02$ & Nội
 \end{table}
 
 \subsubsection{Lựa chọn và cấu hình thuật toán}
-\indent Đây là môi trường đơn tác nhân với không gian hành động rời rạc nhỏ, rất phù
-hợp để so sánh trực tiếp cả ba thuật toán trên cùng một bài toán trong điều kiện tương
-đương. Mạng nơ-ron sử dụng hai lớp ẩn với một trăm hai mươi tám đơn vị mỗi lớp, một
-kích thước vừa phải tương xứng với độ phức tạp của bài toán. PPO và MA-POCA sử dụng
-cấu hình on-policy tương đương nhau về kích thước lô và bộ đệm, trong khi SAC sử dụng
-một bộ đệm kinh nghiệm lớn để khai thác tối đa lợi thế tái sử dụng dữ liệu của cơ chế
-off-policy. Số bước huấn luyện tối đa được đặt ở mức hai triệu bước cho cả ba thuật
-toán, bảo đảm một mặt bằng so sánh công bằng.
+\indent Đây là môi trường đơn tác nhân với không gian hành động rời rạc nhỏ, rất phù hợp
+để so sánh trực tiếp cả ba thuật toán trên cùng một bài toán trong điều kiện tương đương.
+Mạng nơ-ron sử dụng hai lớp ẩn với một trăm hai mươi tám đơn vị mỗi lớp, một kích thước
+vừa phải tương xứng với độ phức tạp của bài toán. Cả ba thuật toán PPO, MAPPO và MA-POCA
+đều thuộc họ on-policy và được cấu hình tương đương nhau về kích thước lô và bộ đệm nhằm
+bảo đảm sự khác biệt về kết quả phản ánh đúng bản chất thuật toán. Cần lưu ý rằng vì đây
+là môi trường đơn tác nhân không có nhóm, ưu thế phê bình tập trung của MAPPO và MA-POCA
+không có đối tượng để phát huy, nên trên môi trường này cả hai về cơ bản suy biến thành
+PPO; do đó môi trường Cross The Road chủ yếu đóng vai trò kiểm chứng tính nhất quán của
+ba thuật toán trên một bài toán điều hướng chuẩn. Số bước huấn luyện tối đa được đặt ở
+mức hai triệu bước cho cả ba thuật toán, bảo đảm một mặt bằng so sánh công bằng.
 
 % ═══════════════════════════════════════════════
 \subsection{Bảng tổng hợp đặc trưng ba môi trường}
@@ -399,7 +668,7 @@ Cơ chế đặc thù & Tự chơi & Phần thưởng nhóm & Vật cản độn
 \hline
 Số bước tối đa & Mười triệu & Năm triệu & Hai triệu \\
 \hline
-Thuật toán kỳ vọng tốt nhất & PPO tự chơi & MA-POCA & SAC \\
+Thuật toán kỳ vọng tốt nhất & PPO tự chơi & MA-POCA & Ba thuật toán tương đương \\
 \hline
 \end{tabular}
 \end{table}

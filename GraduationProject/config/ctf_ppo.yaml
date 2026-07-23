@@ -2,7 +2,9 @@
 # Environment: Capture The Flag / Collaboration
 # Action space: Discrete (7: idle, fwd, back, rotate-R, rotate-L, strafe-L, strafe-R)
 # Notes: PPO with individual agent rewards. Each agent learns independently.
-#        Group rewards from SimpleMultiAgentGroup distributed as individual rewards.
+#        LUU Y: PPO KHONG dung group reward (chi trainer da-agent nhu POCA/MAPPO moi dung
+#        AddGroupReward). Cac group reward se bi BO QUA -> PPO chi hoc tu reward ca nhan
+#        (distance shaping + plate presence). Day chinh la ly do ky vong PPO kho hoc handoff.
 
 behaviors:
   PuzzleBehavior:
@@ -32,3 +34,20 @@ behaviors:
     max_steps: 5000000
     time_horizon: 128
     summary_freq: 20000
+
+# Curriculum GIONG ctf_poca.yaml / ctf_mappo.yaml de so sanh cong bang:
+# bai 0 mo san cua (handoff_required=0), bai 1 khoa cua (=1). EnvController.cs doc qua
+# Academy.EnvironmentParameters. PPO van chay curriculum binh thuong (do la co che moi truong).
+environment_parameters:
+  handoff_required:
+    curriculum:
+      - name: Lesson0_DoorOpen
+        completion_criteria:
+          measure: reward
+          behavior: PuzzleBehavior
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 0.0
+      - name: Lesson1_Handoff
+        value: 1.0

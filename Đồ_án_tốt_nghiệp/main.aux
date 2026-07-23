@@ -55,6 +55,7 @@
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:rl_loop}{{2.1}{10}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Vòng lặp tương tác giữa agent và môi trường trong học tăng cường}{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Markov Decision Process (MDP)}{10}{subsubsection.2.2.2}\protected@file@percent }
+\newlabel{sub:mdp}{{2.2.2}{10}{Markov Decision Process (MDP)}{subsubsection.2.2.2}{}}
 \citation{bellman1957markovian}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}Policy và Value Function}{11}{subsubsection.2.2.3}\protected@file@percent }
 \citation{lecun2015deep}
@@ -97,150 +98,174 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Tổng quan thiết kế hệ thống}{21}{subsection.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Kiến trúc huấn luyện tổng thể}{21}{subsubsection.3.1.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Không gian quan sát}{22}{subsubsection.3.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Không gian hành động}{23}{subsubsection.3.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Nguyên tắc thiết kế hàm phần thưởng}{23}{subsubsection.3.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Môi trường 1: Football Table}{24}{subsection.3.2}\protected@file@percent }
-\newlabel{sub:env-football}{{3.2}{24}{Môi trường 1: Football Table}{subsection.3.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Mô tả bài toán và môi trường}{24}{subsubsection.3.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}}{25}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:env_football}{{3.1}{25}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Thiết kế tác nhân và luật chơi}{25}{subsubsection.3.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Hàm phần thưởng}{26}{subsubsection.3.2.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Football Table}}{26}{table.caption.6}\protected@file@percent }
-\newlabel{tab:reward_football}{{3.1}{26}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm phần thưởng của môi trường Football Table}{table.caption.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Lựa chọn và cấu hình thuật toán}{26}{subsubsection.3.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Môi trường 2: Cooperative Puzzle (hợp tác đa tác nhân)}{27}{subsection.3.3}\protected@file@percent }
-\newlabel{sub:env-coop}{{3.3}{27}{Môi trường 2: Cooperative Puzzle (hợp tác đa tác nhân)}{subsection.3.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Mô tả bài toán và môi trường}{27}{subsubsection.3.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}}{28}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:env_puzzle}{{3.2}{28}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Thiết kế tác nhân và cơ chế phối hợp}{28}{subsubsection.3.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3}Hàm phần thưởng}{29}{subsubsection.3.3.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Cooperative Puzzle}}{29}{table.caption.8}\protected@file@percent }
-\newlabel{tab:reward_capture}{{3.2}{29}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm phần thưởng của môi trường Cooperative Puzzle}{table.caption.8}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4}Lựa chọn và cấu hình thuật toán}{29}{subsubsection.3.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Môi trường 3: Vượt đường tránh phương tiện}{30}{subsection.3.4}\protected@file@percent }
-\newlabel{sub:env-crossroad}{{3.4}{30}{Môi trường 3: Vượt đường tránh phương tiện}{subsection.3.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Mô tả bài toán và môi trường}{30}{subsubsection.3.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}}{30}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:env_crossroad}{{3.3}{30}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Thiết kế tác nhân và chướng ngại vật}{31}{subsubsection.3.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.3}Hàm phần thưởng}{31}{subsubsection.3.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Cross The Road}}{31}{table.caption.10}\protected@file@percent }
-\newlabel{tab:reward_crossroad}{{3.3}{31}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm phần thưởng của môi trường Cross The Road}{table.caption.10}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4}Lựa chọn và cấu hình thuật toán}{32}{subsubsection.3.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Bảng tổng hợp đặc trưng ba môi trường}{32}{subsection.3.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tổng hợp đặc trưng ba môi trường thực nghiệm}}{33}{table.caption.11}\protected@file@percent }
-\newlabel{tab:env_summary}{{3.4}{33}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tổng hợp đặc trưng ba môi trường thực nghiệm}{table.caption.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Triển khai thuật toán ngoài ML-Agents}{33}{subsection.3.6}\protected@file@percent }
-\newlabel{sub:custom}{{3.6}{33}{Triển khai thuật toán ngoài ML-Agents}{subsection.3.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.1}Vấn đề với SAC trong ML-Agents}{33}{subsubsection.3.6.1}\protected@file@percent }
+\newlabel{sub:obs-space}{{3.1.2}{22}{Không gian quan sát}{subsubsection.3.1.2}{}}
+\@writefile{thm}{\contentsline {dn}{{Định nghĩa}{3.{1}}{Không gian quan sát}}{22}{dn.3.1}\protected@file@percent }
+\newlabel{dn:obs}{{3.{1}}{22}{Không gian quan sát}{dn.3.1}{}}
+\@writefile{thm}{\contentsline {dn}{{Định nghĩa}{3.{2}}{Tính chất Markov của quan sát}}{23}{dn.3.2}\protected@file@percent }
+\newlabel{dn:markov-obs}{{3.{2}}{23}{Không gian quan sát}{dn.3.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Không gian hành động}{24}{subsubsection.3.1.3}\protected@file@percent }
+\newlabel{sub:action-space}{{3.1.3}{24}{Không gian hành động}{subsubsection.3.1.3}{}}
+\@writefile{thm}{\contentsline {dn}{{Định nghĩa}{3.{3}}{Không gian hành động}}{24}{dn.3.3}\protected@file@percent }
+\newlabel{dn:action}{{3.{3}}{24}{Không gian hành động}{dn.3.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Nguyên tắc thiết kế hàm phần thưởng}{25}{subsubsection.3.1.4}\protected@file@percent }
+\newlabel{sub:reward-principle}{{3.1.4}{25}{Nguyên tắc thiết kế hàm phần thưởng}{subsubsection.3.1.4}{}}
+\citation{ng1999policy}
+\@writefile{thm}{\contentsline {dn}{{Định nghĩa}{3.{4}}{Hàm phần thưởng}}{26}{dn.3.4}\protected@file@percent }
+\newlabel{dn:reward}{{3.{4}}{26}{Nguyên tắc thiết kế hàm phần thưởng}{dn.3.4}{}}
+\@writefile{thm}{\contentsline {dn}{{Định nghĩa}{3.{5}}{Định hình phần thưởng theo thế năng}}{26}{dn.3.5}\protected@file@percent }
+\newlabel{dn:pbrs}{{3.{5}}{26}{Nguyên tắc thiết kế hàm phần thưởng}{dn.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Môi trường 1: Football Table}{27}{subsection.3.2}\protected@file@percent }
+\newlabel{sub:env-football}{{3.2}{27}{Môi trường 1: Football Table}{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Mô tả bài toán và môi trường}{27}{subsubsection.3.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}}{28}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:env_football}{{3.1}{28}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Thiết kế tác nhân và luật chơi}{28}{subsubsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Không gian quan sát của tác nhân}{29}{subsubsection.3.2.3}\protected@file@percent }
+\newlabel{sub:football-obs}{{3.2.3}{29}{Không gian quan sát của tác nhân}{subsubsection.3.2.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Hàm phần thưởng}{29}{subsubsection.3.2.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Football Table}}{30}{table.caption.6}\protected@file@percent }
+\newlabel{tab:reward_football}{{3.1}{30}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm phần thưởng của môi trường Football Table}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.5}Lựa chọn và cấu hình thuật toán}{30}{subsubsection.3.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Môi trường 2: Cooperative Puzzle (hợp tác đa tác nhân)}{31}{subsection.3.3}\protected@file@percent }
+\newlabel{sub:env-coop}{{3.3}{31}{Môi trường 2: Cooperative Puzzle (hợp tác đa tác nhân)}{subsection.3.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Mô tả bài toán và bố cục không gian}{31}{subsubsection.3.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}}{32}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:env_puzzle}{{3.2}{32}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Thiết kế tác nhân và điều khiển vật lý}{32}{subsubsection.3.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3}Không gian quan sát của tác nhân}{32}{subsubsection.3.3.3}\protected@file@percent }
+\newlabel{sub:coop-obs}{{3.3.3}{32}{Không gian quan sát của tác nhân}{subsubsection.3.3.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.4}Cơ chế cửa và pha bàn giao}{33}{subsubsection.3.3.4}\protected@file@percent }
+\newlabel{sub:coop-handoff}{{3.3.4}{33}{Cơ chế cửa và pha bàn giao}{subsubsection.3.3.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.5}Hàm phần thưởng}{34}{subsubsection.3.3.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Cooperative Puzzle}}{35}{table.caption.8}\protected@file@percent }
+\newlabel{tab:reward_capture}{{3.2}{35}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm phần thưởng của môi trường Cooperative Puzzle}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.6}Học theo chương trình}{35}{subsubsection.3.3.6}\protected@file@percent }
+\newlabel{sub:coop-curriculum}{{3.3.6}{35}{Học theo chương trình}{subsubsection.3.3.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.7}Lựa chọn và cấu hình thuật toán}{36}{subsubsection.3.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Môi trường 3: Vượt đường tránh phương tiện}{36}{subsection.3.4}\protected@file@percent }
+\newlabel{sub:env-crossroad}{{3.4}{36}{Môi trường 3: Vượt đường tránh phương tiện}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Mô tả bài toán và môi trường}{36}{subsubsection.3.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}}{37}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:env_crossroad}{{3.3}{37}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Thiết kế tác nhân và chướng ngại vật}{37}{subsubsection.3.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.3}Không gian quan sát của tác nhân}{38}{subsubsection.3.4.3}\protected@file@percent }
+\newlabel{sub:cross-obs}{{3.4.3}{38}{Không gian quan sát của tác nhân}{subsubsection.3.4.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4}Hàm phần thưởng}{38}{subsubsection.3.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Cross The Road}}{38}{table.caption.10}\protected@file@percent }
+\newlabel{tab:reward_crossroad}{{3.3}{38}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm phần thưởng của môi trường Cross The Road}{table.caption.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.5}Lựa chọn và cấu hình thuật toán}{39}{subsubsection.3.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Bảng tổng hợp đặc trưng ba môi trường}{39}{subsection.3.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tổng hợp đặc trưng ba môi trường thực nghiệm}}{40}{table.caption.11}\protected@file@percent }
+\newlabel{tab:env_summary}{{3.4}{40}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tổng hợp đặc trưng ba môi trường thực nghiệm}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Triển khai thuật toán ngoài ML-Agents}{40}{subsection.3.6}\protected@file@percent }
+\newlabel{sub:custom}{{3.6}{40}{Triển khai thuật toán ngoài ML-Agents}{subsection.3.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.1}Vấn đề với SAC trong ML-Agents}{40}{subsubsection.3.6.1}\protected@file@percent }
 \citation{raffin2021stable}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.2}Cách tích hợp thuật toán tùy chỉnh qua Python API}{34}{subsubsection.3.6.2}\protected@file@percent }
-\newlabel{sub:pyapi}{{3.6.2}{34}{Cách tích hợp thuật toán tùy chỉnh qua Python API}{subsubsection.3.6.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.3}Cấu trúc mã nguồn bổ sung}{34}{subsubsection.3.6.3}\protected@file@percent }
-\newlabel{sub:codestruct}{{3.6.3}{34}{Cấu trúc mã nguồn bổ sung}{subsubsection.3.6.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Thiết lập thực nghiệm}{35}{subsection.3.7}\protected@file@percent }
-\newlabel{sub:experiment-setup}{{3.7}{35}{Thiết lập thực nghiệm}{subsection.3.7}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.7.1}Cấu hình phần cứng và phần mềm}{35}{subsubsection.3.7.1}\protected@file@percent }
-\newlabel{sub:hardware}{{3.7.1}{35}{Cấu hình phần cứng và phần mềm}{subsubsection.3.7.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Cấu hình phần cứng và phần mềm thực nghiệm}}{35}{table.caption.12}\protected@file@percent }
-\newlabel{tab:hardware}{{3.5}{35}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Cấu hình phần cứng và phần mềm thực nghiệm}{table.caption.12}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.7.2}Tham số huấn luyện từng thuật toán}{35}{subsubsection.3.7.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tóm tắt siêu tham số huấn luyện chính}}{36}{table.caption.13}\protected@file@percent }
-\newlabel{tab:hyperparams}{{3.6}{36}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tóm tắt siêu tham số huấn luyện chính}{table.caption.13}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.7.3}Tiêu chí đánh giá}{36}{subsubsection.3.7.3}\protected@file@percent }
-\newlabel{sub:evalcriteria}{{3.7.3}{36}{Tiêu chí đánh giá}{subsubsection.3.7.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ}{37}{section.4}\protected@file@percent }
-\newlabel{ch:results}{{4}{37}{KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Kết quả môi trường Football Table}{37}{subsection.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}}{38}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:football_elo}{{4.1}{38}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}{figure.caption.14}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}}{38}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:football_reward}{{4.2}{38}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}{figure.caption.15}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả ba thuật toán trên môi trường Football Table}}{39}{table.caption.16}\protected@file@percent }
-\newlabel{tab:football_results}{{4.1}{39}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả ba thuật toán trên môi trường Football Table}{table.caption.16}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Kết quả môi trường vượt đường (Cross The Road)}{39}{subsection.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}}{40}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:ctr_reward}{{4.3}{40}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}{figure.caption.17}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả ba thuật toán trên môi trường Cross The Road (thực đo)}}{40}{table.caption.18}\protected@file@percent }
-\newlabel{tab:ctr_results}{{4.2}{40}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả ba thuật toán trên môi trường Cross The Road (thực đo)}{table.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}}{41}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:ctr_eplen}{{4.4}{41}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}{figure.caption.19}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}}{42}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:ctr_entropy}{{4.5}{42}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}{figure.caption.20}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}}{43}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:ctr_vloss}{{4.6}{43}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Kết quả môi trường Cooperative Puzzle}{43}{subsection.4.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}}{43}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:ctf_reward}{{4.7}{43}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.2}Cách tích hợp thuật toán tùy chỉnh qua Python API}{41}{subsubsection.3.6.2}\protected@file@percent }
+\newlabel{sub:pyapi}{{3.6.2}{41}{Cách tích hợp thuật toán tùy chỉnh qua Python API}{subsubsection.3.6.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.6.3}Cấu trúc mã nguồn bổ sung}{41}{subsubsection.3.6.3}\protected@file@percent }
+\newlabel{sub:codestruct}{{3.6.3}{41}{Cấu trúc mã nguồn bổ sung}{subsubsection.3.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Thiết lập thực nghiệm}{42}{subsection.3.7}\protected@file@percent }
+\newlabel{sub:experiment-setup}{{3.7}{42}{Thiết lập thực nghiệm}{subsection.3.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.7.1}Cấu hình phần cứng và phần mềm}{42}{subsubsection.3.7.1}\protected@file@percent }
+\newlabel{sub:hardware}{{3.7.1}{42}{Cấu hình phần cứng và phần mềm}{subsubsection.3.7.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Cấu hình phần cứng và phần mềm thực nghiệm}}{42}{table.caption.12}\protected@file@percent }
+\newlabel{tab:hardware}{{3.5}{42}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Cấu hình phần cứng và phần mềm thực nghiệm}{table.caption.12}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.7.2}Tham số huấn luyện từng thuật toán}{42}{subsubsection.3.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tóm tắt siêu tham số huấn luyện chính}}{43}{table.caption.13}\protected@file@percent }
+\newlabel{tab:hyperparams}{{3.6}{43}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tóm tắt siêu tham số huấn luyện chính}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.7.3}Tiêu chí đánh giá}{43}{subsubsection.3.7.3}\protected@file@percent }
+\newlabel{sub:evalcriteria}{{3.7.3}{43}{Tiêu chí đánh giá}{subsubsection.3.7.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ}{44}{section.4}\protected@file@percent }
+\newlabel{ch:results}{{4}{44}{KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Kết quả môi trường Football Table}{44}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}}{45}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:football_elo}{{4.1}{45}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}}{45}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:football_reward}{{4.2}{45}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Đường cong phần thưởng đánh giá trên môi trường Football Table}{figure.caption.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả ba thuật toán trên môi trường Football Table}}{46}{table.caption.16}\protected@file@percent }
+\newlabel{tab:football_results}{{4.1}{46}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả ba thuật toán trên môi trường Football Table}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Kết quả môi trường vượt đường (Cross The Road)}{46}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}}{47}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:ctr_reward}{{4.3}{47}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Đường cong phần thưởng thực đo trên môi trường Cross The Road}{figure.caption.17}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả ba thuật toán trên môi trường Cross The Road (thực đo)}}{47}{table.caption.18}\protected@file@percent }
+\newlabel{tab:ctr_results}{{4.2}{47}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả ba thuật toán trên môi trường Cross The Road (thực đo)}{table.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}}{48}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:ctr_eplen}{{4.4}{48}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Độ dài lượt chơi thực đo trên môi trường Cross The Road}{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}}{49}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:ctr_entropy}{{4.5}{49}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Diễn biến entropy của chính sách trên môi trường Cross The Road}{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}}{50}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:ctr_vloss}{{4.6}{50}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Hàm mất mát của mạng phê bình trên môi trường Cross The Road}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Kết quả môi trường Cooperative Puzzle}{50}{subsection.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}}{50}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:ctf_reward}{{4.7}{50}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Đường cong phần thưởng trên môi trường Cooperative Puzzle}{figure.caption.22}{}}
 \expandafter \gdef \csname pgfplots@labelstyle@plot:ctf_ent\endcsname {pocacolor={\pgfkeysnovalue },thick={\pgfkeysnovalue },mark={none}}
 \expandafter \gdef \csname pgfplots@show@ref@plot:ctf_ent\endcsname {\begingroup \def \pgfplots@draw@image {\def \tikz@plot@handler {\pgfkeys {/pgf/plots/@handler options/.cd, start=\relax , end macro=\relax , point macro=\pgfutil@gobble , jump macro=\relax , special macro=\pgfutil@gobble , point macro=\pgf@plot@line@handler , jump=\global \let \pgf@plotstreampoint \pgf@plot@line@handler@move }\begingroup \escapechar =-1 \edef \pgfplotsplothandlername {\string \pgfplothandlerlineto }\pgfmath@smuggleone \pgfplotsplothandlername \endgroup \def \pgfplotsplothandlerLUAfactory {function(axis, pointmetainputhandler) return pgfplots.GenericPlothandler.new("\pgfplotsplothandlername ", axis,pointmetainputhandler) end}\def \pgfplotsplothandlerLUAvisualizerfactory {pgfplots.defaultPlotVisualizerFactory}}\pgfkeysdef {/pgfplots/legend image code}{\draw [/pgfplots/mesh=false,bar width=3pt,bar shift=0pt,mark repeat=2,mark phase=2,] plot coordinates { (0cm,0cm) (0.3cm,0cm) (0.6cm,0cm)};}\pgfkeysdef {/pgfplots/every legend image post}{}\pgfkeyssetvalue {/pgfplots/mark list fill}{.!80!black}\pgfkeysdef {/pgfplots/every crossref picture}{\pgfkeysalso {baseline,yshift=0.3em}}\pgfplots@show@small@legendplots {pocacolor={\pgfkeysnovalue },thick={\pgfkeysnovalue },mark={none}}{}}\ifpgfpicture \scope [/pgfplots/every crossref picture]\pgfplots@draw@image \endscope \else \expandafter \ifx \csname tikzappendtofigurename\endcsname \relax \else \begingroup \tikzappendtofigurename {_crossref}\fi \tikz [/pgfplots/every crossref picture]{\pgfplots@draw@image }\expandafter \ifx \csname tikzappendtofigurename\endcsname \relax \else \endgroup \fi \fi \endgroup }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả ba thuật toán trên môi trường Cooperative Puzzle}}{44}{table.caption.23}\protected@file@percent }
-\newlabel{tab:ctf_results}{{4.3}{44}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả ba thuật toán trên môi trường Cooperative Puzzle}{table.caption.23}{}}
-\newlabel{plot:ctf_ent}{{\expandafter\protect\csname pgfplots@show@ref@plot:ctf_ent\endcsname}{45}{Kết quả môi trường Cooperative Puzzle}{pgfplotslink.4.0}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}}{45}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:ctf_signals}{{4.8}{45}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}{figure.caption.24}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Đánh giá tổng hợp}{45}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}So sánh tốc độ hội tụ}{45}{subsubsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}So sánh tỷ lệ thành công}{46}{subsubsection.4.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}}{46}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:success_bar}{{4.9}{46}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}{figure.caption.25}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}So sánh độ ổn định}{46}{subsubsection.4.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Bằng chứng từ chỉ số huấn luyện nội tại}{47}{subsubsection.4.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số huấn luyện nội tại thực đo (các môi trường hành động rời rạc)}}{47}{table.caption.26}\protected@file@percent }
-\newlabel{tab:diagnostics}{{4.4}{47}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chỉ số huấn luyện nội tại thực đo (các môi trường hành động rời rạc)}{table.caption.26}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Phân tích ưu nhược điểm từng thuật toán}{47}{subsubsection.4.4.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Xếp hạng thuật toán theo từng môi trường}}{48}{table.caption.27}\protected@file@percent }
-\newlabel{tab:overall_ranking}{{4.5}{48}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Xếp hạng thuật toán theo từng môi trường}{table.caption.27}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Thảo luận}{48}{subsection.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Khả năng ứng dụng trong phát triển game}{48}{subsubsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Hạn chế của mô hình và các vấn đề còn tồn tại}{49}{subsubsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{49}{section.5}\protected@file@percent }
-\newlabel{ch:app}{{5}{49}{XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Mục tiêu và yêu cầu chức năng}{50}{subsection.5.1}\protected@file@percent }
-\newlabel{sub:app-goal}{{5.1}{50}{Mục tiêu và yêu cầu chức năng}{subsection.5.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Kiến trúc hệ thống}{51}{subsection.5.2}\protected@file@percent }
-\newlabel{sub:app-arch}{{5.2}{51}{Kiến trúc hệ thống}{subsection.5.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Các thành phần chính của ứng dụng trình diễn}}{51}{table.caption.28}\protected@file@percent }
-\newlabel{tab:app_modules}{{5.1}{51}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Các thành phần chính của ứng dụng trình diễn}{table.caption.28}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Luồng hoạt động của ứng dụng trình diễn}}{52}{figure.caption.29}\protected@file@percent }
-\newlabel{fig:app_flow}{{5.1}{52}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Luồng hoạt động của ứng dụng trình diễn}{figure.caption.29}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Giao diện menu và luồng sử dụng}{52}{subsection.5.3}\protected@file@percent }
-\newlabel{sub:app-menu}{{5.3}{52}{Giao diện menu và luồng sử dụng}{subsection.5.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Màn hình menu chính của ứng dụng trình diễn}}{53}{figure.caption.30}\protected@file@percent }
-\newlabel{fig:app_menu}{{5.2}{53}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Màn hình menu chính của ứng dụng trình diễn}{figure.caption.30}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi: hai ô chọn riêng cho đội Xanh và đội Đỏ}}{54}{figure.caption.31}\protected@file@percent }
-\newlabel{fig:app_menu_models}{{5.3}{54}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi: hai ô chọn riêng cho đội Xanh và đội Đỏ}{figure.caption.31}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Nạp mô hình ONNX tại thời gian chạy}{54}{subsection.5.4}\protected@file@percent }
-\newlabel{sub:app-model}{{5.4}{54}{Nạp mô hình ONNX tại thời gian chạy}{subsection.5.4}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Liệt kê và gán mô hình ONNX tại thời gian chạy}}{55}{lstlisting.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Ba chế độ chơi trong từng môi trường}{55}{subsection.5.5}\protected@file@percent }
-\newlabel{sub:app-modes}{{5.5}{55}{Ba chế độ chơi trong từng môi trường}{subsection.5.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Ánh xạ ba chế độ chơi vào ba môi trường}}{55}{table.caption.32}\protected@file@percent }
-\newlabel{tab:app_mode_matrix}{{5.2}{55}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Ánh xạ ba chế độ chơi vào ba môi trường}{table.caption.32}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}Cross The Road: đua song song với tác nhân}{55}{subsubsection.5.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực Cross The Road}}{56}{figure.caption.33}\protected@file@percent }
-\newlabel{fig:app_ctr_agent}{{5.4}{56}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực Cross The Road}{figure.caption.33}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với tác nhân dùng mô hình SAC (phải)}}{57}{figure.caption.34}\protected@file@percent }
-\newlabel{fig:app_ctr_pva}{{5.5}{57}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với tác nhân dùng mô hình SAC (phải)}{figure.caption.34}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}Capture The Flag: phối hợp người - máy}{57}{subsubsection.5.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng tác nhân đồng đội dùng mô hình MA-POCA}}{58}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:app_ctf_pva}{{5.6}{58}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng tác nhân đồng đội dùng mô hình MA-POCA}{figure.caption.35}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}Football Table: đối đầu người - máy và máy - máy}{58}{subsubsection.5.5.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh, góc trên trái hiển thị thanh gạt đang được chọn}}{59}{figure.caption.36}\protected@file@percent }
-\newlabel{fig:app_fb_player}{{5.7}{59}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh, góc trên trái hiển thị thanh gạt đang được chọn}{figure.caption.36}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Các vấn đề kỹ thuật và giải pháp}{59}{subsection.5.6}\protected@file@percent }
-\newlabel{sub:app-issues}{{5.6}{59}{Các vấn đề kỹ thuật và giải pháp}{subsection.5.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Kiểm thử ứng dụng}{60}{subsection.5.7}\protected@file@percent }
-\newlabel{sub:app-testing}{{5.7}{60}{Kiểm thử ứng dụng}{subsection.5.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả kiểm thử các luồng chức năng của ứng dụng}}{61}{table.caption.37}\protected@file@percent }
-\newlabel{tab:app_test}{{5.3}{61}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả kiểm thử các luồng chức năng của ứng dụng}{table.caption.37}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}KẾT LUẬN}{61}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Kết quả đạt được}{61}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Đóng góp của đề tài}{62}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Hạn chế}{62}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Hướng phát triển}{63}{subsection.6.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả ba thuật toán trên môi trường Cooperative Puzzle}}{51}{table.caption.23}\protected@file@percent }
+\newlabel{tab:ctf_results}{{4.3}{51}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả ba thuật toán trên môi trường Cooperative Puzzle}{table.caption.23}{}}
+\newlabel{plot:ctf_ent}{{\expandafter\protect\csname pgfplots@show@ref@plot:ctf_ent\endcsname}{52}{Kết quả môi trường Cooperative Puzzle}{pgfplotslink.4.0}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}}{52}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:ctf_signals}{{4.8}{52}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chỉ số nội tại của MA-POCA trên môi trường Cooperative Puzzle: entropy (trục trái) và phần thưởng tò mò (trục phải)}{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Đánh giá tổng hợp}{52}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}So sánh tốc độ hội tụ}{52}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}So sánh tỷ lệ thành công}{53}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}}{53}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:success_bar}{{4.9}{53}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces So sánh tỷ lệ thành công của ba thuật toán trên ba môi trường}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}So sánh độ ổn định}{53}{subsubsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Bằng chứng từ chỉ số huấn luyện nội tại}{54}{subsubsection.4.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số huấn luyện nội tại thực đo (các môi trường hành động rời rạc)}}{54}{table.caption.26}\protected@file@percent }
+\newlabel{tab:diagnostics}{{4.4}{54}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chỉ số huấn luyện nội tại thực đo (các môi trường hành động rời rạc)}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Phân tích ưu nhược điểm từng thuật toán}{54}{subsubsection.4.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Xếp hạng thuật toán theo từng môi trường}}{55}{table.caption.27}\protected@file@percent }
+\newlabel{tab:overall_ranking}{{4.5}{55}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Xếp hạng thuật toán theo từng môi trường}{table.caption.27}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Thảo luận}{55}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Khả năng ứng dụng trong phát triển game}{55}{subsubsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Hạn chế của mô hình và các vấn đề còn tồn tại}{56}{subsubsection.4.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{56}{section.5}\protected@file@percent }
+\newlabel{ch:app}{{5}{56}{XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Mục tiêu và yêu cầu chức năng}{57}{subsection.5.1}\protected@file@percent }
+\newlabel{sub:app-goal}{{5.1}{57}{Mục tiêu và yêu cầu chức năng}{subsection.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Kiến trúc hệ thống}{58}{subsection.5.2}\protected@file@percent }
+\newlabel{sub:app-arch}{{5.2}{58}{Kiến trúc hệ thống}{subsection.5.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Các thành phần chính của ứng dụng trình diễn}}{58}{table.caption.28}\protected@file@percent }
+\newlabel{tab:app_modules}{{5.1}{58}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Các thành phần chính của ứng dụng trình diễn}{table.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Luồng hoạt động của ứng dụng trình diễn}}{59}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:app_flow}{{5.1}{59}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Luồng hoạt động của ứng dụng trình diễn}{figure.caption.29}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Giao diện menu và luồng sử dụng}{59}{subsection.5.3}\protected@file@percent }
+\newlabel{sub:app-menu}{{5.3}{59}{Giao diện menu và luồng sử dụng}{subsection.5.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Màn hình menu chính của ứng dụng trình diễn}}{60}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:app_menu}{{5.2}{60}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Màn hình menu chính của ứng dụng trình diễn}{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi: hai ô chọn riêng cho đội Xanh và đội Đỏ}}{61}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:app_menu_models}{{5.3}{61}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Khu vực chọn mô hình khi Football Table ở chế độ Agent tự chơi: hai ô chọn riêng cho đội Xanh và đội Đỏ}{figure.caption.31}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Nạp mô hình ONNX tại thời gian chạy}{61}{subsection.5.4}\protected@file@percent }
+\newlabel{sub:app-model}{{5.4}{61}{Nạp mô hình ONNX tại thời gian chạy}{subsection.5.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Liệt kê và gán mô hình ONNX tại thời gian chạy}}{62}{lstlisting.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Ba chế độ chơi trong từng môi trường}{62}{subsection.5.5}\protected@file@percent }
+\newlabel{sub:app-modes}{{5.5}{62}{Ba chế độ chơi trong từng môi trường}{subsection.5.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Ánh xạ ba chế độ chơi vào ba môi trường}}{62}{table.caption.32}\protected@file@percent }
+\newlabel{tab:app_mode_matrix}{{5.2}{62}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Ánh xạ ba chế độ chơi vào ba môi trường}{table.caption.32}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}Cross The Road: đua song song với tác nhân}{62}{subsubsection.5.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực Cross The Road}}{63}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:app_ctr_agent}{{5.4}{63}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Agent tự chơi: mô hình PPO điều khiển đồng thời chín khu vực Cross The Road}{figure.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với tác nhân dùng mô hình SAC (phải)}}{64}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:app_ctr_pva}{{5.5}{64}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Chơi với Agent trong Cross The Road: người chơi (trái) đua với tác nhân dùng mô hình SAC (phải)}{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}Capture The Flag: phối hợp người - máy}{64}{subsubsection.5.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng tác nhân đồng đội dùng mô hình MA-POCA}}{65}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:app_ctf_pva}{{5.6}{65}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Chơi với Agent trong Capture The Flag: người chơi phối hợp cùng tác nhân đồng đội dùng mô hình MA-POCA}{figure.caption.35}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}Football Table: đối đầu người - máy và máy - máy}{65}{subsubsection.5.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh, góc trên trái hiển thị thanh gạt đang được chọn}}{66}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:app_fb_player}{{5.7}{66}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Chế độ Người chơi trong Football Table: người chơi cầm đội Xanh, góc trên trái hiển thị thanh gạt đang được chọn}{figure.caption.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Các vấn đề kỹ thuật và giải pháp}{66}{subsection.5.6}\protected@file@percent }
+\newlabel{sub:app-issues}{{5.6}{66}{Các vấn đề kỹ thuật và giải pháp}{subsection.5.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Kiểm thử ứng dụng}{67}{subsection.5.7}\protected@file@percent }
+\newlabel{sub:app-testing}{{5.7}{67}{Kiểm thử ứng dụng}{subsection.5.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả kiểm thử các luồng chức năng của ứng dụng}}{68}{table.caption.37}\protected@file@percent }
+\newlabel{tab:app_test}{{5.3}{68}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Kết quả kiểm thử các luồng chức năng của ứng dụng}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}KẾT LUẬN}{68}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Kết quả đạt được}{68}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Đóng góp của đề tài}{69}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Hạn chế}{69}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Hướng phát triển}{70}{subsection.6.4}\protected@file@percent }
 \bibstyle{plain}
 \bibdata{ref}
 \bibcite{bellman1957markovian}{1}
@@ -265,20 +290,20 @@
 \bibcite{vinyals2019grandmaster}{20}
 \bibcite{williams1992simple}{21}
 \bibcite{yannakakis2018artificial}{22}
-\@writefile{toc}{\contentsline {section}{PHỤ LỤC}{67}{subsection.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{Phụ lục A. Cấu hình huấn luyện PPO}{67}{section*.38}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces football\_ppo.yaml}}{67}{lstlisting.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{Phụ lục B. Cấu hình huấn luyện SAC}{67}{lstnumber.2.31}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces ctr\_sac.yaml}}{67}{lstlisting.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Tích hợp SAC qua mlagents\_envs + Stable-Baselines3}}{68}{lstlisting.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}{68}{lstnumber.4.24}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces ctf\_poca.yaml}}{68}{lstlisting.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{Phụ lục D. Mã nguồn minh họa}{69}{lstnumber.5.29}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces CollectObservations - CrossTheRoadAgent.cs}}{69}{lstlisting.6}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces GivePoints / TakeAwayPoints - CrossTheRoadAgent.cs}}{69}{lstlisting.7}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}{\ignorespaces Group reward - EnvController.cs (trich doan)}}{69}{lstlisting.8}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}{\ignorespaces AddShotReward - FootballAgent.cs}}{70}{lstlisting.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{Phụ lục E. Kết quả TensorBoard}{70}{lstnumber.9.10}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tóm tắt chỉ số cuối thực đo từ TensorBoard}}{70}{table.caption.39}\protected@file@percent }
-\newlabel{tab:tb_summary}{{6.1}{70}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tóm tắt chỉ số cuối thực đo từ TensorBoard}{table.caption.39}{}}
-\gdef \@abspage@last{83}
+\@writefile{toc}{\contentsline {section}{PHỤ LỤC}{74}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{Phụ lục A. Cấu hình huấn luyện PPO}{74}{section*.38}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces football\_ppo.yaml}}{74}{lstlisting.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{Phụ lục B. Cấu hình huấn luyện SAC}{74}{lstnumber.2.31}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces ctr\_sac.yaml}}{74}{lstlisting.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Tích hợp SAC qua mlagents\_envs + Stable-Baselines3}}{75}{lstlisting.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}{75}{lstnumber.4.24}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces ctf\_poca.yaml}}{75}{lstlisting.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{Phụ lục D. Mã nguồn minh họa}{76}{lstnumber.5.29}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces CollectObservations - CrossTheRoadAgent.cs}}{76}{lstlisting.6}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces GivePoints / TakeAwayPoints - CrossTheRoadAgent.cs}}{76}{lstlisting.7}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}{\ignorespaces Group reward - EnvController.cs (trich doan)}}{76}{lstlisting.8}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}{\ignorespaces AddShotReward - FootballAgent.cs}}{77}{lstlisting.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{Phụ lục E. Kết quả TensorBoard}{77}{lstnumber.9.10}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tóm tắt chỉ số cuối thực đo từ TensorBoard}}{77}{table.caption.39}\protected@file@percent }
+\newlabel{tab:tb_summary}{{6.1}{77}{\texorpdfstring {\xpg@aux {\xpg@current@opts }{\languagename }}{}\ignorespaces Tóm tắt chỉ số cuối thực đo từ TensorBoard}{table.caption.39}{}}
+\gdef \@abspage@last{90}
