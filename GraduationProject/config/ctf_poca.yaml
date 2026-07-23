@@ -23,6 +23,9 @@ behaviors:
       hidden_units: 256
       num_layers: 3
       vis_encode_type: simple
+      # KHONG dung memory/LSTM de giu giong ctf_mappo.yaml (plugin MAPPO chua ho tro
+      # recurrent). Observation da bo sung trang thai handoff cua dong doi nen bai
+      # toan gan-Markov, khong can bo nho hoi tiep.
     reward_signals:
       extrinsic:
         gamma: 0.99
@@ -35,3 +38,19 @@ behaviors:
     max_steps: 5000000
     time_horizon: 128
     summary_freq: 20000
+
+# (b) Curriculum: giong ctf_mappo.yaml — bai hoc 0 mo san cua, bai hoc 1 khoa cua
+#     (bat buoc handoff). EnvController.cs doc handoff_required qua EnvironmentParameters.
+environment_parameters:
+  handoff_required:
+    curriculum:
+      - name: Lesson0_DoorOpen
+        completion_criteria:
+          measure: reward
+          behavior: PuzzleBehavior
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 0.0
+      - name: Lesson1_Handoff
+        value: 1.0

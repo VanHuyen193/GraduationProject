@@ -18,6 +18,9 @@ public class PuzzleAgent : Agent
     // Sensor dùng để thêm observation
     private VectorSensorComponent goalSensor;
 
+    // Agent đồng đội trong cùng TrainingArea (để quan sát trạng thái vượt cổng của nhau)
+    private PuzzleAgent partnerAgent;
+
     [SerializeField]
     // Tốc độ di chuyển của agent
     private float moveSpeed = 10f;
@@ -62,6 +65,16 @@ public class PuzzleAgent : Agent
                         .OrderBy(plate => plate.name)
                         .ToArray();
 
+        // Tìm agent đồng đội (PuzzleAgent còn lại trong cùng TrainingArea)
+        foreach (PuzzleAgent other in parent.GetComponentsInChildren<PuzzleAgent>())
+        {
+            if (other != this)
+            {
+                partnerAgent = other;
+                break;
+            }
+        }
+
         // Kiểm tra xem có đủ pressure plate không
         if (pressurePlates.Length < 2)
         {
@@ -90,6 +103,13 @@ public class PuzzleAgent : Agent
         sensor.AddObservation(
             pressurePlates[1].GetComponent<OpenDoor>().isPressed
         );
+
+        // Quan sát trạng thái đã vượt cổng của BẢN THÂN
+        sensor.AddObservation(ThisAgentLeft);
+
+        // Quan sát trạng thái đã vượt cổng của ĐỒNG ĐỘI
+        // (để biết khi nào nên nhả plate trong pha handoff)
+        sensor.AddObservation(partnerAgent != null && partnerAgent.ThisAgentLeft);
 
         // Quan sát trạng thái checkpoint
         goalSensor.GetSensor().AddObservation(FoundCheckpoint);

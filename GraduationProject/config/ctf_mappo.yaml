@@ -27,6 +27,11 @@ behaviors:
       hidden_units: 256
       num_layers: 3
       vis_encode_type: simple
+      # KHONG dung memory/LSTM: plugin MAPPO chua ho tro recurrent (raise loi).
+      # Thay vao do, observation da them 2 bool ThisAgentLeft (minh + dong doi)
+      # trong PuzzleAgent.cs -> trang thai handoff quan sat truc tiep tung frame
+      # nen bai toan gan-Markov, khong can bo nho hoi tiep. Giu memoryless de
+      # so sanh cong bang voi ctf_poca.yaml.
     reward_signals:
       extrinsic:
         gamma: 0.99
@@ -39,3 +44,21 @@ behaviors:
     max_steps: 5000000
     time_horizon: 128
     summary_freq: 20000
+
+# (b) Curriculum: bai hoc 0 mo san cua (handoff_required=0) de agent hoc di chuyen
+#     toi checkpoint truoc; khi mean group reward vuot nguong thi chuyen sang bai 1
+#     (handoff_required=1) — khoa cua, bat buoc hoc bàn giao giữ cửa.
+#     EnvController.cs doc tham so nay qua Academy.EnvironmentParameters.
+environment_parameters:
+  handoff_required:
+    curriculum:
+      - name: Lesson0_DoorOpen
+        completion_criteria:
+          measure: reward
+          behavior: PuzzleBehavior
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 0.0
+      - name: Lesson1_Handoff
+        value: 1.0

@@ -6,6 +6,9 @@
 
 \vspace{0.5cm}
 
+% Cỡ chữ 13pt cho bảng từ viết tắt, giới hạn trong nhóm để không ảnh hưởng phần sau
+\begingroup
+\fontsize{13pt}{20pt}\selectfont
 \renewcommand{\arraystretch}{1.4}
 \noindent
 \begin{longtable}{|>{\centering\arraybackslash}p{3cm}|p{5cm}|p{7.5cm}|}
@@ -41,3 +44,4 @@ YAML    & YAML Ain't Markup Language & Định dạng tệp cấu hình \\ \hlin
 GPU     & Graphics Processing Unit & Bộ xử lý đồ họa \\ \hline
 SB3     & Stable-Baselines3 & Thư viện hiện thực các thuật toán RL \\ \hline
 \end{longtable}
+\endgroup

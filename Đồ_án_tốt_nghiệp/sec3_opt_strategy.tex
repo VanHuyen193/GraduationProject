@@ -14,7 +14,7 @@ nó.
 
 \subsection{Trí tuệ nhân tạo trong game}
 \indent Trí tuệ nhân tạo trong game có lịch sử phát triển song hành với sự ra đời
-của ngành công nghiệp game từ những thập niên 1970--1980. Khác với AI trong nghiên
+của ngành công nghiệp game từ những thập niên 1970-1980. Khác với AI trong nghiên
 cứu học thuật, AI trong game không nhất thiết phải tối ưu hay thông minh tuyệt đối
 - mục tiêu cốt lõi là tạo ra những đối thủ hoặc nhân vật phi người chơi (NPC) có
 hành vi đủ thuyết phục, góp phần mang lại trải nghiệm thú vị và thử thách cho người
@@ -30,7 +30,7 @@ kiểm soát và dự đoán được, nhưng thiếu tính linh hoạt khi gặ
 dự kiến.
 
 \indent Để khắc phục hạn chế đó, máy trạng thái hữu hạn (Finite State Machine -
-FSM) được ứng dụng rộng rãi trong những thập niên 1990--2000. FSM mô hình hóa hành
+FSM) được ứng dụng rộng rãi trong những thập niên 1990-2000. FSM mô hình hóa hành
 vi của NPC thông qua một tập hữu hạn các trạng thái (tuần tra, truy đuổi, tấn công,
 rút lui) và các điều kiện chuyển trạng thái tương ứng. Nhờ tính đơn giản và hiệu quả
 tính toán cao, FSM vẫn được sử dụng phổ biến trong nhiều thể loại game đến tận ngày
@@ -39,7 +39,7 @@ tiếp tăng lên, FSM nhanh chóng trở nên phức tạp và khó bảo trì,
 thường được gọi là ``state explosion''.
 
 \indent Để giải quyết bài toán lập kế hoạch hành động phức tạp hơn, Goal-Oriented
-Action Planning (GOAP) được giới thiệu và phổ biến qua tựa game \textit{F.E.A.R.}
+Action Planning (GOAP) được giới thiệu và phổ biến qua tựa game F.E.A.R.
 (2005) \cite{millington2019ai}. Thay vì định nghĩa cứng các chuyển trạng thái, GOAP
 cho phép NPC tự lập kế hoạch hành động dựa trên mục tiêu hiện tại và trạng thái thế
 giới, mang lại hành vi linh hoạt và tự nhiên hơn đáng kể. Dù vậy, toàn bộ tri thức
@@ -134,7 +134,7 @@ chính sách.
 \subsubsection{Markov Decision Process (MDP)}
 
 \indent Hầu hết các bài toán RL được hình thức hóa dưới dạng Quá trình Quyết định
-Markov (Markov Decision Process --- MDP), một khung toán học cung cấp nền tảng lý
+Markov (Markov Decision Process - MDP), một khung toán học cung cấp nền tảng lý
 thuyết chặt chẽ cho việc mô hình hóa bài toán ra quyết định tuần tự trong môi trường
 ngẫu nhiên \cite{puterman1994markov}. Một MDP được định nghĩa bởi bộ năm thành phần
 $\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma)$, trong
@@ -144,7 +144,7 @@ $\mathcal{P}$ là hàm chuyển trạng thái, $\mathcal{R}$ là hàm phần th�
 
 \indent Hàm chuyển trạng thái $\mathcal{P}(s' \mid s, a)$ xác định xác suất chuyển
 từ trạng thái $s$ sang trạng thái $s'$ khi thực hiện hành động $a$. Tính chất Markov
---- hay còn gọi là tính không nhớ --- đòi hỏi rằng trạng thái tiếp theo $s_{t+1}$
+- hay còn gọi là tính không nhớ - đòi hỏi rằng trạng thái tiếp theo $s_{t+1}$
 chỉ phụ thuộc vào trạng thái hiện tại $s_t$ và hành động $a_t$, không phụ thuộc vào
 lịch sử trước đó:
 
@@ -177,7 +177,7 @@ Mục tiêu của RL là tìm policy tối ưu $\pi^*$ sao cho tổng phần th�
 vọng là lớn nhất.
 
 \indent Value Function hay còn được gọi là hàm giá trị đo lường mức độ tốt của một trạng thái
-hoặc một cặp trạng thái--hành động khi agent tuân theo một policy nhất định. Hàm giá
+hoặc một cặp trạng thái-hành động khi agent tuân theo một policy nhất định. Hàm giá
 trị trạng thái $V^\pi(s)$ được định nghĩa là tổng phần thưởng tích lũy kỳ vọng khi
 bắt đầu từ trạng thái $s$ và tuân theo policy $\pi$:
 
@@ -222,7 +222,7 @@ chi tiết trong Mục~\ref{sub:deeprl}.
 \indent Học tăng cường sâu (Deep Reinforcement Learning) là sự kết hợp giữa học tăng cường và
 mạng nơ-ron sâu (deep neural network), ra đời nhằm giải quyết hạn chế cốt lõi của RL
 truyền thống khi đối mặt với các bài toán có không gian trạng thái và hành động lớn,
-liên tục. Thay vì lưu trữ giá trị của từng cặp trạng thái--hành động trong bảng tra
+liên tục. Thay vì lưu trữ giá trị của từng cặp trạng thái-hành động trong bảng tra
 cứu, Deep RL sử dụng mạng nơ-ron để xấp xỉ các hàm giá trị hoặc policy, cho phép
 tổng quát hóa sang các trạng thái chưa từng gặp trong quá trình huấn luyện
 \cite{lecun2015deep}. Đây là đặc tính then chốt khiến Deep RL có thể xử lý được các
@@ -233,9 +233,9 @@ môi trường game 3D phức tạp như trong đề tài này.
 được biểu diễn dưới dạng bảng tra cứu (lookup table), đòi hỏi mỗi cặp $(s, a)$ phải
 được thăm viếng đủ nhiều lần để ước lượng chính xác. Cách tiếp cận này chỉ khả thi
 với không gian trạng thái hữu hạn và nhỏ. Với các môi trường game 3D, không gian
-trạng thái có thể là liên tục và có số chiều rất lớn --- ví dụ, vector quan sát của
+trạng thái có thể là liên tục và có số chiều rất lớn - ví dụ, vector quan sát của
 agent trong môi trường Football Table bao gồm vị trí, vận tốc của bóng và các thanh
-gạt trong không gian ba chiều --- khiến bảng tra cứu hoàn toàn không khả thi.
+gạt trong không gian ba chiều - khiến bảng tra cứu hoàn toàn không khả thi.
 
 \indent Mạng nơ-ron sâu giải quyết vấn đề này bằng cách đóng vai trò là bộ xấp xỉ
 hàm tổng quát (universal function approximator). Thay vì lưu trữ giá trị cho từng
@@ -274,8 +274,8 @@ trong ước lượng gradient, dẫn đến quá trình huấn luyện kém ổ
 độ lớn của mỗi bước cập nhật, giúp ổn định quá trình huấn luyện đáng kể.
 
 \indent Actor-Critic là nhóm kết hợp ưu điểm của cả hai nhóm trên bằng cách
-duy trì đồng thời hai mạng nơ-ron: mạng \textit{actor} học policy $\pi_\theta(a \mid
-s)$ và mạng \textit{critic} học hàm giá trị $V_\phi(s)$ hoặc $Q_\phi(s,a)$. Critic
+duy trì đồng thời hai mạng nơ-ron: mạng actor học policy $\pi_\theta(a \mid
+s)$ và mạng critic học hàm giá trị $V_\phi(s)$ hoặc $Q_\phi(s,a)$. Critic
 đóng vai trò đánh giá chất lượng hành động của actor, cung cấp tín hiệu học ổn định
 hơn so với việc chỉ dựa vào phần thưởng thực tế \cite{mnih2016asynchronous}. SAC
 \cite{haarnoja2018soft} và MA-POCA \cite{cohen2022mapoca} đều thuộc nhóm Actor-Critic,
@@ -369,14 +369,14 @@ hiện tại, sau đó thực hiện nhiều lần cập nhật gradient trên c
 lặp lại này không làm policy lệch quá xa điểm xuất phát, đảm bảo tính ổn định mà
 không cần tính toán tốn kém như TRPO.
 
-\indent \textit{Ưu điểm:} PPO có tính ổn định huấn luyện cao nhờ cơ chế clipping,
+\indent \textbf{Ưu điểm:} PPO có tính ổn định huấn luyện cao nhờ cơ chế clipping,
 dễ triển khai và tinh chỉnh tham số, hoạt động tốt trên cả không gian hành động rời
 rạc lẫn liên tục. Thuật toán được tích hợp sẵn trong Unity ML-Agents với nhiều tham
 số được tối ưu theo kinh nghiệm, giúp rút ngắn đáng kể thời gian thiết lập thực
 nghiệm. PPO cũng dễ dàng mở rộng sang bài toán đa tác nhân thông qua cơ chế self-play
 có sẵn trong ML-Agents.
 
-\indent \textit{Nhược điểm:} Do là thuật toán on-policy, PPO không tái sử dụng được
+\indent \textbf{Nhược điểm:} Do là thuật toán on-policy, PPO không tái sử dụng được
 dữ liệu cũ, dẫn đến hiệu quả mẫu (sample efficiency) thấp hơn so với các phương pháp
 off-policy. Điều này đặc biệt bất lợi trong các môi trường mà mỗi bước tương tác tốn
 nhiều thời gian tính toán. Ngoài ra, PPO nhạy cảm với việc lựa chọn siêu tham số như
@@ -427,7 +427,7 @@ với PPO. Hệ số nhiệt độ $\alpha$ có thể được cố định ho�
 mục tiêu entropy mong muốn $\mathcal{H}_\text{target}$, giảm thiểu nhu cầu tinh
 chỉnh siêu tham số thủ công.
 
-\indent \textit{Ưu điểm:} SAC có hiệu quả mẫu vượt trội so với các thuật toán
+\indent \textbf{Ưu điểm:} SAC có hiệu quả mẫu vượt trội so với các thuật toán
 on-policy nhờ replay buffer, đặc biệt phù hợp với không gian hành động liên tục -
 đặc điểm quan trọng trong môi trường Football Table của đề tài. Cơ chế entropy
 regularization giúp SAC tránh hội tụ sớm về cực tiểu cục bộ và duy trì khả năng
@@ -435,7 +435,7 @@ khám phá trong suốt quá trình huấn luyện. Ngoài ra, SAC ít nhạy c�
 lựa chọn learning rate so với PPO, mang lại tính ổn định tốt hơn trên nhiều bài toán
 khác nhau \cite{haarnoja2018softapps}.
 
-\indent \textit{Nhược điểm:} SAC đòi hỏi bộ nhớ lớn hơn để lưu trữ replay buffer
+\indent \textbf{Nhược điểm:} SAC đòi hỏi bộ nhớ lớn hơn để lưu trữ replay buffer
 và chi phí tính toán mỗi bước cập nhật cao hơn do phải huấn luyện đồng thời ba mạng
 nơ-ron. Do là thuật toán off-policy dựa trên replay buffer, SAC không tương thích trực
 tiếp với cơ chế self-play của môi trường đối kháng, vì khi đối thủ thay đổi thì các
@@ -448,16 +448,16 @@ Mục~\ref{sub:custom}.
 thuật toán chuyên biệt cho bài toán học tăng cường đa tác nhân hợp tác
 (cooperative multi-agent), và là thuật toán đa tác nhân mặc định trong Unity
 ML-Agents. MA-POCA giải quyết hai thách thức đặc thù của môi trường đa tác nhân mà
-PPO hay SAC nguyên bản khó xử lý tốt: bài toán \textit{gán công lao} (credit
-assignment) --- xác định đóng góp của từng agent vào phần thưởng chung của cả nhóm ---
-và bài toán \textit{tác nhân biến động} (posthumous credit) --- gán công lao đúng
+PPO hay SAC nguyên bản khó xử lý tốt: bài toán gán công lao (credit
+assignment) - xác định đóng góp của từng agent vào phần thưởng chung của cả nhóm -
+và bài toán tác nhân biến động (posthumous credit) - gán công lao đúng
 cách cho những agent đã kết thúc hoạt động (bị loại hoặc hoàn thành nhiệm vụ) trước
 khi phần thưởng nhóm được trao.
 
 \indent Về nguyên lý hoạt động, MA-POCA mở rộng kiến trúc actor-critic theo mô hình
-\textit{huấn luyện tập trung, thực thi phân tán} (centralized training with
+huấn luyện tập trung, thực thi phân tán (centralized training with
 decentralized execution). Trong quá trình huấn luyện, một mạng critic tập trung
-(centralized critic) được phép quan sát trạng thái và hành động của \textit{toàn bộ}
+(centralized critic) được phép quan sát trạng thái và hành động của toàn bộ
 các agent trong nhóm để ước lượng giá trị chung, nhờ đó đánh giá chính xác hơn đóng
 góp của từng agent. Tuy nhiên, khi triển khai thực tế, mỗi agent chỉ dựa trên quan
 sát cục bộ của riêng mình để ra quyết định, đảm bảo tính khả thi và khả năng mở rộng.
@@ -466,7 +466,7 @@ sát cục bộ của riêng mình để ra quyết định, đảm bảo tính 
 lý số lượng agent thay đổi động trong một episode. Thay vì cố định số lượng agent như
 các phương pháp trước \cite{lowe2017multiagent, foerster2018counterfactual},
 MA-POCA cho phép agent gia nhập hoặc rời khỏi
-nhóm giữa chừng mà vẫn gán công lao chính xác --- đặc tính rất quan trọng trong các
+nhóm giữa chừng mà vẫn gán công lao chính xác - đặc tính rất quan trọng trong các
 game hợp tác nơi agent có thể ``chết'' hoặc hoàn thành nhiệm vụ ở các thời điểm khác
 nhau. Hàm giá trị nhóm được học dựa trên tổng phần thưởng nhóm (group reward) do môi
 trường cung cấp thông qua cơ chế \texttt{SimpleMultiAgentGroup} của ML-Agents.
@@ -477,13 +477,13 @@ giá trị trạng thái đơn tác nhân $V(s)$ bằng hàm giá trị nhóm d�
 trung, cho phép mỗi agent nhận được tín hiệu học phản ánh đúng đóng góp của mình vào
 kết quả chung.
 
-\indent \textit{Ưu điểm:} MA-POCA được thiết kế riêng cho bài toán hợp tác đa tác
+\indent \textbf{Ưu điểm:} MA-POCA được thiết kế riêng cho bài toán hợp tác đa tác
 nhân, giải quyết hiệu quả vấn đề gán công lao mà PPO độc lập (mỗi agent học riêng
 lẻ) thường gặp phải. Cơ chế attention giúp thuật toán linh hoạt với số lượng agent
 thay đổi. Trong ML-Agents, MA-POCA tích hợp trực tiếp với cơ chế group reward, giúp
 việc thiết kế môi trường hợp tác trở nên tự nhiên và trực quan.
 
-\indent \textit{Nhược điểm:} Là thuật toán on-policy, MA-POCA cũng chịu hạn chế về
+\indent \textbf{Nhược điểm:} Là thuật toán on-policy, MA-POCA cũng chịu hạn chế về
 hiệu quả mẫu tương tự PPO. Kiến trúc centralized critic làm tăng độ phức tạp tính toán
 và bộ nhớ khi số lượng agent lớn. Ngoài ra, với bài toán đơn tác nhân, MA-POCA gần như
 tương đương PPO nhưng phức tạp hơn không cần thiết, nên không mang lại lợi ích rõ rệt.
@@ -498,7 +498,7 @@ liền mạch giữa engine đồ họa Unity và hệ sinh thái Python của c
 
 \subsubsection{Kiến trúc tổng thể}
 \label{sub:mlarch}
-\indent Kiến trúc của ML-Agents được xây dựng theo mô hình client--server, trong đó
+\indent Kiến trúc của ML-Agents được xây dựng theo mô hình client-server, trong đó
 Unity Engine đóng vai trò môi trường mô phỏng và Python đóng vai trò
 backend huấn luyện. Hai thành phần này giao tiếp với nhau thông qua giao
 thức gRPC qua socket, cho phép chạy đồng thời nhiều instance môi trường Unity để
@@ -562,13 +562,13 @@ các thiết lập khác nhau trong cùng một session. Cấu hình chi tiết 
 toán đơn tác nhân và đối kháng (kết hợp self-play), và \texttt{POCA} (MA-POCA) cho
 bài toán hợp tác đa tác nhân. Cả hai đều là thuật toán on-policy. Bên cạnh đó,
 ML-Agents cũng cung cấp trainer \texttt{SAC} như một lựa chọn off-policy, cùng các
-tín hiệu phần thưởng nội tại như \textit{curiosity} và \textit{RND} để hỗ trợ khám
+tín hiệu phần thưởng nội tại như curiosity và RND để hỗ trợ khám
 phá trong môi trường phần thưởng thưa. Người dùng lựa chọn thuật toán và cấu hình siêu
 tham số hoàn toàn thông qua tệp YAML mà không cần thay đổi mã nguồn C\# của môi trường.
 
 \indent Tuy nhiên, việc tích hợp sẵn này cũng đi kèm một số giới hạn quan trọng đối
-với đề tài. Thứ nhất, cơ chế self-play --- vốn cần thiết cho môi trường đối
-kháng như Football Table --- chỉ được hỗ trợ chính thức cho PPO và POCA, mà không hỗ
+với đề tài. Thứ nhất, cơ chế self-play - vốn cần thiết cho môi trường đối
+kháng như Football Table - chỉ được hỗ trợ chính thức cho PPO và POCA, mà không hỗ
 trợ cho SAC. Nguyên nhân là replay buffer của SAC lưu trữ kinh nghiệm từ các phiên
 bản đối thủ cũ, trở nên lỗi thời và mâu thuẫn khi đối thủ liên tục được cập nhật trong
 quá trình self-play. Thứ hai, cơ chế group reward phục vụ bài toán hợp tác

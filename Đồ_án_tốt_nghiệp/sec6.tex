@@ -107,7 +107,7 @@ MA-POCA$^{*}$ & $0{,}38$ & $61\%$ & $\sim$420K & $0{,}06$ \\
 \noindent {\small $^{*}$ Giá trị ước lượng. PPO là lần chạy thực với năm trăm nghìn
 bước và chỉ số xếp hạng thực đo bằng một nghìn hai trăm mười chín.}
 
-\indent \textit{Nhận xét:} PPO kết hợp tự chơi cho kết quả tốt nhất và ổn định nhất
+\indent \textbf{Nhận xét:} PPO kết hợp tự chơi cho kết quả tốt nhất và ổn định nhất
 trên môi trường đối kháng, đúng như kỳ vọng lý thuyết. Cơ chế tự chơi tạo ra một
 chương trình học tự nhiên trong đó độ khó của đối thủ tăng dần cùng với năng lực của
 tác nhân, nhờ đó tác nhân không bị mắc kẹt ở một chiến lược tầm thường mà liên tục
@@ -210,7 +210,7 @@ hiệu quả.
     \label{fig:ctr_eplen}
 \end{figure}
 
-\indent \textit{Nhận xét:} SAC cho kết quả vượt trội rõ rệt trên môi trường điều hướng
+\indent \textbf{Nhận xét:} SAC cho kết quả vượt trội rõ rệt trên môi trường điều hướng
 đơn tác nhân. Thuật toán này đạt phần thưởng cao nhất, khoảng không phẩy tám mươi bảy,
 chỉ sau khoảng tám mươi lăm nghìn bước, tức nhanh hơn PPO và MA-POCA hơn mười lần về
 số mẫu cần thiết. Kết quả này khẳng định ưu thế về hiệu quả sử dụng dữ liệu của thuật
@@ -357,14 +357,14 @@ MA-POCA & $0{,}033$ & $0{,}076$ & $\sim$2{,}8M & $\sim$25\% \\
 \hline
 PPO$^{*}$ & $0{,}018$ & $0{,}024$ & $\sim$3{,}5M & $\sim$12\% \\
 \hline
-SAC$^{*}$ & $0{,}010$ & $0{,}015$ & --- & $\sim$8\% \\
+SAC$^{*}$ & $0{,}010$ & $0{,}015$ & - & $\sim$8\% \\
 \hline
 \end{tabular}
 \end{table}
 \noindent {\small $^{*}$ Giá trị ước lượng. MA-POCA là lần chạy thực với bốn triệu tám
 trăm sáu mươi nghìn bước.}
 
-\indent \textit{Nhận xét:} MA-POCA đạt phần thưởng cao nhất và tỷ lệ giải xong câu đố
+\indent \textbf{Nhận xét:} MA-POCA đạt phần thưởng cao nhất và tỷ lệ giải xong câu đố
 tốt nhất, qua đó khẳng định ưu thế của cơ chế phê bình tập trung và gán công lao nhóm
 trong bài toán hợp tác. Nhờ được quan sát trạng thái của toàn bộ nhóm trong quá trình
 huấn luyện, MA-POCA đánh giá chính xác hơn đóng góp của từng tác nhân vào thành quả

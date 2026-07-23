@@ -16,7 +16,7 @@ của ML-Agents, cùng toàn bộ thiết lập thực nghiệm và tiêu chí �
 \subsection{Tổng quan thiết kế hệ thống}
 
 \subsubsection{Kiến trúc huấn luyện tổng thể}
-\indent Toàn bộ hệ thống thực nghiệm được xây dựng theo kiến trúc client--server của
+\indent Toàn bộ hệ thống thực nghiệm được xây dựng theo kiến trúc client-server của
 Unity ML-Agents đã trình bày ở Mục~\ref{sub:mlarch}. Trong kiến trúc này, Unity đảm
 nhận vai trò mô phỏng: nó dựng nên thế giới ba chiều, tính toán vật lý va chạm, thu
 thập quan sát của tác nhân và thực thi các hành động mà tác nhân lựa chọn. Phía Python,
@@ -116,7 +116,7 @@ Hình~\ref{fig:env_football}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.62\textwidth]{image/app/env_football.png}
-\caption{Môi trường Football Table: hai đội Xanh --- Đỏ, mỗi đội bốn thanh gạt}
+\caption{Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}
 \label{fig:env_football}
 \end{figure}
 
@@ -530,15 +530,15 @@ Tốc độ học & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ & Chung 
 \hline
 Hệ số chiết khấu & $0{,}99$ & $0{,}99$ & $0{,}99$ & Chung \\
 \hline
-Kích thước lô & 512--2048 & 256--1024 & 512--2048 & Theo môi trường \\
+Kích thước lô & 512-2048 & 256-1024 & 512-2048 & Theo môi trường \\
 \hline
-Kích thước bộ đệm & 10K--41K & 100K--500K & 10K--41K & SAC lớn hơn \\
+Kích thước bộ đệm & 10K-41K & 100K-500K & 10K-41K & SAC lớn hơn \\
 \hline
-Số đơn vị ẩn & 128--512 & 128--512 & 128--512 & Theo môi trường \\
+Số đơn vị ẩn & 128-512 & 128-512 & 128-512 & Theo môi trường \\
 \hline
-Số lớp ẩn & 2--3 & 2--3 & 2--3 & Theo môi trường \\
+Số lớp ẩn & 2-3 & 2-3 & 2-3 & Theo môi trường \\
 \hline
-Cơ chế riêng & cắt tỉ lệ $0{,}2$ & cập nhật mềm $0{,}005$ & phê bình tập trung & --- \\
+Cơ chế riêng & cắt tỉ lệ $0{,}2$ & cập nhật mềm $0{,}005$ & phê bình tập trung & - \\
 \hline
 \end{tabular}
 \end{table}

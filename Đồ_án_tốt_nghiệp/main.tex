@@ -72,7 +72,6 @@
   {\normalfont\fontsize{14pt}{21pt}\selectfont\bfseries}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}
   {\normalfont\fontsize{13pt}{20pt}\selectfont\bfseries\itshape}{\thesubsubsection}{1em}{}
-
 % 6. Cấu hình Header / Footer (Fancyhdr)
 \setlength{\headheight}{15pt}
 \pagestyle{fancy}
@@ -183,8 +182,21 @@
 \begin{document}
 
 \begin{titlepage}
- \thisfancypage{\setlength{\fboxsep}{0.2cm}\setlength{\fboxrule}{1pt}\doublebox}{}
 \thispagestyle{empty}
+
+% Bìa theo mẫu Phenikaa: khung bao quanh trang + vạch dọc chia vùng bên trái
+% (họ tên ở nửa trên, ngành ở nửa dưới của vùng bên trái)
+\begin{tikzpicture}[remember picture, overlay]
+    \draw[line width=1pt]
+        ($(current page.north west)+(1.2cm,-1.2cm)$) rectangle
+        ($(current page.south east)+(-1.2cm,1.2cm)$);
+    \draw[line width=1pt]
+        ($(current page.north west)+(3.0cm,-1.2cm)$) -- ($(current page.south west)+(3.0cm,1.2cm)$);
+    \node[rotate=90] at ($(current page.north west)+(2.1cm,-9.5cm)$)
+        {\bfseries\fontsize{14pt}{16pt}\selectfont VĂN THỊ MINH HUYỀN};
+    \node[rotate=90] at ($(current page.north west)+(2.1cm,-20cm)$)
+        {\bfseries\fontsize{14pt}{16pt}\selectfont KHOA HỌC MÁY TÍNH};
+\end{tikzpicture}
 
 \begin{center}
 
@@ -198,18 +210,14 @@ BỘ GIÁO DỤC VÀ ĐÀO TẠO
 TRƯỜNG CÔNG NGHỆ THÔNG TIN PHENIKAA
 }
 
-\vspace{0.1cm}
-
-\rule{5cm}{0.5pt}
-
 \vspace{2cm}
 
 \includegraphics[width=6cm]{image/Logo.jpg}
 
 \vspace{2cm}
 
-{\bfseries\fontsize{22pt}{24pt}\selectfont
-BÁO CÁO ĐỒ ÁN TỐT NGHIỆP
+{\bfseries\fontsize{22pt}{26pt}\selectfont
+ĐỒ ÁN TỐT NGHIỆP
 }
 
 \vspace{1.2cm}
@@ -248,15 +256,15 @@ KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME
 
 \begin{center}
 {\bfseries\fontsize{14pt}{16pt}\selectfont
-\large {\bf HÀ NỘI, THÁNG 8 NĂM 2026}
+HÀ NỘI, THÁNG 8 NĂM 2026
 }
 \end{center}
 \end{titlepage}
  
  %%%%%%%%%%%%%%%%%%%%
  \begin{titlepage}
- \thisfancypage{\setlength{\fboxsep}{0.2cm}\setlength{\fboxrule}{1pt}\doublebox}{}
- 
+ \thisfancypage{\setlength{\fboxsep}{0.2cm}\setlength{\fboxrule}{1pt}\fbox}{}
+
 \begin{center}
     {\bfseries\fontsize{14pt}{16pt}\selectfont
     BỘ GIÁO DỤC VÀ ĐÀO TẠO
@@ -274,7 +282,7 @@ KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME
 \end{center}
 \vspace{6cm}
 \begin{center}
-    {\bfseries\fontsize{22pt}{24pt}\selectfont BÁO CÁO ĐỒ ÁN TỐT NGHIỆP}
+    {\bfseries\fontsize{22pt}{26pt}\selectfont ĐỒ ÁN TỐT NGHIỆP}
 \end{center}
 \vspace{0.6cm}
 \begin{center}

@@ -1,0 +1,101 @@
+{
+    "PuzzleBehavior": {
+        "checkpoints": [
+            {
+                "steps": 499968,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-499968.onnx",
+                "reward": null,
+                "creation_time": 1784651868.8657258,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-499968.pt"
+                ]
+            },
+            {
+                "steps": 519216,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-519216.onnx",
+                "reward": null,
+                "creation_time": 1784652226.6802611,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-519216.pt"
+                ]
+            },
+            {
+                "steps": 539952,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-539952.onnx",
+                "reward": null,
+                "creation_time": 1784652651.288881,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-539952.pt"
+                ]
+            },
+            {
+                "steps": 999952,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-999952.onnx",
+                "reward": 0.04449500566897768,
+                "creation_time": 1784667377.4175026,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-999952.pt"
+                ]
+            },
+            {
+                "steps": 1499952,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-1499952.onnx",
+                "reward": 0.05198938177818491,
+                "creation_time": 1784683334.338313,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-1499952.pt"
+                ]
+            },
+            {
+                "steps": 1999952,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-1999952.onnx",
+                "reward": 0.02246250305324793,
+                "creation_time": 1784699547.7183113,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-1999952.pt"
+                ]
+            },
+            {
+                "steps": 2499952,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-2499952.onnx",
+                "reward": 0.027438753620117495,
+                "creation_time": 1784716040.522541,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-2499952.pt"
+                ]
+            },
+            {
+                "steps": 2999920,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-2999920.onnx",
+                "reward": null,
+                "creation_time": 1784728960.0725622,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-2999920.pt"
+                ]
+            },
+            {
+                "steps": 3110192,
+                "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-3110192.onnx",
+                "reward": null,
+                "creation_time": 1784731670.95795,
+                "auxillary_file_paths": [
+                    "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-3110192.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3110192,
+            "file_path": "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior.onnx",
+            "reward": null,
+            "creation_time": 1784731670.95795,
+            "auxillary_file_paths": [
+                "C:\\Program1\\Code\\Unity\\GraduationProject\\GraduationProject\\results\\ctf_mappo_v1\\PuzzleBehavior\\PuzzleBehavior-3110192.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cpu"
+    }
+}

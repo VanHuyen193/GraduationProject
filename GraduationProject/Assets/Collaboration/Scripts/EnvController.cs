@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
@@ -31,6 +31,18 @@ public class EnvController : MonoBehaviour
         // Khoảng cách từ agent tới pressure plate 1
         [HideInInspector]
         public float distanceToPlate1;
+
+        // Khoảng cách tới checkpoint ở step trước (dùng cho reward shaping theo khoảng cách)
+        [HideInInspector]
+        public float prevDistToCheckpoint;
+
+        // Trạng thái ThisAgentLeft ở step trước (để phát hiện thời điểm VỪA vượt cổng)
+        [HideInInspector]
+        public bool prevLeft;
+
+        // Đã được thưởng handoff trong episode này chưa (mỗi agent tối đa 1 lần)
+        [HideInInspector]
+        public bool handoffCredited;
     }
 
     // Danh sách tất cả agent trong environment
@@ -53,6 +65,42 @@ public class EnvController : MonoBehaviour
 
     // Rotation ban đầu của block
     private Quaternion blockStartingRot;
+
+    // ============================================================
+    // Reward shaping (mục a) — các hệ số để tinh chỉnh trong Inspector
+    // ============================================================
+
+    // (mục 2) Hệ số thưởng theo mức GIẢM khoảng cách tới checkpoint.
+    // KHÔNG chia cho MaxEnvironmentSteps: reward này tự giới hạn theo tổng quãng
+    // đường (dạng potential-based) nên không bị "farm" khi đi tới-lui.
+    public float distanceRewardScale = 0.01f;
+
+    // (mục 1 — DIET FARMING) Thưởng MỘT LẦN cho mỗi agent khi vượt được cổng ĐANG KHÓA
+    // (chỉ có thể nhờ đồng đội giữ cửa). Không lặp trong episode nên KHÔNG farm được,
+    // thay cho handoff bonus mỗi-step cũ (vốn có thể farm tới ~+2).
+    public float handoffReward = 0.5f;
+
+    // Thưởng nhỏ khi agent đứng trên plate (khuyến khích tương tác với plate).
+    public float platePresenceBonus = 0.5f;
+
+    // Phạt thời gian nhẹ (Hurry Up) — nhỏ hơn nhiều bản gốc để không lấn át tín hiệu dẫn đường.
+    public float timePenalty = 0.1f;
+
+    // Ngưỡng khoảng cách để coi là "đang đứng trên plate".
+    public float onPlateRadius = 2.25f;
+
+    // Transform của checkpoint (đích đến) — tìm trong Start.
+    private Transform checkpoint;
+
+    // 2 cánh cửa (Left Side / Right Side). Curriculum có thể tắt để "mở cửa sẵn" ở bài học đầu.
+    private GameObject[] doorLeaves = new GameObject[0];
+
+    // Cửa hiện có đang khóa không (Lesson >=1). Chỉ thưởng handoff khi cửa khóa —
+    // lúc đó việc vượt cổng mới thực sự cần đồng đội giữ cửa.
+    private bool doorLocked = true;
+
+    // (mục b) Tên tham số curriculum điều khiển cửa: 1 = khóa (bắt buộc handoff), 0 = mở sẵn.
+    private const string HANDOFF_PARAM = "handoff_required";
 
     // Start được gọi trước frame đầu tiên
     void Start()
@@ -89,6 +137,31 @@ public class EnvController : MonoBehaviour
         {
             Debug.LogError("Block not found in the environment hierarchy.");
         }
+
+        // Tìm checkpoint (đích) để tính reward shaping theo khoảng cách
+        checkpoint = FindChildByTag(transform, "checkpoint");
+        if (checkpoint == null)
+        {
+            Debug.LogError("Checkpoint not found in the environment hierarchy.");
+        }
+
+        // Tìm 2 cánh cửa (Left Side / Right Side) để curriculum có thể mở sẵn cửa
+        Transform doorRoot = FindChildByName(transform, "Door");
+        if (doorRoot != null)
+        {
+            List<GameObject> leaves = new List<GameObject>();
+            Transform ls = FindChildByName(doorRoot, "Left Side");
+            Transform rs = FindChildByName(doorRoot, "Right Side");
+            if (ls != null) leaves.Add(ls.gameObject);
+            if (rs != null) leaves.Add(rs.gameObject);
+            doorLeaves = leaves.ToArray();
+        }
+
+        // Khởi tạo khoảng cách tham chiếu tới checkpoint cho từng agent
+        InitPrevDistances();
+
+        // Áp dụng curriculum cửa ngay từ đầu (bài học hiện tại)
+        ApplyDoorCurriculum();
     }
 
     void FixedUpdate()
@@ -101,7 +174,11 @@ public class EnvController : MonoBehaviour
         {
             agentGroup.GroupEpisodeInterrupted();
             ResetScene();
+            return;
         }
+
+        // Trạng thái "đang đứng trên plate" của từng agent trong step này
+        bool[] onPlate = new bool[agents.Count];
 
         // Duyệt qua tất cả agent
         for (int i = 0; i < agents.Count; i++)
@@ -120,84 +197,59 @@ public class EnvController : MonoBehaviour
                     agents[i].agent.pressurePlates[1].transform.position
                 );
 
-            // Nếu agent đứng trên 1 pressure plate thì thưởng nhỏ
-            if (agents[i].distanceToPlate0 < 2.25f ||
-                agents[i].distanceToPlate1 < 2.25f)
+            // Agent có đang đứng trên (gần) một plate nào đó không
+            onPlate[i] =
+                agents[i].distanceToPlate0 < onPlateRadius ||
+                agents[i].distanceToPlate1 < onPlateRadius;
+
+            // (mục 2) REWARD SHAPING THEO KHOẢNG CÁCH tới checkpoint:
+            // thưởng khi lại gần, phạt khi ra xa. Đây là gradient dẫn đường xuyên suốt
+            // bản đồ (spawn -> cổng -> checkpoint), lấp các đoạn trước đây không có tín hiệu.
+            // Agent đứng yên giữ plate => chênh lệch ~0 => KHÔNG bị phạt.
+            if (checkpoint != null)
+            {
+                float d = Vector3.Distance(
+                    agents[i].agent.transform.position,
+                    checkpoint.position
+                );
+                agents[i].agent.AddReward(
+                    distanceRewardScale * (agents[i].prevDistToCheckpoint - d)
+                );
+                agents[i].prevDistToCheckpoint = d;
+            }
+
+            // Thưởng nhỏ khi agent đứng trên plate (khuyến khích dùng plate để mở cửa)
+            if (onPlate[i])
             {
                 agents[i].agent.AddReward(
-                    0.25f / MaxEnvironmentSteps
+                    platePresenceBonus / MaxEnvironmentSteps
                 );
             }
 
-            // Nếu agent đã rời phòng đầu tiên thì thưởng nhỏ
-            if (agents[i].agent.ThisAgentLeft)
-            {
-                agents[i].agent.AddReward(
-                    0.5f / MaxEnvironmentSteps
-                );
-            }
-
-            // Nếu agent hiện tại đang đứng trên plate
-            // nhưng agent còn lại chưa rời phòng
-            if (
-                !agents[1 - i].agent.ThisAgentLeft &&
-                (
-                    agents[i].distanceToPlate0 < 2.25f ||
-                    agents[i].distanceToPlate1 < 2.25f
-                )
-            )
-            {
-                // Trừ reward của cả nhóm
-                agentGroup.AddGroupReward(
-                    -2 / MaxEnvironmentSteps
-                );
-
-                // Trừ reward của agent còn lại
-                agents[1 - i].agent.AddReward(
-                    -0.5f / MaxEnvironmentSteps
-                );
-
-                // Debug.Log("Other agent still in the room while this agent is on the plate");
-            }
-
-            // Nếu agent kia đã ra ngoài nhưng agent hiện tại vẫn ở trong phòng
-            else if (
-                agents[1 - i].agent.ThisAgentLeft &&
-                !agents[i].agent.ThisAgentLeft
-            )
-            {
-                // Phạt group
-                agentGroup.AddGroupReward(
-                    -4 / MaxEnvironmentSteps
-                );
-
-                // Phạt agent hiện tại
-                agents[i].agent.AddReward(
-                    -1 / MaxEnvironmentSteps
-                );
-
-                // Debug.Log("Other agent left the room and this one is still in the room");
-            }
         }
 
-        // Nếu cả 2 agent đều đã rời phòng
-        if (
-            agents[0].agent.ThisAgentLeft &&
-            agents[1].agent.ThisAgentLeft
-        )
+        // (mục 1 — DIET FARMING) THƯỞNG HANDOFF MỘT LẦN:
+        // Khi một agent VỪA vượt cổng (prevLeft=false -> ThisAgentLeft=true) trong lúc
+        // cửa đang KHÓA, việc vượt được chỉ có thể nhờ đồng đội giữ cửa (hoặc grace
+        // period ngắn sau khi đồng đội rời plate). Thưởng nhóm MỘT LẦN cho mỗi agent
+        // (không lặp trong episode) => tín hiệu hợp tác mạnh mà KHÔNG farm được.
+        for (int i = 0; i < agents.Count; i++)
         {
-            // Thưởng group
-            agentGroup.AddGroupReward(
-                0.5f / MaxEnvironmentSteps
-            );
+            bool justCrossed =
+                !agents[i].prevLeft && agents[i].agent.ThisAgentLeft;
 
-            // Debug.Log("Both agents left the room");
+            if (justCrossed && !agents[i].handoffCredited && doorLocked)
+            {
+                agentGroup.AddGroupReward(handoffReward);
+                agents[i].handoffCredited = true;
+            }
+
+            agents[i].prevLeft = agents[i].agent.ThisAgentLeft;
         }
 
-        // Phạt theo thời gian để agent hoàn thành nhiệm vụ nhanh hơn
-        // Hurry Up Penalty
+        // Phạt thời gian nhẹ (Hurry Up Penalty) — nhỏ để không lấn át tín hiệu dẫn đường.
         agentGroup.AddGroupReward(
-            -0.25f / MaxEnvironmentSteps
+            -timePenalty / MaxEnvironmentSteps
         );
     }
 
@@ -232,6 +284,10 @@ public class EnvController : MonoBehaviour
             // Reset trạng thái
             agent.agent.ThisAgentLeft = false;
             agent.agent.FoundCheckpoint = false;
+
+            // Reset trạng thái phục vụ reward handoff một-lần
+            agent.prevLeft = false;
+            agent.handoffCredited = false;
         }
 
         // Reset block
@@ -252,6 +308,12 @@ public class EnvController : MonoBehaviour
                 blockRb.angularVelocity = Vector3.zero;
             }
         }
+
+        // Reset khoảng cách tham chiếu cho reward shaping (sau khi agent đã về vị trí spawn)
+        InitPrevDistances();
+
+        // Cập nhật trạng thái cửa theo curriculum của bài học hiện tại
+        ApplyDoorCurriculum();
     }
 
     // Được gọi khi agent tìm thấy checkpoint
@@ -294,5 +356,69 @@ public class EnvController : MonoBehaviour
         col.gameObject
             .GetComponent<PuzzleAgent>()
             .AddReward(0.25f / MaxEnvironmentSteps);
+    }
+
+    // ============================================================
+    // Helper
+    // ============================================================
+
+    // Khởi tạo / reset khoảng cách tham chiếu tới checkpoint cho từng agent
+    private void InitPrevDistances()
+    {
+        if (checkpoint == null) return;
+
+        foreach (AgentInfo agent in agents)
+        {
+            agent.prevDistToCheckpoint = Vector3.Distance(
+                agent.agent.transform.position,
+                checkpoint.position
+            );
+        }
+    }
+
+    // (mục b) Bật/tắt 2 cánh cửa theo tham số curriculum:
+    //   handoff_required >= 0.5  -> cửa TỒN TẠI (khóa) -> bắt buộc học handoff
+    //   handoff_required <  0.5  -> tắt cánh cửa (mở sẵn) -> chỉ cần đi tới checkpoint
+    private void ApplyDoorCurriculum()
+    {
+        float locked = 1f;
+        if (Academy.IsInitialized)
+        {
+            locked = Academy.Instance.EnvironmentParameters
+                .GetWithDefault(HANDOFF_PARAM, 1f);
+        }
+
+        bool doorActive = locked >= 0.5f;
+        doorLocked = doorActive;
+
+        if (doorLeaves == null || doorLeaves.Length == 0) return;
+
+        foreach (GameObject leaf in doorLeaves)
+        {
+            if (leaf != null && leaf.activeSelf != doorActive)
+            {
+                leaf.SetActive(doorActive);
+            }
+        }
+    }
+
+    // Tìm con (kể cả cháu) đầu tiên có đúng tag
+    private Transform FindChildByTag(Transform root, string tg)
+    {
+        foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (t != root && t.CompareTag(tg)) return t;
+        }
+        return null;
+    }
+
+    // Tìm con (kể cả cháu) đầu tiên có đúng tên
+    private Transform FindChildByName(Transform root, string n)
+    {
+        foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (t != root && t.name == n) return t;
+        }
+        return null;
     }
 }

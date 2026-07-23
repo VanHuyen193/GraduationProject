@@ -1,5 +1,5 @@
 \xpg@aux {}{vietnamese}
-\contentsline {section}{DANH MỤC TỪ VIẾT TẮT}{ix}{section*.1}%
+\contentsline {section}{DANH MỤC TỪ VIẾT TẮT}{x}{section*.1}%
 \contentsline {section}{\numberline {1}MỞ ĐẦU}{1}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Lý do chọn đề tài}{1}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Mục tiêu nghiên cứu}{2}{subsection.1.2}%
@@ -77,13 +77,18 @@
 \contentsline {subsection}{\numberline {5.4}Nạp mô hình ONNX tại thời gian chạy}{54}{subsection.5.4}%
 \contentsline {subsection}{\numberline {5.5}Ba chế độ chơi trong từng môi trường}{55}{subsection.5.5}%
 \contentsline {subsubsection}{\numberline {5.5.1}Cross The Road: đua song song với tác nhân}{55}{subsubsection.5.5.1}%
-\contentsline {subsubsection}{\numberline {5.5.2}Capture The Flag: phối hợp người --- máy}{57}{subsubsection.5.5.2}%
-\contentsline {subsubsection}{\numberline {5.5.3}Football Table: đối đầu người --- máy và máy --- máy}{58}{subsubsection.5.5.3}%
+\contentsline {subsubsection}{\numberline {5.5.2}Capture The Flag: phối hợp người - máy}{57}{subsubsection.5.5.2}%
+\contentsline {subsubsection}{\numberline {5.5.3}Football Table: đối đầu người - máy và máy - máy}{58}{subsubsection.5.5.3}%
 \contentsline {subsection}{\numberline {5.6}Các vấn đề kỹ thuật và giải pháp}{59}{subsection.5.6}%
 \contentsline {subsection}{\numberline {5.7}Kiểm thử ứng dụng}{60}{subsection.5.7}%
-\contentsline {section}{KẾT LUẬN}{61}{table.caption.37}%
-\contentsline {section}{PHỤ LỤC A. Cấu hình huấn luyện PPO}{67}{table.caption.37}%
-\contentsline {section}{PHỤ LỤC B. Cấu hình huấn luyện SAC}{67}{lstnumber.2.31}%
-\contentsline {section}{PHỤ LỤC C. Cấu hình huấn luyện MA-POCA}{68}{lstnumber.4.24}%
-\contentsline {section}{PHỤ LỤC D. Mã nguồn minh họa}{69}{lstnumber.5.29}%
-\contentsline {section}{PHỤ LỤC E. Kết quả TensorBoard}{70}{lstnumber.9.10}%
+\contentsline {section}{\numberline {6}KẾT LUẬN}{61}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Kết quả đạt được}{61}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Đóng góp của đề tài}{62}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Hạn chế}{62}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Hướng phát triển}{63}{subsection.6.4}%
+\contentsline {section}{PHỤ LỤC}{67}{subsection.6.4}%
+\contentsline {subsection}{Phụ lục A. Cấu hình huấn luyện PPO}{67}{section*.38}%
+\contentsline {subsection}{Phụ lục B. Cấu hình huấn luyện SAC}{67}{lstnumber.2.31}%
+\contentsline {subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}{68}{lstnumber.4.24}%
+\contentsline {subsection}{Phụ lục D. Mã nguồn minh họa}{69}{lstnumber.5.29}%
+\contentsline {subsection}{Phụ lục E. Kết quả TensorBoard}{70}{lstnumber.9.10}%

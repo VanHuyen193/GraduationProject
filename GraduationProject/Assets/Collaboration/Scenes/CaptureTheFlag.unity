@@ -2687,7 +2687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 2
+    VectorObservationSize: 4
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -2696,7 +2696,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 6205f76b4b5a825e298d2132f43dee84, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehavior
@@ -3828,7 +3828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 2
+    VectorObservationSize: 4
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -3837,7 +3837,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 6205f76b4b5a825e298d2132f43dee84, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehavior
@@ -3932,13 +3932,21 @@ MonoBehaviour:
     Rb: {fileID: 0}
     distanceToPlate0: 0
     distanceToPlate1: 0
+    prevDistToCheckpoint: 0
   - agent: {fileID: 669440422380832991}
     StartingPos: {x: 0, y: 0, z: 0}
     StartingRot: {x: 0, y: 0, z: 0, w: 0}
     Rb: {fileID: 0}
     distanceToPlate0: 0
     distanceToPlate1: 0
+    prevDistToCheckpoint: 0
   MaxEnvironmentSteps: 100000
+  distanceRewardScale: 0.01
+  holdBonus: 2
+  platePresenceBonus: 0.5
+  bothLeftBonus: 0.5
+  timePenalty: 0.1
+  onPlateRadius: 2.25
 --- !u!23 &7935147170535822588
 MeshRenderer:
   m_ObjectHideFlags: 0

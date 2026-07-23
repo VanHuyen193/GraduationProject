@@ -1,6 +1,6 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Vòng lặp tương tác giữa agent và môi trường trong học tăng cường}}{10}{figure.caption.2}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kiến trúc tổng thể của Unity ML-Agents Toolkit}}{19}{figure.caption.4}%
-\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Football Table: hai đội Xanh --- Đỏ, mỗi đội bốn thanh gạt}}{25}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Football Table: hai đội Xanh - Đỏ, mỗi đội bốn thanh gạt}}{25}{figure.caption.5}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Môi trường Cooperative Puzzle: hai tác nhân phải phối hợp đạp nút mở cửa để cùng tới vạch đích bên phải}}{28}{figure.caption.7}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Một khu vực huấn luyện của môi trường Cross The Road: tác nhân (khối trắng) phải băng qua các làn đường có phương tiện di chuyển}}{30}{figure.caption.9}%
 \contentsline {figure}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tiến trình chỉ số xếp hạng ELO của PPO tự chơi trên Football Table}}{38}{figure.caption.14}%
