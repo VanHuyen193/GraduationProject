@@ -18,16 +18,25 @@
                 "auxillary_file_paths": [
                     "results\\Football_POCA_01\\Football\\Football-789964.pt"
                 ]
+            },
+            {
+                "steps": 910749,
+                "file_path": "results\\Football_POCA_01\\Football\\Football-910749.onnx",
+                "reward": 1.9709030585502512,
+                "creation_time": 1784859573.3384943,
+                "auxillary_file_paths": [
+                    "results\\Football_POCA_01\\Football\\Football-910749.pt"
+                ]
             }
         ],
         "elo": 1269.21741314344,
         "final_checkpoint": {
-            "steps": 789964,
+            "steps": 910749,
             "file_path": "results\\Football_POCA_01\\Football.onnx",
-            "reward": 3.0483888685703278,
-            "creation_time": 1784802806.680198,
+            "reward": 1.9709030585502512,
+            "creation_time": 1784859573.3384943,
             "auxillary_file_paths": [
-                "results\\Football_POCA_01\\Football\\Football-789964.pt"
+                "results\\Football_POCA_01\\Football\\Football-910749.pt"
             ]
         }
     },

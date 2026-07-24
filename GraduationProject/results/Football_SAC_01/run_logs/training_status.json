@@ -1,0 +1,66 @@
+{
+    "Football": {
+        "elo": 1194.235567684178,
+        "checkpoints": [
+            {
+                "steps": 225483,
+                "file_path": "results\\Football_SAC_01\\Football\\Football-225483.onnx",
+                "reward": null,
+                "creation_time": 1784865326.5520108,
+                "auxillary_file_paths": [
+                    "results\\Football_SAC_01\\Football\\Football-225483.pt"
+                ]
+            },
+            {
+                "steps": 302501,
+                "file_path": "results\\Football_SAC_01\\Football\\Football-302501.onnx",
+                "reward": null,
+                "creation_time": 1784866357.9274707,
+                "auxillary_file_paths": [
+                    "results\\Football_SAC_01\\Football\\Football-302501.pt"
+                ]
+            },
+            {
+                "steps": 366930,
+                "file_path": "results\\Football_SAC_01\\Football\\Football-366930.onnx",
+                "reward": null,
+                "creation_time": 1784867295.2175229,
+                "auxillary_file_paths": [
+                    "results\\Football_SAC_01\\Football\\Football-366930.pt"
+                ]
+            },
+            {
+                "steps": 499405,
+                "file_path": "results\\Football_SAC_01\\Football\\Football-499405.onnx",
+                "reward": null,
+                "creation_time": 1784868873.6555681,
+                "auxillary_file_paths": [
+                    "results\\Football_SAC_01\\Football\\Football-499405.pt"
+                ]
+            },
+            {
+                "steps": 920773,
+                "file_path": "results\\Football_SAC_01\\Football\\Football-920773.onnx",
+                "reward": null,
+                "creation_time": 1784873281.2651484,
+                "auxillary_file_paths": [
+                    "results\\Football_SAC_01\\Football\\Football-920773.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 920773,
+            "file_path": "results\\Football_SAC_01\\Football.onnx",
+            "reward": null,
+            "creation_time": 1784873281.2651484,
+            "auxillary_file_paths": [
+                "results\\Football_SAC_01\\Football\\Football-920773.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
