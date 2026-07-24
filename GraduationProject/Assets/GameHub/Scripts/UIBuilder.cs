@@ -169,5 +169,335 @@ namespace GameHub
 
             return layout;
         }
+
+        // =====================================================
+        // Bo góc / gradient / glow — sinh texture bằng code
+        // để giao diện mềm mại, hiện đại hơn (không cần asset ngoài).
+        // =====================================================
+
+        private static readonly System.Collections.Generic.Dictionary<int, Sprite> RoundedCache =
+            new System.Collections.Generic.Dictionary<int, Sprite>();
+
+        private static readonly System.Collections.Generic.Dictionary<long, Sprite> RingCache =
+            new System.Collections.Generic.Dictionary<long, Sprite>();
+
+        /// <summary>Signed distance tới biên hình chữ nhật bo góc (âm = bên trong).</summary>
+        private static float RoundedSdf(float fx, float fy, float half, float r)
+        {
+            float dx = Mathf.Abs(fx - half) - (half - r);
+            float dy = Mathf.Abs(fy - half) - (half - r);
+            float ax = Mathf.Max(dx, 0f);
+            float ay = Mathf.Max(dy, 0f);
+            float outDist = Mathf.Sqrt(ax * ax + ay * ay);
+            float inDist = Mathf.Min(Mathf.Max(dx, dy), 0f);
+            return outDist + inDist - r;
+        }
+
+        /// <summary>Sprite chữ nhật bo góc (trắng, 9-slice) — tô màu qua Image.color.</summary>
+        public static Sprite RoundedSprite(int radius)
+        {
+            radius = Mathf.Max(1, radius);
+            if (RoundedCache.TryGetValue(radius, out Sprite cached))
+            {
+                return cached;
+            }
+
+            const int pad = 6;
+            const int ss = 4;
+            int n = radius * 2 + pad;
+            float half = n / 2f;
+
+            var tex = new Texture2D(n, n, TextureFormat.RGBA32, false)
+            {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear
+            };
+
+            var px = new Color32[n * n];
+            for (int y = 0; y < n; y++)
+            {
+                for (int x = 0; x < n; x++)
+                {
+                    int inside = 0;
+                    for (int sy = 0; sy < ss; sy++)
+                    {
+                        for (int sx = 0; sx < ss; sx++)
+                        {
+                            float fx = x + (sx + 0.5f) / ss;
+                            float fy = y + (sy + 0.5f) / ss;
+                            if (RoundedSdf(fx, fy, half, radius) <= 0f)
+                            {
+                                inside++;
+                            }
+                        }
+                    }
+
+                    byte a = (byte)(255 * inside / (ss * ss));
+                    px[y * n + x] = new Color32(255, 255, 255, a);
+                }
+            }
+
+            tex.SetPixels32(px);
+            tex.Apply();
+
+            var sprite = Sprite.Create(
+                tex, new Rect(0, 0, n, n), new Vector2(0.5f, 0.5f), 100f, 0,
+                SpriteMeshType.FullRect,
+                new Vector4(radius, radius, radius, radius));
+
+            RoundedCache[radius] = sprite;
+            return sprite;
+        }
+
+        /// <summary>Sprite viền bo góc (chỉ nét, giữa trong suốt) — 9-slice.</summary>
+        public static Sprite RingSprite(int radius, int thickness)
+        {
+            radius = Mathf.Max(1, radius);
+            thickness = Mathf.Max(1, thickness);
+            long key = ((long)radius << 8) | (uint)thickness;
+            if (RingCache.TryGetValue(key, out Sprite cached))
+            {
+                return cached;
+            }
+
+            const int pad = 6;
+            const int ss = 4;
+            int n = radius * 2 + pad;
+            float half = n / 2f;
+
+            var tex = new Texture2D(n, n, TextureFormat.RGBA32, false)
+            {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear
+            };
+
+            var px = new Color32[n * n];
+            for (int y = 0; y < n; y++)
+            {
+                for (int x = 0; x < n; x++)
+                {
+                    int band = 0;
+                    for (int sy = 0; sy < ss; sy++)
+                    {
+                        for (int sx = 0; sx < ss; sx++)
+                        {
+                            float fx = x + (sx + 0.5f) / ss;
+                            float fy = y + (sy + 0.5f) / ss;
+                            float sdf = RoundedSdf(fx, fy, half, radius);
+                            if (sdf <= 0f && sdf > -thickness)
+                            {
+                                band++;
+                            }
+                        }
+                    }
+
+                    byte a = (byte)(255 * band / (ss * ss));
+                    px[y * n + x] = new Color32(255, 255, 255, a);
+                }
+            }
+
+            tex.SetPixels32(px);
+            tex.Apply();
+
+            var sprite = Sprite.Create(
+                tex, new Rect(0, 0, n, n), new Vector2(0.5f, 0.5f), 100f, 0,
+                SpriteMeshType.FullRect,
+                new Vector4(radius, radius, radius, radius));
+
+            RingCache[key] = sprite;
+            return sprite;
+        }
+
+        /// <summary>Sprite tròn mờ dần (glow) — tô màu qua Image.color.</summary>
+        public static Sprite RadialSprite()
+        {
+            const int n = 128;
+            float c = (n - 1) / 2f;
+
+            var tex = new Texture2D(n, n, TextureFormat.RGBA32, false)
+            {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear
+            };
+
+            var px = new Color32[n * n];
+            for (int y = 0; y < n; y++)
+            {
+                for (int x = 0; x < n; x++)
+                {
+                    float d = Mathf.Sqrt((x - c) * (x - c) + (y - c) * (y - c)) / c;
+                    float a = Mathf.Clamp01(1f - d);
+                    a *= a;
+                    px[y * n + x] = new Color32(255, 255, 255, (byte)(a * 255));
+                }
+            }
+
+            tex.SetPixels32(px);
+            tex.Apply();
+
+            return Sprite.Create(
+                tex, new Rect(0, 0, n, n), new Vector2(0.5f, 0.5f));
+        }
+
+        /// <summary>Sprite gradient dọc (top ở trên, bottom ở dưới).</summary>
+        public static Sprite VerticalGradientSprite(Color top, Color bottom)
+        {
+            const int h = 256;
+
+            var tex = new Texture2D(1, h, TextureFormat.RGBA32, false)
+            {
+                wrapMode = TextureWrapMode.Clamp,
+                filterMode = FilterMode.Bilinear
+            };
+
+            var px = new Color32[h];
+            for (int y = 0; y < h; y++)
+            {
+                float t = y / (float)(h - 1);
+                px[y] = Color.Lerp(bottom, top, t);
+            }
+
+            tex.SetPixels32(px);
+            tex.Apply();
+
+            return Sprite.Create(
+                tex, new Rect(0, 0, 1, h), new Vector2(0.5f, 0.5f));
+        }
+
+        /// <summary>Nền gradient dọc phủ kín parent.</summary>
+        public static RectTransform CreateGradientBackground(
+            Transform parent, string name, Color top, Color bottom)
+        {
+            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+
+            var img = go.GetComponent<Image>();
+            img.sprite = VerticalGradientSprite(top, bottom);
+            img.type = Image.Type.Simple;
+
+            var rect = (RectTransform)go.transform;
+            Stretch(rect);
+            return rect;
+        }
+
+        /// <summary>Quầng sáng tròn (đặt vị trí bằng Place ở nơi gọi).</summary>
+        public static Image CreateGlow(Transform parent, string name, Color color)
+        {
+            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+
+            var img = go.GetComponent<Image>();
+            img.sprite = RadialSprite();
+            img.color = color;
+            img.raycastTarget = false;
+            return img;
+        }
+
+        private static void AddBorder(
+            RectTransform target, Color color, int radius, int thickness)
+        {
+            var go = new GameObject("Border", typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(target, false);
+
+            var img = go.GetComponent<Image>();
+            img.sprite = RingSprite(radius, thickness);
+            img.type = Image.Type.Sliced;
+            img.color = color;
+            img.raycastTarget = false;
+
+            Stretch((RectTransform)go.transform);
+        }
+
+        /// <summary>Panel bo góc, tuỳ chọn có viền.</summary>
+        public static RectTransform CreateRoundedPanel(
+            Transform parent, string name, Color fill, int radius,
+            Color? border = null, int borderThickness = 2)
+        {
+            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+
+            var img = go.GetComponent<Image>();
+            img.sprite = RoundedSprite(radius);
+            img.type = Image.Type.Sliced;
+            img.color = fill;
+
+            var rect = (RectTransform)go.transform;
+            if (border.HasValue)
+            {
+                AddBorder(rect, border.Value, radius, borderThickness);
+            }
+
+            return rect;
+        }
+
+        /// <summary>
+        /// Khung ảnh bo góc: nền (screen) bo góc + Mask cắt ảnh con theo góc bo.
+        /// Trả về Image con để gán sprite; đặt vị trí qua transform cha (frame).
+        /// </summary>
+        public static Image CreatePictureFrame(
+            Transform parent, string name, Color screenColor, int radius)
+        {
+            RectTransform frame = CreateRoundedPanel(parent, name, screenColor, radius);
+
+            var mask = frame.gameObject.AddComponent<Mask>();
+            mask.showMaskGraphic = true;
+
+            var picGo = new GameObject("Picture", typeof(RectTransform), typeof(Image));
+            picGo.transform.SetParent(frame, false);
+
+            var pic = picGo.GetComponent<Image>();
+            pic.preserveAspect = true;
+            pic.raycastTarget = false;
+            Stretch((RectTransform)picGo.transform);
+
+            return pic;
+        }
+
+        /// <summary>
+        /// Nút bo góc. Image nền lấy qua GetComponent&lt;Image&gt; (tương thích code cũ
+        /// đổi màu chọn/bỏ chọn). Viền vẽ đè bằng sprite nét rỗng ở giữa.
+        /// </summary>
+        public static Button CreateRoundedButton(
+            Transform parent, string name, string label, int fontSize,
+            Color background, Color textColor, int radius, UnityAction onClick,
+            Color? border = null)
+        {
+            var go = new GameObject(
+                name, typeof(RectTransform), typeof(Image), typeof(Button));
+            go.transform.SetParent(parent, false);
+
+            var image = go.GetComponent<Image>();
+            image.sprite = RoundedSprite(radius);
+            image.type = Image.Type.Sliced;
+            image.color = background;
+
+            var button = go.GetComponent<Button>();
+            button.targetGraphic = image;
+
+            var colors = button.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.08f, 1.08f, 1.08f, 1f);
+            colors.pressedColor = new Color(0.85f, 0.85f, 0.85f, 1f);
+            colors.selectedColor = Color.white;
+            colors.disabledColor = new Color(0.5f, 0.5f, 0.5f, 0.55f);
+            colors.fadeDuration = 0.1f;
+            button.colors = colors;
+
+            if (border.HasValue)
+            {
+                AddBorder((RectTransform)go.transform, border.Value, radius, 2);
+            }
+
+            if (onClick != null)
+            {
+                button.onClick.AddListener(onClick);
+            }
+
+            var text = CreateText(
+                go.transform, "Label", label, fontSize, textColor);
+            Stretch((RectTransform)text.transform);
+
+            return button;
+        }
     }
 }

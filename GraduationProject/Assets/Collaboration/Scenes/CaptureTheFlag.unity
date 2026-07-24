@@ -288,7 +288,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6088359, g: 0.8792453, b: 0.86949486, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 222149136}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3535534, y: -0.61237246, z: 0.3535534, w: 0.61237246}
-  m_LocalPosition: {x: 25.6, y: 46.01, z: -37.7}
+  m_LocalPosition: {x: 33.3, y: 56.3, z: -37.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3385,6 +3385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 4090473767127543161}
   isPressed: 0
+  graceSeconds: 1
 --- !u!1 &6429584114933905260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,6 +3675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 4090473767127543161}
   isPressed: 0
+  graceSeconds: 1
 --- !u!54 &7401946707008749826
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3933,6 +3935,8 @@ MonoBehaviour:
     distanceToPlate0: 0
     distanceToPlate1: 0
     prevDistToCheckpoint: 0
+    prevLeft: 0
+    handoffCredited: 0
   - agent: {fileID: 669440422380832991}
     StartingPos: {x: 0, y: 0, z: 0}
     StartingRot: {x: 0, y: 0, z: 0, w: 0}
@@ -3940,11 +3944,12 @@ MonoBehaviour:
     distanceToPlate0: 0
     distanceToPlate1: 0
     prevDistToCheckpoint: 0
+    prevLeft: 0
+    handoffCredited: 0
   MaxEnvironmentSteps: 100000
   distanceRewardScale: 0.01
-  holdBonus: 2
+  handoffReward: 0.5
   platePresenceBonus: 0.5
-  bothLeftBonus: 0.5
   timePenalty: 0.1
   onPlateRadius: 2.25
 --- !u!23 &7935147170535822588
