@@ -15,6 +15,7 @@ namespace GameHub
             public Color color;
             public Vector2[] points;   // toạ độ theo không gian dữ liệu (step, value)
             public float thickness = 3f;
+            public bool isDashed = false;
         }
 
         private readonly List<Series> series = new List<Series>();
@@ -44,9 +45,9 @@ namespace GameHub
             series.Clear();
         }
 
-        public void AddSeries(Color color, Vector2[] points, float thickness = 3f)
+        public void AddSeries(Color color, Vector2[] points, float thickness = 3f, bool isDashed = false)
         {
-            series.Add(new Series { color = color, points = points, thickness = thickness });
+            series.Add(new Series { color = color, points = points, thickness = thickness, isDashed = isDashed });
         }
 
         public void Rebuild()
@@ -87,7 +88,14 @@ namespace GameHub
                 for (int k = 1; k < s.points.Length; k++)
                 {
                     Vector2 cur = DataToLocal(s.points[k], r);
-                    AddLine(vh, prev, cur, s.thickness, s.color);
+                    if (s.isDashed)
+                    {
+                        AddDashedLine(vh, prev, cur, s.thickness, s.color, 10f, 6f);
+                    }
+                    else
+                    {
+                        AddLine(vh, prev, cur, s.thickness, s.color);
+                    }
                     prev = cur;
                 }
             }
@@ -100,6 +108,25 @@ namespace GameHub
             float ny = Mathf.Approximately(yMax, yMin)
                 ? 0.5f : Mathf.Clamp01((p.y - yMin) / (yMax - yMin));
             return new Vector2(r.xMin + nx * r.width, r.yMin + ny * r.height);
+        }
+
+        private static void AddDashedLine(
+            VertexHelper vh, Vector2 a, Vector2 b, float thickness, Color color, float dashLen = 10f, float gapLen = 6f)
+        {
+            Vector2 dir = b - a;
+            float dist = dir.magnitude;
+            if (dist < 1e-4f) return;
+            dir /= dist;
+
+            float current = 0f;
+            while (current < dist)
+            {
+                float next = Mathf.Min(current + dashLen, dist);
+                Vector2 p1 = a + dir * current;
+                Vector2 p2 = a + dir * next;
+                AddLine(vh, p1, p2, thickness, color);
+                current = next + gapLen;
+            }
         }
 
         private static void AddLine(

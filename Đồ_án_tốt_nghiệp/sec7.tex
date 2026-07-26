@@ -5,55 +5,68 @@
 \subsection{Kết quả đạt được}
 \indent Đồ án đã hoàn thành các mục tiêu đề ra ban đầu. Cụ thể, đề tài đã xây dựng
 thành công ba môi trường game 3D có tính chất khác nhau trên nền tảng Unity ML-Agents:
-Football Table (đối kháng một đối một), môi trường Cooperative Puzzle đa tác nhân và
+Football Table (đối kháng một đối một), môi trường Capture The Flag đa tác nhân và
 Cross The Road (điều hướng tránh vật cản). Với mỗi môi trường, hệ thống không gian quan sát,
 không gian hành động và hàm phần thưởng đã được thiết kế phù hợp với đặc thù bài toán.
-Đề tài đã triển khai huấn luyện và so sánh ba thuật toán PPO, SAC và MA-POCA theo bốn
-tiêu chí định lượng, đồng thời hiện thực hóa quy trình tích hợp SAC ra ngoài trainer
-tích hợp sẵn của ML-Agents thông qua Python Low-Level API.
+\indent Đề tài đã triển khai huấn luyện và so sánh bốn thuật toán PPO, SAC, MA-POCA và
+MAPPO theo bốn tiêu chí định lượng, đồng thời hiện thực hóa quy trình tích hợp SAC ra
+ngoài trainer tích hợp sẵn của ML-Agents thông qua Python Low-Level API.
 
 \indent Kết quả thực nghiệm khẳng định không tồn tại một thuật toán tối ưu duy nhất
-cho mọi bài toán: PPO kết hợp self-play phù hợp nhất với môi trường đối kháng, SAC đạt
-hiệu quả mẫu vượt trội trong bài toán điều hướng đơn tác nhân, và MA-POCA thể hiện ưu
-thế rõ rệt trong bài toán hợp tác đa tác nhân.
+cho mọi bài toán: trong môi trường đối kháng, MA-POCA và PPO kết hợp self-play là hai
+thuật toán duy nhất cho thấy tiến bộ thực sự theo chỉ số ELO, SAC đạt
+hiệu quả mẫu vượt trội trong bài toán điều hướng đơn tác nhân, và đặc biệt, MAPPO
+vượt qua MA-POCA trên môi trường hợp tác đa tác nhân với tỷ lệ giải xong cao hơn đáng
+kể, cho thấy cơ chế chia sẻ tham số và phê bình tập trung đơn giản có thể hiệu quả
+hơn cơ chế attention phức tạp khi các tác nhân đồng nhất.
 
 \indent Bên cạnh phần thực nghiệm so sánh, đề tài đã xây dựng hoàn chỉnh một ứng dụng
-trình diễn tương tác, trong đó các mô hình đã huấn luyện được triển khai trực tiếp vào
+trình diễn tương tác, trong đó chín mô hình đã huấn luyện được triển khai trực tiếp vào
 game dưới định dạng ONNX. Ứng dụng cho phép người dùng lựa chọn môi trường, lựa chọn
-một trong ba chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng tác nhân) và lựa
-chọn mô hình cụ thể cho tác nhân ngay trên giao diện menu; toàn bộ các luồng chức năng
-đã được kiểm thử đầy đủ trong Unity Editor. Kết quả này chứng minh tính khả thi của
-việc nhúng mô hình học tăng cường vào sản phẩm game hoàn chỉnh với chi phí suy luận
-không đáng kể.
+một trong bốn chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng tác nhân, tác
+nhân đấu mô hình ngôn ngữ lớn), lựa chọn mô hình cụ thể cho tác nhân và tra cứu ngay
+đường cong huấn luyện của từng thuật toán trên giao diện menu. Các luồng chức năng đã
+được kiểm thử trong Unity Editor và đều hoạt động đúng, ngoại trừ hai chế độ đua song
+song của Cross The Road đang chờ khôi phục số khu vực trong scene
+(Mục~\ref{sub:app-testing}). Kết quả này chứng minh tính khả thi của việc nhúng mô
+hình học tăng cường vào sản phẩm game hoàn chỉnh với chi phí suy luận không đáng kể.
 
 \subsection{Đóng góp của đề tài}
-\indent Đề tài có bốn đóng góp chính. Thứ nhất, xây dựng một bộ ba môi trường game 3D
+\indent Đề tài có năm đóng góp chính. Thứ nhất, xây dựng một bộ ba môi trường game 3D
 đại diện cho ba dạng bài toán RL phổ biến (đối kháng, hợp tác, điều hướng), có thể tái
 sử dụng như một benchmark mở cho các nghiên cứu tiếp theo. Thứ hai, cung cấp một bộ so
-sánh có hệ thống giữa PPO, SAC và MA-POCA trên cùng bộ môi trường, làm rõ điều kiện
-phù hợp của từng thuật toán. Thứ ba, trình bày chi tiết quy trình tích hợp thuật toán
-off-policy tùy chỉnh vào Unity qua \texttt{mlagents\_envs} và Stable-Baselines3, mở ra
-hướng đi tái sử dụng được cho các nghiên cứu về off-policy learning trong Unity. Thứ
-tư, hiện thực hóa một ứng dụng trình diễn tương tác với ba chế độ chơi và cơ chế lựa
-chọn mô hình linh hoạt, minh họa trọn vẹn quy trình đưa mô hình học tăng cường từ giai
-đoạn huấn luyện vào trải nghiệm chơi thực tế.
+sánh có hệ thống giữa PPO, SAC, MA-POCA và MAPPO trên cùng bộ môi trường, làm rõ điều
+kiện phù hợp của từng thuật toán; đặc biệt, phát hiện MAPPO vượt trội MA-POCA trên bài
+toán hợp tác đồng nhất là một kết quả có giá trị tham khảo thực tiễn. Thứ ba, trình bày
+chi tiết quy trình tích hợp thuật toán off-policy tùy chỉnh vào Unity qua
+\texttt{mlagents\_envs} và Stable-Baselines3, mở ra hướng đi tái sử dụng được cho các
+nghiên cứu về off-policy learning trong Unity. Thứ tư, hiện thực hóa một ứng dụng trình
+diễn tương tác với bốn chế độ chơi, cơ chế lựa chọn mô hình linh hoạt và hai tab trực
+quan hóa số liệu huấn luyện ngay trong game, minh họa trọn vẹn quy trình đưa mô hình
+học tăng cường từ giai đoạn huấn luyện vào trải nghiệm chơi thực tế; trong đó chế độ
+tác nhân đấu mô hình ngôn ngữ lớn cung cấp một điểm đối chiếu trực quan giữa chính
+sách học từ tương tác và chính sách suy luận zero-shot từ văn bản. Thứ năm, công bố toàn bộ mã nguồn môi trường, cấu hình huấn luyện và dữ liệu
+kết quả dưới dạng mở, tạo điều kiện cho việc tái tạo và mở rộng bởi cộng đồng.
 
 \subsection{Hạn chế}
-\indent Bên cạnh các kết quả đạt được, đề tài còn một số hạn chế. Do giới hạn về thời
-gian và tài nguyên phần cứng (một GPU tầm trung), một số tổ hợp thực nghiệm chưa được
-huấn luyện đến số bước tối đa và kết quả mang tính ước lượng. Các thực nghiệm mới được
-chạy với một seed duy nhất nên chưa đánh giá được phương sai giữa các lần chạy. Ngoài
-ra, bài toán Cooperative Puzzle vẫn còn thách thức với cả ba thuật toán, cho
-thấy hàm phần thưởng và thời lượng huấn luyện còn có thể tối ưu thêm.
+\label{sub:limits}
+\indent Bên cạnh các kết quả đạt được, đề tài còn một số hạn chế. Các thực nghiệm mới
+được chạy với một seed duy nhất nên chưa đánh giá được phương sai giữa các lần chạy, do
+đó chưa đưa ra được các kết luận thống kê chặt chẽ với độ tin cậy cao nhất. Ngoài
+ra, bài toán Capture The Flag vẫn còn thách thức với cả hai thuật toán đa tác nhân,
+cho thấy hàm phần thưởng, không gian quan sát và thời lượng huấn luyện còn có thể tối
+ưu thêm.
 
 \subsection{Hướng phát triển}
-\indent Trong tương lai, đề tài có thể được mở rộng theo các hướng sau: (1) hoàn thiện
-huấn luyện đầy đủ cả chín tổ hợp với nhiều seed để có kết quả thống kê chặt chẽ hơn;
-(2) bổ sung các thuật toán RL hiện đại khác (như DreamerV3 hay các biến thể multi-agent
-mới) vào bộ so sánh; (3) tinh chỉnh hàm phần thưởng và áp dụng học theo chương trình
-(curriculum learning) cho bài toán hợp tác; (4) mở rộng các môi trường sang những kịch
-bản phức tạp hơn, gần với game thương mại thực tế; và (5) phát triển tiếp ứng dụng
-trình diễn tương tác đã xây dựng - đóng gói bản chạy độc lập (WebGL hoặc desktop),
-bổ sung bảng xếp hạng người chơi đấu với tác nhân và tiến hành khảo sát trải nghiệm
-người dùng để đánh giá định lượng mức độ ``tự nhiên'' của hành vi tác nhân trong mắt
-người chơi.
+\indent Trong tương lai, đề tài có thể được mở rộng theo các hướng sau: (1) huấn luyện
+tất cả các mô hình với nhiều seed để có kết quả thống kê chặt chẽ hơn;
+(2) bổ sung các thuật toán RL hiện đại khác (như DreamerV3, QMIX hay các biến thể
+multi-agent mới) vào bộ so sánh; (3) tinh chỉnh hàm phần thưởng và áp dụng học theo
+chương trình nâng cao cho bài toán hợp tác; (4) mở rộng các môi
+trường sang những kịch bản phức tạp hơn, gần với game thương mại thực tế; và (5)
+phát triển tiếp ứng dụng trình diễn tương tác đã xây dựng - đóng gói bản chạy độc lập
+(WebGL hoặc desktop), bổ sung bảng xếp hạng người chơi đấu với tác nhân và tiến hành
+khảo sát trải nghiệm người dùng để đánh giá định lượng mức độ ``tự nhiên'' của hành
+vi tác nhân trong mắt người chơi. Ngoài ra, việc khảo sát sâu hơn sự khác biệt giữa
+MAPPO và MA-POCA trên các bài toán hợp tác không đồng nhất
+cũng là một hướng nghiên cứu hứa hẹn.

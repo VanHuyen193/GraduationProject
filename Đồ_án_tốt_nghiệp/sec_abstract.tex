@@ -5,13 +5,13 @@
 \vspace{0.5cm}
 
 \indent Đồ án nghiên cứu việc ứng dụng học tăng cường (Reinforcement Learning - RL)
-để tối ưu hóa khả năng tương tác của các tác nhân trí tuệ nhân tạo (AI agent) trong
+để tối ưu hóa khả năng tương tác của các tác nhân trí tuệ nhân tạo trong
 môi trường game ba chiều. Trọng tâm của đề tài là xây dựng ba môi trường game 3D
 đặc trưng trên nền tảng Unity ML-Agents - Football Table (đối kháng
-một-một), môi trường Cooperative Puzzle (hợp tác đa tác nhân) và Cross The Road
-(điều hướng tránh phương tiện) - rồi tiến hành huấn luyện và so sánh có hệ thống ba
-thuật toán tiêu biểu: PPO (Proximal Policy Optimization), SAC (Soft Actor-Critic) và
-MA-POCA (Multi-Agent POsthumous Credit Assignment).
+một-một), môi trường Capture The Flag (hợp tác đa tác nhân) và Cross The Road
+(điều hướng tránh phương tiện) - rồi tiến hành huấn luyện và so sánh có hệ thống bốn
+thuật toán tiêu biểu: PPO (Proximal Policy Optimization), SAC (Soft Actor-Critic),
+MA-POCA (Multi-Agent POsthumous Credit Assignment) và MAPPO (Multi-Agent Proximal Policy Optimization).
 
 \indent Mỗi thuật toán được huấn luyện trên từng môi trường với cùng điều kiện phần
 cứng và được đánh giá theo bốn tiêu chí định lượng: tốc độ hội tụ, tỷ lệ hoàn thành
@@ -21,17 +21,20 @@ ML-Agents thông qua Python Low-Level API, nhằm khắc phục giới hạn c�
 SAC không hỗ trợ cơ chế self-play và group reward.
 
 \indent Kết quả thực nghiệm cho thấy không tồn tại một thuật toán tối ưu duy nhất cho
-mọi bài toán: PPO kết hợp self-play phù hợp nhất với môi trường đối kháng, SAC đạt
-hiệu quả mẫu (sample efficiency) vượt trội trong bài toán điều hướng đơn tác nhân,
-còn MA-POCA thể hiện ưu thế rõ rệt trong bài toán hợp tác đa tác nhân nhờ cơ chế
-centralized critic. Trên cơ sở đó, đề tài xây dựng một ứng dụng trình diễn tương tác
-hoàn chỉnh: các mô hình đã huấn luyện được triển khai trực tiếp vào game dưới định
-dạng ONNX, người dùng có thể lựa chọn môi trường, chế độ chơi (tự điều khiển, tác
-nhân tự chơi, chơi cùng tác nhân) và mô hình cho tác nhân ngay trên giao diện menu.
+mọi bài toán: trong môi trường đối kháng, MA-POCA và PPO kết hợp self-play là hai thuật
+toán duy nhất cho thấy tiến bộ thực sự theo chỉ số xếp hạng ELO, SAC đạt
+hiệu quả mẫu vượt trội trong bài toán điều hướng đơn tác nhân,
+còn trong bài toán hợp tác đa tác nhân, MAPPO vượt qua MA-POCA nhờ cơ chế phê bình
+tập trung kết hợp chia sẻ tham số giữa các tác nhân đồng nhất. Trên cơ sở đó, đề tài
+xây dựng một ứng dụng trình diễn tương tác hoàn chỉnh: các mô hình đã huấn luyện được
+triển khai trực tiếp vào game dưới định dạng ONNX, người dùng có thể lựa chọn môi
+trường, chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng tác nhân, tác nhân
+đấu mô hình ngôn ngữ lớn), mô hình cho tác nhân và tra cứu ngay biểu đồ huấn luyện
+của từng thuật toán trên giao diện menu.
 Những kết quả này cung cấp cơ sở tham khảo cho việc lựa chọn thuật toán RL phù hợp
 với từng cơ chế game trong thực tiễn phát triển.
 
 \vspace{0.5cm}
 
 \noindent\textbf{Từ khóa:} Học tăng cường, Deep Reinforcement Learning, Unity
-ML-Agents, PPO, SAC, MA-POCA, AI trong game, đa tác nhân.
+ML-Agents, PPO, SAC, MA-POCA, MAPPO, AI trong game, đa tác nhân.

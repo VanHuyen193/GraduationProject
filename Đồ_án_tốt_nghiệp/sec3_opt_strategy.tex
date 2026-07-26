@@ -308,13 +308,89 @@ MA-POCA  & Actor-Critic      & On-policy  & Hợp tác đa tác nhân   \\
 \end{tabular}
 \end{table}
 
+\subsubsection{Phần thưởng tò mò nội tại (Intrinsic Curiosity Module - ICM)}
+\label{sub:curiosity}
+
+\indent Trong các bài toán học tăng cường thực tế, đặc biệt là các môi trường game 3D phức tạp như Capture The Flag hay Cross The Road, tín hiệu phần thưởng ngoại sinh thường rất thưa thớt hoặc bị trì hoãn. Nếu tác nhân chỉ dựa vào phần thưởng từ môi trường để học, nó có thể dành phần lớn thời gian đầu khám phá ngẫu nhiên mà không nhận được bất kỳ tín hiệu hữu ích nào, dẫn đến việc không thể học được chính sách hiệu quả. Để giải quyết vấn đề này, cơ chế phần thưởng tò mò nội tại (Intrinsic Curiosity) đã được đề xuất nhằm khuyến khích tác nhân chủ động khám phá những trạng thái mới mẻ của môi trường.
+
+\indent Trong đồ án này, cơ chế tò mò được tích hợp thông qua mô hình Intrinsic Curiosity Module (ICM) do Pathak và cộng sự \cite{pathak2017curiosity} đề xuất. Ý tưởng cốt lõi của ICM là sử dụng sai số dự đoán (prediction error) làm tín hiệu phần thưởng nội tại: tác nhân sẽ nhận được phần thưởng cao khi nó chuyển đến một trạng thái mà mô hình nội tại của nó không thể dự đoán chính xác.
+
+\indent Kiến trúc của ICM bao gồm hai mạng nơ-ron con hoạt động song song: mô hình ngược (Inverse Model) và mô hình thuận (Forward Model). Để tránh việc tác nhân bị thu hút bởi những yếu tố ngẫu nhiên không thể dự đoán trong môi trường (hiện tượng tivi nhiễu hạt - noisy TV problem), ICM không dự đoán trực tiếp trạng thái thô $s_t$, mà dự đoán đặc trưng ẩn $\phi(s_t)$ được trích xuất qua một mạng mã hóa (Encoder).
+
+\indent \textbf{Mô hình ngược (Inverse Model):} Mạng này nhận đầu vào là đặc trưng của trạng thái hiện tại $\phi(s_t)$ và đặc trưng của trạng thái tiếp theo $\phi(s_{t+1})$, sau đó dự đoán hành động $\hat{a}_t$ đã gây ra sự chuyển tiếp này. Hàm mất mát của Inverse Model được định nghĩa là:
+\begin{equation}
+    L_{\text{inv}} = \mathbb{E} \left[ -\log P(\hat{a}_t = a_t \mid \phi(s_t), \phi(s_{t+1})) \right]
+\end{equation}
+Việc huấn luyện Inverse Model buộc mạng mã hóa $\phi$ chỉ giữ lại những thông tin trạng thái có liên quan trực tiếp đến hành động của tác nhân, loại bỏ các chi tiết nhiễu vô ích.
+
+\indent \textbf{Mô hình thuận (Forward Model):} Mạng này nhận đầu vào là đặc trưng trạng thái hiện tại $\phi(s_t)$ và hành động $a_t$, từ đó dự đoán đặc trưng của trạng thái tiếp theo $\hat{\phi}(s_{t+1})$. Hàm mất mát của Forward Model thường là sai số bình phương trung bình:
+\begin{equation}
+    L_{\text{fwd}} = \frac{1}{2} \left\| \hat{\phi}(s_{t+1}) - \phi(s_{t+1}) \right\|^2_2
+\end{equation}
+
+\indent \textbf{Phần thưởng tò mò:} Sai số của Forward Model chính là thước đo sự ``ngạc nhiên'' của tác nhân. Phần thưởng tò mò $r_t^i$ được định nghĩa tỷ lệ thuận với sai số này:
+\begin{equation}
+    r_t^i = \eta \frac{1}{2} \left\| \hat{\phi}(s_{t+1}) - \phi(s_{t+1}) \right\|^2_2
+\end{equation}
+\noindent trong đó $\eta$ là hệ số tỷ lệ. Tổng phần thưởng mà tác nhân nhận được tại mỗi bước sẽ là sự kết hợp có trọng số giữa phần thưởng ngoại sinh và phần thưởng nội tại: $r_t = r_t^e + \beta r_t^i$. Trong các thực nghiệm của đề tài, $\beta$ thường được đặt ở mức $0{,}02$ nhằm bảo đảm tác nhân vẫn hướng tới mục tiêu chính của trò chơi.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth, 
+        box/.style={rectangle, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center},
+        arrow/.style={->, thick}
+    ]
+        % State inputs
+        \node (st) at (-3,4) {$s_t$};
+        \node (st1) at (-3,0) {$s_{t+1}$};
+        
+        % Features
+        \node (phi_st) [box] at (0,4) {Đặc trưng \\ $\phi(s_t)$};
+        \node (phi_st1) [box] at (0,0) {Đặc trưng \\ $\phi(s_{t+1})$};
+        
+        % Action input
+        \node (at) at (3.5, 6) {$a_t$};
+        
+        % Models
+        \node (fwd) [box, fill=red!10] at (3.5,4) {Forward Model};
+        \node (inv) [box, fill=blue!10] at (3.5,2) {Inverse Model};
+        
+        % Outputs
+        \node (phi_hat) at (6.5,4) {$\hat{\phi}(s_{t+1})$};
+        \node (ahat) at (6.5,2) {$\hat{a}_t$};
+        \node (loss) [box, fill=green!10] at (6.5, 0) {Tính sai số \\ $r_t^i$};
+        
+        % Encoders
+        \draw[arrow] (st) -- (phi_st) node[midway, above] {Encoder};
+        \draw[arrow] (st1) -- (phi_st1) node[midway, above] {Encoder};
+        
+        % Forward model
+        \draw[arrow] (phi_st) -- (fwd);
+        \draw[arrow] (at) -- (fwd);
+        \draw[arrow] (fwd) -- (phi_hat);
+        
+        % Inverse model (routing to avoid crossing)
+        \draw[arrow, rounded corners] (phi_st.south) |- ([yshift=2mm]inv.west);
+        \draw[arrow, rounded corners] (phi_st1.north) |- ([yshift=-2mm]inv.west);
+        \draw[arrow] (inv) -- (ahat);
+        
+        % Loss calculation
+        \draw[arrow] (phi_hat) -- (loss);
+        \draw[arrow] (phi_st1) -- (loss);
+        
+    \end{tikzpicture}
+    \caption{Sơ đồ kiến trúc Intrinsic Curiosity Module (ICM)}
+    \label{fig:icm_arch}
+\end{figure}
+
 \subsection{Các thuật toán sử dụng trong đề tài}
 
-\indent Đề tài sử dụng ba thuật toán học tăng cường đại diện cho các hướng tiếp cận
-khác nhau: PPO thuộc nhóm policy-based on-policy, SAC thuộc nhóm actor-critic
-off-policy và MA-POCA là thuật toán chuyên biệt cho bài toán đa tác nhân hợp tác.
-Phần này trình bày nguyên lý hoạt động và đặc điểm của từng thuật toán, làm cơ sở
-cho việc lựa chọn và phân tích kết quả thực nghiệm ở các chương sau.
+\indent Đề tài sử dụng bốn thuật toán học tăng cường đại diện cho các hướng tiếp cận
+khác nhau: PPO thuộc nhóm policy-based on-policy đơn tác nhân, SAC thuộc nhóm
+actor-critic off-policy, MA-POCA là thuật toán chuyên biệt cho bài toán đa tác nhân
+dựa trên cơ chế attention, và MAPPO là mở rộng của PPO cho đa tác nhân thông qua chia
+sẻ tham số. Phần này trình bày nguyên lý hoạt động và đặc điểm của từng thuật toán,
+làm cơ sở cho việc lựa chọn và phân tích kết quả thực nghiệm ở các chương sau.
 
 \subsubsection{PPO (Proximal Policy Optimization)}
 \label{sub:ppo}
@@ -489,6 +565,86 @@ hiệu quả mẫu tương tự PPO. Kiến trúc centralized critic làm tăng 
 và bộ nhớ khi số lượng agent lớn. Ngoài ra, với bài toán đơn tác nhân, MA-POCA gần như
 tương đương PPO nhưng phức tạp hơn không cần thiết, nên không mang lại lợi ích rõ rệt.
 
+\subsubsection{MAPPO (Multi-Agent Proximal Policy Optimization)}
+\indent Được đề xuất bởi Yu và cộng sự (2022) \cite{yu2022surprising}, MAPPO (Multi-Agent Proximal Policy Optimization) là một thuật toán giải quyết bài toán đa tác nhân thông qua việc mở rộng trực tiếp PPO. Trong khi MA-POCA sử dụng mạng critic tập trung (centralized critic) kết hợp cơ chế attention phức tạp, MAPPO tiếp cận theo hướng đơn giản hơn: mở rộng PPO sang môi trường đa tác nhân bằng cách áp dụng framework CTDE (Centralized Training with Decentralized Execution) kết hợp với việc chia sẻ tham số (parameter sharing) và một hàm giá trị (value function) tập trung.
+
+{\sloppy
+\indent \textbf{Kiến trúc CTDE trong MAPPO:} Trong quá trình thực thi (decentralized execution), mỗi agent $i$ đưa ra hành động dựa trên policy cá nhân $\pi_{\theta_i}(a_i | o_i)$, chỉ phụ thuộc vào quan sát cục bộ $o_i$. Tuy nhiên, trong quá trình huấn luyện (centralized training), hàm giá trị tập trung $V_\phi(s)$ được sử dụng để ước lượng giá trị của trạng thái toàn cục $s$, giúp đánh giá chính xác hơn giá trị của một trạng thái chung và giảm phương sai trong quá trình tính toán policy gradient. Hàm giá trị tập trung trong MAPPO có dạng:
+$$V_\phi(s) = V_\phi(o_1, o_2, \ldots, o_n, s_{\text{global}})$$
+với $o_1, \ldots, o_n$ là quan sát của các agent và $s_{\text{global}}$ là các thông tin toàn cục khác của môi trường.\par}
+
+\indent Hàm mục tiêu của policy đối với mỗi agent $i$ trong MAPPO được định nghĩa là:
+\begin{equation}
+L_i^{MAPPO}(\theta) = \hat{\mathbb{E}}_t\left[\min\left(r_t(\theta)\hat{A}_t^i, \text{clip}(r_t(\theta), 1-\varepsilon, 1+\varepsilon)\hat{A}_t^i\right)\right]
+\end{equation}
+trong đó $\hat{A}_t^i$ là hàm lợi thế (advantage function) cho agent $i$, được tính toán dựa trên hàm giá trị tập trung $V_\phi(s)$, và $r_t(\theta) = \frac{\pi_{\theta}(a_t^i|o_t^i)}{\pi_{\theta_{\text{old}}}(a_t^i|o_t^i)}$ là tỷ số xác suất.
+
+\indent \textbf{Cơ chế chia sẻ tham số (Parameter sharing):} Mặc dù mỗi agent có thể có một policy riêng, MAPPO thường ứng dụng việc chia sẻ tham số mạng nơ-ron giữa tất cả các agent đồng nhất (homogeneous agents), tức là $\theta_1 = \theta_2 = \ldots = \theta_n = \theta$. Điều này mang lại lợi ích lớn trong việc giảm thiểu chi phí tính toán và bộ nhớ, đồng thời cho phép các agent học hỏi nhanh hơn nhờ việc chia sẻ kinh nghiệm (shared experience) trong quá trình huấn luyện. Danh tính (identity) của từng agent có thể được mã hóa thành một vector one-hot và đưa vào như một phần của quan sát (observation) để giúp mạng phân biệt và có các hành vi khác nhau.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[>=stealth,
+        box/.style={rectangle, draw, rounded corners, align=center, minimum width=2.5cm, minimum height=1cm, font=\small},
+        agent/.style={circle, draw, align=center, minimum size=1.2cm, font=\small}]
+        
+        % MAPPO
+        \node[box, fill=mappocolor!20] (mappo_policy) at (0,0) {Shared Policy\\$\pi_\theta$};
+        \node[agent, fill=gray!20] (agent1) at (-1.5,-2.5) {Agent 1};
+        \node[agent, fill=gray!20] (agent2) at (1.5,-2.5) {Agent 2};
+        \node[box, fill=red!20] (mappo_critic) at (3.5,0) {Centralized V\\$V_\phi(s)$};
+        
+        \draw[->] (mappo_policy) -- (agent1);
+        \draw[->] (mappo_policy) -- (agent2);
+        
+        \node[font=\bfseries] at (1.5, 1.5) {Kiến trúc MAPPO};
+        
+        % Split line
+        \draw[dashed, thick] (5.5,2) -- (5.5,-4);
+        
+        % MA-POCA
+        \node[box, fill=pocacolor!20] (poca_policy1) at (7.5,0) {Policy 1\\$\pi_{\theta_1}$};
+        \node[box, fill=pocacolor!20] (poca_policy2) at (7.5,-2.5) {Policy 2\\$\pi_{\theta_2}$};
+        \node[agent, fill=gray!20] (agent1_poca) at (10.5,0) {Agent 1};
+        \node[agent, fill=gray!20] (agent2_poca) at (10.5,-2.5) {Agent 2};
+        \node[box, fill=red!20] (poca_critic) at (13.5,-1.25) {Group Critic w/\\Attention};
+        
+        \draw[->] (poca_policy1) -- (agent1_poca);
+        \draw[->] (poca_policy2) -- (agent2_poca);
+        
+        \node[font=\bfseries] at (10.5, 1.5) {Kiến trúc MA-POCA};
+
+    \end{tikzpicture}}
+    \caption{So sánh cấu trúc giữa MAPPO và MA-POCA}
+    \label{fig:mappo_vs_mapoca}
+\end{figure}
+
+\indent \textbf{Ưu điểm:} MAPPO có lợi thế là sự mở rộng trực tiếp và đơn giản của PPO, không yêu cầu thiết kế phức tạp ở mạng nơ-ron. Việc chia sẻ tham số giúp giảm đáng kể chi phí tính toán và gia tăng tốc độ huấn luyện. Các thực nghiệm của Yu và cộng sự chỉ ra rằng MAPPO có thể đạt hiệu suất ngang bằng hoặc vượt qua các thuật toán đa tác nhân mạnh khác như MADDPG, QMIX trên nhiều benchmark phổ biến. Ngoài ra, MAPPO hoàn toàn tương thích với các cơ sở hạ tầng tối ưu PPO sẵn có.
+
+\indent \textbf{Nhược điểm:} Việc sử dụng tham số chung ngầm định giả định rằng các agent là đồng nhất (homogeneous agents) với không gian quan sát và hành động tương tự. Thêm vào đó, hàm giá trị tập trung $V_\phi(s)$ sẽ không dễ dàng mở rộng khi số lượng agent trở nên quá lớn, do sự bùng nổ của kích thước không gian trạng thái toàn cục $s$. Trái với MA-POCA, MAPPO không xử lý vấn đề số lượng agent thay đổi linh hoạt (dynamic agent count) một cách trực quan bằng cơ chế attention.
+
+\subsubsection{Tổng kết và so sánh bốn thuật toán}
+\indent Bốn thuật toán học tăng cường PPO, SAC, MA-POCA và MAPPO mang các đặc điểm khác nhau và phù hợp với các loại bài toán riêng biệt. Việc nắm vững ưu, nhược điểm của chúng giúp người phát triển đưa ra lựa chọn hiệu quả khi đối mặt với từng bối cảnh cụ thể.
+
+\begin{table}[H]
+    \centering
+    \caption{So sánh các thuật toán học tăng cường}
+    \label{tab:algo_compare}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|l|l|l|l|}
+        \hline
+        \textbf{Thuật toán} & \textbf{Loại policy} & \textbf{On/Off-policy} & \textbf{Đa tác nhân} & \textbf{Replay buffer} & \textbf{Entropy} & \textbf{Chia sẻ tham số} & \textbf{Độ phức tạp} \\
+        \hline
+        PPO & Policy gradient & On-policy & Không native & Không & Không & Không & Thấp \\
+        SAC & Actor-Critic & Off-policy & Không native & Có & Có (max entropy) & Không & Trung bình \\
+        MA-POCA & Actor-Critic & On-policy & Có (attention) & Không & Không & Có (chia sẻ) & Cao \\
+        MAPPO & Policy gradient & On-policy & Có (CTDE) & Không & Không & Có (bắt buộc) & Trung bình \\
+        \hline
+    \end{tabular}}
+\end{table}
+
+\indent Tóm lại, \textbf{PPO} là lựa chọn lý tưởng, dễ cài đặt cho các bài toán đơn tác nhân tiêu chuẩn có độ dốc mượt. \textbf{SAC} tỏ ra vượt trội đối với các môi trường liên tục phức tạp và cần khả năng khai phá mạnh mẽ. \textbf{MA-POCA} là công cụ tối ưu cho các bài toán đa tác nhân với số lượng linh hoạt, trong khi \textbf{MAPPO} phù hợp cho các bài toán nhóm số lượng cố định, đòi hỏi tính toán nhanh và tận dụng việc chia sẻ tham số mạng học.
+
 \subsection{Unity ML-Agents Toolkit}
 \indent Unity ML-Agents Toolkit \cite{juliani2020unity} là một framework mã nguồn mở
 do Unity Technologies phát triển, cho phép xây dựng môi trường game và mô phỏng 3D
@@ -530,6 +686,22 @@ thống ML-Agents và luồng dữ liệu giữa các thành phần.
     \caption{Kiến trúc tổng thể của Unity ML-Agents Toolkit}
     \label{fig:mlagents_architecture}
 \end{figure}
+
+\subsubsection{Cơ chế Vật lý và Tính xác định trong Unity}
+\indent Một khía cạnh cốt lõi khi sử dụng Unity cho học tăng cường là sự đồng bộ giữa hệ thống vật lý và quá trình ra quyết định. Trong Unity, các khung hình đồ họa được kết xuất qua hàm \texttt{Update()} với tần số biến thiên phụ thuộc vào hiệu năng máy tính (FPS). Tuy nhiên, nếu Agent cũng đưa ra quyết định hoặc tính toán va chạm theo tần số biến thiên này, môi trường sẽ trở nên không xác định (non-deterministic): cùng một chuỗi hành động có thể dẫn đến các kết quả vật lý khác nhau trong những lần chạy khác nhau.
+\indent Để giải quyết vấn đề này, ML-Agents đồng bộ hóa toàn bộ quy trình RL vào hàm \texttt{FixedUpdate()}. Đây là chu kỳ cập nhật vật lý có tần số cố định (mặc định là $0.02$ giây mỗi bước, tương đương $50$ lần/giây). Hệ thống vật lý PhysX của Unity sẽ tính toán động lực học, cập nhật tọa độ của các \texttt{Rigidbody} và xử lý va chạm (\texttt{Collider}) hoàn toàn dựa trên các bước thời gian cố định này. Kết quả là, nếu cung cấp cùng một seed ngẫu nhiên ban đầu, môi trường Unity sẽ hoạt động như một hệ thống xác định, đảm bảo tính lặp lại (reproducibility) cực kỳ quan trọng cho nghiên cứu ML.
+
+\subsubsection{Hệ thống Cảm biến (Sensors) và Tiền xử lý quan sát}
+\indent Để Agent hiểu được thế giới 3D phức tạp, ML-Agents cung cấp các thành phần Cảm biến nhằm tự động thu thập và chuyển đổi thông tin không gian thành các vector số thực (Input Layer). Có ba loại cảm biến phổ biến:
+\begin{itemize}
+    \item \textbf{Cảm biến tia (Ray Perception Sensor 3D)}: Bắn ra các tia raycast xung quanh Agent theo một góc quét nhất định. Khi tia chạm vào vật thể có nhãn (\texttt{Tags}) tương ứng, nó sẽ ghi nhận một vector one-hot đại diện cho loại vật thể và một giá trị vô hướng chuẩn hóa $[0, 1]$ biểu diễn khoảng cách. Đây là loại cảm biến đặc biệt hiệu quả và nhẹ về mặt tính toán cho các bài toán điều hướng, được áp dụng chủ đạo trong đề tài này.
+    \item \textbf{Grid Sensor}: Chiếu một lưới 2D lên không gian và đếm số lượng vật thể rơi vào từng ô. Phù hợp cho các bài toán cần cái nhìn toàn cảnh như cờ bàn.
+    \item \textbf{Camera Sensor}: Sử dụng trực tiếp dữ liệu pixel RGB từ camera, buộc mô hình phải dùng đến mạng tích chập (CNN). Dù cung cấp thông tin toàn diện, nó đòi hỏi chi phí tính toán rất lớn và thường hội tụ chậm hơn nhiều so với cảm biến tia.
+\end{itemize}
+
+\subsubsection{Cơ chế Hành vi và Gom nhóm quyết định}
+\indent Một module quan trọng gắn trên mỗi Agent là \texttt{BehaviorParameters}, nơi định nghĩa kích thước không gian quan sát và không gian hành động. Tại đây, ML-Agents cung cấp cơ chế \textbf{Action Masking} (Mặt nạ hành động) để chặn các hành động không hợp lệ. Ví dụ, nếu Agent đang đứng sát tường, hệ thống có thể ``đeo mặt nạ'' loại bỏ hành động tiến lên, ép xác suất chọn hành động đó về 0. Điều này giúp thu hẹp không gian tìm kiếm, giúp mô hình hội tụ nhanh hơn thay vì phải tự học cách đâm đầu vào tường và bị phạt.
+\indent Ngoài ra, thành phần \texttt{DecisionRequester} cho phép gom nhóm các bước mô phỏng (Decision Period). Thay vì đưa ra một quyết định mới ở mỗi bước \texttt{FixedUpdate} ($0.02$s), Agent có thể duy trì hành động cũ trong $5$ bước liên tiếp (Decision Period = $5$). Việc này giúp Agent có đủ thời gian hoàn thành một quỹ đạo vật lý trước khi quyết định tiếp, đồng thời giảm thiểu số lần gọi mạng nơ-ron lên nhiều lần, tối ưu hóa đáng kể tốc độ huấn luyện. ML-Agents cũng hỗ trợ \textbf{Heuristic Policy}, cho phép người dùng trực tiếp điều khiển Agent bằng bàn phím để gỡ lỗi và trải nghiệm độ khó của môi trường trước khi khởi động AI.
 
 \subsubsection{Quy trình huấn luyện Agent}
 \indent Quy trình huấn luyện một agent trong ML-Agents diễn ra theo vòng lặp lặp lại

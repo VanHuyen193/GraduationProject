@@ -110,7 +110,10 @@ namespace TableFootball
             agentTeam.StepUpdate(act);
 
             // Time penalty để ép agent thi đấu nhanh hơn
-            AddReward(-1f / MaxStep);
+            // (MaxStep = 0 nghĩa là episode không giới hạn bước - ví dụ đội bot ở
+            //  chế độ người chơi - khi đó không áp dụng phạt thời gian)
+            if (MaxStep > 0)
+                AddReward(-1f / MaxStep);
 
             // Reward nên đặt ở đây (KHÔNG phải CollectObservations)
             if (useShotReward)

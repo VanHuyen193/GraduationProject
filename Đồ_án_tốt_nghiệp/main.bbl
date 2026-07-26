@@ -71,12 +71,25 @@ Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A. Rusu, Joel Veness,
 \newblock Human-level control through deep reinforcement learning.
 \newblock {\em Nature}, 518(7540):529--533, 2015.
 
+\bibitem{ng1999policy}
+Andrew~Y. Ng, Daishi Harada, and Stuart Russell.
+\newblock Policy invariance under reward transformations: Theory and
+  application to reward shaping.
+\newblock In {\em Proceedings of the Sixteenth International Conference on
+  Machine Learning (ICML)}, pages 278--287, 1999.
+
 \bibitem{openai2019dota}
 {OpenAI}, Christopher Berner, Greg Brockman, Brooke Chan, Vicki Cheung,
   Przemys{\l}aw D{\k{e}}biak, Christy Dennison, David Farhi, Quirin Fischer,
   Shariq Hashme, et~al.
 \newblock {Dota 2} with large scale deep reinforcement learning.
 \newblock {\em arXiv preprint arXiv:1912.06680}, 2019.
+
+\bibitem{pathak2017curiosity}
+Deepak Pathak, Pulkit Agrawal, Alexei~A Efros, and Trevor Darrell.
+\newblock Curiosity-driven exploration by self-supervised prediction.
+\newblock In {\em International Conference on Machine Learning (ICML)}, pages
+  2778--2787. PMLR, 2017.
 
 \bibitem{puterman1994markov}
 Martin~L. Puterman.
@@ -139,5 +152,12 @@ Ronald~J. Williams.
 Georgios~N. Yannakakis and Julian Togelius.
 \newblock Artificial intelligence and games.
 \newblock {\em Springer}, 2018.
+
+\bibitem{yu2022surprising}
+Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu~Wang, Alexandre Baez,
+  Siddharth Bhatt, Jianyu Peng, Minghao Shen, Xiongtao Wang, et~al.
+\newblock The surprising effectiveness of ppo in cooperative multi-agent games.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~35, pages 24611--24624, 2022.
 
 \end{thebibliography}

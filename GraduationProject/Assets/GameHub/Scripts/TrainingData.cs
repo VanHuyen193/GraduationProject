@@ -11,6 +11,8 @@ namespace GameHub
         public bool found;
         public string runId;
         public int steps;
+        public int maxEnvSteps;
+        public int actualCount;
         public float final;
         public float max;
         public float meanLast10;
@@ -62,7 +64,7 @@ namespace GameHub
         private static TrainingDataRoot cached;
         private static bool loaded;
 
-        public static readonly string[] AlgoOrder = { "PPO", "SAC", "MA-POCA" };
+        public static readonly string[] AlgoOrder = { "PPO", "SAC", "MA-POCA", "MAPPO" };
 
         public static TrainingDataRoot Data
         {
@@ -117,6 +119,7 @@ namespace GameHub
                 case "PPO": return new Color32(33, 150, 243, 255);    // xanh dương
                 case "SAC": return new Color32(76, 175, 80, 255);     // xanh lá
                 case "MA-POCA": return new Color32(255, 152, 0, 255); // cam
+                case "MAPPO": return new Color32(156, 39, 176, 255);  // tím
                 default: return new Color32(160, 160, 160, 255);
             }
         }

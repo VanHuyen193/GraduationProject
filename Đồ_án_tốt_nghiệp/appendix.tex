@@ -10,7 +10,8 @@
 
 Dưới đây là tệp cấu hình YAML của thuật toán PPO cho môi trường Football Table
 (kết hợp self-play). Các môi trường khác dùng cấu trúc tương tự với siêu tham số
-điều chỉnh theo Bảng~\ref{tab:hyperparams}.
+điều chỉnh theo Bảng~\ref{tab:hyperparams}. Lưu ý rằng cấu hình MAPPO hoàn toàn
+tương tự PPO, chỉ khác biệt ở việc khai báo \texttt{trainer\_type: mappo}.
 
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={football\_ppo.yaml},captionpos=b]
 behaviors:
@@ -119,7 +120,7 @@ env.close()
 \subsection*{Phụ lục C. Cấu hình huấn luyện MA-POCA}
 \addcontentsline{toc}{subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}
 
-Tệp cấu hình YAML của MA-POCA cho môi trường Cooperative Puzzle:
+Tệp cấu hình YAML của MA-POCA cho môi trường Capture The Flag:
 
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctf\_poca.yaml},captionpos=b]
 behaviors:
@@ -183,7 +184,7 @@ public void TakeAwayPoints()      // Khi va cham phuong tien
 }
 \end{lstlisting}
 
-\noindent\textbf{D.3. Phần thưởng nhóm (môi trường Cooperative Puzzle):}
+\noindent\textbf{D.3. Phần thưởng nhóm (môi trường Capture The Flag):}
 \begin{lstlisting}[language=Java,caption={Group reward - EnvController.cs (trich doan)},captionpos=b]
 // Ca hai agent cung roi phong -> thuong nhom
 if (agents[0].agent.ThisAgentLeft && agents[1].agent.ThisAgentLeft)
@@ -243,7 +244,11 @@ CrossRoad\_SAC & SAC & 200K & $0{,}87$ & $\sim$104 phút \\
 \hline
 ctr\_poca (CrossRoad) & MA-POCA & 2M & $0{,}69$ & $\sim$67 phút \\
 \hline
+ctr\_mappo (CrossRoad) & MAPPO & 2M & $0{,}57$ & $\sim$75 phút \\
+\hline
 ctf\_poca (Capture) & MA-POCA & 4{,}86M & $0{,}033$ & $\sim$116 phút \\
+\hline
+ctf\_mappo (Capture) & MAPPO & 1{,}68M & $0{,}065$ & $\sim$45 phút \\
 \hline
 \end{tabular}
 \end{table}

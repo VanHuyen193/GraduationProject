@@ -65,7 +65,7 @@ namespace GameHub
         private Text statsTitle, statsYMax, statsYMin, statsXMax, statsEmpty;
         private UILineChart chart;
         private RectTransform legendRow;
-        private readonly Text[] tableCells = new Text[24]; // 4 hàng x 6 cột
+        private readonly Text[] tableCells = new Text[36]; // 6 hàng x 6 cột
 
         private readonly GameEnvironment[] allEnvs =
         {
@@ -495,27 +495,27 @@ namespace GameHub
             RectTransform panel = UIBuilder.CreateRoundedPanel(
                 statsView, "StatsTable", PanelColor, 16, PanelBorder);
             UIBuilder.Place(panel,
-                new Vector2(0.5f, 1f), new Vector2(0, -880), new Vector2(1520, 208));
+                new Vector2(0.5f, 1f), new Vector2(0, -880), new Vector2(1520, 230));
 
             string[] headers = { "Thuật toán", "Reward cuối", "Tốt nhất",
                 "Mean (10% cuối)", "Hội tụ (step)", "Tổng steps" };
             float[] cx = { -600, -300, -60, 190, 450, 660 };
             float[] cw = { 320, 220, 220, 260, 240, 240 };
 
-            for (int row = 0; row < 4; row++)
+            for (int row = 0; row < 6; row++)
             {
-                float y = -34 - row * 44;
+                float y = -26 - row * 34;
                 bool header = row == 0;
                 for (int col = 0; col < 6; col++)
                 {
                     Text t = UIBuilder.CreateText(
                         panel, "Cell", header ? headers[col] : "",
-                        header ? 19 : 20, header ? MutedColor : TextColor,
+                        header ? 18 : 17, header ? MutedColor : TextColor,
                         col == 0 ? TextAnchor.MiddleLeft : TextAnchor.MiddleCenter,
                         header ? FontStyle.Bold : FontStyle.Normal);
                     UIBuilder.Place((RectTransform)t.transform,
                         new Vector2(0.5f, 1f), new Vector2(cx[col], y),
-                        new Vector2(cw[col], 40));
+                        new Vector2(cw[col], 32));
                     tableCells[row * 6 + col] = t;
                 }
             }
@@ -528,7 +528,7 @@ namespace GameHub
         {
             Text title = UIBuilder.CreateText(
                 compareView, "CompareTitle",
-                "So sánh reward cuối (mean 10% cuối) — 3 thuật toán × 3 môi trường",
+                "So sánh reward cuối (mean 10% cuối) theo môi trường",
                 24, TextColor, TextAnchor.MiddleCenter, FontStyle.Bold);
             UIBuilder.Place((RectTransform)title.transform,
                 new Vector2(0.5f, 1f), new Vector2(0, -200), new Vector2(1700, 34));
@@ -556,11 +556,14 @@ namespace GameHub
                 new Vector2(0.5f, 1f), new Vector2(0, -30), new Vector2(460, 30));
 
             EnvTraining data = TrainingDataStore.ForEnv(env);
+            if (data == null || data.algorithms == null || data.algorithms.Length == 0)
+            {
+                return;
+            }
 
             float hi = 0.0001f;
-            foreach (string algo in TrainingDataStore.AlgoOrder)
+            foreach (var a in data.algorithms)
             {
-                AlgoTraining a = data?.Algo(algo);
                 if (a != null && a.found)
                 {
                     hi = Mathf.Max(hi, a.meanLast10);
@@ -569,38 +572,41 @@ namespace GameHub
 
             const float baseY = 80f;
             const float maxH = 210f;
-            float[] bx = { -150f, 0f, 150f };
+            int count = data.algorithms.Length;
+            float totalWidth = 360f;
+            float stepX = count > 1 ? totalWidth / (count - 1) : 0f;
+            float startX = count > 1 ? -totalWidth / 2f : 0f;
 
-            for (int i = 0; i < TrainingDataStore.AlgoOrder.Length; i++)
+            for (int i = 0; i < count; i++)
             {
-                string algo = TrainingDataStore.AlgoOrder[i];
-                AlgoTraining a = data?.Algo(algo);
+                AlgoTraining a = data.algorithms[i];
                 bool ok = a != null && a.found;
-                Color col = TrainingDataStore.ColorFor(algo);
+                Color col = TrainingDataStore.ColorFor(a.algo);
+                float posX = startX + i * stepX;
 
                 float val = ok ? a.meanLast10 : 0f;
                 float h = ok ? Mathf.Clamp(val / hi, 0.02f, 1f) * maxH : 3f;
 
                 RectTransform bar = UIBuilder.CreateRoundedPanel(
-                    card, "Bar_" + algo, ok ? col : new Color32(60, 70, 90, 255), 6);
+                    card, "Bar_" + a.algo, ok ? col : new Color32(60, 70, 90, 255), 6);
                 UIBuilder.Place(bar,
-                    new Vector2(0.5f, 0.5f), new Vector2(bx[i], baseY - maxH + h / 2f),
-                    new Vector2(96, h));
+                    new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH + h / 2f),
+                    new Vector2(Mathf.Min(80, 320 / count), h));
 
                 Text valText = UIBuilder.CreateText(
-                    card, "V_" + algo, ok ? a.meanLast10.ToString("0.00") : "N/A",
-                    19, ok ? TextColor : MutedColor,
+                    card, "V_" + a.algo, ok ? a.meanLast10.ToString("0.00") : "N/A",
+                    17, ok ? TextColor : MutedColor,
                     TextAnchor.MiddleCenter, FontStyle.Bold);
                 UIBuilder.Place((RectTransform)valText.transform,
-                    new Vector2(0.5f, 0.5f), new Vector2(bx[i], baseY - maxH + h + 22),
-                    new Vector2(150, 26));
+                    new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH + h + 22),
+                    new Vector2(120, 26));
 
                 Text algoText = UIBuilder.CreateText(
-                    card, "A_" + algo, algo, 18, col,
+                    card, "A_" + a.algo, a.algo, 16, col,
                     TextAnchor.MiddleCenter, FontStyle.Bold);
                 UIBuilder.Place((RectTransform)algoText.transform,
-                    new Vector2(0.5f, 0.5f), new Vector2(bx[i], baseY - maxH - 24),
-                    new Vector2(150, 24));
+                    new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH - 24),
+                    new Vector2(120, 24));
             }
         }
 
@@ -662,12 +668,14 @@ namespace GameHub
         {
             var list = new List<KeyValuePair<string, float>>();
             EnvTraining data = TrainingDataStore.ForEnv(env);
-            foreach (string algo in TrainingDataStore.AlgoOrder)
+            if (data != null && data.algorithms != null)
             {
-                AlgoTraining a = data?.Algo(algo);
-                if (a != null && a.found)
+                foreach (var a in data.algorithms)
                 {
-                    list.Add(new KeyValuePair<string, float>(algo, a.meanLast10));
+                    if (a != null && a.found)
+                    {
+                        list.Add(new KeyValuePair<string, float>(a.algo, a.meanLast10));
+                    }
                 }
             }
             list.Sort((p, q) => q.Value.CompareTo(p.Value));
@@ -933,6 +941,10 @@ namespace GameHub
         // =====================================================
         // CẬP NHẬT TAB THÔNG SỐ (2D)
         // =====================================================
+        // =====================================================
+        // =====================================================
+        // CẬP NHẬT TAB THÔNG SỐ (2D)
+        // =====================================================
         private void RefreshStats()
         {
             EnvTraining data = TrainingDataStore.ForEnv(selectedEnv);
@@ -952,49 +964,58 @@ namespace GameHub
             int xMax = 0;
             bool any = false;
 
-            for (int r = 0; r < TrainingDataStore.AlgoOrder.Length; r++)
+            if (data != null && data.algorithms != null)
             {
-                string algo = TrainingDataStore.AlgoOrder[r];
-                AlgoTraining a = data?.Algo(algo);
-                int row = r + 1;
-
-                if (a == null || !a.found || a.cs == null || a.cs.Length == 0)
+                for (int r = 0; r < data.algorithms.Length; r++)
                 {
-                    tableCells[row * 6 + 0].text = algo;
-                    tableCells[row * 6 + 0].color = MutedColor;
+                    AlgoTraining a = data.algorithms[r];
+                    int row = r + 1;
+                    if (row * 6 >= tableCells.Length)
+                    {
+                        break;
+                    }
+
+                    if (a == null || !a.found || a.cs == null || a.cs.Length == 0)
+                    {
+                        tableCells[row * 6 + 0].text = a != null ? a.algo : "N/A";
+                        tableCells[row * 6 + 0].color = MutedColor;
+                        for (int c = 1; c < 6; c++)
+                        {
+                            tableCells[row * 6 + c].text = "N/A";
+                            tableCells[row * 6 + c].color = MutedColor;
+                        }
+                        continue;
+                    }
+
+                    any = true;
+                    Color col = TrainingDataStore.ColorFor(a.algo);
+
+                    int envMaxSteps = a.maxEnvSteps > 0 ? a.maxEnvSteps : a.cs[a.cs.Length - 1];
+                    xMax = Mathf.Max(xMax, envMaxSteps);
+
+                    // Chuỗi điểm liên tục (nét liền)
+                    var pts = new Vector2[a.cs.Length];
+                    for (int i = 0; i < a.cs.Length; i++)
+                    {
+                        pts[i] = new Vector2(a.cs[i], a.cv[i]);
+                        yMin = Mathf.Min(yMin, a.cv[i]);
+                        yMax = Mathf.Max(yMax, a.cv[i]);
+                    }
+                    chart.AddSeries(col, pts, 3f);
+
+                    AddLegend(a.algo, col);
+
+                    tableCells[row * 6 + 0].text = a.algo;
+                    tableCells[row * 6 + 0].color = col;
+                    tableCells[row * 6 + 1].text = a.final.ToString("0.000");
+                    tableCells[row * 6 + 2].text = a.max.ToString("0.000");
+                    tableCells[row * 6 + 3].text = a.meanLast10.ToString("0.000");
+                    tableCells[row * 6 + 4].text = FormatSteps(a.convergeStep);
+                    tableCells[row * 6 + 5].text = FormatSteps(a.steps);
                     for (int c = 1; c < 6; c++)
                     {
-                        tableCells[row * 6 + c].text = "N/A";
-                        tableCells[row * 6 + c].color = MutedColor;
+                        tableCells[row * 6 + c].color = TextColor;
                     }
-                    continue;
-                }
-
-                any = true;
-                Color col = TrainingDataStore.ColorFor(algo);
-
-                var pts = new Vector2[a.cs.Length];
-                for (int i = 0; i < a.cs.Length; i++)
-                {
-                    pts[i] = new Vector2(a.cs[i], a.cv[i]);
-                    yMin = Mathf.Min(yMin, a.cv[i]);
-                    yMax = Mathf.Max(yMax, a.cv[i]);
-                }
-                xMax = Mathf.Max(xMax, a.cs[a.cs.Length - 1]);
-                chart.AddSeries(col, pts, 3f);
-
-                AddLegend(algo, col);
-
-                tableCells[row * 6 + 0].text = algo;
-                tableCells[row * 6 + 0].color = col;
-                tableCells[row * 6 + 1].text = a.final.ToString("0.000");
-                tableCells[row * 6 + 2].text = a.max.ToString("0.000");
-                tableCells[row * 6 + 3].text = a.meanLast10.ToString("0.000");
-                tableCells[row * 6 + 4].text = FormatSteps(a.convergeStep);
-                tableCells[row * 6 + 5].text = FormatSteps(a.steps);
-                for (int c = 1; c < 6; c++)
-                {
-                    tableCells[row * 6 + c].color = TextColor;
                 }
             }
 
@@ -1040,14 +1061,14 @@ namespace GameHub
             RectTransform dot = UIBuilder.CreateRoundedPanel(item, "d", col, 8);
             dot.GetComponent<Image>().raycastTarget = false;
             var le = dot.gameObject.AddComponent<LayoutElement>();
-            le.preferredWidth = 20;
-            le.preferredHeight = 20;
+            le.preferredWidth = 18;
+            le.preferredHeight = 18;
 
-            var t = UIBuilder.CreateText(item, "t", algo, 19, TextColor,
+            var t = UIBuilder.CreateText(item, "t", algo, 18, TextColor,
                 TextAnchor.MiddleLeft, FontStyle.Bold);
             t.raycastTarget = false;
             var te = t.gameObject.AddComponent<LayoutElement>();
-            te.preferredWidth = algo.Length * 12 + 8;
+            te.preferredWidth = algo.Length * 13 + 14; // đủ rộng để tên không bị xuống dòng
             te.preferredHeight = 24;
         }
 

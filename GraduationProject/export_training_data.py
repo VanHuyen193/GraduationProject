@@ -36,6 +36,16 @@ MAX_POINTS = 120  # so diem duong cong sau khi rut gon
 # results/ bang survey_results.py). MA-POCA = trainer_type 'poca' (khong phai 'mappo').
 ENVIRONMENTS = [
     {
+        "key": "Football",
+        "name": "Football Table",
+        "behavior": "Football",
+        "algos": [
+            {"algo": "PPO", "dirs": ["FB01"]},                  # 1.59M self-play
+            {"algo": "SAC", "dirs": ["Football_SAC_01"]},       # 0.92M
+            {"algo": "MA-POCA", "dirs": ["Football_POCA_01"]},  # 0.91M
+        ],
+    },
+    {
         "key": "CrossTheRoad",
         "name": "Cross The Road",
         "behavior": "CrossTheRoad",
@@ -43,6 +53,7 @@ ENVIRONMENTS = [
             {"algo": "PPO", "dirs": ["ctr01"]},                 # 2.0M steps
             {"algo": "SAC", "dirs": ["CrossTheRoad_SAC_01"]},   # hoi tu som (200K)
             {"algo": "MA-POCA", "dirs": ["ctr_poca_v1"]},       # 2.0M steps
+            {"algo": "MAPPO", "dirs": ["ctr_mappo_v1"]},        # 2.0M steps
         ],
     },
     {
@@ -50,19 +61,8 @@ ENVIRONMENTS = [
         "name": "Capture The Flag",
         "behavior": "PuzzleBehavior",
         "algos": [
-            {"algo": "PPO", "dirs": ["ctf_ppo_v3"]},            # run ngan nhat co du lieu
-            {"algo": "SAC", "dirs": []},                        # chua train -> N/A
-            {"algo": "MA-POCA", "dirs": ["ctf_poca_v2"]},       # 1.68M, max 0.88
-        ],
-    },
-    {
-        "key": "Football",
-        "name": "Football Table",
-        "behavior": "Football",
-        "algos": [
-            {"algo": "PPO", "dirs": ["FB01"]},                  # 1.59M self-play
-            {"algo": "SAC", "dirs": ["Football_SAC_01"]},       # 0.92M, mean 1.94
-            {"algo": "MA-POCA", "dirs": ["Football_POCA_01"]},  # 0.91M, mean 1.87
+            {"algo": "MA-POCA", "dirs": ["ctf_poca_v2"]},       # 1.68M
+            {"algo": "MAPPO", "dirs": ["ctf_mappo_v2"]},        # 1.52M
         ],
     },
 ]
@@ -100,13 +100,20 @@ def read_series(tf_paths, key):
 
 
 def smooth(values, window):
-    if window <= 1 or len(values) < window:
-        return values
-    arr = np.array(values, dtype=float)
-    kernel = np.ones(window) / window
-    sm = np.convolve(arr, kernel, mode="valid")
-    pad = np.full(len(values) - len(sm), sm[0])
-    return list(np.concatenate([pad, sm]))
+    """Trung binh truot lui, cua so ngan dan o dau chuoi (min_periods=1).
+
+    Khong dung np.convolve(mode='valid') roi chen dau bang gia tri dau tien:
+    cach do lam phang mat toan bo giai doan hoc ban dau cua duong cong.
+    """
+    if window <= 1 or len(values) < 2:
+        return list(values)
+    arr = np.asarray(values, dtype=float)
+    cum = np.cumsum(np.insert(arr, 0, 0.0))
+    idx = np.arange(len(arr))
+    start = np.maximum(0, idx - window + 1)
+    sums = cum[idx + 1] - cum[start]
+    counts = (idx - start + 1).astype(float)
+    return list(sums / counts)
 
 
 def downsample(steps, values, n):
@@ -119,22 +126,39 @@ def downsample(steps, values, n):
     return [steps[i] for i in idx], [values[i] for i in idx]
 
 
-def stats_of(series):
+def converge_step(steps, vals_sm):
+    """Buoc ma tu do duong cong (da lam muot) khong con tut xuong duoi 90% muc
+    on dinh cuoi cung. On dinh hon nhieu so voi 'lan dau cham 90% max' vi
+    khong bi mot dinh nhieu don le keo ve dau chuoi."""
+    if not steps:
+        return 0
+    n_last = max(1, len(vals_sm) // 10)
+    plateau = float(np.mean(vals_sm[-n_last:]))
+    lo = plateau * 0.9 if plateau > 0 else plateau * 1.1
+    idx = 0
+    for i in range(len(vals_sm) - 1, -1, -1):
+        if vals_sm[i] < lo:
+            idx = min(i + 1, len(vals_sm) - 1)
+            break
+    return int(steps[idx])
+
+
+def stats_of(series, vals_sm):
+    """Thong ke tinh tren duong cong DA LAM MUOT - dung chuoi ma bieu do ve,
+    de bang so lieu va do thi luon khop nhau."""
     if not series:
         return None
-    vals = np.array([v for _, v in series], dtype=float)
     steps = [s for s, _ in series]
+    vals = np.array(vals_sm, dtype=float)
     n_last = max(1, len(vals) // 10)
-    max_val = float(np.max(vals))
-    thr = max_val * 0.9 if max_val > 0 else max_val * 1.1
-    converge = next((s for s, v in series if v >= thr), steps[-1])
     return {
         "steps": int(steps[-1]),
         "final": float(vals[-1]),
-        "max": max_val,
+        "max": float(np.max(vals)),
         "min": float(np.min(vals)),
         "meanLast10": float(np.mean(vals[-n_last:])),
-        "convergeStep": int(converge),
+        "convergeStep": converge_step(steps, vals_sm),
+        "actualCount": len(series),
     }
 
 
@@ -153,7 +177,8 @@ def build_algo(env, algo_cfg):
         "algo": algo_cfg["algo"],
         "found": False,
         "runId": used_dir or "",
-        "steps": 0, "final": 0.0, "max": 0.0, "meanLast10": 0.0,
+        "steps": 0, "maxEnvSteps": 0, "actualCount": 0,
+        "final": 0.0, "max": 0.0, "meanLast10": 0.0,
         "convergeStep": 0, "epLenFinal": 0.0,
         "cs": [], "cv": [],
     }
@@ -167,18 +192,20 @@ def build_algo(env, algo_cfg):
         print(f"    [{algo_cfg['algo']}] co tfevents nhung thieu reward ({used_dir})")
         return out
 
-    st = stats_of(reward)
     steps = [s for s, _ in reward]
     vals = [v for _, v in reward]
-    vals_sm = smooth(vals, max(1, len(vals) // 60))
+    vals_sm = smooth(vals, max(3, len(vals) // 12))
+    st = stats_of(reward, vals_sm)
     cs, cv = downsample(steps, vals_sm, MAX_POINTS)
 
     eplen = read_series(tf_paths, EPLEN_KEY)
-    ep_final = float(eplen[-1][1]) if eplen else 0.0
+    ep_final = (float(np.mean([v for _, v in eplen[-max(1, len(eplen) // 10):]]))
+                if eplen else 0.0)
 
     out.update({
         "found": True,
-        "steps": st["steps"], "final": round(st["final"], 4),
+        "steps": st["steps"], "actualCount": st["actualCount"],
+        "final": round(st["final"], 4),
         "max": round(st["max"], 4), "meanLast10": round(st["meanLast10"], 4),
         "convergeStep": st["convergeStep"], "epLenFinal": round(ep_final, 2),
         "cs": [int(s) for s in cs],
@@ -198,6 +225,13 @@ def main():
     for env in ENVIRONMENTS:
         print(f"\n[{env['name']}]")
         algos = [build_algo(env, a) for a in env["algos"]]
+
+        # Truc hoanh dung chung cho ca moi truong = run dai nhat; cac run ngan hon
+        # ket thuc som tren bieu do thay vi bi keo dan ra cho bang.
+        env_steps = max([a["steps"] for a in algos] + [0])
+        for a in algos:
+            a["maxEnvSteps"] = env_steps
+
         environments.append({
             "key": env["key"],
             "name": env["name"],
