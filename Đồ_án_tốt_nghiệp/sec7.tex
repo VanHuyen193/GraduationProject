@@ -1,4 +1,4 @@
-\fontsize{14pt}{22.5pt}\selectfont
+\fontsize{13pt}{22.5pt}\selectfont
 
 \section{KẾT LUẬN}
 
@@ -8,6 +8,7 @@ thành công ba môi trường game 3D có tính chất khác nhau trên nền t
 Football Table (đối kháng một đối một), môi trường Capture The Flag đa tác nhân và
 Cross The Road (điều hướng tránh vật cản). Với mỗi môi trường, hệ thống không gian quan sát,
 không gian hành động và hàm phần thưởng đã được thiết kế phù hợp với đặc thù bài toán.
+
 \indent Đề tài đã triển khai huấn luyện và so sánh bốn thuật toán PPO, SAC, MA-POCA và
 MAPPO theo bốn tiêu chí định lượng, đồng thời hiện thực hóa quy trình tích hợp SAC ra
 ngoài trainer tích hợp sẵn của ML-Agents thông qua Python Low-Level API.
@@ -32,41 +33,61 @@ song của Cross The Road đang chờ khôi phục số khu vực trong scene
 hình học tăng cường vào sản phẩm game hoàn chỉnh với chi phí suy luận không đáng kể.
 
 \subsection{Đóng góp của đề tài}
-\indent Đề tài có năm đóng góp chính. Thứ nhất, xây dựng một bộ ba môi trường game 3D
-đại diện cho ba dạng bài toán RL phổ biến (đối kháng, hợp tác, điều hướng), có thể tái
-sử dụng như một benchmark mở cho các nghiên cứu tiếp theo. Thứ hai, cung cấp một bộ so
-sánh có hệ thống giữa PPO, SAC, MA-POCA và MAPPO trên cùng bộ môi trường, làm rõ điều
-kiện phù hợp của từng thuật toán; đặc biệt, phát hiện MAPPO vượt trội MA-POCA trên bài
-toán hợp tác đồng nhất là một kết quả có giá trị tham khảo thực tiễn. Thứ ba, trình bày
-chi tiết quy trình tích hợp thuật toán off-policy tùy chỉnh vào Unity qua
-\texttt{mlagents\_envs} và Stable-Baselines3, mở ra hướng đi tái sử dụng được cho các
-nghiên cứu về off-policy learning trong Unity. Thứ tư, hiện thực hóa một ứng dụng trình
-diễn tương tác với bốn chế độ chơi, cơ chế lựa chọn mô hình linh hoạt và hai tab trực
-quan hóa số liệu huấn luyện ngay trong game, minh họa trọn vẹn quy trình đưa mô hình
-học tăng cường từ giai đoạn huấn luyện vào trải nghiệm chơi thực tế; trong đó chế độ
-tác nhân đấu mô hình ngôn ngữ lớn cung cấp một điểm đối chiếu trực quan giữa chính
-sách học từ tương tác và chính sách suy luận zero-shot từ văn bản. Thứ năm, công bố toàn bộ mã nguồn môi trường, cấu hình huấn luyện và dữ liệu
-kết quả dưới dạng mở, tạo điều kiện cho việc tái tạo và mở rộng bởi cộng đồng.
+\indent Nếu phải xếp các đóng góp của đề tài theo mức độ hữu ích, tôi đặt kết quả so
+sánh lên đầu. Việc đưa PPO, SAC, MA-POCA và MAPPO về cùng một bộ môi trường, cùng một
+cấu hình phần cứng và cùng một quy trình đo cho phép rút ra những kết luận mà việc đối
+chiếu các tài liệu rời rạc không thể cho được. Trong số đó, phát hiện MAPPO vượt MA-POCA
+trên bài toán hợp tác có tác nhân đồng nhất đi ngược lại trực giác thông thường rằng
+thuật toán chuyên biệt hơn thì mạnh hơn, và là kết quả có giá trị tham khảo trực tiếp
+nhất cho người làm game.
+
+\indent Kế đến là phần đóng góp mang tính công cụ. Ba môi trường ba chiều đại diện cho
+ba dạng bài toán học tăng cường phổ biến đều được đóng gói thành prefab độc lập nên tái
+sử dụng được như một benchmark mở. Đi kèm chúng là quy trình đưa một thuật toán
+off-policy tùy chỉnh vào Unity thông qua \texttt{mlagents\_envs} và Stable-Baselines3 -
+con đường mà đề tài buộc phải tự mở ra vì trainer tích hợp sẵn không hỗ trợ, và cũng
+chính vì thế mà nó dùng lại được cho bất kỳ nghiên cứu nào vấp phải đúng rào cản ấy.
+
+\indent Đóng góp còn lại là ứng dụng trình diễn với bốn chế độ chơi, cơ chế chọn mô hình
+linh hoạt và hai tab số liệu huấn luyện nhúng thẳng trong game. Giá trị của nó không nằm
+ở phần game, mà ở chỗ nó khép kín quãng đường từ một tệp cấu hình YAML tới một hành vi
+mà người chơi cảm nhận được bằng tay. Riêng chế độ tác nhân đấu mô hình ngôn ngữ lớn
+dựng lên một phép đối chiếu mà đề tài không dự tính từ đầu, giữa chính sách học từ tương
+tác và chính sách suy luận zero-shot từ văn bản. Toàn bộ mã nguồn môi trường, cấu hình
+huấn luyện và dữ liệu kết quả đều được công bố dưới dạng mở.
 
 \subsection{Hạn chế}
 \label{sub:limits}
-\indent Bên cạnh các kết quả đạt được, đề tài còn một số hạn chế. Các thực nghiệm mới
-được chạy với một seed duy nhất nên chưa đánh giá được phương sai giữa các lần chạy, do
-đó chưa đưa ra được các kết luận thống kê chặt chẽ với độ tin cậy cao nhất. Ngoài
-ra, bài toán Capture The Flag vẫn còn thách thức với cả hai thuật toán đa tác nhân,
-cho thấy hàm phần thưởng, không gian quan sát và thời lượng huấn luyện còn có thể tối
-ưu thêm.
+\indent Hạn chế nặng nhất của đề tài là mỗi tổ hợp môi trường - thuật toán chỉ được chạy
+với một seed duy nhất. Nghĩa là mọi chênh lệch báo cáo ở Chương~\ref{ch:results} đều
+chưa tách được phần do bản chất thuật toán khỏi phần do may rủi của một lần khởi tạo.
+Những khoảng cách lớn, như của SAC trên Cross The Road hay của MAPPO trên Capture The
+Flag, nhiều khả năng vẫn đứng vững; nhưng các thứ hạng sát nhau thì không nên đọc như
+một kết luận thống kê. Đây là hệ quả của quỹ thời gian tính toán chứ không phải của một
+lựa chọn phương pháp luận, và nếu chỉ được sửa một điều duy nhất trong đồ án này thì tôi
+sẽ sửa đúng điều đó.
+
+\indent Các lần chạy cũng không có chung ngân sách bước. Trên Football Table, PPO chạy
+1,59 triệu bước trong khi SAC và MA-POCA dừng ở khoảng 0,9 triệu, nên phần so sánh phần
+thưởng tuyệt đối ở môi trường này chỉ nên xem là tham khảo; chỉ số ELO mới là căn cứ
+đáng tin.
+
+\indent Sau cùng, Capture The Flag vẫn là bài toán chưa được giải trọn vẹn. MA-POCA mắc
+kẹt suốt quá trình ở một chính sách không bao giờ về đích, còn MAPPO cũng chỉ giải xong
+câu đố ở khoảng một phần năm cuối của lần chạy. Hàm phần thưởng, không gian quan sát và
+thời lượng huấn luyện của môi trường này đều còn chỗ để cải thiện.
 
 \subsection{Hướng phát triển}
-\indent Trong tương lai, đề tài có thể được mở rộng theo các hướng sau: (1) huấn luyện
-tất cả các mô hình với nhiều seed để có kết quả thống kê chặt chẽ hơn;
-(2) bổ sung các thuật toán RL hiện đại khác (như DreamerV3, QMIX hay các biến thể
-multi-agent mới) vào bộ so sánh; (3) tinh chỉnh hàm phần thưởng và áp dụng học theo
-chương trình nâng cao cho bài toán hợp tác; (4) mở rộng các môi
-trường sang những kịch bản phức tạp hơn, gần với game thương mại thực tế; và (5)
-phát triển tiếp ứng dụng trình diễn tương tác đã xây dựng - đóng gói bản chạy độc lập
-(WebGL hoặc desktop), bổ sung bảng xếp hạng người chơi đấu với tác nhân và tiến hành
-khảo sát trải nghiệm người dùng để đánh giá định lượng mức độ ``tự nhiên'' của hành
-vi tác nhân trong mắt người chơi. Ngoài ra, việc khảo sát sâu hơn sự khác biệt giữa
-MAPPO và MA-POCA trên các bài toán hợp tác không đồng nhất
-cũng là một hướng nghiên cứu hứa hẹn.
+\indent Việc cần làm trước tiên là chạy lại toàn bộ chín tổ hợp với nhiều seed, vì
+chừng nào chưa có phương sai giữa các lần chạy thì mọi so sánh trong đồ án vẫn còn treo
+lơ lửng. Ngay sau đó là câu hỏi thú vị nhất mà đề tài đặt ra nhưng chưa trả lời được:
+MAPPO thắng MA-POCA nhờ đội hình đồng nhất, vậy ranh giới ấy nằm ở đâu? Một môi trường
+hợp tác với hai tác nhân có vai trò bất đối xứng, hoặc có tác nhân rời nhóm giữa lượt
+chơi, sẽ cho biết chia sẻ tham số bắt đầu thua attention từ điểm nào.
+
+\indent Ở tầm xa hơn, bộ so sánh có thể được mở rộng bằng các thuật toán như DreamerV3
+hay QMIX, còn ba môi trường có thể được nâng độ phức tạp lên gần với game thương mại.
+Ứng dụng trình diễn thì cần một bản chạy độc lập (WebGL hoặc desktop), kèm bảng xếp
+hạng người chơi đấu với tác nhân và một khảo sát trải nghiệm người dùng - đây là cách
+duy nhất để trả lời câu hỏi mà không chỉ số huấn luyện nào chạm tới được, rằng hành vi
+của tác nhân có thực sự ``tự nhiên'' trong mắt người chơi hay không.

@@ -1,16 +1,14 @@
-\fontsize{14pt}{22.5pt}\selectfont
+\fontsize{13pt}{22.5pt}\selectfont
 
 \section{CƠ SỞ LÝ THUYẾT}
 \label{ch:theory}
 
-\indent Chương này thiết lập nền tảng lý thuyết cho toàn bộ đồ án. Trước hết, chương
-điểm lại quá trình phát triển của trí tuệ nhân tạo trong game, từ các kỹ thuật lập
-trình hành vi truyền thống đến sự trỗi dậy của học máy. Tiếp đó, chương trình bày các
-khái niệm nền tảng của học tăng cường, bao gồm quá trình quyết định Markov, chính sách
-và hàm giá trị, rồi mở rộng sang học tăng cường sâu. Phần trọng tâm của chương phân
-tích nguyên lý hoạt động cùng ưu nhược điểm của ba thuật toán được sử dụng trong đề
-tài, và cuối cùng giới thiệu nền tảng Unity ML-Agents cùng những giới hạn tích hợp của
-nó.
+\indent Chương này thiết lập nền tảng lý thuyết cho toàn bộ đồ án, đi từ bối cảnh lịch
+sử của trí tuệ nhân tạo trong game tới bộ khái niệm hình thức của học tăng cường, rồi
+tới bốn thuật toán mà đề tài đem ra so sánh. Phần cuối chương dành cho Unity ML-Agents,
+và dành nhiều nhất cho những giới hạn tích hợp của nền tảng này: chính các giới hạn ấy,
+chứ không phải một lựa chọn học thuật nào, đã quy định cách đề tài phải bố trí thực
+nghiệm ở Chương~\ref{ch:design}.
 
 \subsection{Trí tuệ nhân tạo trong game}
 \indent Trí tuệ nhân tạo trong game có lịch sử phát triển song hành với sự ra đời
@@ -66,8 +64,8 @@ với khả năng học từ tương tác của RL.
 AlphaGo Zero \cite{silver2016mastering, silver2017mastering} chinh phục cờ vây ở
 trình độ kiện tướng thế giới; OpenAI Five \cite{openai2019dota} đánh bại các đội
 chuyên nghiệp trong Dota~2; AlphaStar \cite{vinyals2019grandmaster} đạt danh hiệu
-Grandmaster trong StarCraft~II. Các kết quả này không chỉ có giá trị học thuật mà
-còn mở ra tiềm năng ứng dụng RL trực tiếp trong phát triển game thương mại, từ việc
+Grandmaster trong StarCraft~II. Các kết quả này vừa có giá trị học thuật, vừa
+mở ra tiềm năng ứng dụng RL trực tiếp trong phát triển game thương mại, từ việc
 tạo NPC thông minh đến sinh nội dung tự động và hỗ trợ kiểm thử game \cite{yannakakis2018artificial}.
 
 \subsection{Nền tảng Reinforcement Learning}
@@ -131,7 +129,7 @@ chính sách.
     \label{fig:rl_loop}
 \end{figure}
 
-\subsubsection{Markov Decision Process (MDP)}
+\subsubsection{Markov Decision Process}
 \label{sub:mdp}
 
 \indent Hầu hết các bài toán RL được hình thức hóa dưới dạng Quá trình Quyết định
@@ -154,9 +152,9 @@ lịch sử trước đó:
     \mathcal{P}(s_{t+1} \mid s_t, a_t)
 \end{equation}
 
-\indent Giả thiết Markov này rất quan trọng vì nó đảm bảo rằng agent chỉ cần quan
-sát trạng thái hiện tại để ra quyết định tối ưu, không cần lưu trữ toàn bộ lịch sử
-tương tác. Trong thực tế, nhiều môi trường game thỏa mãn gần đúng tính chất này nếu
+\indent Giả thiết Markov là thứ giữ cho bài toán còn giải được: nhờ nó, agent chỉ cần
+quan sát trạng thái hiện tại để ra quyết định tối ưu thay vì phải lưu trữ và xử lý toàn
+bộ lịch sử tương tác. Trong thực tế, nhiều môi trường game thỏa mãn gần đúng tính chất này nếu
 state được thiết kế đủ phong phú để mang đầy đủ thông tin cần thiết.
 
 \indent Hệ số chiết khấu $\gamma$ xác định mức độ agent coi trọng phần thưởng tương
@@ -284,7 +282,7 @@ trong đó SAC bổ sung thêm entropy regularization để khuyến khích agen
 MA-POCA mở rộng kiến trúc critic sang bài toán đa tác nhân với cơ chế centralized
 critic cho phép mỗi agent học dựa trên thông tin toàn cục trong quá trình huấn luyện.
 
-\indent Bảng~\ref{tab:rl_comparison} tóm tắt vị trí của ba thuật toán được sử dụng
+\indent Bảng~\ref{tab:rl_comparison} tóm tắt vị trí của bốn thuật toán được sử dụng
 trong đề tài theo cách phân loại trên.
 
 \begin{table}[H]
@@ -292,6 +290,7 @@ trong đề tài theo cách phân loại trên.
 \caption{Phân loại các thuật toán sử dụng trong đề tài}
 \label{tab:rl_comparison}
 \renewcommand{\arraystretch}{1.4}
+\tablefont
 \begin{tabular}{|>{\centering\arraybackslash}p{2.5cm}
                 |>{\centering\arraybackslash}p{3cm}
                 |>{\centering\arraybackslash}p{3cm}
@@ -305,10 +304,12 @@ SAC      & Actor-Critic      & Off-policy & Hành động liên tục    \\
 \hline
 MA-POCA  & Actor-Critic      & On-policy  & Hợp tác đa tác nhân   \\
 \hline
+MAPPO    & Policy-Based      & On-policy  & Hợp tác, tác nhân đồng nhất \\
+\hline
 \end{tabular}
 \end{table}
 
-\subsubsection{Phần thưởng tò mò nội tại (Intrinsic Curiosity Module - ICM)}
+\subsubsection{Phần thưởng tò mò nội tại}
 \label{sub:curiosity}
 
 \indent Trong các bài toán học tăng cường thực tế, đặc biệt là các môi trường game 3D phức tạp như Capture The Flag hay Cross The Road, tín hiệu phần thưởng ngoại sinh thường rất thưa thớt hoặc bị trì hoãn. Nếu tác nhân chỉ dựa vào phần thưởng từ môi trường để học, nó có thể dành phần lớn thời gian đầu khám phá ngẫu nhiên mà không nhận được bất kỳ tín hiệu hữu ích nào, dẫn đến việc không thể học được chính sách hiệu quả. Để giải quyết vấn đề này, cơ chế phần thưởng tò mò nội tại (Intrinsic Curiosity) đã được đề xuất nhằm khuyến khích tác nhân chủ động khám phá những trạng thái mới mẻ của môi trường.
@@ -392,7 +393,7 @@ dựa trên cơ chế attention, và MAPPO là mở rộng của PPO cho đa tá
 sẻ tham số. Phần này trình bày nguyên lý hoạt động và đặc điểm của từng thuật toán,
 làm cơ sở cho việc lựa chọn và phân tích kết quả thực nghiệm ở các chương sau.
 
-\subsubsection{PPO (Proximal Policy Optimization)}
+\subsubsection{PPO}
 \label{sub:ppo}
 \indent PPO (Proximal Policy Optimization) được Schulman và cộng sự đề xuất vào năm
 2017 \cite{schulman2017proximal} như một cải tiến của TRPO (Trust Region Policy
@@ -428,8 +429,9 @@ giới hạn $r_t(\theta)$ trong khoảng $[1-\varepsilon, 1+\varepsilon]$, ngă
 lệch quá xa policy cũ trong một bước cập nhật. Hàm $\min$ đảm bảo mục tiêu luôn là
 cận dưới thận trọng (pessimistic lower bound) của mục tiêu không clipped.
 
-\indent Advantage $\hat{A}_t$ thường được ước lượng bằng Generalized Advantage
-Estimation (GAE):
+\indent Giá trị advantage $\hat{A}_t$ xuất hiện trong biểu thức trên thường được ước
+lượng theo phương pháp Generalized Advantage Estimation (GAE), một cách dung hòa giữa
+độ lệch và phương sai của ước lượng thông qua tham số $\lambda$:
 
 \begin{equation}
     \hat{A}_t = \sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{t+l}, \quad
@@ -446,21 +448,21 @@ hiện tại, sau đó thực hiện nhiều lần cập nhật gradient trên c
 lặp lại này không làm policy lệch quá xa điểm xuất phát, đảm bảo tính ổn định mà
 không cần tính toán tốn kém như TRPO.
 
-\indent \textbf{Ưu điểm:} PPO có tính ổn định huấn luyện cao nhờ cơ chế clipping,
-dễ triển khai và tinh chỉnh tham số, hoạt động tốt trên cả không gian hành động rời
-rạc lẫn liên tục. Thuật toán được tích hợp sẵn trong Unity ML-Agents với nhiều tham
-số được tối ưu theo kinh nghiệm, giúp rút ngắn đáng kể thời gian thiết lập thực
-nghiệm. PPO cũng dễ dàng mở rộng sang bài toán đa tác nhân thông qua cơ chế self-play
-có sẵn trong ML-Agents.
+\indent \textbf{Ưu điểm:} Thế mạnh thật sự của PPO không nằm ở chất lượng chính sách
+cuối cùng mà ở chỗ nó hiếm khi hỏng. Clipping chặn trên độ lớn của mỗi bước cập nhật,
+nên một tốc độ học đặt sai thường chỉ làm chậm quá trình học chứ không phá sập chính
+sách như ở các phương pháp policy gradient thuần túy. Thuật toán chạy được trên cả không
+gian hành động rời rạc lẫn liên tục và đi kèm sẵn cơ chế self-play trong ML-Agents. Vì
+đặc tính bền này, đề tài chọn PPO làm mốc so sánh: mọi thuật toán khác đều được đối chiếu
+với nó.
 
-\indent \textbf{Nhược điểm:} Do là thuật toán on-policy, PPO không tái sử dụng được
-dữ liệu cũ, dẫn đến hiệu quả mẫu (sample efficiency) thấp hơn so với các phương pháp
-off-policy. Điều này đặc biệt bất lợi trong các môi trường mà mỗi bước tương tác tốn
-nhiều thời gian tính toán. Ngoài ra, PPO nhạy cảm với việc lựa chọn siêu tham số như
-learning rate, số epoch và kích thước batch, đòi hỏi phải tinh chỉnh cẩn thận cho
-từng bài toán cụ thể.
+\indent \textbf{Nhược điểm:} Cái giá phải trả là hiệu quả mẫu. Là thuật toán on-policy,
+PPO vứt bỏ toàn bộ dữ liệu sau mỗi lần cập nhật, nên cần nhiều lần tương tác với môi
+trường hơn hẳn để đạt cùng một mức năng lực. Trong một môi trường Unity có mô phỏng vật
+lý, nơi một bước tương tác đắt hơn nhiều so với một bước lan truyền ngược, đây là hạn chế
+nặng nhất của PPO, và cũng chính là lý do đề tài đưa SAC vào so sánh.
 
-\subsubsection{SAC (Soft Actor-Critic)}
+\subsubsection{SAC}
 \indent SAC (Soft Actor-Critic) được Haarnoja và cộng sự đề xuất vào năm 2018
 \cite{haarnoja2018soft, haarnoja2018softapps} như một thuật toán actor-critic
 off-policy dựa trên nguyên lý maximum entropy, hướng đến giải quyết đồng thời hai
@@ -504,23 +506,22 @@ với PPO. Hệ số nhiệt độ $\alpha$ có thể được cố định ho�
 mục tiêu entropy mong muốn $\mathcal{H}_\text{target}$, giảm thiểu nhu cầu tinh
 chỉnh siêu tham số thủ công.
 
-\indent \textbf{Ưu điểm:} SAC có hiệu quả mẫu vượt trội so với các thuật toán
-on-policy nhờ replay buffer, đặc biệt phù hợp với không gian hành động liên tục -
-đặc điểm quan trọng trong môi trường Football Table của đề tài. Cơ chế entropy
-regularization giúp SAC tránh hội tụ sớm về cực tiểu cục bộ và duy trì khả năng
-khám phá trong suốt quá trình huấn luyện. Ngoài ra, SAC ít nhạy cảm hơn với việc
-lựa chọn learning rate so với PPO, mang lại tính ổn định tốt hơn trên nhiều bài toán
-khác nhau \cite{haarnoja2018softapps}.
+\indent \textbf{Ưu điểm:} Replay buffer cho phép mỗi mẩu kinh nghiệm được dùng lại nhiều
+lần, nhờ đó SAC cần ít lần tương tác với môi trường hơn hẳn các thuật toán on-policy; trên
+môi trường điều hướng của đề tài, khoảng cách này lên tới một bậc độ lớn. Cơ chế cực đại
+hóa entropy giữ cho chính sách còn ngẫu nhiên ngay cả khi phần thưởng đã bắt đầu tăng,
+qua đó chống lại việc hội tụ sớm về một cực trị cục bộ. SAC cũng chịu được tốc độ học đặt
+sai tốt hơn PPO \cite{haarnoja2018softapps}.
 
-\indent \textbf{Nhược điểm:} SAC đòi hỏi bộ nhớ lớn hơn để lưu trữ replay buffer
-và chi phí tính toán mỗi bước cập nhật cao hơn do phải huấn luyện đồng thời ba mạng
-nơ-ron. Do là thuật toán off-policy dựa trên replay buffer, SAC không tương thích trực
-tiếp với cơ chế self-play của môi trường đối kháng, vì khi đối thủ thay đổi thì các
-kinh nghiệm cũ trong buffer trở nên lỗi thời và gây nhiễu cho quá trình học. Đây cũng
-là một trong những giới hạn tích hợp sẵn của ML-Agents được phân tích chi tiết ở
-Mục~\ref{sub:custom}.
+\indent \textbf{Nhược điểm:} Đổi lại, SAC phải huấn luyện đồng thời ba mạng nơ-ron và
+phải giữ một bộ đệm hàng trăm nghìn phần tử trong bộ nhớ, nên lợi thế về số mẫu bị thu
+hẹp lại khi tính theo thời gian đồng hồ. Nghiêm trọng hơn nhiều đối với đề tài là việc
+SAC không đi cùng được với self-play: khi đối thủ liên tục được thay mới, kinh nghiệm cũ
+trong buffer phản ánh những đối thủ đã không còn tồn tại và trở thành nhiễu thay vì thành
+dữ liệu học. Ràng buộc này chi phối toàn bộ cách đề tài bố trí thực nghiệm trên môi trường
+đối kháng, và được phân tích ở Mục~\ref{sub:custom}.
 
-\subsubsection{MA-POCA (Multi-Agent POsthumous Credit Assignment)}
+\subsubsection{MA-POCA}
 \indent MA-POCA được Cohen và cộng sự \cite{cohen2022mapoca} đề xuất năm 2021 như
 thuật toán chuyên biệt cho bài toán học tăng cường đa tác nhân hợp tác
 (cooperative multi-agent), và là thuật toán đa tác nhân mặc định trong Unity
@@ -543,9 +544,9 @@ sát cục bộ của riêng mình để ra quyết định, đảm bảo tính 
 lý số lượng agent thay đổi động trong một episode. Thay vì cố định số lượng agent như
 các phương pháp trước \cite{lowe2017multiagent, foerster2018counterfactual},
 MA-POCA cho phép agent gia nhập hoặc rời khỏi
-nhóm giữa chừng mà vẫn gán công lao chính xác - đặc tính rất quan trọng trong các
-game hợp tác nơi agent có thể ``chết'' hoặc hoàn thành nhiệm vụ ở các thời điểm khác
-nhau. Hàm giá trị nhóm được học dựa trên tổng phần thưởng nhóm (group reward) do môi
+nhóm giữa chừng mà vẫn gán công lao chính xác - đúng tình huống xảy ra thường xuyên
+trong game hợp tác, nơi agent có thể ``chết'' hoặc hoàn thành nhiệm vụ ở những thời
+điểm khác nhau. Hàm giá trị nhóm được học dựa trên tổng phần thưởng nhóm (group reward) do môi
 trường cung cấp thông qua cơ chế \texttt{SimpleMultiAgentGroup} của ML-Agents.
 
 \indent Về phần cập nhật policy, MA-POCA kế thừa hàm mục tiêu clipped surrogate và cơ
@@ -554,22 +555,27 @@ giá trị trạng thái đơn tác nhân $V(s)$ bằng hàm giá trị nhóm d�
 trung, cho phép mỗi agent nhận được tín hiệu học phản ánh đúng đóng góp của mình vào
 kết quả chung.
 
-\indent \textbf{Ưu điểm:} MA-POCA được thiết kế riêng cho bài toán hợp tác đa tác
-nhân, giải quyết hiệu quả vấn đề gán công lao mà PPO độc lập (mỗi agent học riêng
-lẻ) thường gặp phải. Cơ chế attention giúp thuật toán linh hoạt với số lượng agent
-thay đổi. Trong ML-Agents, MA-POCA tích hợp trực tiếp với cơ chế group reward, giúp
-việc thiết kế môi trường hợp tác trở nên tự nhiên và trực quan.
+\indent \textbf{Ưu điểm:} MA-POCA trả lời được câu hỏi mà một PPO độc lập cho từng agent
+không trả lời nổi: khi cả nhóm cùng nhận một phần thưởng, agent nào đã thực sự làm nên
+kết quả đó. Cơ chế attention cho phép nhóm thay đổi quân số giữa chừng mà việc gán công
+lao vẫn đứng vững, một tình huống rất thường gặp trong game hợp tác nơi nhân vật có thể
+bị loại hoặc hoàn thành phần việc của mình sớm. Trong ML-Agents, thuật toán ăn khớp sẵn
+với cơ chế group reward nên môi trường hợp tác gần như không phải sửa gì thêm.
 
-\indent \textbf{Nhược điểm:} Là thuật toán on-policy, MA-POCA cũng chịu hạn chế về
-hiệu quả mẫu tương tự PPO. Kiến trúc centralized critic làm tăng độ phức tạp tính toán
-và bộ nhớ khi số lượng agent lớn. Ngoài ra, với bài toán đơn tác nhân, MA-POCA gần như
-tương đương PPO nhưng phức tạp hơn không cần thiết, nên không mang lại lợi ích rõ rệt.
+\indent \textbf{Nhược điểm:} Là thuật toán on-policy, MA-POCA thừa hưởng nguyên vẹn vấn
+đề hiệu quả mẫu của PPO, đồng thời gánh thêm chi phí của mạng phê bình tập trung khi
+quân số đông. Điểm đáng bàn hơn là sự linh hoạt ấy không miễn phí: attention phải học
+cách phân bổ trọng số giữa các agent, và trong một đội hình chỉ gồm hai tác nhân giống
+hệt nhau thì đó là công sức bỏ ra cho một bài toán vốn không tồn tại. Thực nghiệm ở
+Chương~\ref{ch:results} cho thấy chính tình huống này khiến MA-POCA thua MAPPO. Với bài
+toán đơn tác nhân, thuật toán suy biến gần về PPO nhưng vẫn mang theo toàn bộ phần kiến
+trúc thừa.
 
-\subsubsection{MAPPO (Multi-Agent Proximal Policy Optimization)}
-\indent Được đề xuất bởi Yu và cộng sự (2022) \cite{yu2022surprising}, MAPPO (Multi-Agent Proximal Policy Optimization) là một thuật toán giải quyết bài toán đa tác nhân thông qua việc mở rộng trực tiếp PPO. Trong khi MA-POCA sử dụng mạng critic tập trung (centralized critic) kết hợp cơ chế attention phức tạp, MAPPO tiếp cận theo hướng đơn giản hơn: mở rộng PPO sang môi trường đa tác nhân bằng cách áp dụng framework CTDE (Centralized Training with Decentralized Execution) kết hợp với việc chia sẻ tham số (parameter sharing) và một hàm giá trị (value function) tập trung.
+\subsubsection{MAPPO}
+\indent Được đề xuất bởi Yu và cộng sự (2022) \cite{yu2022surprising}, MAPPO (Multi-Agent Proximal Policy Optimization) là một thuật toán giải quyết bài toán đa tác nhân thông qua việc mở rộng trực tiếp PPO. Trong khi MA-POCA sử dụng mạng critic tập trung (centralized critic) kết hợp cơ chế attention phức tạp, MAPPO tiếp cận theo hướng đơn giản hơn: mở rộng PPO sang môi trường đa tác nhân bằng cách áp dụng framework CTDE (Centralized Training with Decentralized Execution) kết hợp với việc chia sẻ tham số và một hàm giá trị tập trung.
 
 {\sloppy
-\indent \textbf{Kiến trúc CTDE trong MAPPO:} Trong quá trình thực thi (decentralized execution), mỗi agent $i$ đưa ra hành động dựa trên policy cá nhân $\pi_{\theta_i}(a_i | o_i)$, chỉ phụ thuộc vào quan sát cục bộ $o_i$. Tuy nhiên, trong quá trình huấn luyện (centralized training), hàm giá trị tập trung $V_\phi(s)$ được sử dụng để ước lượng giá trị của trạng thái toàn cục $s$, giúp đánh giá chính xác hơn giá trị của một trạng thái chung và giảm phương sai trong quá trình tính toán policy gradient. Hàm giá trị tập trung trong MAPPO có dạng:
+\indent \textbf{Kiến trúc CTDE trong MAPPO:} Trong quá trình thực thi, mỗi agent $i$ đưa ra hành động dựa trên policy cá nhân $\pi_{\theta_i}(a_i | o_i)$, chỉ phụ thuộc vào quan sát cục bộ $o_i$. Tuy nhiên, trong quá trình huấn luyện (centralized training), hàm giá trị tập trung $V_\phi(s)$ được sử dụng để ước lượng giá trị của trạng thái toàn cục $s$, giúp đánh giá chính xác hơn giá trị của một trạng thái chung và giảm phương sai trong quá trình tính toán policy gradient. Hàm giá trị tập trung trong MAPPO có dạng:
 $$V_\phi(s) = V_\phi(o_1, o_2, \ldots, o_n, s_{\text{global}})$$
 với $o_1, \ldots, o_n$ là quan sát của các agent và $s_{\text{global}}$ là các thông tin toàn cục khác của môi trường.\par}
 
@@ -619,31 +625,68 @@ trong đó $\hat{A}_t^i$ là hàm lợi thế (advantage function) cho agent $i$
     \label{fig:mappo_vs_mapoca}
 \end{figure}
 
-\indent \textbf{Ưu điểm:} MAPPO có lợi thế là sự mở rộng trực tiếp và đơn giản của PPO, không yêu cầu thiết kế phức tạp ở mạng nơ-ron. Việc chia sẻ tham số giúp giảm đáng kể chi phí tính toán và gia tăng tốc độ huấn luyện. Các thực nghiệm của Yu và cộng sự chỉ ra rằng MAPPO có thể đạt hiệu suất ngang bằng hoặc vượt qua các thuật toán đa tác nhân mạnh khác như MADDPG, QMIX trên nhiều benchmark phổ biến. Ngoài ra, MAPPO hoàn toàn tương thích với các cơ sở hạ tầng tối ưu PPO sẵn có.
+\indent \textbf{Ưu điểm:} Sức mạnh của MAPPO đến từ chính chỗ nó chẳng thêm gì mới. Vì
+mọi agent dùng chung một bộ tham số, mỗi lượt chơi sinh ra $n$ luồng kinh nghiệm cùng
+chảy về một mạng duy nhất; với $n$ tác nhân, cùng một ngân sách mô phỏng cho ra gấp $n$
+lần dữ liệu huấn luyện hữu ích. Thuật toán chạy được trên toàn bộ hạ tầng đã tối ưu sẵn
+cho PPO. Yu và cộng sự \cite{yu2022surprising} ghi nhận MAPPO bám sát hoặc vượt các
+thuật toán đa tác nhân nặng ký hơn như MADDPG và QMIX trên nhiều bộ benchmark hợp tác.
 
-\indent \textbf{Nhược điểm:} Việc sử dụng tham số chung ngầm định giả định rằng các agent là đồng nhất (homogeneous agents) với không gian quan sát và hành động tương tự. Thêm vào đó, hàm giá trị tập trung $V_\phi(s)$ sẽ không dễ dàng mở rộng khi số lượng agent trở nên quá lớn, do sự bùng nổ của kích thước không gian trạng thái toàn cục $s$. Trái với MA-POCA, MAPPO không xử lý vấn đề số lượng agent thay đổi linh hoạt (dynamic agent count) một cách trực quan bằng cơ chế attention.
+\indent \textbf{Nhược điểm:} Chia sẻ tham số chỉ hợp lý chừng nào các agent thật sự
+giống nhau về quan sát và hành động; với đội hình có vai trò bất đối xứng, một mạng duy
+nhất buộc phải học lẫn lộn nhiều hành vi mâu thuẫn. Hàm giá trị tập trung $V_\phi(s)$
+cũng phình theo quân số vì không gian trạng thái toàn cục lớn dần. Và khác MA-POCA, MAPPO
+không có sẵn cách xử lý gọn gàng cho trường hợp số agent thay đổi giữa lượt chơi.
 
 \subsubsection{Tổng kết và so sánh bốn thuật toán}
-\indent Bốn thuật toán học tăng cường PPO, SAC, MA-POCA và MAPPO mang các đặc điểm khác nhau và phù hợp với các loại bài toán riêng biệt. Việc nắm vững ưu, nhược điểm của chúng giúp người phát triển đưa ra lựa chọn hiệu quả khi đối mặt với từng bối cảnh cụ thể.
+\indent Bốn thuật toán vừa trình bày không xếp được thành một thang bậc từ yếu đến
+mạnh. Chúng phân hóa theo ba trục độc lập: cách lấy dữ liệu (on-policy hay off-policy),
+cách xử lý nhiều tác nhân (không có, attention hay chia sẻ tham số) và chi phí tính toán
+của mỗi bước cập nhật. Chính ba trục này, chứ không phải một thứ hạng chung, quyết định
+thuật toán nào hợp với bài toán nào.
 
 \begin{table}[H]
     \centering
     \caption{So sánh các thuật toán học tăng cường}
     \label{tab:algo_compare}
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|l|l|l|l|l|l|l|}
+    \renewcommand{\arraystretch}{1.4}
+    \tablefont
+    % Bảng tám cột: thu hẹp khoảng đệm cột để toàn bộ bề rộng vừa khít \textwidth mà
+    % không phải dùng \resizebox (\resizebox co chữ theo tỉ lệ tùy ý nên cỡ chữ của
+    % bảng này sẽ lệch hẳn so với các bảng còn lại).
+    \setlength{\tabcolsep}{3pt}
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{1.95cm}
+                    |>{\raggedright\arraybackslash}p{1.6cm}
+                    |>{\raggedright\arraybackslash}p{1.5cm}
+                    |>{\raggedright\arraybackslash}p{1.8cm}
+                    |>{\raggedright\arraybackslash}p{1.4cm}
+                    |>{\raggedright\arraybackslash}p{1.7cm}
+                    |>{\raggedright\arraybackslash}p{1.7cm}
+                    |>{\raggedright\arraybackslash}p{1.5cm}|}
         \hline
         \textbf{Thuật toán} & \textbf{Loại policy} & \textbf{On/Off-policy} & \textbf{Đa tác nhân} & \textbf{Replay buffer} & \textbf{Entropy} & \textbf{Chia sẻ tham số} & \textbf{Độ phức tạp} \\
         \hline
         PPO & Policy gradient & On-policy & Không native & Không & Không & Không & Thấp \\
+        \hline
         SAC & Actor-Critic & Off-policy & Không native & Có & Có (max entropy) & Không & Trung bình \\
+        \hline
         MA-POCA & Actor-Critic & On-policy & Có (attention) & Không & Không & Có (chia sẻ) & Cao \\
+        \hline
         MAPPO & Policy gradient & On-policy & Có (CTDE) & Không & Không & Có (bắt buộc) & Trung bình \\
         \hline
-    \end{tabular}}
+    \end{tabular}
 \end{table}
 
-\indent Tóm lại, \textbf{PPO} là lựa chọn lý tưởng, dễ cài đặt cho các bài toán đơn tác nhân tiêu chuẩn có độ dốc mượt. \textbf{SAC} tỏ ra vượt trội đối với các môi trường liên tục phức tạp và cần khả năng khai phá mạnh mẽ. \textbf{MA-POCA} là công cụ tối ưu cho các bài toán đa tác nhân với số lượng linh hoạt, trong khi \textbf{MAPPO} phù hợp cho các bài toán nhóm số lượng cố định, đòi hỏi tính toán nhanh và tận dụng việc chia sẻ tham số mạng học.
+\indent Từ bảng trên rút ra được một khuyến nghị đủ cụ thể để dùng ngay. Khi chưa nắm rõ
+đặc thù bài toán, nên bắt đầu bằng PPO, vì nó chịu đựng được siêu tham số đặt sai và cho
+một mốc so sánh đáng tin để đánh giá mọi thuật toán khác. Chỉ nên đổi sang SAC khi mỗi
+bước tương tác với môi trường đắt hơn hẳn mỗi bước cập nhật mạng: đó đúng là lúc replay
+buffer trả lại đủ giá trị để bù cho chi phí huấn luyện ba mạng song song. Với bài toán
+nhiều tác nhân, ranh giới nằm ở chỗ đội hình có đồng nhất hay không. Các tác nhân giống
+nhau và cố định về số lượng thì chia sẻ tham số của MAPPO khai thác dữ liệu triệt để
+nhất; ngược lại, khi vai trò bất đối xứng hoặc khi tác nhân có thể rời nhóm giữa chừng,
+cơ chế attention của MA-POCA mới thực sự cần thiết. Chương~\ref{ch:results} kiểm chứng
+từng khuyến nghị này bằng số liệu thực đo.
 
 \subsection{Unity ML-Agents Toolkit}
 \indent Unity ML-Agents Toolkit \cite{juliani2020unity} là một framework mã nguồn mở
@@ -670,12 +713,14 @@ hoặc heuristic). Academy là singleton quản lý toàn bộ vòng lặp huấ
 đồng bộ hóa các bước thời gian giữa tất cả các agent trong scene và điều phối giao
 tiếp với Python backend.
 
-\indent Về phía Python, mlagents-learn là điểm vào chính của quá trình
-huấn luyện, tiếp nhận tệp cấu hình YAML và khởi tạo trainer tương ứng. Các lớp
-Trainer (PPOTrainer, POCATrainer) thực hiện logic huấn luyện, bao gồm thu
-thập trajectory, tính toán advantage, cập nhật tham số mạng và lưu checkpoint. Thư
-viện mlagents\_envs cung cấp Python API cấp thấp cho phép tương tác trực
-tiếp với môi trường Unity mà không cần đi qua trainer tích hợp sẵn.
+\indent Về phía Python, công cụ dòng lệnh mlagents-learn đóng vai trò điểm vào chính
+của quá trình huấn luyện, tiếp nhận tệp cấu hình YAML và khởi tạo trainer tương ứng
+với từng behavior khai báo trong đó. Các lớp Trainer, tiêu biểu là PPOTrainer và
+POCATrainer, chịu trách nhiệm thực thi toàn bộ logic huấn luyện, bao gồm thu thập
+trajectory, tính toán advantage, cập nhật tham số mạng và lưu checkpoint định kỳ. Bên
+cạnh lớp trainer, thư viện mlagents\_envs còn cung cấp một Python API cấp thấp cho
+phép tương tác trực tiếp với môi trường Unity mà không cần đi qua trainer tích hợp
+sẵn.
 
 \indent Hình~\ref{fig:mlagents_architecture} minh họa kiến trúc tổng thể của hệ
 thống ML-Agents và luồng dữ liệu giữa các thành phần.
@@ -689,9 +734,10 @@ thống ML-Agents và luồng dữ liệu giữa các thành phần.
 
 \subsubsection{Cơ chế Vật lý và Tính xác định trong Unity}
 \indent Một khía cạnh cốt lõi khi sử dụng Unity cho học tăng cường là sự đồng bộ giữa hệ thống vật lý và quá trình ra quyết định. Trong Unity, các khung hình đồ họa được kết xuất qua hàm \texttt{Update()} với tần số biến thiên phụ thuộc vào hiệu năng máy tính (FPS). Tuy nhiên, nếu Agent cũng đưa ra quyết định hoặc tính toán va chạm theo tần số biến thiên này, môi trường sẽ trở nên không xác định (non-deterministic): cùng một chuỗi hành động có thể dẫn đến các kết quả vật lý khác nhau trong những lần chạy khác nhau.
-\indent Để giải quyết vấn đề này, ML-Agents đồng bộ hóa toàn bộ quy trình RL vào hàm \texttt{FixedUpdate()}. Đây là chu kỳ cập nhật vật lý có tần số cố định (mặc định là $0.02$ giây mỗi bước, tương đương $50$ lần/giây). Hệ thống vật lý PhysX của Unity sẽ tính toán động lực học, cập nhật tọa độ của các \texttt{Rigidbody} và xử lý va chạm (\texttt{Collider}) hoàn toàn dựa trên các bước thời gian cố định này. Kết quả là, nếu cung cấp cùng một seed ngẫu nhiên ban đầu, môi trường Unity sẽ hoạt động như một hệ thống xác định, đảm bảo tính lặp lại (reproducibility) cực kỳ quan trọng cho nghiên cứu ML.
 
-\subsubsection{Hệ thống Cảm biến (Sensors) và Tiền xử lý quan sát}
+\indent Để giải quyết vấn đề này, ML-Agents đồng bộ hóa toàn bộ quy trình RL vào hàm \texttt{FixedUpdate()}. Đây là chu kỳ cập nhật vật lý có tần số cố định (mặc định là $0.02$ giây mỗi bước, tương đương $50$ lần/giây). Hệ thống vật lý PhysX của Unity sẽ tính toán động lực học, cập nhật tọa độ của các \texttt{Rigidbody} và xử lý va chạm (\texttt{Collider}) hoàn toàn dựa trên các bước thời gian cố định này. Kết quả là, nếu cung cấp cùng một seed ngẫu nhiên ban đầu, môi trường Unity hoạt động như một hệ thống xác định: cùng một chuỗi hành động luôn cho ra cùng một quỹ đạo. Không có tính chất này thì mọi so sánh giữa hai lần chạy đều mất căn cứ.
+
+\subsubsection{Hệ thống Cảm biến và Tiền xử lý quan sát}
 \indent Để Agent hiểu được thế giới 3D phức tạp, ML-Agents cung cấp các thành phần Cảm biến nhằm tự động thu thập và chuyển đổi thông tin không gian thành các vector số thực (Input Layer). Có ba loại cảm biến phổ biến:
 \begin{itemize}
     \item \textbf{Cảm biến tia (Ray Perception Sensor 3D)}: Bắn ra các tia raycast xung quanh Agent theo một góc quét nhất định. Khi tia chạm vào vật thể có nhãn (\texttt{Tags}) tương ứng, nó sẽ ghi nhận một vector one-hot đại diện cho loại vật thể và một giá trị vô hướng chuẩn hóa $[0, 1]$ biểu diễn khoảng cách. Đây là loại cảm biến đặc biệt hiệu quả và nhẹ về mặt tính toán cho các bài toán điều hướng, được áp dụng chủ đạo trong đề tài này.
@@ -700,8 +746,9 @@ thống ML-Agents và luồng dữ liệu giữa các thành phần.
 \end{itemize}
 
 \subsubsection{Cơ chế Hành vi và Gom nhóm quyết định}
-\indent Một module quan trọng gắn trên mỗi Agent là \texttt{BehaviorParameters}, nơi định nghĩa kích thước không gian quan sát và không gian hành động. Tại đây, ML-Agents cung cấp cơ chế \textbf{Action Masking} (Mặt nạ hành động) để chặn các hành động không hợp lệ. Ví dụ, nếu Agent đang đứng sát tường, hệ thống có thể ``đeo mặt nạ'' loại bỏ hành động tiến lên, ép xác suất chọn hành động đó về 0. Điều này giúp thu hẹp không gian tìm kiếm, giúp mô hình hội tụ nhanh hơn thay vì phải tự học cách đâm đầu vào tường và bị phạt.
-\indent Ngoài ra, thành phần \texttt{DecisionRequester} cho phép gom nhóm các bước mô phỏng (Decision Period). Thay vì đưa ra một quyết định mới ở mỗi bước \texttt{FixedUpdate} ($0.02$s), Agent có thể duy trì hành động cũ trong $5$ bước liên tiếp (Decision Period = $5$). Việc này giúp Agent có đủ thời gian hoàn thành một quỹ đạo vật lý trước khi quyết định tiếp, đồng thời giảm thiểu số lần gọi mạng nơ-ron lên nhiều lần, tối ưu hóa đáng kể tốc độ huấn luyện. ML-Agents cũng hỗ trợ \textbf{Heuristic Policy}, cho phép người dùng trực tiếp điều khiển Agent bằng bàn phím để gỡ lỗi và trải nghiệm độ khó của môi trường trước khi khởi động AI.
+\indent Một module quan trọng gắn trên mỗi Agent là \texttt{BehaviorParameters}, nơi định nghĩa kích thước không gian quan sát và không gian hành động. Tại đây, ML-Agents cung cấp cơ chế Action Masking (Mặt nạ hành động) để chặn các hành động không hợp lệ. Ví dụ, nếu Agent đang đứng sát tường, hệ thống có thể ``đeo mặt nạ'' loại bỏ hành động tiến lên, ép xác suất chọn hành động đó về 0. Điều này giúp thu hẹp không gian tìm kiếm, giúp mô hình hội tụ nhanh hơn thay vì phải tự học cách đâm đầu vào tường và bị phạt.
+
+\indent Ngoài ra, thành phần \texttt{DecisionRequester} cho phép gom nhóm các bước mô phỏng (Decision Period). Thay vì đưa ra một quyết định mới ở mỗi bước \texttt{FixedUpdate} ($0.02$s), Agent có thể duy trì hành động cũ trong $5$ bước liên tiếp (Decision Period = $5$). Việc này giúp Agent có đủ thời gian hoàn thành một quỹ đạo vật lý trước khi quyết định tiếp, đồng thời giảm thiểu số lần gọi mạng nơ-ron lên nhiều lần, tối ưu hóa đáng kể tốc độ huấn luyện. ML-Agents cũng hỗ trợ Heuristic Policy, cho phép người dùng trực tiếp điều khiển Agent bằng bàn phím để gỡ lỗi và trải nghiệm độ khó của môi trường trước khi khởi động AI.
 
 \subsubsection{Quy trình huấn luyện Agent}
 \indent Quy trình huấn luyện một agent trong ML-Agents diễn ra theo vòng lặp lặp lại
@@ -712,16 +759,16 @@ sát, suy luận hành động từ policy hiện tại (hoặc lấy mẫu ng�
 khởi động) và trả hành động về Unity. Unity thực thi hành động, cập nhật trạng thái
 vật lý, tính toán phần thưởng và gửi kết quả trở lại Python để tích lũy vào buffer.
 
-\indent Sau khi thu thập đủ một batch dữ liệu (kích thước được cấu hình qua tham số
-\texttt{buffer\_size}), trainer thực hiện cập nhật tham số mạng. Đối với PPO, quá
-trình cập nhật gồm nhiều epoch trên cùng batch với hàm mục tiêu clipped surrogate như
-đã trình bày tại Mục~\ref{sub:ppo}. Sau khi cập nhật xong, buffer được xóa và quá trình thu
-thập dữ liệu mới bắt đầu. Các chỉ số huấn luyện như cumulative reward, episode length
-và policy loss được ghi lại liên tục và có thể theo dõi theo thời gian thực qua
-TensorBoard.
+\indent Sau khi buffer tích lũy đủ một batch dữ liệu với kích thước do tham số
+\texttt{buffer\_size} quy định, trainer tiến hành cập nhật tham số của mạng nơ-ron.
+Đối với PPO, mỗi lần cập nhật gồm nhiều epoch chạy trên cùng một batch với hàm mục
+tiêu clipped surrogate như đã trình bày tại Mục~\ref{sub:ppo}. Khi cập nhật hoàn tất,
+buffer được xóa để mở đầu một chu kỳ thu thập dữ liệu mới, đồng thời các chỉ số huấn
+luyện như cumulative reward, episode length và policy loss được ghi lại liên tục và
+có thể theo dõi theo thời gian thực qua TensorBoard.
 
-\indent Tệp cấu hình YAML đóng vai trò trung tâm trong việc kiểm soát toàn bộ quá
-trình huấn luyện. Tệp này định nghĩa loại trainer (\texttt{trainer\_type}), các siêu
+\indent Tệp cấu hình YAML kiểm soát toàn bộ quá trình huấn luyện. Tệp này định nghĩa
+loại trainer (\texttt{trainer\_type}), các siêu
 tham số huấn luyện (\texttt{hyperparameters}), kiến trúc mạng nơ-ron
 (\texttt{network\_settings}), cấu hình tín hiệu phần thưởng (\texttt{reward\_signals})
 và số bước huấn luyện tối đa (\texttt{max\_steps}). Mỗi behavior trong scene tương
@@ -740,13 +787,13 @@ phá trong môi trường phần thưởng thưa. Người dùng lựa chọn th
 tham số hoàn toàn thông qua tệp YAML mà không cần thay đổi mã nguồn C\# của môi trường.
 
 \indent Tuy nhiên, việc tích hợp sẵn này cũng đi kèm một số giới hạn quan trọng đối
-với đề tài. Thứ nhất, cơ chế self-play - vốn cần thiết cho môi trường đối
+với đề tài. Cơ chế self-play - vốn cần thiết cho môi trường đối
 kháng như Football Table - chỉ được hỗ trợ chính thức cho PPO và POCA, mà không hỗ
 trợ cho SAC. Nguyên nhân là replay buffer của SAC lưu trữ kinh nghiệm từ các phiên
 bản đối thủ cũ, trở nên lỗi thời và mâu thuẫn khi đối thủ liên tục được cập nhật trong
-quá trình self-play. Thứ hai, cơ chế group reward phục vụ bài toán hợp tác
+quá trình self-play. Cơ chế group reward phục vụ bài toán hợp tác cũng
 được thiết kế tối ưu cho POCA; khi áp dụng cho PPO hoặc SAC, phần thưởng nhóm buộc
-phải được phân bổ thủ công về từng agent, làm suy giảm khả năng gán công lao. Thứ ba,
+phải được phân bổ thủ công về từng agent, làm suy giảm khả năng gán công lao. Ngoài ra,
 các trainer tích hợp sẵn không cho phép người dùng dễ dàng can thiệp sâu vào vòng lặp
 huấn luyện (ví dụ tùy biến hàm mất mát hay lịch trình cập nhật).
 

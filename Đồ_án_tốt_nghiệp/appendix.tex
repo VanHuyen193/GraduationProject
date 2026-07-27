@@ -1,8 +1,13 @@
 \fontsize{13pt}{20pt}\selectfont
 
 % ═══════════════════════════════════════════════
-\section*{PHỤ LỤC}
+% Tiêu đề căn giữa, in hoa đậm giống DANH MỤC TỪ VIẾT TẮT (xem sec_abbrev.tex)
+\phantomsection
 \addcontentsline{toc}{section}{PHỤ LỤC}
+\begin{center}
+    {\large\bfseries PHỤ LỤC}
+\end{center}
+
 
 % ───────────────────────────────────────────────
 \subsection*{Phụ lục A. Cấu hình huấn luyện PPO}
@@ -48,7 +53,7 @@ behaviors:
 \end{lstlisting}
 
 % ═══════════════════════════════════════════════
-\subsection*{Phụ lục B. Cấu hình huấn luyện SAC (bao gồm code tùy chỉnh)}
+\subsection*{Phụ lục B. Cấu hình huấn luyện SAC}
 \addcontentsline{toc}{subsection}{Phụ lục B. Cấu hình huấn luyện SAC}
 
 Tệp cấu hình YAML của SAC cho môi trường Cross The Road:
@@ -219,16 +224,16 @@ void AddShotReward()
 \addcontentsline{toc}{subsection}{Phụ lục E. Kết quả TensorBoard}
 
 Toàn bộ số liệu huấn luyện (Cumulative Reward, Episode Length, Policy Loss, Entropy,
-ELO\ldots) được ghi lại tự động qua TensorBoard cho từng lần chạy trong thư mục
-\texttt{results/}. Bảng~\ref{tab:tb_summary} tóm tắt các chỉ số cuối cùng thực đo được
-của những lần chạy đã huấn luyện đầy đủ.
+ELO\ldots) đều được ghi lại tự động qua TensorBoard cho từng lần chạy và lưu trong
+thư mục \texttt{results/} của dự án. Bảng~\ref{tab:tb_summary} tóm tắt các chỉ số
+cuối cùng thực đo được của những lần chạy đã huấn luyện đầy đủ.
 
 \begin{table}[H]
 \centering
 \caption{Tóm tắt chỉ số cuối thực đo từ TensorBoard}
 \label{tab:tb_summary}
 \renewcommand{\arraystretch}{1.4}
-\small
+\tablefont
 \begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.2cm}
                 |>{\centering\arraybackslash}p{2.3cm}
                 |>{\centering\arraybackslash}p{2.5cm}
@@ -236,19 +241,19 @@ của những lần chạy đã huấn luyện đầy đủ.
 \hline
 \textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward/ELO} & \textbf{Thời gian} \\
 \hline
-FB01 (Football) & PPO & 500K & ELO 1219 & $\sim$109 phút \\
+FB01 (Football) & PPO & 1{,}59M & ELO 1242 & $\sim$109 phút \\
 \hline
-ctr01 (CrossRoad) & PPO & 1{,}5M & $0{,}74$ & $\sim$114 phút \\
+ctr01 (CrossRoad) & PPO & 2M & $0{,}703$ & $\sim$114 phút \\
 \hline
-CrossRoad\_SAC & SAC & 200K & $0{,}87$ & $\sim$104 phút \\
+CrossRoad\_SAC & SAC & 200K & $0{,}818$ & $\sim$104 phút \\
 \hline
-ctr\_poca (CrossRoad) & MA-POCA & 2M & $0{,}69$ & $\sim$67 phút \\
+ctr\_poca (CrossRoad) & MA-POCA & 2M & $0{,}655$ & $\sim$67 phút \\
 \hline
-ctr\_mappo (CrossRoad) & MAPPO & 2M & $0{,}57$ & $\sim$75 phút \\
+ctr\_mappo (CrossRoad) & MAPPO & 2M & $0{,}567$ & $\sim$75 phút \\
 \hline
-ctf\_poca (Capture) & MA-POCA & 4{,}86M & $0{,}033$ & $\sim$116 phút \\
+ctf\_poca (Capture) & MA-POCA & 1{,}68M & $0{,}534$ & $\sim$626 phút \\
 \hline
-ctf\_mappo (Capture) & MAPPO & 1{,}68M & $0{,}065$ & $\sim$45 phút \\
+ctf\_mappo (Capture) & MAPPO & 1{,}52M & $0{,}795$ & $\sim$499 phút \\
 \hline
 \end{tabular}
 \end{table}

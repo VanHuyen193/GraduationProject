@@ -1,20 +1,20 @@
-\fontsize{14pt}{22.5pt}\selectfont
+\fontsize{13pt}{22.5pt}\selectfont
 
 \section{KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ}
 \label{ch:results}
 
-\indent Chương này trình bày và phân tích kết quả thu được từ quá trình huấn luyện bốn
-thuật toán PPO, SAC, MA-POCA và MAPPO trên ba môi trường đã thiết kế. Nội dung được tổ
-chức lần lượt theo từng môi trường, trong đó mỗi môi trường được minh họa bằng đường
-cong phần thưởng, bảng số liệu và nhận xét đi kèm. Sau phần kết quả riêng của từng môi
-trường, chương tiến hành so sánh tổng hợp theo bốn tiêu chí đánh giá đã nêu ở
-Mục~\ref{sub:evalcriteria}, rồi kết thúc bằng phần thảo luận về khả năng ứng dụng thực
-tiễn và những hạn chế còn tồn tại.
+\indent Chương này trình bày kết quả của chín lần huấn luyện và trả lời câu hỏi trung
+tâm của đề tài: thuật toán nào thắng ở đâu, và vì sao. Kết quả được đọc lần lượt theo
+từng môi trường, rồi mới đặt cạnh nhau để so sánh theo bốn tiêu chí ở
+Mục~\ref{sub:evalcriteria}. Có một điều cần nói trước, vì nó chi phối cách đọc toàn bộ
+chương: trong cơ chế tự chơi, phần thưởng tuyệt đối là chỉ báo gây hiểu nhầm, nên mọi
+kết luận về Football Table đều dựa trên chỉ số ELO chứ không dựa trên phần thưởng.
 
 \indent Toàn bộ số liệu trong chương được trích xuất trực tiếp từ tệp sự kiện
 TensorBoard của các lần chạy huấn luyện, thông qua kịch bản
-\texttt{export\_training\_data.py}. Đại lượng được sử dụng làm thước đo chính là phần
-thưởng tích lũy của môi trường (\texttt{Environment/Cumulative Reward}). Do chuỗi thô
+\texttt{export\_\allowbreak training\_\allowbreak data.py}. Đại lượng được chọn làm thước đo chính là phần
+thưởng tích lũy mà tác nhân nhận được từ môi trường, tương ứng với chuỗi
+\texttt{Environment/\allowbreak Cumulative Reward} trong tệp sự kiện. Do chuỗi thô
 dao động mạnh giữa các tập, mọi đường cong và mọi chỉ số thống kê trong chương đều được
 tính trên chuỗi đã làm mượt bằng trung bình trượt; nhờ vậy bảng số liệu và đồ thị luôn
 nhất quán với nhau, đồng thời trùng khớp với các biểu đồ hiển thị trong ứng dụng trình
@@ -22,10 +22,10 @@ diễn ở Chương~\ref{ch:app}. Mỗi thuật toán được biểu diễn b�
 chỉnh, và các lần chạy có độ dài khác nhau được giữ nguyên độ dài thực tế thay vì kéo
 dãn về cùng một trục.
 
-\indent Bốn chỉ số thống kê được sử dụng xuyên suốt gồm: \textit{phần thưởng cuối} (giá
-trị tại bước huấn luyện cuối cùng), \textit{phần thưởng tốt nhất} (giá trị lớn nhất đạt
-được), \textit{phần thưởng trung bình mười phần trăm cuối} (mức năng lực ổn định mà
-chính sách duy trì được ở cuối quá trình) và \textit{bước hội tụ}. Bước hội tụ được xác
+\indent Bốn chỉ số thống kê được sử dụng xuyên suốt gồm: phần thưởng cuối (giá
+trị tại bước huấn luyện cuối cùng), phần thưởng tốt nhất (giá trị lớn nhất đạt
+được), phần thưởng trung bình mười phần trăm cuối (mức năng lực ổn định mà
+chính sách duy trì được ở cuối quá trình) và bước hội tụ. Bước hội tụ được xác
 định là bước huấn luyện mà từ đó trở đi đường cong không còn tụt xuống dưới chín mươi
 phần trăm mức ổn định cuối cùng; cách xác định này bền vững hơn tiêu chí ``lần đầu chạm
 ngưỡng'' vì không bị một đỉnh nhiễu đơn lẻ kéo về đầu chuỗi.
@@ -74,9 +74,9 @@ Hình~\ref{fig:football_elo} biểu diễn tiến trình ELO thực đo của ba
     \label{fig:football_elo}
 \end{figure}
 
-\indent Cần lưu ý rằng ELO của hai lần chạy khác nhau không so sánh trực tiếp được với
-nhau, bởi mỗi lần chạy tính điểm dựa trên kho đối thủ của riêng nó; đại lượng có ý
-nghĩa ở đây là \textit{mức tăng} so với giá trị khởi tạo một nghìn hai trăm. Theo tiêu
+\indent ELO của hai lần chạy khác nhau không so sánh trực tiếp được với nhau, bởi mỗi
+lần chạy tính điểm dựa trên kho đối thủ của riêng nó; đại lượng có ý nghĩa ở đây là mức
+tăng so với giá trị khởi tạo một nghìn hai trăm. Theo tiêu
 chí này, MA-POCA tăng khoảng sáu mươi chín điểm và PPO tăng khoảng bốn mươi hai điểm,
 tức cả hai đều liên tục vượt qua các phiên bản trước của chính mình. Ngược lại, SAC dao
 động quanh mốc khởi tạo trong suốt quá trình và kết thúc ở mức thấp hơn điểm xuất phát,
@@ -116,11 +116,11 @@ thuật toán, còn Bảng~\ref{tab:football_results} tổng hợp các chỉ s�
 \caption{Kết quả ba thuật toán trên môi trường Football Table}
 \label{tab:football_results}
 \renewcommand{\arraystretch}{1.35}
-\small
-\begin{tabular}{|p{2.3cm}|>{\centering\arraybackslash}p{1.9cm}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
                 |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.0cm}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
                 |>{\centering\arraybackslash}p{1.9cm}|}
 \hline
 \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Độ lệch chuẩn} & \textbf{ELO cuối} \\
@@ -134,7 +134,7 @@ MA-POCA & 0,91M & $1{,}804$ & $2{,}844$ & $0{,}077$ & $1269$ \\
 \end{tabular}
 \end{table}
 
-\indent \textbf{Nhận xét:} Trên thước đo ELO, MA-POCA và PPO là hai thuật toán thực sự
+\indent Trên thước đo ELO, MA-POCA và PPO là hai thuật toán thực sự
 tiến bộ trong cơ chế tự chơi, trong đó MA-POCA đạt mức tăng lớn nhất chỉ sau khoảng chín
 trăm nghìn bước, còn PPO tiến bộ chậm hơn nhưng đều đặn và duy trì được xu hướng đi lên
 cho tới cuối lần chạy dài nhất. Cơ chế tự chơi tạo ra một chương trình học tự nhiên
@@ -150,10 +150,10 @@ và kho phiên bản còn nghèo; xét riêng nửa sau quá trình, PPO dao đ�
 đương hai thuật toán còn lại. MA-POCA đồng thời đạt độ lệch chuẩn nhỏ nhất ($0{,}077$),
 tức đường cong ổn định nhất trong ba thuật toán.
 
-\indent Cần lưu ý rằng ba lần chạy có độ dài khác nhau (1,59M bước cho PPO so với
-khoảng 0,9M bước cho SAC và MA-POCA), do đó các so sánh trên chỉ mang tính tham khảo và
-chưa loại trừ được ảnh hưởng của ngân sách huấn luyện. Đây là một hạn chế của thiết kế
-thực nghiệm, sẽ được nêu lại ở Mục~\ref{sub:limits}.
+\indent Ba lần chạy này không có chung ngân sách bước: 1,59M cho PPO so với khoảng 0,9M
+cho SAC và MA-POCA. Chênh lệch đó đủ lớn để mọi so sánh phần thưởng tuyệt đối ở trên chỉ
+còn giá trị tham khảo, và đây là điểm yếu rõ nhất trong thiết kế thực nghiệm của đề tài
+(Mục~\ref{sub:limits}).
 
 \indent MAPPO không được đánh giá trên môi trường này do cơ chế chia sẻ tham số của nó
 buộc hai đội dùng chung một chính sách. Trong cơ chế tự chơi đối kháng, hai phía cần
@@ -161,7 +161,7 @@ các phiên bản chính sách khác nhau để có thể phân hóa chiến thu
 sẻ tham số xung đột trực tiếp với bản chất của bài toán.
 
 % ═══════════════════════════════════════════════
-\subsection{Kết quả môi trường vượt đường (Cross The Road)}
+\subsection{Kết quả môi trường Cross The Road}
 
 {\sloppy
 \indent Cross The Road là môi trường duy nhất được huấn luyện đầy đủ cả bốn thuật toán,
@@ -204,12 +204,12 @@ thưởng thực đo của bốn thuật toán, còn Bảng~\ref{tab:ctr_results
 \caption{Kết quả bốn thuật toán trên môi trường Cross The Road}
 \label{tab:ctr_results}
 \renewcommand{\arraystretch}{1.35}
-\small
-\begin{tabular}{|p{2.3cm}|>{\centering\arraybackslash}p{1.9cm}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
                 |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.0cm}
-                |>{\centering\arraybackslash}p{2.0cm}|}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.9cm}|}
 \hline
 \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Bước hội tụ} & \textbf{Độ dài lượt chơi} \\
 \hline
@@ -224,7 +224,7 @@ MAPPO & 2,00M & $0{,}567$ & $0{,}628$ & $\sim$700K & $42{,}4$ \\
 \end{tabular}
 \end{table}
 
-\indent \textbf{Nhận xét:} SAC cho kết quả vượt trội rõ rệt trên môi trường điều hướng
+\indent SAC cho kết quả vượt trội rõ rệt trên môi trường điều hướng
 đơn tác nhân. Thuật toán này đạt phần thưởng trung bình cuối cao nhất ($0{,}818$) chỉ
 sau hai trăm nghìn bước, tức nhanh hơn PPO khoảng mười lần về số mẫu cần thiết. Kết quả
 này khẳng định ưu thế về hiệu quả sử dụng dữ liệu của thuật toán off-policy, vốn tái sử
@@ -241,8 +241,8 @@ thấp hơn PPO, phù hợp với nhận định rằng MA-POCA suy biến gần
 cho bài toán đơn tác nhân, nơi không có phần thưởng nhóm để phát huy thế mạnh phê bình
 tập trung, trong khi vẫn phải gánh thêm chi phí của kiến trúc phức tạp hơn. MAPPO cho
 kết quả kém nhất trên tác vụ này, do thiết kế dành riêng cho môi trường hợp tác đa tác
-nhân: việc chia sẻ tham số và đánh giá toàn cục không mang lại lợi thế nào mà còn làm
-giảm hiệu quả.
+nhân: việc chia sẻ tham số và đánh giá toàn cục không mang lại lợi thế nào, đồng thời
+làm giảm hiệu quả.
 
 \indent Bên cạnh phần thưởng, độ dài trung bình của mỗi lượt chơi là một chỉ báo bổ
 sung đáng quan tâm, vì nó phản ánh cách chính sách kết thúc lượt chơi.
@@ -330,7 +330,7 @@ trong suốt quá trình và vẫn còn ở mức khoảng $0{,}46$ ở cuối, 
 nó vẫn chưa quyết đoán - một dấu hiệu nhất quán với phần thưởng thấp nhất mà nó đạt
 được.
 
-\indent Chỉ số thứ hai là hàm mất mát của mạng phê bình, phản ánh mức độ chính xác của
+\indent Chỉ số còn lại là hàm mất mát của mạng phê bình, phản ánh mức độ chính xác của
 việc ước lượng giá trị trạng thái. Hình~\ref{fig:ctr_vloss} cho thấy một khác biệt rõ
 rệt: hàm mất mát của SAC gần như triệt tiêu về không chỉ sau vài chục nghìn bước, cho
 thấy mạng phê bình của SAC học rất nhanh nhờ cơ chế off-policy tái sử dụng dữ liệu.
@@ -407,12 +407,12 @@ bày kết quả tương ứng.\par}
 \caption{Kết quả hai thuật toán trên môi trường Capture The Flag}
 \label{tab:ctf_results}
 \renewcommand{\arraystretch}{1.35}
-\small
-\begin{tabular}{|p{2.3cm}|>{\centering\arraybackslash}p{1.9cm}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
                 |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.0cm}
-                |>{\centering\arraybackslash}p{2.2cm}|}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.9cm}|}
 \hline
 \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Bước hội tụ} & \textbf{Độ dài lượt chơi} \\
 \hline
@@ -423,7 +423,7 @@ MAPPO & 1,52M & $0{,}795$ & $0{,}818$ & $\sim$1,28M & $468$ \\
 \end{tabular}
 \end{table}
 
-\indent \textbf{Nhận xét:} MAPPO đạt phần thưởng trung bình cuối cao hơn MA-POCA khoảng
+\indent MAPPO đạt phần thưởng trung bình cuối cao hơn MA-POCA khoảng
 năm mươi phần trăm ($0{,}795$ so với $0{,}534$), qua đó khẳng định ưu thế của cơ chế
 phê bình tập trung kết hợp chia sẻ tham số trong bài toán hợp tác có các tác nhân đồng
 nhất. Tuy nhiên, bằng chứng thuyết phục nhất không nằm ở giá trị phần thưởng mà ở độ
@@ -541,8 +541,8 @@ việc lựa chọn thuật toán nên căn cứ vào bản chất của từng 
     \label{fig:success_bar}
 \end{figure}
 
-\indent Cần nhấn mạnh rằng chiều cao các cột chỉ so sánh được trong nội bộ từng môi
-trường, bởi thang phần thưởng của ba môi trường được thiết kế khác nhau: Football Table
+\indent Chiều cao các cột chỉ so sánh được trong nội bộ từng môi trường, bởi thang phần
+thưởng của ba môi trường được thiết kế khác nhau: Football Table
 cộng dồn nhiều thành phần định hướng nên có thang lớn hơn hẳn, còn Cross The Road và
 Capture The Flag có phần thưởng chuẩn hóa quanh mức một đơn vị cho mỗi lần hoàn thành
 nhiệm vụ.
@@ -571,7 +571,7 @@ tác nhân đều chuyển dịch từ khám phá ngẫu nhiên sang một chín
 \caption{Chỉ số huấn luyện nội tại (các môi trường hành động rời rạc)}
 \label{tab:diagnostics}
 \renewcommand{\arraystretch}{1.35}
-\small
+\tablefont
 \begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.4cm}
                 |>{\centering\arraybackslash}p{3cm}
                 |>{\centering\arraybackslash}p{3cm}|}
@@ -593,12 +593,12 @@ Capture The Flag & MAPPO & $1{,}92 \to 0{,}81$ & $0{,}011$ \\
 \end{tabular}
 \end{table}
 
-\indent Hai quan sát quan trọng có thể rút ra từ bảng này. Thứ nhất, xét trên cùng môi
+\indent Hai quan sát quan trọng có thể rút ra từ bảng này. Xét trên cùng môi
 trường Cross The Road, tốc độ giảm entropy tỉ lệ thuận với tốc độ hội tụ đã ghi nhận
 trước đó: SAC giảm entropy nhanh nhất và cũng hội tụ nhanh nhất, trong khi PPO và
 MA-POCA giảm chậm hơn và cần nhiều mẫu hơn, còn MAPPO giữ entropy cao nhất và đạt phần
 thưởng thấp nhất. Đây là sự nhất quán nội tại giữa hai nhóm chỉ số độc lập, làm tăng độ
-tin cậy cho kết luận về hiệu quả sử dụng dữ liệu. Thứ hai, hàm mất mát phê bình của SAC
+tin cậy cho kết luận về hiệu quả sử dụng dữ liệu. Ở khía cạnh khác, hàm mất mát phê bình của SAC
 gần như bằng không phản ánh mạng phê bình hội tụ rất nhanh nhờ tái sử dụng dữ liệu;
 trong khi đó, giá trị gần không của MA-POCA trên môi trường Capture The Flag lại có
 nguyên nhân khác, đó là do phần thưởng nhóm trong môi trường này rất nhỏ nên giá trị
@@ -615,6 +615,7 @@ môi trường, cho thấy rõ sự phân hóa vai trò giữa chúng.
 \caption{Xếp hạng thuật toán theo từng môi trường}
 \label{tab:overall_ranking}
 \renewcommand{\arraystretch}{1.35}
+\tablefont
 \begin{tabular}{|p{3cm}|>{\centering\arraybackslash}p{2.3cm}
                 |>{\centering\arraybackslash}p{2.3cm}
                 |>{\centering\arraybackslash}p{2.3cm}

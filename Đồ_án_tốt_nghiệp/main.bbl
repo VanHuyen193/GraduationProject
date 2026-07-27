@@ -1,9 +1,21 @@
 \begin{thebibliography}{10}
 
+\bibitem{amodei2016concrete}
+Dario Amodei, Chris Olah, Jacob Steinhardt, Paul Christiano, John Schulman, and
+  Dan Man{\'e}.
+\newblock Concrete problems in {AI} safety.
+\newblock {\em arXiv preprint arXiv:1606.06565}, 2016.
+
 \bibitem{bellman1957markovian}
 Richard Bellman.
 \newblock A markovian decision process.
 \newblock {\em Journal of Mathematics and Mechanics}, 6(5):679--684, 1957.
+
+\bibitem{bengio2009curriculum}
+Yoshua Bengio, J{\'e}r{\^o}me Louradour, Ronan Collobert, and Jason Weston.
+\newblock Curriculum learning.
+\newblock In {\em Proceedings of the 26th International Conference on Machine
+  Learning (ICML)}, pages 41--48, 2009.
 
 \bibitem{cohen2022mapoca}
 Andrew Cohen, Ervin Teng, Vincent-Pierre Berges, Ruo-Ping Dong, Hunter Henry,
@@ -11,6 +23,12 @@ Andrew Cohen, Ervin Teng, Vincent-Pierre Berges, Ruo-Ping Dong, Hunter Henry,
 \newblock On the use and misuse of absorbing states in multi-agent
   reinforcement learning.
 \newblock {\em arXiv preprint arXiv:2111.05992}, 2021.
+
+\bibitem{devlin2012dynamic}
+Sam Devlin and Daniel Kudenko.
+\newblock Dynamic potential-based reward shaping.
+\newblock {\em Proceedings of the 11th International Conference on Autonomous
+  Agents and Multiagent Systems (AAMAS)}, pages 433--440, 2012.
 
 \bibitem{foerster2018counterfactual}
 Jakob Foerster, Gregory Farquhar, Triantafyllos Afouras, Nantas Nardelli, and
@@ -102,6 +120,12 @@ Antonin Raffin, Ashley Hill, Adam Gleave, Anssi Kanervisto, Maximilian
   Ernestus, and Noah Dormann.
 \newblock Stable-baselines3: Reliable reinforcement learning implementations.
 \newblock {\em Journal of Machine Learning Research}, 22(268):1--8, 2021.
+
+\bibitem{randlov1998learning}
+Jette Randl{\o}v and Preben Alstr{\o}m.
+\newblock Learning to drive a bicycle using reinforcement learning and shaping.
+\newblock In {\em Proceedings of the Fifteenth International Conference on
+  Machine Learning (ICML)}, pages 463--471, 1998.
 
 \bibitem{schulman2015trust}
 John Schulman, Sergey Levine, Pieter Abbeel, Michael Jordan, and Philipp

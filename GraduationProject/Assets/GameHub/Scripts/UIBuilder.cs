@@ -13,21 +13,31 @@ namespace GameHub
         public static Font DefaultFont =>
             Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
-        /// <summary>Đảm bảo scene có EventSystem để bấm được nút.</summary>
+        /// <summary>Đảm bảo scene có đúng một EventSystem để bấm được nút.</summary>
         public static void EnsureEventSystem()
         {
-            if (Object.FindFirstObjectByType<EventSystem>() != null)
+            EventSystem[] systems = Object.FindObjectsByType<EventSystem>(
+                FindObjectsSortMode.None);
+
+            // Một số scene môi trường (CaptureTheFlag) đã có sẵn EventSystem
+            // riêng — bỏ các bản dư để Unity không cảnh báo "2 event systems".
+            for (int i = 1; i < systems.Length; i++)
+            {
+                Object.Destroy(systems[i].gameObject);
+            }
+
+            if (systems.Length > 0)
             {
                 return;
             }
 
-            var go = new GameObject(
+            // Không DontDestroyOnLoad: mỗi scene tự gọi EnsureEventSystem,
+            // nếu giữ lại qua scene sẽ chồng lên EventSystem của scene mới.
+            new GameObject(
                 "EventSystem",
                 typeof(EventSystem),
                 typeof(StandaloneInputModule)
             );
-
-            Object.DontDestroyOnLoad(go);
         }
 
         public static Canvas CreateCanvas(string name, int sortingOrder = 0)
