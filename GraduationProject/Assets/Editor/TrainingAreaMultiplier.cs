@@ -126,9 +126,22 @@ namespace GraduationProject.EditorTools
                 int row = i / columns;
                 int col = i % columns;
 
-                var copy = (GameObject)PrefabUtility.InstantiatePrefab(
-                    PrefabUtility.GetCorrespondingObjectFromSource(area) ?? area, scene);
-                if (copy == null) copy = Object.Instantiate(area);
+                // Nếu area là instance của prefab thì nhân bản từ chính prefab đó
+                // để bản sao vẫn liên kết với prefab. Nếu không (object thuần
+                // trong scene) thì Instantiate thường — InstantiatePrefab sẽ ném
+                // lỗi nếu truyền vào một object không phải asset.
+                GameObject copy;
+                var source = PrefabUtility.GetCorrespondingObjectFromSource(area);
+                if (source != null)
+                    copy = (GameObject)PrefabUtility.InstantiatePrefab(source, scene);
+                else
+                    copy = Object.Instantiate(area);
+
+                if (copy == null)
+                {
+                    Debug.LogError($"[AreaMultiplier] Không nhân bản được '{area.name}' (bản {i}).");
+                    continue;
+                }
 
                 copy.name = $"{area.name}_{i:D2}";
                 copy.transform.SetParent(container.transform, true);

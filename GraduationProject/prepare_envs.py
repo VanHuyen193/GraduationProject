@@ -115,14 +115,48 @@ def run_unity(unity: Path, method: str, extra: list[str], tag: str,
     # in cac dong quan trong tu log Unity
     if logfile.exists():
         text = logfile.read_text(encoding="utf-8", errors="replace")
-        for line in text.splitlines():
+        lines = text.splitlines()
+        for line in lines:
             if any(k in line for k in ("[AreaMultiplier]", "[HeadlessBuilder]")):
                 log("  " + line.strip())
+
         if not ok:
-            log("  --- 25 dong cuoi cua log Unity ---", "ERROR")
-            for line in text.splitlines()[-25:]:
-                log("  " + line.rstrip(), "ERROR")
+            # Loi bien dich C# nam GIUA log chu khong phai o cuoi, nen phai loc
+            # rieng — neu chi in 25 dong cuoi thi khong bao gio thay.
+            compile_errors = [l for l in lines
+                              if "error CS" in l or ": error" in l.lower()]
+            if compile_errors:
+                log("  --- LOI BIEN DICH C# ---", "ERROR")
+                for line in compile_errors[:20]:
+                    log("  " + line.strip(), "ERROR")
+                log("  Sua script trong Assets/Editor/ roi chay lai.", "ERROR")
+            else:
+                log("  --- 25 dong cuoi cua log Unity ---", "ERROR")
+                for line in lines[-25:]:
+                    log("  " + line.rstrip(), "ERROR")
     return ok
+
+
+def unity_is_holding_project() -> bool:
+    """
+    Unity KHONG mo duoc project dang bi mot instance khac chiem, va o che do
+    batch no thoat voi exit code 1 ma khong in ly do — log chi dung o dong
+    'Successfully changed project path to: ...'. Bat truoc de bao cho ro.
+
+    Cach kiem tra chac an nhat: Temp/UnityLockfile bi Editor giu mo doc quyen,
+    nen mo de ghi se bi PermissionError. (Chi ton tai file thi chua du: file
+    con sot lai sau khi Unity crash.)
+    """
+    lock = PROJECT_DIR / "Temp" / "UnityLockfile"
+    if not lock.exists():
+        return False
+    try:
+        with open(lock, "a"):
+            return False       # mo duoc -> lockfile mo coi, Unity da dong
+    except PermissionError:
+        return True
+    except OSError:
+        return True
 
 
 def git_dirty() -> bool:
@@ -154,6 +188,16 @@ def main() -> int:
         log("Khong tim thay Unity Editor. Dat bien UNITY_EXE tro toi Unity.exe.", "ERROR")
         return 1
     log(f"Unity: {unity}")
+
+    if unity_is_holding_project():
+        log("")
+        log("PROJECT DANG BI UNITY EDITOR MO — khong chay batch mode duoc.", "ERROR")
+        log("Unity khong cho hai instance mo cung mot project; o che do batch no", "ERROR")
+        log("thoat luon voi exit code 1 ma khong in ly do gi.", "ERROR")
+        log("", "ERROR")
+        log("Cach xu ly: DONG hoan toan Unity Editor (ca Unity Hub cang tot),", "ERROR")
+        log("doi vai giay cho Temp/UnityLockfile duoc nha ra, roi chay lai lenh nay.", "ERROR")
+        return 1
 
     if args.areas and not args.yes:
         log("")

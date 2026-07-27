@@ -83,7 +83,11 @@ namespace GraduationProject.EditorTools
                     // EnableHeadlessMode đã lỗi thời ở Unity 6; truyền -nographics
                     // lúc chạy (mlagents-learn --no-graphics) là đủ và vẫn build
                     // được player bình thường.
-                    options = BuildOptions.Development | BuildOptions.AllowDebugging
+                    //
+                    // KHÔNG dùng BuildOptions.Development: development player bật
+                    // profiler và bỏ một phần tối ưu, chạy chậm hơn hẳn release —
+                    // mà toàn bộ mục đích của build này là chạy nhanh.
+                    options = BuildOptions.None
                 };
 
                 Debug.Log($"[HeadlessBuilder] Đang build {t.Exe} từ {t.Scene} …");

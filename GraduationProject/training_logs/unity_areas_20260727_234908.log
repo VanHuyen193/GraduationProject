@@ -1,0 +1,26 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.3/staging' branch; Version is '6000.3.14f1 (d68c3f99a318) revision 14060607'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22631) CoreSingleLanguage' Language: 'en' Physical Memory: 16068 MB
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-vanhu" at "2026-07-27T16:49:08.7745233Z"
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-07-27T16:49:08Z
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Unity.exe
+-batchmode
+-nographics
+-projectPath
+C:\Program1\Code\Unity\GraduationProject\GraduationProject
+-executeMethod
+GraduationProject.EditorTools.TrainingAreaMultiplier.BuildAllFromCommandLine
+-logFile
+C:\Program1\Code\Unity\GraduationProject\GraduationProject\training_logs\unity_areas_20260727_234908.log
+-areaCount
+8
+-areaColumns
+4
+Successfully changed project path to: C:\Program1\Code\Unity\GraduationProject\GraduationProject
+C:/Program1/Code/Unity/GraduationProject/GraduationProject
+Exiting without the bug reporter. Application will terminate with return code 1
