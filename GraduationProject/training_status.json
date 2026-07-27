@@ -1,0 +1,34 @@
+{
+  "ctr_ppo": {
+    "run_id": "ctr01",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-27T23:34:39",
+    "smoke": false
+  },
+  "ctr_sac": {
+    "run_id": "CrossTheRoad_SAC_01",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-27T23:34:39",
+    "smoke": false
+  },
+  "ctr_poca": {
+    "run_id": "ctr_poca_v1",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-27T23:34:39",
+    "smoke": false
+  },
+  "ctr_mappo": {
+    "run_id": "ctr_mappo_v1",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-27T23:34:39",
+    "smoke": false
+  }
+}

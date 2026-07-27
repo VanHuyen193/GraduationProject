@@ -1,0 +1,23 @@
+23:41:30 [INFO] ──────────────────────────────────────────────────────────────────────
+23:41:30 [INFO] KIEM TRA TRUOC KHI CHAY
+23:41:30 [INFO] ──────────────────────────────────────────────────────────────────────
+23:41:30 [INFO] mlagents-learn : C:\Users\vanhu\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+23:41:31 [INFO] trainer plugins: default,a2c,dqn,mappo
+23:41:31 [ERROR] [ctr_ppo] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe
+23:41:31 [ERROR] [ctr_sac] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe
+23:41:31 [ERROR] [ctr_poca] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe
+23:41:31 [ERROR] [ctr_mappo] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe
+23:41:31 [ERROR] [ctf_poca] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe
+23:41:31 [WARN] [ctf_poca] CANH BAO: Khong cat duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc.
+23:41:31 [ERROR] [ctf_mappo] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe
+23:41:31 [WARN] [ctf_mappo] CANH BAO: Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an.
+23:41:31 [ERROR] [fb_ppo] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\Football\Football.exe
+23:41:31 [ERROR] [fb_poca] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\Football\Football.exe
+23:41:31 [ERROR] [fb_sac] thieu build C:\Program1\Code\Unity\GraduationProject\GraduationProject\Builds\Football\Football.exe
+23:41:31 [WARN] [fb_sac] CANH BAO: SAC + self_play: ML-Agents khong ho tro chinh thuc. Neu trainer bao loi, xem muc 'SAC tren Football' trong ke hoach.
+23:41:31 [INFO] Ket qua kiem tra: CO LOI
+23:41:31 [INFO] ──────────────────────────────────────────────────────────────────────
+23:41:31 [INFO] Se chay 9 job, tong 8,500,000 buoc (ngan sach: reduced)
+23:41:31 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+23:41:31 [INFO] ======================================================================
