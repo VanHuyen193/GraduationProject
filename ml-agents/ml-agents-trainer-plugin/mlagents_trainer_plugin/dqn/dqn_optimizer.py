@@ -88,9 +88,14 @@ class DQNOptimizer(TorchOptimizer):
             network_settings=policy.network_settings,
             action_spec=policy.behavior_spec.action_spec,
         )
-        ModelUtils.soft_update(self.policy.actor, self.q_net_target, 1.0)
-
+        # Chuyen sang thiet bi TRUOC khi copy trong so. QNetwork vua tao nam tren
+        # CPU con policy.actor da o CUDA, nen goi soft_update truoc roi moi .to()
+        # se no "Expected all tensors to be on the same device, cuda:0 and cpu".
+        # Chi lo ra tren may co GPU — may chi co CPU thi hai ben cung la cpu nen
+        # thu tu khong quan trong.
         self.q_net_target.to(default_device())
+
+        ModelUtils.soft_update(self.policy.actor, self.q_net_target, 1.0)
 
     @property
     def critic(self):

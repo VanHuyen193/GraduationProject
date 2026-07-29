@@ -1,0 +1,288 @@
+[INFO] Connected to Unity environment with package version 4.0.2 and communication version 1.5.0
+[INFO] Connected new brain: CrossTheRoad?team=0
+
+            ┐  ╖
+        ╓╖╬│╡  ││╬╖╖
+    ╓╖╬│││││┘  ╬│││││╬╖
+ ╖╬│││││╬╜        ╙╬│││││╖╖                               ╗╗╗
+ ╬╬╬╬╖││╦╖        ╖╬││╗╣╣╣╬      ╟╣╣╬    ╟╣╣╣             ╜╜╜  ╟╣╣
+ ╬╬╬╬╬╬╬╬╖│╬╖╖╓╬╪│╓╣╣╣╣╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╒╣╣╖╗╣╣╣╗   ╣╣╣ ╣╣╣╣╣╣ ╟╣╣╖   ╣╣╣
+ ╬╬╬╬┐  ╙╬╬╬╬│╓╣╣╣╝╜  ╫╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╟╣╣╣╙ ╙╣╣╣  ╣╣╣ ╙╟╣╣╜╙  ╫╣╣  ╟╣╣
+ ╬╬╬╬┐     ╙╬╬╣╣      ╫╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╟╣╣╬   ╣╣╣  ╣╣╣  ╟╣╣     ╣╣╣┌╣╣╜
+ ╬╬╬╜       ╬╬╣╣      ╙╝╣╣╬      ╙╣╣╣╗╖╓╗╣╣╣╜ ╟╣╣╬   ╣╣╣  ╣╣╣  ╟╣╣╦╓    ╣╣╣╣╣
+ ╙   ╓╦╖    ╬╬╣╣   ╓╗╗╖            ╙╝╣╣╣╣╝╜   ╘╝╝╜   ╝╝╝  ╝╝╝   ╙╣╣╣    ╟╣╣╣
+   ╩╬╬╬╬╬╬╦╦╬╬╣╣╗╣╣╣╣╣╣╣╝                                             ╫╣╣╣╣
+      ╙╬╬╬╬╬╬╬╣╣╣╣╣╣╝╜
+          ╙╬╬╬╣╣╣╜
+             ╙
+        
+ Version information:
+  ml-agents: 1.2.0.dev0,
+  ml-agents-envs: 1.2.0.dev0,
+  Communicator API: 1.5.0,
+  PyTorch: 2.2.2+cu121
+[INFO] Hyperparameters for behavior name CrossTheRoad: 
+	trainer_type:	mappo
+	hyperparameters:	
+	  batch_size:	512
+	  buffer_size:	10240
+	  learning_rate:	0.0003
+	  beta:	0.005
+	  epsilon:	0.2
+	  lambd:	0.99
+	  num_epoch:	3
+	  learning_rate_schedule:	linear
+	  beta_schedule:	linear
+	  epsilon_schedule:	linear
+	checkpoint_interval:	500000
+	network_settings:	
+	  normalize:	False
+	  hidden_units:	128
+	  num_layers:	2
+	  vis_encode_type:	simple
+	  memory:	None
+	  goal_conditioning_type:	hyper
+	  deterministic:	False
+	reward_signals:	
+	  extrinsic:	
+	    gamma:	0.99
+	    strength:	1.0
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	  curiosity:	
+	    gamma:	0.99
+	    strength:	0.02
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	    learning_rate:	0.0003
+	    encoding_size:	None
+	init_path:	None
+	keep_checkpoints:	5
+	even_checkpoints:	False
+	max_steps:	2000000
+	time_horizon:	64
+	summary_freq:	10000
+	threaded:	False
+	self_play:	None
+	behavioral_cloning:	None
+[WARNING] Reward signal Curiosity is not supported with the POCA trainer; results may be unexpected.
+C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+  return func(*args, **kwargs)
+[INFO] CrossTheRoad. Step: 10000. Time Elapsed: 12.496 s. Mean Reward: 0.025. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 20000. Time Elapsed: 24.553 s. Mean Reward: -0.001. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 30000. Time Elapsed: 36.100 s. Mean Reward: -0.012. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 40000. Time Elapsed: 47.936 s. Mean Reward: 0.001. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 50000. Time Elapsed: 59.760 s. Mean Reward: -0.019. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 60000. Time Elapsed: 71.351 s. Mean Reward: -0.002. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 70000. Time Elapsed: 82.812 s. Mean Reward: 0.022. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 80000. Time Elapsed: 95.352 s. Mean Reward: 0.034. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 90000. Time Elapsed: 114.733 s. Mean Reward: 0.058. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 100000. Time Elapsed: 134.786 s. Mean Reward: 0.142. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 110000. Time Elapsed: 155.339 s. Mean Reward: 0.075. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 120000. Time Elapsed: 176.159 s. Mean Reward: 0.120. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 130000. Time Elapsed: 200.110 s. Mean Reward: 0.115. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 140000. Time Elapsed: 220.597 s. Mean Reward: 0.150. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 150000. Time Elapsed: 241.634 s. Mean Reward: 0.117. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 160000. Time Elapsed: 263.661 s. Mean Reward: 0.106. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 170000. Time Elapsed: 288.434 s. Mean Reward: 0.139. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 180000. Time Elapsed: 313.507 s. Mean Reward: 0.126. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 190000. Time Elapsed: 338.472 s. Mean Reward: 0.144. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 200000. Time Elapsed: 363.652 s. Mean Reward: 0.148. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 210000. Time Elapsed: 388.518 s. Mean Reward: 0.166. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 220000. Time Elapsed: 413.347 s. Mean Reward: 0.173. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 230000. Time Elapsed: 437.935 s. Mean Reward: 0.185. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 240000. Time Elapsed: 462.034 s. Mean Reward: 0.208. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 250000. Time Elapsed: 483.980 s. Mean Reward: 0.281. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 260000. Time Elapsed: 505.063 s. Mean Reward: 0.276. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 270000. Time Elapsed: 525.354 s. Mean Reward: 0.293. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 280000. Time Elapsed: 545.886 s. Mean Reward: 0.298. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 290000. Time Elapsed: 567.992 s. Mean Reward: 0.355. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 300000. Time Elapsed: 588.724 s. Mean Reward: 0.294. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 310000. Time Elapsed: 607.610 s. Mean Reward: 0.402. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 320000. Time Elapsed: 626.749 s. Mean Reward: 0.400. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 330000. Time Elapsed: 644.780 s. Mean Reward: 0.453. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 340000. Time Elapsed: 664.393 s. Mean Reward: 0.389. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 350000. Time Elapsed: 683.597 s. Mean Reward: 0.475. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 360000. Time Elapsed: 703.669 s. Mean Reward: 0.455. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 370000. Time Elapsed: 722.594 s. Mean Reward: 0.540. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 380000. Time Elapsed: 737.212 s. Mean Reward: 0.626. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 390000. Time Elapsed: 758.778 s. Mean Reward: 0.479. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 400000. Time Elapsed: 778.355 s. Mean Reward: 0.523. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 410000. Time Elapsed: 796.961 s. Mean Reward: 0.548. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 420000. Time Elapsed: 816.003 s. Mean Reward: 0.537. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 430000. Time Elapsed: 835.405 s. Mean Reward: 0.526. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 440000. Time Elapsed: 854.906 s. Mean Reward: 0.545. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 450000. Time Elapsed: 873.470 s. Mean Reward: 0.625. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 460000. Time Elapsed: 891.627 s. Mean Reward: 0.529. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 470000. Time Elapsed: 910.074 s. Mean Reward: 0.626. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 480000. Time Elapsed: 928.389 s. Mean Reward: 0.597. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 490000. Time Elapsed: 947.813 s. Mean Reward: 0.532. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 500000. Time Elapsed: 966.843 s. Mean Reward: 0.595. Mean Group Reward: 0.000. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad\CrossTheRoad-499991.onnx
+[INFO] CrossTheRoad. Step: 510000. Time Elapsed: 986.018 s. Mean Reward: 0.550. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 520000. Time Elapsed: 1004.894 s. Mean Reward: 0.568. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 530000. Time Elapsed: 1024.019 s. Mean Reward: 0.610. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 540000. Time Elapsed: 1042.862 s. Mean Reward: 0.576. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 550000. Time Elapsed: 1062.120 s. Mean Reward: 0.543. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 560000. Time Elapsed: 1080.822 s. Mean Reward: 0.604. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 570000. Time Elapsed: 1099.909 s. Mean Reward: 0.569. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 580000. Time Elapsed: 1118.725 s. Mean Reward: 0.605. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 590000. Time Elapsed: 1137.374 s. Mean Reward: 0.569. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 600000. Time Elapsed: 1156.908 s. Mean Reward: 0.545. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 610000. Time Elapsed: 1176.324 s. Mean Reward: 0.576. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 620000. Time Elapsed: 1194.620 s. Mean Reward: 0.577. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 630000. Time Elapsed: 1213.708 s. Mean Reward: 0.605. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 640000. Time Elapsed: 1232.178 s. Mean Reward: 0.580. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 650000. Time Elapsed: 1251.047 s. Mean Reward: 0.604. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 660000. Time Elapsed: 1268.748 s. Mean Reward: 0.567. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 670000. Time Elapsed: 1286.451 s. Mean Reward: 0.632. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 680000. Time Elapsed: 1304.278 s. Mean Reward: 0.597. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 690000. Time Elapsed: 1322.517 s. Mean Reward: 0.568. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 700000. Time Elapsed: 1341.283 s. Mean Reward: 0.604. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 710000. Time Elapsed: 1359.963 s. Mean Reward: 0.564. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 720000. Time Elapsed: 1378.278 s. Mean Reward: 0.605. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 730000. Time Elapsed: 1396.639 s. Mean Reward: 0.599. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 740000. Time Elapsed: 1411.295 s. Mean Reward: 0.539. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 750000. Time Elapsed: 1430.524 s. Mean Reward: 0.618. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 760000. Time Elapsed: 1449.401 s. Mean Reward: 0.583. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 770000. Time Elapsed: 1468.314 s. Mean Reward: 0.592. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 780000. Time Elapsed: 1487.126 s. Mean Reward: 0.599. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 790000. Time Elapsed: 1504.961 s. Mean Reward: 0.616. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 800000. Time Elapsed: 1522.550 s. Mean Reward: 0.636. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 810000. Time Elapsed: 1540.490 s. Mean Reward: 0.561. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 820000. Time Elapsed: 1558.420 s. Mean Reward: 0.624. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 830000. Time Elapsed: 1575.925 s. Mean Reward: 0.621. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 840000. Time Elapsed: 1593.717 s. Mean Reward: 0.632. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 850000. Time Elapsed: 1611.233 s. Mean Reward: 0.624. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 860000. Time Elapsed: 1628.892 s. Mean Reward: 0.643. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 870000. Time Elapsed: 1646.599 s. Mean Reward: 0.615. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 880000. Time Elapsed: 1664.510 s. Mean Reward: 0.612. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 890000. Time Elapsed: 1682.208 s. Mean Reward: 0.657. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 900000. Time Elapsed: 1699.755 s. Mean Reward: 0.637. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 910000. Time Elapsed: 1717.191 s. Mean Reward: 0.641. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 920000. Time Elapsed: 1735.321 s. Mean Reward: 0.624. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 930000. Time Elapsed: 1752.822 s. Mean Reward: 0.642. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 940000. Time Elapsed: 1770.994 s. Mean Reward: 0.605. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 950000. Time Elapsed: 1788.891 s. Mean Reward: 0.627. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 960000. Time Elapsed: 1806.711 s. Mean Reward: 0.640. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 970000. Time Elapsed: 1824.387 s. Mean Reward: 0.624. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 980000. Time Elapsed: 1842.709 s. Mean Reward: 0.657. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 990000. Time Elapsed: 1861.888 s. Mean Reward: 0.590. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1000000. Time Elapsed: 1880.743 s. Mean Reward: 0.641. Mean Group Reward: 0.000. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad\CrossTheRoad-999995.onnx
+[INFO] CrossTheRoad. Step: 1010000. Time Elapsed: 1899.402 s. Mean Reward: 0.644. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1020000. Time Elapsed: 1918.369 s. Mean Reward: 0.644. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1030000. Time Elapsed: 1937.048 s. Mean Reward: 0.652. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1040000. Time Elapsed: 1957.466 s. Mean Reward: 0.665. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1050000. Time Elapsed: 1975.114 s. Mean Reward: 0.728. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1060000. Time Elapsed: 1996.025 s. Mean Reward: 0.658. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1070000. Time Elapsed: 2014.535 s. Mean Reward: 0.663. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1080000. Time Elapsed: 2032.342 s. Mean Reward: 0.687. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1090000. Time Elapsed: 2051.025 s. Mean Reward: 0.654. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1100000. Time Elapsed: 2069.423 s. Mean Reward: 0.689. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1110000. Time Elapsed: 2085.634 s. Mean Reward: 0.668. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1120000. Time Elapsed: 2104.792 s. Mean Reward: 0.704. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1130000. Time Elapsed: 2123.700 s. Mean Reward: 0.637. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1140000. Time Elapsed: 2142.323 s. Mean Reward: 0.698. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1150000. Time Elapsed: 2161.368 s. Mean Reward: 0.676. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1160000. Time Elapsed: 2181.019 s. Mean Reward: 0.673. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1170000. Time Elapsed: 2198.341 s. Mean Reward: 0.693. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1180000. Time Elapsed: 2216.046 s. Mean Reward: 0.734. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1190000. Time Elapsed: 2233.829 s. Mean Reward: 0.673. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1200000. Time Elapsed: 2251.480 s. Mean Reward: 0.720. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1210000. Time Elapsed: 2269.094 s. Mean Reward: 0.709. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1220000. Time Elapsed: 2286.936 s. Mean Reward: 0.620. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1230000. Time Elapsed: 2304.781 s. Mean Reward: 0.669. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1240000. Time Elapsed: 2322.463 s. Mean Reward: 0.702. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1250000. Time Elapsed: 2341.115 s. Mean Reward: 0.665. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1260000. Time Elapsed: 2359.808 s. Mean Reward: 0.674. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1270000. Time Elapsed: 2380.437 s. Mean Reward: 0.654. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1280000. Time Elapsed: 2402.025 s. Mean Reward: 0.689. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1290000. Time Elapsed: 2420.050 s. Mean Reward: 0.704. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1300000. Time Elapsed: 2438.302 s. Mean Reward: 0.724. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1310000. Time Elapsed: 2456.467 s. Mean Reward: 0.674. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1320000. Time Elapsed: 2471.218 s. Mean Reward: 0.733. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1330000. Time Elapsed: 2482.741 s. Mean Reward: 0.713. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1340000. Time Elapsed: 2494.165 s. Mean Reward: 0.751. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1350000. Time Elapsed: 2505.429 s. Mean Reward: 0.769. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1360000. Time Elapsed: 2516.972 s. Mean Reward: 0.751. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1370000. Time Elapsed: 2528.275 s. Mean Reward: 0.730. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1380000. Time Elapsed: 2539.722 s. Mean Reward: 0.728. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1390000. Time Elapsed: 2551.723 s. Mean Reward: 0.711. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1400000. Time Elapsed: 2563.077 s. Mean Reward: 0.723. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1410000. Time Elapsed: 2575.331 s. Mean Reward: 0.792. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1420000. Time Elapsed: 2587.624 s. Mean Reward: 0.792. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1430000. Time Elapsed: 2599.739 s. Mean Reward: 0.751. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1440000. Time Elapsed: 2614.066 s. Mean Reward: 0.781. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1450000. Time Elapsed: 2626.301 s. Mean Reward: 0.745. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1460000. Time Elapsed: 2638.125 s. Mean Reward: 0.783. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1470000. Time Elapsed: 2650.133 s. Mean Reward: 0.745. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1480000. Time Elapsed: 2660.828 s. Mean Reward: 0.829. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1490000. Time Elapsed: 2673.281 s. Mean Reward: 0.790. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1500000. Time Elapsed: 2685.613 s. Mean Reward: 0.779. Mean Group Reward: 0.000. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad\CrossTheRoad-1499969.onnx
+[INFO] CrossTheRoad. Step: 1510000. Time Elapsed: 2698.214 s. Mean Reward: 0.789. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1520000. Time Elapsed: 2709.944 s. Mean Reward: 0.796. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1530000. Time Elapsed: 2722.006 s. Mean Reward: 0.769. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1540000. Time Elapsed: 2734.215 s. Mean Reward: 0.833. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1550000. Time Elapsed: 2746.618 s. Mean Reward: 0.787. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1560000. Time Elapsed: 2758.836 s. Mean Reward: 0.812. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1570000. Time Elapsed: 2771.340 s. Mean Reward: 0.805. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1580000. Time Elapsed: 2783.841 s. Mean Reward: 0.768. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1590000. Time Elapsed: 2796.904 s. Mean Reward: 0.815. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1600000. Time Elapsed: 2810.702 s. Mean Reward: 0.753. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1610000. Time Elapsed: 2822.382 s. Mean Reward: 0.812. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1620000. Time Elapsed: 2833.608 s. Mean Reward: 0.836. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1630000. Time Elapsed: 2845.278 s. Mean Reward: 0.788. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1640000. Time Elapsed: 2856.410 s. Mean Reward: 0.799. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1650000. Time Elapsed: 2868.117 s. Mean Reward: 0.818. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1660000. Time Elapsed: 2879.513 s. Mean Reward: 0.833. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1670000. Time Elapsed: 2895.598 s. Mean Reward: 0.866. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1680000. Time Elapsed: 2909.334 s. Mean Reward: 0.831. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1690000. Time Elapsed: 2928.718 s. Mean Reward: 0.823. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1700000. Time Elapsed: 2947.577 s. Mean Reward: 0.815. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1710000. Time Elapsed: 2965.497 s. Mean Reward: 0.744. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1720000. Time Elapsed: 2984.080 s. Mean Reward: 0.877. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1730000. Time Elapsed: 3005.245 s. Mean Reward: 0.858. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1740000. Time Elapsed: 3026.487 s. Mean Reward: 0.829. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1750000. Time Elapsed: 3045.748 s. Mean Reward: 0.857. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1760000. Time Elapsed: 3063.666 s. Mean Reward: 0.809. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1770000. Time Elapsed: 3082.156 s. Mean Reward: 0.862. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1780000. Time Elapsed: 3101.958 s. Mean Reward: 0.824. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1790000. Time Elapsed: 3122.008 s. Mean Reward: 0.780. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1800000. Time Elapsed: 3140.818 s. Mean Reward: 0.900. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1810000. Time Elapsed: 3159.267 s. Mean Reward: 0.830. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1820000. Time Elapsed: 3178.371 s. Mean Reward: 0.868. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1830000. Time Elapsed: 3197.832 s. Mean Reward: 0.857. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1840000. Time Elapsed: 3217.156 s. Mean Reward: 0.844. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1850000. Time Elapsed: 3235.124 s. Mean Reward: 0.868. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1860000. Time Elapsed: 3249.466 s. Mean Reward: 0.847. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1870000. Time Elapsed: 3267.867 s. Mean Reward: 0.851. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1880000. Time Elapsed: 3287.630 s. Mean Reward: 0.818. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1890000. Time Elapsed: 3305.375 s. Mean Reward: 0.847. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1900000. Time Elapsed: 3325.556 s. Mean Reward: 0.837. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1910000. Time Elapsed: 3346.150 s. Mean Reward: 0.832. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1920000. Time Elapsed: 3367.135 s. Mean Reward: 0.823. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1930000. Time Elapsed: 3386.744 s. Mean Reward: 0.819. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1940000. Time Elapsed: 3404.283 s. Mean Reward: 0.861. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1950000. Time Elapsed: 3422.393 s. Mean Reward: 0.770. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1960000. Time Elapsed: 3440.091 s. Mean Reward: 0.822. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1970000. Time Elapsed: 3455.494 s. Mean Reward: 0.793. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1980000. Time Elapsed: 3466.478 s. Mean Reward: 0.839. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 1990000. Time Elapsed: 3477.654 s. Mean Reward: 0.822. Mean Group Reward: 0.000. Training.
+[INFO] CrossTheRoad. Step: 2000000. Time Elapsed: 3488.731 s. Mean Reward: 0.845. Mean Group Reward: 0.000. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad\CrossTheRoad-1999993.onnx
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad\CrossTheRoad-2000046.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad\CrossTheRoad-2000046.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_mappo_v1\CrossTheRoad.onnx.

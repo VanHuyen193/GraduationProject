@@ -1,0 +1,59 @@
+{
+    "handoff_required": {
+        "lesson_num": 1
+    },
+    "PuzzleBehavior": {
+        "checkpoints": [
+            {
+                "steps": 499946,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-499946.onnx",
+                "reward": 0.8013225197209977,
+                "creation_time": 1785299375.3469696,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-499946.pt"
+                ]
+            },
+            {
+                "steps": 999876,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-999876.onnx",
+                "reward": 0.8237597472965718,
+                "creation_time": 1785300267.8175132,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-999876.pt"
+                ]
+            },
+            {
+                "steps": 1499940,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-1499940.onnx",
+                "reward": 0.8472005861500899,
+                "creation_time": 1785301181.343172,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-1499940.pt"
+                ]
+            },
+            {
+                "steps": 1700166,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-1700166.onnx",
+                "reward": 0.82497009409902,
+                "creation_time": 1785301549.3195918,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-1700166.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1700166,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior.onnx",
+            "reward": 0.82497009409902,
+            "creation_time": 1785301549.3195918,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_ppo_v1\\PuzzleBehavior\\PuzzleBehavior-1700166.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

@@ -1,0 +1,80 @@
+[INFO] Connected to Unity environment with package version 4.0.2 and communication version 1.5.0
+[INFO] Connected new brain: Football?team=1
+[INFO] Connected new brain: Football?team=0
+
+            ┐  ╖
+        ╓╖╬│╡  ││╬╖╖
+    ╓╖╬│││││┘  ╬│││││╬╖
+ ╖╬│││││╬╜        ╙╬│││││╖╖                               ╗╗╗
+ ╬╬╬╬╖││╦╖        ╖╬││╗╣╣╣╬      ╟╣╣╬    ╟╣╣╣             ╜╜╜  ╟╣╣
+ ╬╬╬╬╬╬╬╬╖│╬╖╖╓╬╪│╓╣╣╣╣╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╒╣╣╖╗╣╣╣╗   ╣╣╣ ╣╣╣╣╣╣ ╟╣╣╖   ╣╣╣
+ ╬╬╬╬┐  ╙╬╬╬╬│╓╣╣╣╝╜  ╫╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╟╣╣╣╙ ╙╣╣╣  ╣╣╣ ╙╟╣╣╜╙  ╫╣╣  ╟╣╣
+ ╬╬╬╬┐     ╙╬╬╣╣      ╫╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╟╣╣╬   ╣╣╣  ╣╣╣  ╟╣╣     ╣╣╣┌╣╣╜
+ ╬╬╬╜       ╬╬╣╣      ╙╝╣╣╬      ╙╣╣╣╗╖╓╗╣╣╣╜ ╟╣╣╬   ╣╣╣  ╣╣╣  ╟╣╣╦╓    ╣╣╣╣╣
+ ╙   ╓╦╖    ╬╬╣╣   ╓╗╗╖            ╙╝╣╣╣╣╝╜   ╘╝╝╜   ╝╝╝  ╝╝╝   ╙╣╣╣    ╟╣╣╣
+   ╩╬╬╬╬╬╬╦╦╬╬╣╣╗╣╣╣╣╣╣╣╝                                             ╫╣╣╣╣
+      ╙╬╬╬╬╬╬╬╣╣╣╣╣╣╝╜
+          ╙╬╬╬╣╣╣╜
+             ╙
+        
+ Version information:
+  ml-agents: 1.2.0.dev0,
+  ml-agents-envs: 1.2.0.dev0,
+  Communicator API: 1.5.0,
+  PyTorch: 2.2.2+cu121
+[INFO] Hyperparameters for behavior name Football: 
+	trainer_type:	poca
+	hyperparameters:	
+	  batch_size:	2048
+	  buffer_size:	40960
+	  learning_rate:	0.0003
+	  beta:	0.005
+	  epsilon:	0.2
+	  lambd:	0.95
+	  num_epoch:	5
+	  learning_rate_schedule:	linear
+	  beta_schedule:	linear
+	  epsilon_schedule:	linear
+	checkpoint_interval:	500000
+	network_settings:	
+	  normalize:	True
+	  hidden_units:	256
+	  num_layers:	2
+	  vis_encode_type:	simple
+	  memory:	None
+	  goal_conditioning_type:	hyper
+	  deterministic:	False
+	reward_signals:	
+	  extrinsic:	
+	    gamma:	0.99
+	    strength:	1.0
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	init_path:	None
+	keep_checkpoints:	10
+	even_checkpoints:	False
+	max_steps:	20000
+	time_horizon:	1000
+	summary_freq:	5000
+	threaded:	False
+	self_play:	
+	  save_steps:	50000
+	  team_change:	100000
+	  swap_steps:	200000
+	  window:	10
+	  play_against_latest_model_ratio:	0.5
+	  initial_elo:	1200.0
+	behavioral_cloning:	None
+[WARNING] The max steps of the GhostTrainer for behavior name Football is less than team change. This team will not face                 opposition that has been trained if the opposition is managed by a different GhostTrainer as in an                 asymmetric game.
+[INFO] Football. Step: 5000. Time Elapsed: 8.946 s. Mean Reward: 1.850. Mean Group Reward: 0.000. Training. ELO: 1200.297.
+[INFO] Football. Step: 10000. Time Elapsed: 13.202 s. Mean Reward: 1.870. Mean Group Reward: 0.000. Training. ELO: 1200.030.
+[INFO] Football. Step: 15000. Time Elapsed: 17.867 s. Mean Reward: 0.964. Mean Group Reward: 0.000. Training. ELO: 1198.340.
+[INFO] Football. Step: 20000. Time Elapsed: 22.552 s. Mean Reward: 2.199. Mean Group Reward: 0.000. Training. ELO: 1197.406.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_POCA_01\Football\Football-20163.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_POCA_01\Football\Football-20163.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_POCA_01\Football.onnx.

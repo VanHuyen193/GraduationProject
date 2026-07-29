@@ -43,6 +43,8 @@ ENVIRONMENTS = [
             {"algo": "PPO", "dirs": ["FB01"]},                  # 1.59M self-play
             {"algo": "SAC", "dirs": ["Football_SAC_01"]},       # 0.92M
             {"algo": "MA-POCA", "dirs": ["Football_POCA_01"]},  # 0.91M
+            {"algo": "MAPPO", "dirs": ["Football_MAPPO_01"]},
+            {"algo": "DQN", "dirs": ["football_dqn_v1"]},       # can build FootballDiscrete
         ],
     },
     {
@@ -54,6 +56,7 @@ ENVIRONMENTS = [
             {"algo": "SAC", "dirs": ["CrossTheRoad_SAC_01"]},   # hoi tu som (200K)
             {"algo": "MA-POCA", "dirs": ["ctr_poca_v1"]},       # 2.0M steps
             {"algo": "MAPPO", "dirs": ["ctr_mappo_v1"]},        # 2.0M steps
+            {"algo": "DQN", "dirs": ["ctr_dqn_v1"]},
         ],
     },
     {
@@ -61,8 +64,11 @@ ENVIRONMENTS = [
         "name": "Capture The Flag",
         "behavior": "PuzzleBehavior",
         "algos": [
+            {"algo": "PPO", "dirs": ["ctf_ppo_v1"]},
+            {"algo": "SAC", "dirs": ["ctf_sac_v1"]},
             {"algo": "MA-POCA", "dirs": ["ctf_poca_v2"]},       # 1.68M
             {"algo": "MAPPO", "dirs": ["ctf_mappo_v2"]},        # 1.52M
+            {"algo": "DQN", "dirs": ["ctf_dqn_v1"]},
         ],
     },
 ]

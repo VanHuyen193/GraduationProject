@@ -1,0 +1,557 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.3/staging' branch; Version is '6000.3.14f1 (d68c3f99a318) revision 14060607'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) Professional' Language: 'en' Physical Memory: 32614 MB
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Admin" at "2026-07-28T01:55:29.3531493Z"
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-07-28T01:55:29Z
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Unity.exe
+-batchmode
+-nographics
+-projectPath
+C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject
+-executeMethod
+GraduationProject.EditorTools.TrainingAreaMultiplier.BuildAllFromCommandLine
+-logFile
+C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\unity_areas_20260728_085529.log
+-areaCount
+8
+-areaColumns
+4
+Successfully changed project path to: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject
+C:/Users/Admin/Documents/GitHub/GraduationProject/GraduationProject
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+Player connection [43552]  Target information:
+
+Player connection [43552]  * "[IP] 192.168.100.187 [Port] 55505 [Flags] 2 [Guid] 2231360979 [EditorId] 2231360979 [Version] 1048832 [Id] WindowsEditor(7,Admin-PC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [43552] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [43552] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-9036" after 0.5 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::Client] Error: HandshakeResponse reported an error:
+	ResponseCode: 505
+	ResponseStatus: Unsupported protocol version '1.18.1'.
+[Licensing::Module] Error: Failed to handshake to channel: "LicenseClient-Admin"
+[Licensing::IpcConnector] LicenseClient-Admin channel disconnected successfully.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Admin-6000.3.14" at "2026-07-28T01:55:30.0276904Z"
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              a74ba707a5ea4f1eac443938eb60cd24
+  Correlation Id:          f74c71360e9dd8c76bcc8d853a8acbb2
+  External correlation Id: 125422714629895726
+  Machine Id:              kbL1gxVji6CZgELz7boauBs5afI=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Admin-6000.3.14" (connect: 0.00s, validation: 0.00s, handshake: 0.61s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Admin-6000.3.14-notifications" at "2026-07-28T01:55:30.6400846Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 18967721460531-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 1.29s
+[Licensing::Module] Licensing is initialized (took 0.65s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Artifact Garbage Collection - Removed 27 unused hashed content files
+Refreshing native plugins compatible for Editor in 6.84 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 6000.3.14f1 (d68c3f99a318)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Admin/Documents/GitHub/GraduationProject/GraduationProject/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56036
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+[Licensing::Client] Successfully resolved entitlement details
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.14f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Registered in 0.003959 seconds.
+- Loaded All Assemblies, in  0.698 seconds
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.300 seconds
+Domain Reload Profiling: 997ms
+	BeginReloadAssembly (274ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (5ms)
+	RebuildCommonClasses (25ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (34ms)
+	LoadAllAssembliesAndSetupDomain (355ms)
+		LoadAssemblies (272ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (349ms)
+			TypeCache.Refresh (347ms)
+				TypeCache.ScanAssembly (144ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (300ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (275ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (72ms)
+			SetLoadedEditorAssemblies (3ms)
+			BeforeProcessingInitializeOnLoad (51ms)
+			ProcessInitializeOnLoadAttributes (96ms)
+			ProcessInitializeOnLoadMethodAttributes (53ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 68 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.ai.assistant@2.6.0-pre.1 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ai.assistant@fc16ca46e208)
+    com.unity.ai.inference@2.6.1 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ai.inference@9a123aee5df7)
+    com.unity.collab-proxy@2.12.4 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.collab-proxy@0b1559bcd34e)
+    com.unity.ml-agents@4.0.2 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ml-agents@0f918b8a6271)
+    com.unity.timeline@1.8.12 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.timeline@8cd8509afae5)
+    com.unity.visualscripting@1.9.11 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.visualscripting@8bed5ad90189)
+    com.unity.ide.visualstudio@2.0.26 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.ide.rider@3.0.39 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ide.rider@4504839d03f7)
+    com.unity.editorcoroutines@1.1.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.editorcoroutines@87a15ed012c2)
+    com.unity.performance.profile-analyzer@1.3.3 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.performance.profile-analyzer@10347e9ce886)
+    com.unity.testtools.codecoverage@1.3.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.testtools.codecoverage@19a841221620)
+    com.unity.burst@1.8.29 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
+    com.unity.dt.app-ui@2.1.1 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.dt.app-ui@8ac7e730dd5d)
+    com.unity.collections@2.6.5 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.collections@12999e356c23)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.mathematics@1.3.3 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.mathematics@19a9377c4ffa)
+    com.unity.cloud.gltfast@6.14.1 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.cloud.gltfast@0847aee0f6da)
+    com.unity.serialization@3.1.3 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.serialization@7725fb70c685)
+    com.unity.searcher@4.9.4 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.searcher@d45a78918735)
+    com.unity.settings-manager@2.1.1 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.settings-manager@0b8638c5ce86)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.4.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.test-framework.performance@aa81a99c4a75)
+  Built-in packages:
+    com.unity.feature.development@1.0.2 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.feature.development@767aadbc6eb7)
+    com.unity.multiplayer.center@1.0.1 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.multiplayer.center@f01f4ba8d00a)
+    com.unity.render-pipelines.universal@17.3.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.render-pipelines.universal@3b809f23691d)
+    com.unity.ugui@2.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ugui@8ccc29d23a79)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.vr@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.vr)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.render-pipelines.core@17.3.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.render-pipelines.core@02dfbe8e43de)
+    com.unity.shadergraph@17.3.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.shadergraph@28ee1cc75774)
+    com.unity.render-pipelines.universal-config@17.0.3 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.render-pipelines.universal-config@8dc1aab4af1d)
+    com.unity.test-framework@1.6.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.test-framework@aebcb98460c6)
+    com.unity.2d.sprite@1.0.0 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.2d.sprite@d14b9d497a24)
+    com.unity.ext.nunit@2.0.5 (location: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Library\PackageCache\com.unity.ext.nunit@d8c07649098d)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+[ScriptCompilation] Requested script compilation because: Assetdatabase observed changes in script compilation related files
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Refreshing native plugins compatible for Editor in 76.53 ms, found 6 plugins.
+Starting: C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/Admin/Documents/GitHub/GraduationProject/GraduationProject
+DisplayProgressbar: Compiling Scripts
+ExitCode: 4 Duration: 0s925ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/1900b0aE-inputdata.json
+[1216/1660  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra requires additional run (0.87 seconds), 1 items updated, 1208 evaluated
+Starting: C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Data\netcorerun\netcorerun.exe "C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Data\Tools\BuildPipeline\ScriptCompilationBuildProgram.exe" "Library/Bee/1900b0aE.dag.json" "Library/Bee/1900b0aE-inputdata.json" "Library\Bee\buildprogram0.traceevents"
+WorkingDir: C:/Users/Admin/Documents/GitHub/GraduationProject/GraduationProject
+ExitCode: 0 Duration: 1s989ms
+Starting: C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --dagfilejson="Library\Bee\1900b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/Admin/Documents/GitHub/GraduationProject/GraduationProject
+ExitCode: 0 Duration: 4s728ms
+Finished compiling graph: 1664 nodes, 35136 flattened edges (28474 ToBuild, 278 ToUse), maximum node priority 1896
+[ 850/1660  0s] WriteText Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.rsp
+[1259/1660  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1656/1660  2s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+[1657/1660  1s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll, with 138 defines and 386 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[1658/1660  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[1659/1660  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (4.71 seconds), 6 items updated, 1660 evaluated
+AssetDatabase: script compilation time: 8.084050s
+Begin MonoManager ReloadAssembly
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.- Loaded All Assemblies, in 11.290 seconds
+Start importing Assets/Resources using Guid(11b690a5d1abe8d4881c4da859da3ce5) (DefaultImporter) -> (artifact id: '0a5dded714a2e87cb9e092a4de738c0c') in 0.0119621 seconds
+Refreshing native plugins compatible for Editor in 2.72 ms, found 6 plugins.
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 2.89 ms, found 6 plugins.
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Refreshing native plugins compatible for Editor in 3.07 ms, found 6 plugins.
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  3.690 seconds
+Domain Reload Profiling: 14975ms
+	BeginReloadAssembly (262ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (13ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (154ms)
+	RebuildCommonClasses (24ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (39ms)
+	LoadAllAssembliesAndSetupDomain (10952ms)
+		LoadAssemblies (10634ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (386ms)
+			TypeCache.Refresh (298ms)
+				TypeCache.ScanAssembly (282ms)
+			BuildScriptInfoCaches (74ms)
+			ResolveRequiredComponents (8ms)
+	FinalizeReload (3690ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (3573ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (24ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (157ms)
+			ProcessInitializeOnLoadAttributes (3220ms)
+			ProcessInitializeOnLoadMethodAttributes (164ms)
+			AfterProcessingInitializeOnLoad (4ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Start importing Assets/Football/Football.unity using Guid(1016d6715fe70674f8610496e146dfc4) (DefaultImporter) -> (artifact id: '3671d111bd6316ef3d0b90ff5511e87d') in 0.0106353 seconds
+Start importing Assets/CrossTheRoad/Scenes/CrossTheRoad.unity using Guid(009e6d5029dd34db29ff5e206b9a2ab0) (DefaultImporter) -> (artifact id: '6068bb1d748fd2f83377e9a9a143a81f') in 0.0060885 seconds
+Start importing Assets/Collaboration/Scenes/CaptureTheFlag.unity using Guid(49af766148bb1abff8873cd0e0c3c399) (DefaultImporter) -> (artifact id: '0ee03bbf3c23bf59ee864578190e3a7b') in 0.007232 seconds
+Start importing Packages/com.unity.render-pipelines.core/Tests/Editor/UnifiedRayTracing/TraceRays.urtshader using Guid(1142bbad8b9e8c44c83a9775ff120d37) (ScriptedImporter)Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+
+Compiling Ray Tracing Shader "TraceRays.urtshader", keywords = <no keywords>
+    finished in 0.01 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: 'a8ea6742f6b880d9739bf23df9eb18bb') in 0.105673 seconds
+Start importing Packages/com.unity.render-pipelines.universal/Runtime/RendererFeatures/SurfaceCacheGI/SurfaceCacheCore/RisEstimation.urtshader using Guid(713f6141bd66a134383b787f2eaa7c11) (ScriptedImporter)
+Compiling Ray Tracing Shader "RisEstimation.urtshader", keywords = <no keywords>
+    finished in 0.00 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: '85483653542df2a9584e21311af209c0') in 0.1300086 seconds
+Start importing Packages/com.unity.render-pipelines.core/Editor/Lighting/ProbeVolume/RenderingLayerMask/TraceRenderingLayerMask.urtshader using Guid(94a070d33e408384bafc1dea4a565df9) (ScriptedImporter)
+Compiling Ray Tracing Shader "TraceRenderingLayerMask.urtshader", keywords = <no keywords>
+    finished in 0.01 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: 'f6bb3bec601b57d177013f54cb992ef1') in 0.0812629 seconds
+Start importing Packages/com.unity.render-pipelines.universal/Runtime/RendererFeatures/SurfaceCacheGI/SurfaceCacheCore/UniformEstimation.urtshader using Guid(94a39d12848d8d64ca962a72b74e7c50) (ScriptedImporter)
+Compiling Ray Tracing Shader "UniformEstimation.urtshader", keywords = <no keywords>
+    finished in 0.01 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: '1f0c4babd42b95190a91ecdc2fab132e') in 0.0305939 seconds
+Start importing Packages/com.unity.render-pipelines.core/Tests/Editor/UnifiedRayTracing/TraceTransparentRays.urtshader using Guid(6513c3b892e933c4f8d00c19d5c47532) (ScriptedImporter)
+Compiling Ray Tracing Shader "TraceTransparentRays.urtshader", keywords = <no keywords>
+    finished in 0.00 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: 'd432cdd77f7a99d2ab5546ea5c7fd3a4') in 0.0185769 seconds
+Start importing Assets/Resources/PerformanceTestRunInfo.json using Guid(370871baf20fcce4fae8d4b1b9dca964) (TextScriptImporter) -> (artifact id: '1de067b23c9f6a8415ed3514d2cdb8fa') in 0.0017379 seconds
+Start importing Assets/Resources/PerformanceTestRunSettings.json using Guid(6865c6695c8774b41a72d6135cbb467b) (TextScriptImporter) -> (artifact id: '06631d01a91d3b7115ebb0f02257b2ca') in 0.0011685 seconds
+Start importing Packages/com.unity.render-pipelines.core/Editor/Lighting/ProbeVolume/DynamicGI/DynamicGISkyOcclusion.urtshader using Guid(5a2a534753fbdb44e96c3c78b5a6999d) (ScriptedImporter)
+Compiling Ray Tracing Shader "DynamicGISkyOcclusion.urtshader", keywords = <no keywords>
+    finished in 0.00 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: '0e972ffc1eaacfd3d5ff1f02b75498da') in 0.0209079 seconds
+Start importing Packages/com.unity.render-pipelines.core/Tests/Editor/UnifiedRayTracing/TraceRaysAndFetchAttributes.urtshader using Guid(fbc59f55df2416344b008dc23753cae2) (ScriptedImporter)
+Compiling Ray Tracing Shader "TraceRaysAndFetchAttributes.urtshader", keywords = <no keywords>
+    finished in 0.00 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: '5e518210d64afcf414624668b000722c') in 0.0193181 seconds
+Start importing Packages/com.unity.render-pipelines.universal/Runtime/RendererFeatures/SurfaceCacheGI/SurfaceCacheCore/RestirCandidateTemporal.urtshader using Guid(ad3a9f9982f8c4f4a839a78955e78458) (ScriptedImporter)
+Compiling Ray Tracing Shader "RestirCandidateTemporal.urtshader", keywords = <no keywords>
+    finished in 0.01 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: 'bb4b7d12fb6ed0039744ade1ce8b423b') in 0.0368097 seconds
+Start importing Assets/ML-Agents/Timers/MainMenu_timers.json using Guid(feac302115f01e44c915526640f174fb) (TextScriptImporter) -> (artifact id: 'a34b7f117930ba2e36b03858250df99c') in 0.0064147 seconds
+Start importing Packages/com.unity.render-pipelines.core/Editor/Lighting/ProbeVolume/VirtualOffset/TraceVirtualOffset.urtshader using Guid(ff2cbab5da58bf04d82c5f34037ed123) (ScriptedImporter)
+Compiling Ray Tracing Shader "TraceVirtualOffset.urtshader", keywords = <no keywords>
+    finished in 0.01 seconds. Local cache hits 1, remote cache hits 0, compiled 0 platform variants
+ -> (artifact id: '6c6b9fa987ce9ca680d4a29ff6a084fa') in 0.0417099 seconds
+Refreshing native plugins compatible for Editor in 4.00 ms, found 6 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Asset Pipeline Refresh (id=7be298f40d078cd4896ec30e7451b259): Total: 29.313 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=16 (actual=16, local cache=0, cache server=0)
+		Asset DB Process Time: managed=2 ms, native=8416 ms
+		Asset DB Callback time: managed=1372 ms, native=84 ms
+		Scripting: domain reloads=1, domain reload time=11290 ms, compile time=8086 ms, other=60 ms
+		Project Asset Count: scripts=2310, non-scripts=5688
+		Asset File Changes: new=5, changed=9, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeCustomDependenciesCallbacks: 0.001ms
+	InvokePackagesCallback: 30.059ms
+	ApplyChangesToAssetFolders: 0.467ms
+	Scan: 144.335ms
+	OnSourceAssetsModified: 0.706ms
+	CategorizeAssetsWithTransientArtifact: 2591.729ms
+	ProcessAssetsWithTransientArtifactChanges: 80.341ms
+	CategorizeAssets: 86.156ms
+	ImportOutOfDateAssets: 4281.419ms (-4343.979ms without children)
+		ImportManagerImport: 538.461ms (4.425ms without children)
+			ImportInProcess: 533.587ms
+			UpdateCategorizedAssets: 0.449ms
+		CompileScripts: 8085.530ms
+		ReloadNativeAssets: 0.005ms
+		UnloadImportedAssets: 0.093ms
+		ReloadImportedAssets: 0.001ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.733ms
+		InitializingProgressBar: 0.005ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.001ms
+		OnDemandSchedulerStart: 0.569ms
+	PostProcessAllAssets: 1419.911ms
+	Hotreload: 7.894ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.001ms
+	UnloadStreamsBegin: 2.752ms
+	PersistCurrentRevisions: 0.329ms
+	UnloadStreamsEnd: 0.001ms
+	GenerateScriptTypeHashes: 2.904ms
+	Untracked: 20666.436ms
+
+Application.AssetDatabase Initial Refresh End
+Scanning for USB devices : 2.906ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-GraduationProject
+Unloading 172 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 10752 unused Assets / (3.7 MB). Loaded Objects now: 11632.
+Memory consumption went from 268.2 MB to 264.5 MB.
+Total: 14.552800 ms (FindLiveObjects: 0.581300 ms CreateObjectMapping: 0.504800 ms MarkObjects: 11.544500 ms  DeleteObjects: 1.921600 ms)
+
+Opening scene 'Assets/CrossTheRoad/Scenes/CrossTheRoad.unity'
+LightingSettings: switching bake backend from 2 to 1.
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/CrossTheRoad/Scenes/CrossTheRoad.unity'
+	Deserialize:            0.974 ms
+	Integration:            597.039 ms
+	Integration of assets:  0.002 ms
+	Thread Wait Time:       0.009 ms
+	Total Operation Time:   598.023 ms
+Unloading 5 unused Assets / (6.3 KB). Loaded Objects now: 33862.
+Memory consumption went from 276.9 MB to 276.9 MB.
+Total: 14.015400 ms (FindLiveObjects: 1.344400 ms CreateObjectMapping: 0.477500 ms MarkObjects: 12.118800 ms  DeleteObjects: 0.073900 ms)
+
+[AreaMultiplier] CrossTheRoad: 8 area (gốc 'CrossTheRoadArea' + 7 bản sao), bước lưới 48.3 x 48.3.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+GraduationProject.EditorTools.TrainingAreaMultiplier:Multiply (UnityEngine.GameObject,int,int,single) (at Assets/Editor/TrainingAreaMultiplier.cs:155)
+GraduationProject.EditorTools.TrainingAreaMultiplier:BuildAllFromCommandLine () (at Assets/Editor/TrainingAreaMultiplier.cs:221)
+
+(Filename: Assets/Editor/TrainingAreaMultiplier.cs Line: 155)
+
+Start importing ProjectSettings/EditorBuildSettings.asset using Guid(0000000000000000b000000000000000) (LibraryAssetImporter) -> (artifact id: 'bd5d07e567471ca4134d040652275190') in 0.0023693 seconds
+Refreshing native plugins compatible for Editor in 2.71 ms, found 6 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Asset Pipeline Refresh (id=3a25cc793ce7389428dc863e4b431652): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/CrossTheRoad/Scenes/CrossTheRoad.unity using Guid(009e6d5029dd34db29ff5e206b9a2ab0) (DefaultImporter) -> (artifact id: '215ad0b86b913c95721d38868e7b7f2a') in 0.0007133 seconds
+Refreshing native plugins compatible for Editor in 2.84 ms, found 6 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Asset Pipeline Refresh (id=cb8b2014960fb9a44901f3ef16a6ce6b): Total: 0.043 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[AreaMultiplier] Đã lưu Assets/CrossTheRoad/Scenes/CrossTheRoad.unity với 8 area.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+GraduationProject.EditorTools.TrainingAreaMultiplier:BuildAllFromCommandLine () (at Assets/Editor/TrainingAreaMultiplier.cs:224)
+
+(Filename: Assets/Editor/TrainingAreaMultiplier.cs Line: 224)
+
+Opening scene 'Assets/Collaboration/Scenes/CaptureTheFlag.unity'
+Unloading 27 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Collaboration/Scenes/CaptureTheFlag.unity'
+	Deserialize:            29.327 ms
+	Integration:            213.132 ms
+	Integration of assets:  0.394 ms
+	Thread Wait Time:       0.031 ms
+	Total Operation Time:   242.884 ms
+Unloading 3133 unused Assets / (17.6 MB). Loaded Objects now: 12818.
+Memory consumption went from 304.9 MB to 287.4 MB.
+Total: 14.341000 ms (FindLiveObjects: 0.672500 ms CreateObjectMapping: 0.257800 ms MarkObjects: 12.414500 ms  DeleteObjects: 0.995500 ms)
+
+[AreaMultiplier] CaptureTheFlag: 8 area (gốc 'TrainingArea' + 7 bản sao), bước lưới 57.5 x 115.3.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+GraduationProject.EditorTools.TrainingAreaMultiplier:Multiply (UnityEngine.GameObject,int,int,single) (at Assets/Editor/TrainingAreaMultiplier.cs:155)
+GraduationProject.EditorTools.TrainingAreaMultiplier:BuildAllFromCommandLine () (at Assets/Editor/TrainingAreaMultiplier.cs:221)
+
+(Filename: Assets/Editor/TrainingAreaMultiplier.cs Line: 155)
+
+Start importing Assets/Collaboration/Scenes/CaptureTheFlag.unity using Guid(49af766148bb1abff8873cd0e0c3c399) (DefaultImporter) -> (artifact id: '4944193636ed92a977468c7edc577cd4') in 0.0007474 seconds
+Refreshing native plugins compatible for Editor in 2.68 ms, found 6 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Asset Pipeline Refresh (id=c56d0d81774334440a70d428f28149b9): Total: 0.045 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[AreaMultiplier] Đã lưu Assets/Collaboration/Scenes/CaptureTheFlag.unity với 8 area.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+GraduationProject.EditorTools.TrainingAreaMultiplier:BuildAllFromCommandLine () (at Assets/Editor/TrainingAreaMultiplier.cs:224)
+
+(Filename: Assets/Editor/TrainingAreaMultiplier.cs Line: 224)
+
+Opening scene 'Assets/Football/Football.unity'
+LightingSettings: switching bake backend from 2 to 1.
+Unloading 28 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Football/Football.unity'
+	Deserialize:            166.708 ms
+	Integration:            257.529 ms
+	Integration of assets:  0.380 ms
+	Thread Wait Time:       -0.007 ms
+	Total Operation Time:   424.609 ms
+Unloading 201 unused Assets / (49.7 KB). Loaded Objects now: 22252.
+Memory consumption went from 261.6 MB to 261.6 MB.
+Total: 13.341400 ms (FindLiveObjects: 0.817200 ms CreateObjectMapping: 0.278600 ms MarkObjects: 12.036300 ms  DeleteObjects: 0.208500 ms)
+
+[AreaMultiplier] Football: 8 area (gốc 'Trainer' + 7 bản sao), bước lưới 1.5 x 1.9.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+GraduationProject.EditorTools.TrainingAreaMultiplier:Multiply (UnityEngine.GameObject,int,int,single) (at Assets/Editor/TrainingAreaMultiplier.cs:155)
+GraduationProject.EditorTools.TrainingAreaMultiplier:BuildAllFromCommandLine () (at Assets/Editor/TrainingAreaMultiplier.cs:221)
+
+(Filename: Assets/Editor/TrainingAreaMultiplier.cs Line: 155)
+
+Curl error 7: Failed to connect to config.uca.cloud.unity3d.com port 443 after 2240 ms: Could not connect to server
+Start importing Assets/Football/Football.unity using Guid(1016d6715fe70674f8610496e146dfc4) (DefaultImporter) -> (artifact id: '926c672ddbed17190561e038b4054047') in 0.0011604 seconds
+Refreshing native plugins compatible for Editor in 3.05 ms, found 6 plugins.
+Preloading 1 native plugins for Editor in 0.06 ms.
+Asset Pipeline Refresh (id=a6362b197a7825b4e9569aab14b9e159): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[AreaMultiplier] Đã lưu Assets/Football/Football.unity với 8 area.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+GraduationProject.EditorTools.TrainingAreaMultiplier:BuildAllFromCommandLine () (at Assets/Editor/TrainingAreaMultiplier.cs:224)
+
+(Filename: Assets/Editor/TrainingAreaMultiplier.cs Line: 224)
+
+Killing ADB server in 0.0380717 seconds.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-Admin-6000.3.14-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-Admin-6000.3.14 channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1785203770333,"processId":9036,"allocatedMemory":19502376,"memoryLabels":[{"Default":29313},{"Permanent":15236},{"NewDelete":67571},{"Thread":4230384},{"Manager":39613},{"VertexData":8},{"Geometry":816},{"Texture":160},{"Shader":81429},{"Material":24},{"GfxDevice":55865},{"Animation":392},{"Audio":3040},{"FreeType":8},{"FontEngine":736},{"Physics":2090},{"Physics2D":16},{"Serialization":272},{"Input":14984},{"JobScheduler":33024},{"TextLib":216},{"Mono":32},{"MonoCode":320},{"ScriptingNativeRuntime":155060},{"BaseObject":1620336},{"Resource":1336},{"Renderer":3000},{"Transform":4685},{"File":21479},{"WebCam":616},{"Culling":32},{"Terrain":11394},{"Wind":24},{"STL":40},{"String":18597},{"DynamicArray":127151},{"HashMap":83775},{"Utility":2661366},{"Curl":2559},{"PoolAlloc":2872},{"AI":80},{"TypeTree":16093},{"ScriptManager":512},{"RuntimeInitializeOnLoadManager":64},{"SpriteAtlas":112},{"GI":7792},{"Director":8240},{"CloudService":9072},{"WebRequest":845},{"VR":47994},{"SceneManager":504},{"Video":64},{"LazyScriptCache":32},{"Camera":17},{"Secure":2113},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":384},{"Hierarchy":608},{"CoreStats":13032},{"Identifiers":12960},{"Gui":96},{"EditorUtility":150794},{"VersionControl":4},{"Undo":947},{"AssetDatabase":9546472},{"EditorGi":328},{"UnityConnect":29208},{"Upm":1896},{"AssetCompliance":64},{"DrivenProperties":72},{"LocalIPC":211},{"ProfilerEditor":9746},{"CoreBusinessMetrics":2877},{"Licensing":664},{"AssetReference":32},{"IPCStream":32}]}

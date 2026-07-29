@@ -1,0 +1,33 @@
+10:33:35 [INFO] ──────────────────────────────────────────────────────────────────────
+10:33:35 [INFO] KIEM TRA TRUOC KHI CHAY
+10:33:35 [INFO] ──────────────────────────────────────────────────────────────────────
+10:33:35 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+10:33:35 [INFO] trainer plugins: default,a2c,dqn,mappo
+10:33:35 [WARN] [ctf_mappo] CANH BAO: Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an.
+10:33:35 [WARN] --force: se GHI DE 1 thu muc run-id da co (ctr01)
+10:33:35 [INFO] Ket qua kiem tra: OK
+10:33:35 [INFO] ──────────────────────────────────────────────────────────────────────
+10:33:35 [INFO] Se chay 2 job, tong 40,000 buoc (ngan sach: reduced)
+10:33:35 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+10:33:35 [INFO] ======================================================================
+10:33:35 [INFO] [1/2]  ctr_ppo   PPO @ crossroad
+10:33:35 [INFO]         run-id  : ctr01
+10:33:35 [INFO]         config  : ctr_ppo.yaml
+10:33:35 [INFO]         steps   : 20,000
+10:33:35 [INFO] ======================================================================
+10:33:35 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr01_20000.yaml --run-id ctr01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+10:33:35 [INFO] ======================================================================
+10:33:35 [INFO] [2/2]  ctf_mappo   MAPPO @ capture
+10:33:35 [INFO]         run-id  : ctf_mappo_v2
+10:33:35 [INFO]         config  : ctf_mappo.yaml
+10:33:35 [INFO]         steps   : 20,000
+10:33:35 [INFO] ======================================================================
+10:33:35 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_mappo_v2_20000.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+10:33:35 [INFO] ======================================================================
+10:33:35 [INFO] TONG KET  (0:00:00)
+10:33:35 [INFO]   Thanh cong : 2  ['ctr_ppo', 'ctf_mappo']
+10:33:35 [INFO]   That bai   : 0  []
+10:33:35 [INFO] ======================================================================

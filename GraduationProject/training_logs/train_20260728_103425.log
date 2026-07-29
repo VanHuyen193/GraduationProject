@@ -1,0 +1,155 @@
+10:34:25 [INFO] ──────────────────────────────────────────────────────────────────────
+10:34:25 [INFO] KIEM TRA TRUOC KHI CHAY
+10:34:25 [INFO] ──────────────────────────────────────────────────────────────────────
+10:34:25 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+10:34:25 [INFO] trainer plugins: default,a2c,dqn,mappo
+10:34:25 [WARN] [ctf_poca] CANH BAO: Khong cat duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc.
+10:34:25 [WARN] [ctf_mappo] CANH BAO: Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an.
+10:34:25 [WARN] [fb_sac] CANH BAO: SAC + self_play: ML-Agents khong ho tro chinh thuc. Neu trainer bao loi, xem muc 'SAC tren Football' trong ke hoach.
+10:34:25 [WARN] --force: se GHI DE 5 thu muc run-id da co (ctr01, ctr_poca_v1, FB01, Football_POCA_01, Football_SAC_01)
+10:34:25 [INFO] Ket qua kiem tra: OK
+10:34:25 [INFO] ──────────────────────────────────────────────────────────────────────
+10:34:25 [INFO] Se chay 9 job, tong 180,000 buoc (ngan sach: reduced)
+10:34:25 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+10:34:25 [INFO] ======================================================================
+10:34:25 [INFO] [1/9]  ctr_ppo   PPO @ crossroad
+10:34:25 [INFO]         run-id  : ctr01
+10:34:25 [INFO]         config  : ctr_ppo.yaml
+10:34:25 [INFO]         steps   : 20,000
+10:34:25 [INFO] ======================================================================
+10:34:25 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr01_20000.yaml --run-id ctr01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+10:34:34 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+10:34:38 [INFO]          5,000 / 20,000  ( 25.0%)     372 step/s  ETA 0:00:40
+10:34:43 [INFO]         10,000 / 20,000  ( 50.0%)     565 step/s  ETA 0:00:17
+10:34:49 [INFO]         15,000 / 20,000  ( 75.0%)     618 step/s  ETA 0:00:08
+10:34:54 [INFO]         20,000 / 20,000  (100.0%)     697 step/s  ETA 0:00:00
+10:34:57 [INFO] --> XONG  (0:00:31, 20,000 steps, log: ctr01.log)
+
+10:34:57 [INFO] ======================================================================
+10:34:57 [INFO] [2/9]  ctr_sac   SAC @ crossroad
+10:34:57 [INFO]         run-id  : CrossTheRoad_SAC_01
+10:34:57 [INFO]         config  : ctr_sac.yaml
+10:34:57 [INFO]         steps   : 20,000
+10:34:57 [INFO] ======================================================================
+10:34:57 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\CrossTheRoad_SAC_01_20000.yaml --run-id CrossTheRoad_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+10:35:02 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+10:37:43 [INFO]          5,000 / 20,000  ( 25.0%)      30 step/s  ETA 0:08:17
+10:41:13 [INFO]         10,000 / 20,000  ( 50.0%)      27 step/s  ETA 0:06:16
+10:46:07 [INFO]         15,000 / 20,000  ( 75.0%)      22 step/s  ETA 0:03:43
+10:51:00 [INFO]         20,000 / 20,000  (100.0%)      21 step/s  ETA 0:00:00
+10:51:02 [INFO] --> XONG  (0:16:05, 20,000 steps, log: CrossTheRoad_SAC_01.log)
+
+10:51:02 [INFO] ======================================================================
+10:51:02 [INFO] [3/9]  ctr_poca   MA-POCA @ crossroad
+10:51:02 [INFO]         run-id  : ctr_poca_v1
+10:51:02 [INFO]         config  : ctr_poca.yaml
+10:51:02 [INFO]         steps   : 20,000
+10:51:02 [INFO] ======================================================================
+10:51:02 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr_poca_v1_20000.yaml --run-id ctr_poca_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+10:51:08 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+10:51:12 [INFO]          5,000 / 20,000  ( 25.0%)     521 step/s  ETA 0:00:28
+10:51:17 [INFO]         10,000 / 20,000  ( 50.0%)     705 step/s  ETA 0:00:14
+10:51:20 [WARN]     Traceback (most recent call last):
+10:51:20 [WARN]     BrokenPipeError: [WinError 109] The pipe has been ended
+10:51:20 [WARN]     Traceback (most recent call last):
+10:51:20 [WARN]         raise EOFError
+10:51:20 [WARN]     EOFError
+10:51:23 [WARN]     Traceback (most recent call last):
+10:51:23 [WARN]     BrokenPipeError: [WinError 109] The pipe has been ended
+10:51:23 [WARN]     Traceback (most recent call last):
+10:51:23 [WARN]         raise EOFError
+10:51:23 [WARN]     EOFError
+10:51:23 [WARN]     Traceback (most recent call last):
+10:51:23 [WARN]     BrokenPipeError: [WinError 232] The pipe is being closed
+10:51:23 [ERROR] --> THAT BAI  (0:00:20, 10,000 steps, log: ctr_poca_v1.log)
+10:51:23 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctr_poca_v1.log
+
+10:51:23 [INFO] ======================================================================
+10:51:23 [INFO] [4/9]  ctr_mappo   MAPPO @ crossroad
+10:51:23 [INFO]         run-id  : ctr_mappo_v1
+10:51:23 [INFO]         config  : ctr_mappo.yaml
+10:51:23 [INFO]         steps   : 20,000
+10:51:23 [INFO] ======================================================================
+10:51:23 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr_mappo_v1_20000.yaml --run-id ctr_mappo_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+10:51:32 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+10:51:39 [INFO]          5,000 / 20,000  ( 25.0%)     320 step/s  ETA 0:00:46
+10:51:46 [INFO]         10,000 / 20,000  ( 50.0%)     439 step/s  ETA 0:00:22
+10:51:57 [INFO]         15,000 / 20,000  ( 75.0%)     447 step/s  ETA 0:00:11
+10:52:01 [INFO]         20,000 / 20,000  (100.0%)     522 step/s  ETA 0:00:00
+10:52:04 [INFO] --> XONG  (0:00:41, 20,000 steps, log: ctr_mappo_v1.log)
+
+10:52:04 [INFO] ======================================================================
+10:52:04 [INFO] [5/9]  ctf_poca   MA-POCA @ capture
+10:52:04 [INFO]         run-id  : ctf_poca_v2
+10:52:04 [INFO]         config  : ctf_poca.yaml
+10:52:04 [INFO]         steps   : 20,000
+10:52:04 [INFO] ======================================================================
+10:52:04 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_poca_v2_20000.yaml --run-id ctf_poca_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+10:52:14 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+10:52:18 [INFO]          5,000 / 20,000  ( 25.0%)     366 step/s  ETA 0:00:40
+10:52:22 [INFO]         10,000 / 20,000  ( 50.0%)     566 step/s  ETA 0:00:17
+10:52:26 [INFO]         15,000 / 20,000  ( 75.0%)     679 step/s  ETA 0:00:07
+10:52:29 [INFO]         20,000 / 20,000  (100.0%)     793 step/s  ETA 0:00:00
+10:52:34 [INFO] --> XONG  (0:00:29, 20,000 steps, log: ctf_poca_v2.log)
+
+10:52:34 [INFO] ======================================================================
+10:52:34 [INFO] [6/9]  ctf_mappo   MAPPO @ capture
+10:52:34 [INFO]         run-id  : ctf_mappo_v2
+10:52:34 [INFO]         config  : ctf_mappo.yaml
+10:52:34 [INFO]         steps   : 20,000
+10:52:34 [INFO] ======================================================================
+10:52:34 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_mappo_v2_20000.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+10:52:40 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+10:52:44 [INFO]          5,000 / 20,000  ( 25.0%)     480 step/s  ETA 0:00:31
+10:52:49 [INFO]         10,000 / 20,000  ( 50.0%)     678 step/s  ETA 0:00:14
+10:52:55 [INFO]         15,000 / 20,000  ( 75.0%)     711 step/s  ETA 0:00:07
+10:53:00 [INFO]         20,000 / 20,000  (100.0%)     776 step/s  ETA 0:00:00
+10:53:04 [INFO] --> XONG  (0:00:30, 20,000 steps, log: ctf_mappo_v2.log)
+
+10:53:04 [INFO] ======================================================================
+10:53:04 [INFO] [7/9]  fb_ppo   PPO @ football
+10:53:04 [INFO]         run-id  : FB01
+10:53:04 [INFO]         config  : football_ppo.yaml
+10:53:04 [INFO]         steps   : 20,000
+10:53:04 [INFO] ======================================================================
+10:53:04 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\FB01_20000.yaml --run-id FB01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+10:53:21 [INFO]          5,000 / 20,000  ( 25.0%)     285 step/s  ETA 0:00:52
+10:53:28 [INFO]         10,000 / 20,000  ( 50.0%)     419 step/s  ETA 0:00:23
+10:53:31 [INFO]         15,000 / 20,000  ( 75.0%)     555 step/s  ETA 0:00:09
+10:53:37 [INFO]         20,000 / 20,000  (100.0%)     597 step/s  ETA 0:00:00
+10:53:41 [INFO] --> XONG  (0:00:36, 20,000 steps, log: FB01.log)
+
+10:53:41 [INFO] ======================================================================
+10:53:41 [INFO] [8/9]  fb_poca   MA-POCA @ football
+10:53:41 [INFO]         run-id  : Football_POCA_01
+10:53:41 [INFO]         config  : football_poca.yaml
+10:53:41 [INFO]         steps   : 20,000
+10:53:41 [INFO] ======================================================================
+10:53:41 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_POCA_01_20000.yaml --run-id Football_POCA_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+10:53:51 [INFO]          5,000 / 20,000  ( 25.0%)     469 step/s  ETA 0:00:32
+10:53:56 [INFO]         10,000 / 20,000  ( 50.0%)     670 step/s  ETA 0:00:14
+10:54:00 [INFO]         15,000 / 20,000  ( 75.0%)     766 step/s  ETA 0:00:06
+10:54:05 [INFO]         20,000 / 20,000  (100.0%)     824 step/s  ETA 0:00:00
+10:54:08 [INFO] --> XONG  (0:00:27, 20,000 steps, log: Football_POCA_01.log)
+
+10:54:08 [INFO] ======================================================================
+10:54:08 [INFO] [9/9]  fb_sac   SAC @ football
+10:54:08 [INFO]         run-id  : Football_SAC_01
+10:54:08 [INFO]         config  : football_sac.yaml
+10:54:08 [INFO]         steps   : 20,000
+10:54:08 [INFO] ======================================================================
+10:54:08 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_SAC_01_20000.yaml --run-id Football_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+10:54:18 [INFO]          5,000 / 20,000  ( 25.0%)     477 step/s  ETA 0:00:31
+10:54:38 [INFO]         10,000 / 20,000  ( 50.0%)     329 step/s  ETA 0:00:30
+10:54:57 [INFO]         15,000 / 20,000  ( 75.0%)     305 step/s  ETA 0:00:16
+10:55:16 [INFO]         20,000 / 20,000  (100.0%)     293 step/s  ETA 0:00:00
+10:55:19 [INFO] --> XONG  (0:01:11, 20,000 steps, log: Football_SAC_01.log)
+
+10:55:19 [INFO] ======================================================================
+10:55:19 [INFO] TONG KET  (0:20:54)
+10:55:19 [INFO]   Thanh cong : 8  ['ctr_ppo', 'ctr_sac', 'ctr_mappo', 'ctf_poca', 'ctf_mappo', 'fb_ppo', 'fb_poca', 'fb_sac']
+10:55:19 [INFO]   That bai   : 1  ['ctr_poca']
+10:55:19 [INFO] ======================================================================
+10:55:19 [WARN] Chay lai rieng cac job loi:
+10:55:19 [WARN]   python train_all.py --mode build --jobs ctr_poca

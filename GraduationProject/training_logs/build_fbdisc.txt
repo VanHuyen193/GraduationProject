@@ -1,0 +1,27 @@
+11:31:08 [INFO] Unity: C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Unity.exe
+
+11:31:08 [INFO] ══════════════════════════════════════════════════════════════════
+11:31:08 [INFO] BUOC 2 — build 1 moi truong: FootballDiscrete
+11:31:08 [INFO]          ~20-26 phut/env, tran thoi gian 2400s (2400s x 1)
+11:31:08 [INFO] ══════════════════════════════════════════════════════════════════
+11:31:08 [INFO] Chay Unity: GraduationProject.EditorTools.HeadlessBuilder.BuildAllFromCommandLine
+11:31:08 [INFO]   C:\Program Files\Unity\Hub\Editor\6000.3.14f1\Editor\Unity.exe -batchmode -nographics -projectPath C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject -executeMethod GraduationProject.EditorTools.HeadlessBuilder.BuildAllFromCommandLine -logFile C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\unity_build_20260728_113108.log -envs FootballDiscrete
+11:31:08 [INFO]   log: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\unity_build_20260728_113108.log
+11:31:08 [INFO]   (Unity im lang khi chay batch — cho, dung tuong treo)
+11:50:52 [INFO] --> XONG  (0:19:44)
+11:50:52 [INFO]   [HeadlessBuilder] Bỏ qua CrossTheRoad (không có trong -envs)
+11:50:52 [INFO]   [HeadlessBuilder] Bỏ qua CaptureTheFlag (không có trong -envs)
+11:50:52 [INFO]   [HeadlessBuilder] Bỏ qua Football (không có trong -envs)
+11:50:52 [INFO]   [HeadlessBuilder] Đang build FootballDiscrete từ Assets/Football/FootballDiscrete.unity …
+11:50:52 [INFO]   [HeadlessBuilder] FootballDiscrete: OK (279 MB, 1169s) → C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe
+11:50:52 [INFO]   [HeadlessBuilder] Đã build xong toàn bộ vào C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds
+
+11:50:52 [INFO] File da build:
+11:50:52 [INFO]   [OK   ] C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe  318 MB
+11:50:52 [INFO]   [OK   ] C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe  303 MB
+11:50:52 [INFO]   [OK   ] C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe  294 MB
+11:50:52 [INFO]   [OK   ] C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe  294 MB
+
+11:50:52 [INFO] Chuan bi xong. Buoc tiep theo:
+11:50:52 [INFO]   python train_all.py --smoke            # kiem tra cau hinh ~10 phut
+11:50:52 [INFO]   python train_all.py --mode build       # chay that

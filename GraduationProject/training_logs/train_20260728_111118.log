@@ -1,0 +1,40 @@
+11:11:18 [INFO] ──────────────────────────────────────────────────────────────────────
+11:11:18 [INFO] KIEM TRA TRUOC KHI CHAY
+11:11:18 [INFO] ──────────────────────────────────────────────────────────────────────
+11:11:18 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+11:11:18 [INFO] trainer plugins: default,a2c,dqn,mappo
+11:11:18 [WARN] --force: se GHI DE 2 thu muc run-id da co (ctr01, FB01)
+11:11:18 [INFO] Ket qua kiem tra: OK
+11:11:18 [INFO] ──────────────────────────────────────────────────────────────────────
+11:11:18 [INFO] Se chay 3 job, tong 3,500,000 buoc (ngan sach: reduced)
+11:11:18 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] [1/3]  ctr_ppo   PPO @ crossroad
+11:11:18 [INFO]         run-id  : ctr01
+11:11:18 [INFO]         config  : ctr_ppo.yaml
+11:11:18 [INFO]         steps   : 1,200,000
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_ppo.yaml --run-id ctr01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] [2/3]  ctf_ppo   PPO @ capture
+11:11:18 [INFO]         run-id  : ctf_ppo_v1
+11:11:18 [INFO]         config  : ctf_ppo.yaml
+11:11:18 [INFO]         steps   : 1,500,000
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_ppo.yaml --run-id ctf_ppo_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] [3/3]  fb_ppo   PPO @ football
+11:11:18 [INFO]         run-id  : FB01
+11:11:18 [INFO]         config  : football_ppo.yaml
+11:11:18 [INFO]         steps   : 800,000
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_ppo.yaml --run-id FB01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+11:11:18 [INFO] ======================================================================
+11:11:18 [INFO] TONG KET  (0:00:00)
+11:11:18 [INFO]   Thanh cong : 3  ['ctr_ppo', 'ctf_ppo', 'fb_ppo']
+11:11:18 [INFO]   That bai   : 0  []
+11:11:18 [INFO] ======================================================================

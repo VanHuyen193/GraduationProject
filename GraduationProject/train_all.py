@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-train_all.py — dieu phoi toan bo 9 lan huan luyen cho do an.
+train_all.py — dieu phoi toan bo 15 lan huan luyen cho do an.
 
 Thay the train_all_sequential.py (script cu tro sai duong dan conda cua may khac
 va con liet ke bo job 3x3 khong con dung voi bao cao).
 
-9 to hop (run-id PHAI trung voi export_training_data.py, dung sua tuy tien):
-    Football Table   : FB01 (PPO) | Football_SAC_01 | Football_POCA_01
-    Cross The Road   : ctr01 (PPO) | CrossTheRoad_SAC_01 | ctr_poca_v1 | ctr_mappo_v1
-    Capture The Flag : ctf_poca_v2 (MA-POCA) | ctf_mappo_v2 (MAPPO)
+Luoi day du 5 thuat toan x 3 moi truong = 15 lan chay. Run-id PHAI trung voi
+export_training_data.py, dung sua tuy tien:
+
+                     PPO        SAC                  MA-POCA           MAPPO               DQN
+    Cross The Road   ctr01      CrossTheRoad_SAC_01  ctr_poca_v1       ctr_mappo_v1        ctr_dqn_v1
+    Capture The Flag ctf_ppo_v1 ctf_sac_v1           ctf_poca_v2       ctf_mappo_v2        ctf_dqn_v1
+    Football Table   FB01       Football_SAC_01      Football_POCA_01  Football_MAPPO_01   football_dqn_v1
+
+DQN va MAPPO den tu trainer plugin ngoai (ml-agents-trainer-plugin), khong co
+san trong ML-Agents — preflight se kiem tra plugin da cai chua.
+
+LUU Y: fb_dqn can mot ban build rieng 'FootballDiscrete'. Xem ACTION_SPACE_CONFLICT.
 
 Hai che do chay:
   --mode build   (KHUYEN NGHI) tro toi file .exe da build san; chay hoan toan tu
@@ -44,6 +52,8 @@ import time
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timedelta
 from pathlib import Path
+
+import yaml  # ml-agents phu thuoc pyyaml nen env 'mlagents' luon co san
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Duong dan
@@ -91,66 +101,151 @@ class Job:
     config: str         # ten file trong config/
     run_id: str         # PHAI trung export_training_data.py
     behavior: str
-    steps_full: int     # do dai da bao cao trong chuong 4
-    steps_reduced: int  # ngan sach rut gon (mac dinh)
     build: str          # ten thu muc + file .exe trong Builds/
     scene: str          # chi de nhac khi chay --mode editor
     # Ghi chu rui ro: hien len trong buoc kiem tra truoc khi chay.
     risky: str = ""
 
     def budget(self, profile: str) -> int:
-        return self.steps_full if profile == "full" else self.steps_reduced
+        full, reduced = STEPS[self.env]
+        return full if profile == "full" else reduced
 
 
-# Ngan sach buoc.
-#   full    = dung do dai THUC TE cua cac lan chay da bao cao o chuong 4 (12,9M).
-#   reduced = mac dinh, cat khoang 35-50% moi run (8,5M) de co ket qua som.
+# ─────────────────────────────────────────────────────────────────────────────
+# Ngan sach buoc — tra theo MOI TRUONG, khong theo tung job.
 #
-# LUU Y QUAN TRONG — hai cho KHONG duoc cat theo ti le:
-#   * ctf_mappo: MAPPO chi giai duoc cau do tu ~1,28M buoc tro di. Day la PHAT
-#     HIEN CHINH cua ca do an. Cat xuong 0,8M thi duong cong khong bao gio the
-#     hien buoc ngoat, va ket luan trung tam cua chuong 4 sup do. Vi vay giu
-#     1,5M, va ctf_poca giu bang dung nhu vay de so sanh cong bang.
-#   * ctr_sac: SAC hoi tu o ~150K nen ban than lan chay da rat ngan; cat nua thi
-#     mat luon doan plateau la bang chung cua ket luan "hieu qua mau vuot troi".
-#     Giu nguyen 200K (chi chiem ~2% tong ngan sach).
+# So buoc phai la thuoc tinh cua moi truong chu khong phai cua job: so sanh nam
+# thuat toan chi co nghia khi ca nam chay CUNG mot so buoc tren cung mot moi
+# truong. Truoc day moi Job tu khai hai con so rieng nen da troi mat ba cho:
+# Football PPO 800K trong khi bon cai kia 450K; CrossTheRoad SAC 1,2M trong khi
+# bon cai kia 2,0M; CTF MA-POCA 1,7M trong khi bon cai kia 1,6M. De o day thi
+# khong the lech duoc nua.
+#
+# Cac gia tri deu lay theo huong NANG LEN cho bang cai dai nhat, khong ha xuong
+# — ha thi cat mat phan duong cong da co, con nang chi ton them thoi gian chay.
+#
+# LUU Y: 'full' truoc day duoc ghi la "dung do dai thuc te da bao cao o chuong
+# 4". Sau khi can bang thi khong con dung nghia do nua (cac lan chay cu von
+# khong bang nhau). Gio 'full' chi con nghia la ngan sach dai.
+#
+#   * CTF khong duoc xuong duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc
+#     tro di, day la PHAT HIEN CHINH cua ca do an. Cat ngan hon thi duong cong
+#     khong bao gio the hien buoc ngoat.
+STEPS: dict[str, tuple[int, int]] = {
+    #              full        reduced
+    "crossroad": (2_000_000, 1_200_000),
+    "capture":   (1_700_000, 1_500_000),
+    "football":  (1_600_000,   800_000),
+}
+
+CTR_SCENE = "Assets/CrossTheRoad/Scenes/CrossTheRoad.unity"
+CTF_SCENE = "Assets/Collaboration/Scenes/CaptureTheFlag.unity"
+FB_SCENE = "Assets/Football/Football.unity"
+
 JOBS: list[Job] = [
     # ── Cross The Road: chay TRUOC vi nhanh nhat, phat hien loi som ──────────
     Job("ctr_ppo",   "crossroad", "PPO",     "ctr_ppo.yaml",   "ctr01",
-        "CrossTheRoad", 2_000_000, 1_200_000, "CrossTheRoad",
-        "Assets/CrossTheRoad/Scenes/CrossTheRoad.unity"),
+        "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
     Job("ctr_sac",   "crossroad", "SAC",     "ctr_sac.yaml",   "CrossTheRoad_SAC_01",
-        "CrossTheRoad",   200_000,   200_000, "CrossTheRoad",
-        "Assets/CrossTheRoad/Scenes/CrossTheRoad.unity"),
+        "CrossTheRoad", "CrossTheRoad", CTR_SCENE,
+        risky="Ngan sach cu 200K dua tren lap luan 'SAC hoi tu ~150K', do voi "
+              "steps_per_update=1. Nay config da doi sang 20 (nhanh gap 12 lan "
+              "nhung ton mau hon) nen 200K khong con du."),
     Job("ctr_poca",  "crossroad", "MA-POCA", "ctr_poca.yaml",  "ctr_poca_v1",
-        "CrossTheRoad", 2_000_000, 1_200_000, "CrossTheRoad",
-        "Assets/CrossTheRoad/Scenes/CrossTheRoad.unity"),
+        "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
     Job("ctr_mappo", "crossroad", "MAPPO",   "ctr_mappo.yaml", "ctr_mappo_v1",
-        "CrossTheRoad", 2_000_000, 1_200_000, "CrossTheRoad",
-        "Assets/CrossTheRoad/Scenes/CrossTheRoad.unity"),
+        "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
+    Job("ctr_dqn",   "crossroad", "DQN",     "ctr_dqn.yaml",   "ctr_dqn_v1",
+        "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
 
     # ── Capture The Flag: co curriculum handoff_required ─────────────────────
+    Job("ctf_ppo",   "capture", "PPO",     "ctf_ppo.yaml",   "ctf_ppo_v1",
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
+    Job("ctf_sac",   "capture", "SAC",     "ctf_sac.yaml",   "ctf_sac_v1",
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
     Job("ctf_poca",  "capture", "MA-POCA", "ctf_poca.yaml",  "ctf_poca_v2",
-        "PuzzleBehavior", 1_700_000, 1_500_000, "CaptureTheFlag",
-        "Assets/Collaboration/Scenes/CaptureTheFlag.unity",
-        risky="Khong cat duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc."),
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
     Job("ctf_mappo", "capture", "MAPPO",   "ctf_mappo.yaml", "ctf_mappo_v2",
-        "PuzzleBehavior", 1_600_000, 1_500_000, "CaptureTheFlag",
-        "Assets/Collaboration/Scenes/CaptureTheFlag.unity",
-        risky="Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an."),
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE,
+        risky="Day la lan chay chua PHAT HIEN CHINH cua do an (buoc ngoat ~1,28M). "
+              "Neu ha STEPS['capture'] xuong duoi 1,5M thi duong cong mat buoc ngoat."),
+    Job("ctf_dqn",   "capture", "DQN",     "ctf_dqn.yaml",   "ctf_dqn_v1",
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
 
     # ── Football Table: self-play, nang nhat, chay cuoi ──────────────────────
     Job("fb_ppo",    "football", "PPO",     "football_ppo.yaml",  "FB01",
-        "Football", 1_600_000, 800_000, "Football", "Assets/Football/Football.unity"),
-    Job("fb_poca",   "football", "MA-POCA", "football_poca.yaml", "Football_POCA_01",
-        "Football",   900_000, 450_000, "Football", "Assets/Football/Football.unity"),
+        "Football", "Football", FB_SCENE),
     Job("fb_sac",    "football", "SAC",     "football_sac.yaml",  "Football_SAC_01",
-        "Football",   900_000, 450_000, "Football", "Assets/Football/Football.unity",
-        risky="SAC + self_play: ML-Agents khong ho tro chinh thuc. Neu trainer bao "
-              "loi, xem muc 'SAC tren Football' trong ke hoach."),
+        "Football", "Football", FB_SCENE,
+        risky="SAC + self_play: ML-Agents khong ho tro chinh thuc. Da chay duoc "
+              "20K buoc trong smoke test nen khong chan, nhung theo doi ky."),
+    Job("fb_poca",   "football", "MA-POCA", "football_poca.yaml", "Football_POCA_01",
+        "Football", "Football", FB_SCENE),
+    Job("fb_mappo",  "football", "MAPPO",   "football_mappo.yaml", "Football_MAPPO_01",
+        "Football", "Football", FB_SCENE),
+    # Football + DQN can BAN BUILD RIENG. Xem ghi chu ACTION_SPACE_CONFLICT duoi.
+    Job("fb_dqn",    "football", "DQN",     "football_dqn.yaml",  "football_dqn_v1",
+        "Football", "FootballDiscrete", FB_SCENE,
+        risky="CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) "
+              "nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene "
+              "voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung "
+              "build 'Football' voi PPO/SAC/POCA/MAPPO duoc."),
 ]
 
+# ACTION_SPACE_CONFLICT
+# --------------------
+# Bon thuat toan PPO/SAC/MA-POCA/MAPPO tren Football dung continuous(8);
+# DQN bat buoc discrete. Hai thu nay khong the o chung mot file .exe vi
+# Behavior Parameters duoc nuong vao build. Cach lam:
+#   1. Nhan ban Football.unity thanh FootballDiscrete.unity, sua Behavior
+#      Parameters cua CA HAI agent: Continuous Actions 8 -> 0,
+#      Discrete Branches 0 -> 8, moi branch size 3.
+#      (FootballAgent.OnActionReceived da co san che do roi rac — xem
+#       config/HUONG_DAN_DQN.md muc 3.)
+#   2. Them scene do vao mang Targets trong Assets/Editor/HeadlessBuilder.cs
+#      voi Exe = "FootballDiscrete".
+#   3. python prepare_envs.py --build --envs FootballDiscrete
+# Truoc khi lam xong buoc do, chay fb_dqn se bi preflight chan vi thieu build.
+
 ENV_ORDER = ["crossroad", "capture", "football"]
+
+
+def _check_grid() -> None:
+    """
+    Lưới phải là ĐỦ 5 thuật toán x 3 môi trường, khong thua khong thieu.
+
+    STEPS da bao dam moi job trong cung mot moi truong co cung so buoc, nhung
+    khong bao dam duoc la co du ca nam thuat toan — them nham hai job MAPPO hay
+    quen mot job DQN thi bang so sanh thung mot o ma khong ai biet cho toi luc
+    ve bieu do. Kiem o day de hong la hong ngay luc import.
+    """
+    expected = {"PPO", "SAC", "MA-POCA", "MAPPO", "DQN"}
+    for env in ENV_ORDER:
+        got = [j.algo for j in JOBS if j.env == env]
+        if sorted(got) != sorted(expected):
+            raise AssertionError(
+                f"JOBS: moi truong '{env}' co {sorted(got)}, can {sorted(expected)}")
+        if env not in STEPS:
+            raise AssertionError(f"STEPS thieu moi truong '{env}'")
+    if len(JOBS) != len(ENV_ORDER) * len(expected):
+        raise AssertionError(f"JOBS co {len(JOBS)} muc, can {len(ENV_ORDER) * 5}")
+    if len({j.run_id for j in JOBS}) != len(JOBS):
+        raise AssertionError("JOBS: co run_id bi trung — se ghi de len nhau")
+
+
+_check_grid()
+
+# Ten nguoi dung go cho --algo -> gia tri trong Job.algo.
+# Khong tu chuan hoa chuoi duoc: bo gach noi khoi 'MA-POCA' ra 'mapoca', khong
+# bang 'poca' ma nguoi dung se go; con kiem tra chuoi con thi 'poca' lai dinh
+# luon 'MAPPO'. Liet ke tuong minh la cach duy nhat khong nhap nhang.
+ALGO_ALIASES = {
+    "ppo": "PPO",
+    "sac": "SAC",
+    "poca": "MA-POCA", "mapoca": "MA-POCA", "ma-poca": "MA-POCA",
+    "mappo": "MAPPO",
+    "dqn": "DQN",
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -201,17 +296,43 @@ def save_status(st: dict) -> None:
                            encoding="utf-8")
 
 
-def run_has_output(job: Job) -> bool:
-    """Da co tfevents thuc su chua (dung de bo qua job da xong khi --resume)."""
-    d = RESULTS_DIR / job.run_id
-    return d.exists() and any(d.glob("**/*.tfevents.*"))
+def run_is_complete(job: Job) -> bool:
+    """
+    Job da chay XONG chua — khac han voi 'da chay chua'.
+
+    ML-Agents chi ghi results/<run-id>/<behavior>.onnx khi ket thuc binh thuong.
+    Trong luc dang chay thi chi co <behavior>/<behavior>-<step>.onnx (checkpoint
+    moi 500K buoc) va tfevents.
+
+    Truoc day ham nay kiem tra su ton tai cua TFEVENTS. Nhung tfevents xuat hien
+    ngay tu moc summary dau tien (10K buoc), nen mot job bi ngat giua chung — mat
+    dien, tat may, Ctrl-C — van bi coi la 'da xong'. Chay lai voi --resume se BO
+    QUA no, de lai mot lan chay cut ngun trong bang so sanh ma khong he bao gi.
+    Voi lan chay 25 tieng thi day la kieu hong dat nhat: phat hien ra luc ve bieu
+    do, va phai chay lai tu dau.
+    """
+    return (RESULTS_DIR / job.run_id / f"{job.behavior}.onnx").exists()
+
+
+def run_dir_exists(job: Job) -> bool:
+    """
+    Thu muc results/<run-id> co ton tai khong — KHAC voi run_is_complete().
+
+    mlagents-learn chan bang os.path.isdir(output_path) (directory_utils.py:21),
+    tuc la chi can THU MUC ton tai la no nem UnityTrainerException va thoat ngay,
+    khong quan tam ben trong co tfevents hay khong. Cac thu muc chi con file .pt
+    (tfevents da bi xoa) van du de lam job chet, trong khi run_is_complete() bao
+    la "chua co gi" — nen phai kiem tra rieng.
+    """
+    return (RESULTS_DIR / job.run_id).is_dir()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Kiem tra moi truong truoc khi chay
 # ─────────────────────────────────────────────────────────────────────────────
-def preflight(jobs: list[Job], mode: str) -> bool:
+def preflight(jobs: list[Job], args) -> bool:
     ok = True
+    mode = args.mode
     log("─" * 70)
     log("KIEM TRA TRUOC KHI CHAY")
     log("─" * 70)
@@ -231,8 +352,11 @@ def preflight(jobs: list[Job], mode: str) -> bool:
             capture_output=True, text=True, timeout=60)
         plugins = out.stdout.strip()
         log(f"trainer plugins: {plugins}")
-        if "mappo" not in plugins:
-            log("Thieu plugin 'mappo'. Cai bang:", "ERROR")
+        # Chi doi hoi plugin ma bo job dang chay thuc su can.
+        need = {"mappo", "dqn"} & {j.algo.lower() for j in jobs}
+        missing = sorted(n for n in need if n not in plugins)
+        if missing:
+            log(f"Thieu plugin {', '.join(missing)}. Cai bang:", "ERROR")
             log(r'  pip install --no-build-isolation -e ..\ml-agents\ml-agents-trainer-plugin',
                 "ERROR")
             ok = False
@@ -255,11 +379,25 @@ def preflight(jobs: list[Job], mode: str) -> bool:
         if j.risky:
             log(f"[{j.id}] CANH BAO: {j.risky}", "WARN")
 
-    # canh bao trung run-id da co du lieu
-    for j in jobs:
-        if run_has_output(j):
-            log(f"[{j.id}] run-id '{j.run_id}' DA co tfevents — se bo qua neu "
-                f"--resume, hoac can --force de ghi de", "WARN")
+    # Trung run-id: day la LOI, khong phai canh bao. mlagents-learn thoat ngay
+    # lap tuc neu results/<run-id> da ton tai ma khong co --force, nen job se
+    # chet trong vai giay chu khong phai chay duoc mot phan.
+    clash = [j for j in jobs if run_dir_exists(j)]
+    if clash and not args.force:
+        log("", "ERROR")
+        log(f"{len(clash)} run-id DA co thu muc trong results/ — mlagents-learn "
+            f"se tu choi chay:", "ERROR")
+        for j in clash:
+            n = len(list((RESULTS_DIR / j.run_id).rglob("*.pt")))
+            log(f"    [{j.id}] results/{j.run_id}  ({n} checkpoint .pt)", "ERROR")
+        log("Chon mot trong hai:", "ERROR")
+        log("  a) them --force  (ghi de, XOA checkpoint .pt cu trong cac thu muc tren)",
+            "ERROR")
+        log("  b) doi cho cac thu muc do sang results_old/ de giu lai", "ERROR")
+        ok = False
+    elif clash:
+        log(f"--force: se GHI DE {len(clash)} thu muc run-id da co "
+            f"({', '.join(j.run_id for j in clash)})", "WARN")
 
     log(f"Ket qua kiem tra: {'OK' if ok else 'CO LOI'}")
     log("─" * 70)
@@ -272,11 +410,65 @@ def preflight(jobs: list[Job], mode: str) -> bool:
 STEP_RE = re.compile(r"Step:\s*([\d,]+)\.\s*Time Elapsed:\s*([\d.]+)")
 
 
+TMP_CONFIG_DIR = LOG_DIR / "_config_override"
+
+
+def config_with_steps(job: Job, steps: int) -> Path:
+    """
+    Sinh mot ban YAML tam voi max_steps da doi, tra ve duong dan ban do.
+
+    mlagents-learn KHONG co tham so dong lenh --max-steps (chay
+    `mlagents-learn --help` de kiem chung): max_steps la thiet lap trong YAML,
+    nam o behaviors.<ten hanh vi>.max_steps. Ban dau build_cmd() truyen thang
+    "--max-steps <n>" nen argparse cua mlagents-learn tu choi va MOI job chet
+    sau mot giay — nghia la --smoke va --override-steps chua bao gio chay duoc.
+    File config goc khong bi dong den; ban tam nam trong training_logs/.
+    """
+    src = CONFIG_DIR / job.config
+    cfg = yaml.safe_load(src.read_text(encoding="utf-8"))
+
+    behaviors = (cfg or {}).get("behaviors") or {}
+    if not behaviors:
+        raise ValueError(f"{src.name}: khong tim thay khoa 'behaviors'")
+    for spec in behaviors.values():
+        spec["max_steps"] = steps
+        # summary_freq phai nho hon max_steps, khong thi tfevents khong co diem
+        # nao va viec kiem tra ket qua bao that bai du training chay tot. Vap o
+        # ctf_*.yaml: summary_freq 20000 dung bang ngan sach smoke 20000.
+        # Chi ha xuong khi can — ngan sach that (>=1,2M) giu nguyen 10000.
+        spec["summary_freq"] = min(int(spec.get("summary_freq", 10_000)),
+                                   max(1_000, steps // 4))
+
+    TMP_CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    out = TMP_CONFIG_DIR / f"{job.run_id}_{steps}.yaml"
+    out.write_text(
+        f"# Sinh tu {job.config} boi train_all.py — max_steps={steps:,}. Dung sua tay.\n"
+        + yaml.safe_dump(cfg, sort_keys=False, allow_unicode=True),
+        encoding="utf-8")
+    return out
+
+
 def build_cmd(job: Job, args, steps: int) -> list[str]:
-    cmd = [str(MLAGENTS_LEARN), str(CONFIG_DIR / job.config),
+    cfg = config_with_steps(job, steps) if args.override_steps \
+        else CONFIG_DIR / job.config
+    cmd = [str(MLAGENTS_LEARN), str(cfg),
            "--run-id", job.run_id,
            "--results-dir", str(RESULTS_DIR)]
-    if args.force:
+
+    # Job do dang: co thu muc nhung chua co ONNX cuoi — tuc la lan truoc bi ngat
+    # giua chung (mat dien, tat may, Ctrl-C). Truyen --resume cua mlagents de
+    # chay TIEP tu checkpoint gan nhat thay vi --force lam lai tu buoc 0.
+    # Checkpoint duoc ghi moi 500K buoc, nen voi job 5 tieng nhu ctf_sac thi day
+    # la khac biet giua mat vai chuc phut va mat ca buoi.
+    # Chi lam khi nguoi dung da yeu cau --resume; khong thi giu nguyen --force.
+    # Phai co checkpoint that su thi --resume moi co nghia. Checkpoint chi duoc
+    # ghi moi 500K buoc, nen mot job chet o buoc 310K co thu muc + tfevents ma
+    # KHONG co checkpoint.pt nao — truyen --resume vao do thi mlagents khong co
+    # gi de nap va bao loi. Truong hop do phai chay lai tu dau bang --force.
+    ckpt = (RESULTS_DIR / job.run_id / job.behavior / "checkpoint.pt").exists()
+    if args.resume and ckpt and not run_is_complete(job):
+        cmd.append("--resume")
+    elif args.force:
         cmd.append("--force")
     if args.mode == "build":
         cmd += ["--env", str(BUILD_DIR / job.build / f"{job.build}.exe"),
@@ -285,8 +477,6 @@ def build_cmd(job: Job, args, steps: int) -> list[str]:
             cmd += ["--num-envs", str(args.num_envs),
                     "--base-port", str(args.base_port)]
     cmd += ["--time-scale", str(args.time_scale)]
-    # ghi de ngan sach buoc ma khong phai sua yaml
-    cmd += ["--max-steps", str(steps)] if args.override_steps else []
     return cmd
 
 
@@ -342,7 +532,7 @@ def run_job(job: Job, args, idx: int, total: int) -> tuple[bool, float, int]:
         raise
 
     dur = time.time() - t0
-    ok = proc.returncode == 0 and run_has_output(job)
+    ok = proc.returncode == 0 and run_is_complete(job)
     log(f"--> {'XONG' if ok else 'THAT BAI'}  ({hms(dur)}, "
         f"{last_step:,} steps, log: {logf.name})",
         "INFO" if ok else "ERROR")
@@ -353,11 +543,14 @@ def run_job(job: Job, args, idx: int, total: int) -> tuple[bool, float, int]:
 
 # ─────────────────────────────────────────────────────────────────────────────
 def main() -> int:
-    p = argparse.ArgumentParser(description="Dieu phoi 9 lan huan luyen")
+    p = argparse.ArgumentParser(description="Dieu phoi 15 lan huan luyen "
+                                            "(5 thuat toan x 3 moi truong)")
     p.add_argument("--mode", choices=["build", "editor"], default="build",
                    help="build = tu dong bang file .exe (khuyen nghi); "
                         "editor = cho bam Play thu cong")
     p.add_argument("--only", choices=ENV_ORDER, help="chi chay mot moi truong")
+    p.add_argument("--algo", help="chi chay mot thuat toan tren ca 3 moi truong "
+                                  "(ppo | sac | poca | mappo | dqn)")
     p.add_argument("--jobs", help="danh sach id job, phan cach dau phay")
     p.add_argument("--skip", default="", help="id job bo qua, phan cach dau phay")
     p.add_argument("--resume", action="store_true",
@@ -370,8 +563,14 @@ def main() -> int:
     p.add_argument("--time-scale", type=float, default=20.0)
     p.add_argument("--timeout", type=int, default=6 * 3600,
                    help="tran thoi gian moi job, giay")
-    p.add_argument("--override-steps", action="store_true",
-                   help="truyen --max-steps de ghi de yaml theo ngan sach trong JOBS")
+    # MAC DINH BAT. Truoc day day la co phai tu bat (--override-steps), nen chay
+    # 'train_all.py --budget full' ma quen no thi ngan sach trong STEPS bi bo qua
+    # hoan toan va trainer doc max_steps tho trong YAML — ma cac file YAML dang de
+    # 2M/5M/10M, tuc la lech nhau, dung thu ma viec can bang vua roi phai chua.
+    # Hong kieu do khong bao gio bao loi, chi lang le cho ra bo so sanh khong dung.
+    p.add_argument("--use-yaml-steps", dest="override_steps", action="store_false",
+                   help="KHONG ghi de max_steps; dung nguyen so trong file config "
+                        "(bo qua STEPS — chi dung khi co chu dich)")
     p.add_argument("--budget", choices=["reduced", "full"], default="reduced",
                    help="reduced (mac dinh, ~8,5M buoc) hoac full (~12,9M buoc, "
                         "bang dung do dai da bao cao o chuong 4)")
@@ -390,6 +589,13 @@ def main() -> int:
     jobs = list(JOBS)
     if args.only:
         jobs = [j for j in jobs if j.env == args.only]
+    if args.algo:
+        want = ALGO_ALIASES.get(args.algo.strip().lower())
+        if want is None:
+            log(f"--algo '{args.algo}' khong hop le. Dung mot trong: "
+                f"{', '.join(sorted(set(ALGO_ALIASES)))}", "ERROR")
+            return 1
+        jobs = [j for j in jobs if j.algo == want]
     if args.jobs:
         want = {s.strip() for s in args.jobs.split(",")}
         jobs = [j for j in jobs if j.id in want]
@@ -403,13 +609,13 @@ def main() -> int:
     st = load_status()
     if args.resume:
         before = len(jobs)
-        jobs = [j for j in jobs if not run_has_output(j)]
+        jobs = [j for j in jobs if not run_is_complete(j)]
         log(f"--resume: bo qua {before - len(jobs)} job da co ket qua")
         if not jobs:
             log("Tat ca job da xong.")
             return 0
 
-    if not preflight(jobs, args.mode) and not args.dry_run:
+    if not preflight(jobs, args) and not args.dry_run:
         log("Dung lai vi kiem tra that bai. Sua roi chay lai.", "ERROR")
         return 1
 
@@ -429,12 +635,17 @@ def main() -> int:
             log("Ngat toan bo. Chay lai voi --resume de tiep tuc.", "WARN")
             save_status(st)
             return 130
-        st[job.id] = {
-            "run_id": job.run_id, "ok": ok, "seconds": round(dur, 1),
-            "steps": steps_done, "at": datetime.now().isoformat(timespec="seconds"),
-            "smoke": bool(args.smoke),
-        }
-        save_status(st)
+        # --dry-run KHONG duoc ghi trang thai. run_job() tra ve ok=True ma khong
+        # chay gi, nen mot lan dry-run se danh dau ca 15 job la "ok, 0 buoc" —
+        # file trang thai tu do noi doi ve nhung job chua he chay.
+        if not args.dry_run:
+            st[job.id] = {
+                "run_id": job.run_id, "ok": ok, "seconds": round(dur, 1),
+                "steps": steps_done,
+                "at": datetime.now().isoformat(timespec="seconds"),
+                "smoke": bool(args.smoke),
+            }
+            save_status(st)
         (done if ok else failed).append(job.id)
         if not ok and not args.smoke:
             log("Job that bai — van chay tiep cac job con lai.", "WARN")

@@ -1,0 +1,120 @@
+10:31:38 [INFO] ──────────────────────────────────────────────────────────────────────
+10:31:38 [INFO] KIEM TRA TRUOC KHI CHAY
+10:31:38 [INFO] ──────────────────────────────────────────────────────────────────────
+10:31:38 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+10:31:38 [INFO] trainer plugins: default,a2c,dqn,mappo
+10:31:38 [WARN] [ctf_poca] CANH BAO: Khong cat duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc.
+10:31:38 [WARN] [ctf_mappo] CANH BAO: Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an.
+10:31:38 [WARN] [fb_sac] CANH BAO: SAC + self_play: ML-Agents khong ho tro chinh thuc. Neu trainer bao loi, xem muc 'SAC tren Football' trong ke hoach.
+10:31:38 [WARN] --force: se GHI DE 5 thu muc run-id da co (ctr01, ctr_poca_v1, FB01, Football_POCA_01, Football_SAC_01)
+10:31:38 [INFO] Ket qua kiem tra: OK
+10:31:38 [INFO] ──────────────────────────────────────────────────────────────────────
+10:31:38 [INFO] Se chay 9 job, tong 180,000 buoc (ngan sach: reduced)
+10:31:38 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+10:31:38 [INFO] ======================================================================
+10:31:38 [INFO] [1/9]  ctr_ppo   PPO @ crossroad
+10:31:38 [INFO]         run-id  : ctr01
+10:31:38 [INFO]         config  : ctr_ppo.yaml
+10:31:38 [INFO]         steps   : 20,000
+10:31:38 [INFO] ======================================================================
+10:31:38 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_ppo.yaml --run-id ctr01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:42 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:42 [ERROR] --> THAT BAI  (0:00:04, 0 steps, log: ctr01.log)
+10:31:42 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctr01.log
+
+10:31:42 [INFO] ======================================================================
+10:31:42 [INFO] [2/9]  ctr_sac   SAC @ crossroad
+10:31:42 [INFO]         run-id  : CrossTheRoad_SAC_01
+10:31:42 [INFO]         config  : ctr_sac.yaml
+10:31:42 [INFO]         steps   : 20,000
+10:31:42 [INFO] ======================================================================
+10:31:42 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_sac.yaml --run-id CrossTheRoad_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:44 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:44 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: CrossTheRoad_SAC_01.log)
+10:31:44 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\CrossTheRoad_SAC_01.log
+
+10:31:44 [INFO] ======================================================================
+10:31:44 [INFO] [3/9]  ctr_poca   MA-POCA @ crossroad
+10:31:44 [INFO]         run-id  : ctr_poca_v1
+10:31:44 [INFO]         config  : ctr_poca.yaml
+10:31:44 [INFO]         steps   : 20,000
+10:31:44 [INFO] ======================================================================
+10:31:44 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_poca.yaml --run-id ctr_poca_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:46 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:46 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: ctr_poca_v1.log)
+10:31:46 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctr_poca_v1.log
+
+10:31:46 [INFO] ======================================================================
+10:31:46 [INFO] [4/9]  ctr_mappo   MAPPO @ crossroad
+10:31:46 [INFO]         run-id  : ctr_mappo_v1
+10:31:46 [INFO]         config  : ctr_mappo.yaml
+10:31:46 [INFO]         steps   : 20,000
+10:31:46 [INFO] ======================================================================
+10:31:46 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_mappo.yaml --run-id ctr_mappo_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:48 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:48 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: ctr_mappo_v1.log)
+10:31:48 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctr_mappo_v1.log
+
+10:31:48 [INFO] ======================================================================
+10:31:48 [INFO] [5/9]  ctf_poca   MA-POCA @ capture
+10:31:48 [INFO]         run-id  : ctf_poca_v2
+10:31:48 [INFO]         config  : ctf_poca.yaml
+10:31:48 [INFO]         steps   : 20,000
+10:31:48 [INFO] ======================================================================
+10:31:48 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_poca.yaml --run-id ctf_poca_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:50 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:50 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: ctf_poca_v2.log)
+10:31:50 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctf_poca_v2.log
+
+10:31:50 [INFO] ======================================================================
+10:31:50 [INFO] [6/9]  ctf_mappo   MAPPO @ capture
+10:31:50 [INFO]         run-id  : ctf_mappo_v2
+10:31:50 [INFO]         config  : ctf_mappo.yaml
+10:31:50 [INFO]         steps   : 20,000
+10:31:50 [INFO] ======================================================================
+10:31:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_mappo.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:52 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:52 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: ctf_mappo_v2.log)
+10:31:52 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctf_mappo_v2.log
+
+10:31:52 [INFO] ======================================================================
+10:31:52 [INFO] [7/9]  fb_ppo   PPO @ football
+10:31:52 [INFO]         run-id  : FB01
+10:31:52 [INFO]         config  : football_ppo.yaml
+10:31:52 [INFO]         steps   : 20,000
+10:31:52 [INFO] ======================================================================
+10:31:52 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_ppo.yaml --run-id FB01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:54 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:54 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: FB01.log)
+10:31:54 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\FB01.log
+
+10:31:54 [INFO] ======================================================================
+10:31:54 [INFO] [8/9]  fb_poca   MA-POCA @ football
+10:31:54 [INFO]         run-id  : Football_POCA_01
+10:31:54 [INFO]         config  : football_poca.yaml
+10:31:54 [INFO]         steps   : 20,000
+10:31:54 [INFO] ======================================================================
+10:31:54 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_poca.yaml --run-id Football_POCA_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:56 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:56 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: Football_POCA_01.log)
+10:31:56 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\Football_POCA_01.log
+
+10:31:56 [INFO] ======================================================================
+10:31:56 [INFO] [9/9]  fb_sac   SAC @ football
+10:31:56 [INFO]         run-id  : Football_SAC_01
+10:31:56 [INFO]         config  : football_sac.yaml
+10:31:56 [INFO]         steps   : 20,000
+10:31:56 [INFO] ======================================================================
+10:31:56 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_sac.yaml --run-id Football_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0 --max-steps 20000
+10:31:58 [WARN]     mlagents-learn.exe: error: unrecognized arguments: --max-steps 20000
+10:31:58 [ERROR] --> THAT BAI  (0:00:01, 0 steps, log: Football_SAC_01.log)
+10:31:58 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\Football_SAC_01.log
+
+10:31:58 [INFO] ======================================================================
+10:31:58 [INFO] TONG KET  (0:00:20)
+10:31:58 [INFO]   Thanh cong : 0  []
+10:31:58 [INFO]   That bai   : 9  ['ctr_ppo', 'ctr_sac', 'ctr_poca', 'ctr_mappo', 'ctf_poca', 'ctf_mappo', 'fb_ppo', 'fb_poca', 'fb_sac']
+10:31:58 [INFO] ======================================================================
+10:31:58 [WARN] Chay lai rieng cac job loi:
+10:31:58 [WARN]   python train_all.py --mode build --jobs ctr_ppo,ctr_sac,ctr_poca,ctr_mappo,ctf_poca,ctf_mappo,fb_ppo,fb_poca,fb_sac

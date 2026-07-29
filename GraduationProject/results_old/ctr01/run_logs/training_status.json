@@ -1,0 +1,29 @@
+{
+    "CrossTheRoad": {
+        "checkpoints": [
+            {
+                "steps": 20056,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctr01\\CrossTheRoad\\CrossTheRoad-20056.onnx",
+                "reward": 0.016235631826365816,
+                "creation_time": 1785209694.183395,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctr01\\CrossTheRoad\\CrossTheRoad-20056.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20056,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctr01\\CrossTheRoad.onnx",
+            "reward": 0.016235631826365816,
+            "creation_time": 1785209694.183395,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctr01\\CrossTheRoad\\CrossTheRoad-20056.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

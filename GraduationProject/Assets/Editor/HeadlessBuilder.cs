@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace GraduationProject.EditorTools
     ///
     /// Dùng: menu  Tools ▸ Training ▸ Build Training Envs
     /// Hoặc batch mode:  -executeMethod GraduationProject.EditorTools.HeadlessBuilder.BuildAllFromCommandLine
+    ///                   [-envs CrossTheRoad,Football]
     /// </summary>
     public static class HeadlessBuilder
     {
@@ -33,6 +35,8 @@ namespace GraduationProject.EditorTools
             new EnvBuild { Scene = "Assets/CrossTheRoad/Scenes/CrossTheRoad.unity",   Exe = "CrossTheRoad" },
             new EnvBuild { Scene = "Assets/Collaboration/Scenes/CaptureTheFlag.unity", Exe = "CaptureTheFlag" },
             new EnvBuild { Scene = "Assets/Football/Football.unity",                   Exe = "Football" },
+            // Bản action rời rạc, chỉ dùng cho DQN — xem FootballDiscreteMaker.cs.
+            new EnvBuild { Scene = "Assets/Football/FootballDiscrete.unity",           Exe = "FootballDiscrete" },
         };
 
         private static string BuildRoot =>
@@ -52,17 +56,54 @@ namespace GraduationProject.EditorTools
 
         public static void BuildAllFromCommandLine()
         {
-            var failed = BuildAll();
+            // -envs CrossTheRoad,Football → chỉ build những môi trường được kể tên.
+            // Cần vì build cả ba scene mất khoảng một tiếng: khi một scene lỗi hoặc
+            // bị giết giữa chừng, không có cách nào build lại riêng nó mà không tốn
+            // thêm ~45 phút dựng lại hai scene đã xong.
+            string[] only = null;
+            var argv = Environment.GetCommandLineArgs();
+            for (int i = 0; i < argv.Length - 1; i++)
+            {
+                if (argv[i] == "-envs")
+                    only = argv[i + 1].Split(',')
+                                      .Select(s => s.Trim())
+                                      .Where(s => s.Length > 0)
+                                      .ToArray();
+            }
+
+            if (only != null)
+            {
+                var unknown = only
+                    .Where(n => !Targets.Any(t => string.Equals(t.Exe, n,
+                                                 StringComparison.OrdinalIgnoreCase)))
+                    .ToArray();
+                if (unknown.Length > 0)
+                {
+                    Debug.LogError($"[HeadlessBuilder] -envs có tên lạ: " +
+                                   string.Join(", ", unknown) + ". Hợp lệ: " +
+                                   string.Join(", ", Targets.Select(t => t.Exe)));
+                    EditorApplication.Exit(1);
+                    return;
+                }
+            }
+
+            var failed = BuildAll(only);
             EditorApplication.Exit(failed.Count == 0 ? 0 : 1);
         }
 
-        private static List<string> BuildAll()
+        private static List<string> BuildAll(string[] only = null)
         {
             var failed = new List<string>();
             Directory.CreateDirectory(BuildRoot);
 
             foreach (var t in Targets)
             {
+                if (only != null && !only.Contains(t.Exe, StringComparer.OrdinalIgnoreCase))
+                {
+                    Debug.Log($"[HeadlessBuilder] Bỏ qua {t.Exe} (không có trong -envs)");
+                    continue;
+                }
+
                 if (!File.Exists(t.Scene))
                 {
                     Debug.LogError($"[HeadlessBuilder] Không thấy scene {t.Scene}");

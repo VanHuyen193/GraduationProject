@@ -2,33 +2,121 @@
   "ctr_ppo": {
     "run_id": "ctr01",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-27T23:34:39",
+    "seconds": 2874.1,
+    "steps": 2000000,
+    "at": "2026-07-28T13:00:37",
     "smoke": false
   },
   "ctr_sac": {
     "run_id": "CrossTheRoad_SAC_01",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-27T23:34:39",
+    "seconds": 8332.2,
+    "steps": 2000000,
+    "at": "2026-07-28T15:19:29",
     "smoke": false
   },
   "ctr_poca": {
     "run_id": "ctr_poca_v1",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-27T23:34:39",
+    "seconds": 3553.3,
+    "steps": 2000000,
+    "at": "2026-07-28T16:18:43",
     "smoke": false
   },
   "ctr_mappo": {
     "run_id": "ctr_mappo_v1",
     "ok": true,
+    "seconds": 3493.5,
+    "steps": 2000000,
+    "at": "2026-07-28T17:16:56",
+    "smoke": false
+  },
+  "ctf_poca": {
+    "run_id": "ctf_poca_v2",
+    "ok": true,
     "seconds": 0.0,
     "steps": 0,
-    "at": "2026-07-27T23:34:39",
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "ctf_mappo": {
+    "run_id": "ctf_mappo_v2",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "fb_ppo": {
+    "run_id": "FB01",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "fb_poca": {
+    "run_id": "Football_POCA_01",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "fb_sac": {
+    "run_id": "Football_SAC_01",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "ctr_dqn": {
+    "run_id": "ctr_dqn_v1",
+    "ok": true,
+    "seconds": 8872.3,
+    "steps": 2000000,
+    "at": "2026-07-29T11:15:41",
+    "smoke": false
+  },
+  "ctf_ppo": {
+    "run_id": "ctf_ppo_v1",
+    "ok": true,
+    "seconds": 3011.6,
+    "steps": 1700000,
+    "at": "2026-07-29T12:05:53",
+    "smoke": false
+  },
+  "ctf_sac": {
+    "run_id": "ctf_sac_v1",
+    "ok": false,
+    "seconds": 0.1,
+    "steps": 0,
+    "at": "2026-07-28T17:38:15",
+    "smoke": false
+  },
+  "ctf_dqn": {
+    "run_id": "ctf_dqn_v1",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "fb_mappo": {
+    "run_id": "Football_MAPPO_01",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
+    "smoke": false
+  },
+  "fb_dqn": {
+    "run_id": "football_dqn_v1",
+    "ok": true,
+    "seconds": 0.0,
+    "steps": 0,
+    "at": "2026-07-28T12:12:10",
     "smoke": false
   }
 }

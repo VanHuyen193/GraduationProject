@@ -1,0 +1,49 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1785211894",
+        "python_version": "3.10.12 | packaged by Anaconda, Inc. | (main, Jul  5 2023, 19:01:18) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Admin\\miniconda3\\envs\\mlagents\\Scripts\\mlagents-learn C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\training_logs\\_config_override\\ctr_dqn_v1_20000.yaml --run-id ctr_dqn_v1 --results-dir C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results --force --env C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\Builds\\CrossTheRoad\\CrossTheRoad.exe --no-graphics --time-scale 20.0",
+        "mlagents_version": "1.2.0.dev0",
+        "mlagents_envs_version": "1.2.0.dev0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.2.2+cu121",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1785211900"
+    },
+    "total": 5.516133500030264,
+    "count": 1,
+    "self": 2.2739816999528557,
+    "children": {
+        "run_training.setup": {
+            "total": 0.07445410010404885,
+            "count": 1,
+            "self": 0.07445410010404885
+        },
+        "TrainerController.start_learning": {
+            "total": 3.1676976999733597,
+            "count": 1,
+            "self": 0.00010499986819922924,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 3.165418300079182,
+                    "count": 1,
+                    "self": 3.165418300079182
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0021744000259786844,
+                    "count": 1,
+                    "self": 0.00017080013640224934,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.002003599889576435,
+                            "count": 1,
+                            "self": 0.002003599889576435
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,84 @@
+11:11:32 [INFO] ──────────────────────────────────────────────────────────────────────
+11:11:32 [INFO] KIEM TRA TRUOC KHI CHAY
+11:11:32 [INFO] ──────────────────────────────────────────────────────────────────────
+11:11:32 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+11:11:32 [INFO] trainer plugins: default,a2c,dqn,mappo
+11:11:32 [INFO] Ket qua kiem tra: OK
+11:11:32 [INFO] ──────────────────────────────────────────────────────────────────────
+11:11:32 [INFO] Se chay 5 job, tong 100,000 buoc (ngan sach: reduced)
+11:11:32 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+11:11:32 [INFO] ======================================================================
+11:11:32 [INFO] [1/5]  ctr_dqn   DQN @ crossroad
+11:11:32 [INFO]         run-id  : ctr_dqn_v1
+11:11:32 [INFO]         config  : ctr_dqn.yaml
+11:11:32 [INFO]         steps   : 20,000
+11:11:32 [INFO] ======================================================================
+11:11:32 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr_dqn_v1_20000.yaml --run-id ctr_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+11:11:40 [WARN]     Traceback (most recent call last):
+11:11:40 [WARN]     RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
+11:11:40 [ERROR] --> THAT BAI  (0:00:07, 0 steps, log: ctr_dqn_v1.log)
+11:11:40 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctr_dqn_v1.log
+
+11:11:40 [INFO] ======================================================================
+11:11:40 [INFO] [2/5]  ctf_ppo   PPO @ capture
+11:11:40 [INFO]         run-id  : ctf_ppo_v1
+11:11:40 [INFO]         config  : ctf_ppo.yaml
+11:11:40 [INFO]         steps   : 20,000
+11:11:40 [INFO] ======================================================================
+11:11:40 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_ppo_v1_20000.yaml --run-id ctf_ppo_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+11:11:46 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+11:11:49 [INFO]          5,000 / 20,000  ( 25.0%)     575 step/s  ETA 0:00:26
+11:11:52 [INFO]         10,000 / 20,000  ( 50.0%)     869 step/s  ETA 0:00:11
+11:11:56 [INFO]         15,000 / 20,000  ( 75.0%)     955 step/s  ETA 0:00:05
+11:11:59 [INFO]         20,000 / 20,000  (100.0%)    1079 step/s  ETA 0:00:00
+11:12:02 [INFO] --> XONG  (0:00:22, 20,000 steps, log: ctf_ppo_v1.log)
+
+11:12:02 [INFO] ======================================================================
+11:12:02 [INFO] [3/5]  ctf_sac   SAC @ capture
+11:12:02 [INFO]         run-id  : ctf_sac_v1
+11:12:02 [INFO]         config  : ctf_sac.yaml
+11:12:02 [INFO]         steps   : 20,000
+11:12:02 [INFO] ======================================================================
+11:12:02 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_sac_v1_20000.yaml --run-id ctf_sac_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+11:12:08 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+11:12:30 [INFO]          5,000 / 20,000  ( 25.0%)     177 step/s  ETA 0:01:24
+11:13:13 [INFO]         10,000 / 20,000  ( 50.0%)     142 step/s  ETA 0:01:10
+11:14:40 [INFO]         15,000 / 20,000  ( 75.0%)      95 step/s  ETA 0:00:52
+11:15:46 [INFO]         20,000 / 20,000  (100.0%)      89 step/s  ETA 0:00:00
+11:15:53 [INFO] --> XONG  (0:03:50, 20,000 steps, log: ctf_sac_v1.log)
+
+11:15:53 [INFO] ======================================================================
+11:15:53 [INFO] [4/5]  ctf_dqn   DQN @ capture
+11:15:53 [INFO]         run-id  : ctf_dqn_v1
+11:15:53 [INFO]         config  : ctf_dqn.yaml
+11:15:53 [INFO]         steps   : 20,000
+11:15:53 [INFO] ======================================================================
+11:15:53 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_dqn_v1_20000.yaml --run-id ctf_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+11:16:00 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+11:23:00 [INFO]          5,000 / 20,000  ( 25.0%)      12 step/s  ETA 0:21:23
+11:33:17 [INFO]         10,000 / 20,000  ( 50.0%)      10 step/s  ETA 0:17:24
+11:49:25 [INFO]         15,000 / 20,000  ( 75.0%)       7 step/s  ETA 0:11:10
+11:59:34 [INFO]         20,000 / 20,000  (100.0%)       8 step/s  ETA 0:00:00
+11:59:39 [INFO] --> XONG  (0:43:46, 20,000 steps, log: ctf_dqn_v1.log)
+
+11:59:39 [INFO] ======================================================================
+11:59:39 [INFO] [5/5]  fb_mappo   MAPPO @ football
+11:59:39 [INFO]         run-id  : Football_MAPPO_01
+11:59:39 [INFO]         config  : football_mappo.yaml
+11:59:39 [INFO]         steps   : 20,000
+11:59:39 [INFO] ======================================================================
+11:59:39 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_MAPPO_01_20000.yaml --run-id Football_MAPPO_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+11:59:56 [INFO]          5,000 / 20,000  ( 25.0%)     293 step/s  ETA 0:00:51
+12:00:05 [INFO]         10,000 / 20,000  ( 50.0%)     380 step/s  ETA 0:00:26
+12:00:11 [INFO]         15,000 / 20,000  ( 75.0%)     466 step/s  ETA 0:00:10
+12:00:18 [INFO]         20,000 / 20,000  (100.0%)     506 step/s  ETA 0:00:00
+12:00:22 [INFO] --> XONG  (0:00:43, 20,000 steps, log: Football_MAPPO_01.log)
+
+12:00:22 [INFO] ======================================================================
+12:00:22 [INFO] TONG KET  (0:48:49)
+12:00:22 [INFO]   Thanh cong : 4  ['ctf_ppo', 'ctf_sac', 'ctf_dqn', 'fb_mappo']
+12:00:22 [INFO]   That bai   : 1  ['ctr_dqn']
+12:00:22 [INFO] ======================================================================
+12:00:22 [WARN] Chay lai rieng cac job loi:
+12:00:22 [WARN]   python train_all.py --mode build --jobs ctr_dqn

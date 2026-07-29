@@ -13,11 +13,14 @@ Hai viec, deu chay Unity o che do batch nen khong phai mo Editor bang tay:
   2. --build     Build ba file .exe (moi file mot scene) vao Builds/.
                  Co .exe thi mlagents-learn tu khoi chay moi truong qua --env:
                  chay duoc qua dem, khong can bam Play, va dung duoc --num-envs.
+                 Moi env mat ~20-26 phut (phan lon la chuan bi 36 ti shader
+                 variant cua URP/Lit), nen ca ba mat khoang mot tieng.
 
 Vi du:
     python prepare_envs.py --areas 8 --build      # lam ca hai
     python prepare_envs.py --areas 1              # tra ve 1 area nhu cu
-    python prepare_envs.py --build                # chi build lai
+    python prepare_envs.py --build                # chi build lai ca ba
+    python prepare_envs.py --build --envs Football  # chi build lai mot env
 """
 
 from __future__ import annotations
@@ -48,6 +51,10 @@ SCENES = [
     "Assets/Collaboration/Scenes/CaptureTheFlag.unity",
     "Assets/Football/Football.unity",
 ]
+
+# Ten thu muc + file .exe trong Builds/, khop mang Targets trong HeadlessBuilder.cs.
+# FootballDiscrete = ban action roi rac cua Football, chi DQN dung.
+ALL_ENVS = ["CrossTheRoad", "CaptureTheFlag", "Football", "FootballDiscrete"]
 
 
 def log(msg: str = "", level: str = "INFO") -> None:
@@ -175,9 +182,27 @@ def main() -> int:
                    help="nhan training area cua ca 3 scene thanh N ban (1 = tra ve cu)")
     p.add_argument("--columns", type=int, default=4, help="so cot cua luoi area")
     p.add_argument("--build", action="store_true", help="build 3 file .exe vao Builds/")
+    p.add_argument("--envs", help="chi build cac env nay, phan cach dau phay "
+                                  "(CrossTheRoad,CaptureTheFlag,Football)")
     p.add_argument("--yes", action="store_true", help="khong hoi xac nhan")
-    p.add_argument("--timeout", type=int, default=3600, help="tran thoi gian moi buoc, giay")
+    p.add_argument("--timeout", type=int, default=3600,
+                   help="tran thoi gian buoc nhan area, giay")
+    # Tran thoi gian tinh THEO MOI ENV chu khong phai cho ca lenh build. Ban dau
+    # dung chung mot --timeout 3600 cho ca buoc build ba env, nhung ba env mat
+    # ~1555+1144+1200 = 3900s nen Unity luon bi giet dung o env cuoi cung.
+    p.add_argument("--build-timeout", type=int, default=2400, metavar="SEC",
+                   help="tran thoi gian MOI ENV khi build, giay "
+                        "(mac dinh 2400; do thuc te 1100-1600s/env)")
     args = p.parse_args()
+
+    envs = ALL_ENVS
+    if args.envs:
+        envs = [e.strip() for e in args.envs.split(",") if e.strip()]
+        unknown = [e for e in envs if e not in ALL_ENVS]
+        if unknown:
+            log(f"--envs co ten la: {', '.join(unknown)}. "
+                f"Hop le: {', '.join(ALL_ENVS)}", "ERROR")
+            return 1
 
     if not args.areas and not args.build:
         p.print_help()
@@ -228,20 +253,34 @@ def main() -> int:
             "areas", args.timeout)
 
     if args.build and steps_ok:
+        budget = args.build_timeout * len(envs)
         log("")
         log("═" * 66)
-        log("BUOC 2 — build 3 moi truong (lan dau co the mat 10-20 phut/env)")
+        log(f"BUOC 2 — build {len(envs)} moi truong: {', '.join(envs)}")
+        log(f"         ~20-26 phut/env, tran thoi gian {budget}s "
+            f"({args.build_timeout}s x {len(envs)})")
         log("═" * 66)
-        steps_ok &= run_unity(unity, BUILDER, [], "build", args.timeout)
+        extra = ["-envs", ",".join(envs)] if args.envs else []
+        steps_ok &= run_unity(unity, BUILDER, extra, "build", budget)
 
-        if steps_ok:
+        # In ca khi that bai: build chay tuan tu nen thuong da xong vai env,
+        # biet env nao con thieu thi chay lai duoc dung phan con lai.
+        log("")
+        log("File da build:")
+        missing = []
+        for env in ALL_ENVS:
+            exe = BUILD_DIR / env / f"{env}.exe"
+            if exe.exists():
+                size = sum(f.stat().st_size for f in exe.parent.rglob("*")
+                           if f.is_file()) / 1e6
+                log(f"  [OK   ] {exe}  {size:.0f} MB")
+            else:
+                log(f"  [THIEU] {exe}")
+                missing.append(env)
+        if missing:
             log("")
-            log("File da build:")
-            for env in ("CrossTheRoad", "CaptureTheFlag", "Football"):
-                exe = BUILD_DIR / env / f"{env}.exe"
-                mark = "OK " if exe.exists() else "THIEU"
-                size = f"{exe.stat().st_size / 1e6:.0f} MB" if exe.exists() else ""
-                log(f"  [{mark}] {exe}  {size}")
+            log(f"Con thieu {len(missing)} env. Build lai DUNG phan con lai:", "WARN")
+            log(f"  python prepare_envs.py --build --envs {','.join(missing)}", "WARN")
 
     log("")
     if steps_ok:

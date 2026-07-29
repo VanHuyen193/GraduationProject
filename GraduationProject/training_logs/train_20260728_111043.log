@@ -1,0 +1,83 @@
+11:10:43 [ERROR] --algo 'poca' khong khop thuat toan nao. Hop le: DQN, MA-POCA, MAPPO, PPO, SAC
+11:10:43 [INFO] ──────────────────────────────────────────────────────────────────────
+11:10:43 [INFO] KIEM TRA TRUOC KHI CHAY
+11:10:43 [INFO] ──────────────────────────────────────────────────────────────────────
+11:10:43 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+11:10:43 [INFO] trainer plugins: default,a2c,dqn,mappo
+11:10:43 [WARN] [ctf_mappo] CANH BAO: Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an.
+11:10:43 [WARN] --force: se GHI DE 2 thu muc run-id da co (ctr_mappo_v1, ctf_mappo_v2)
+11:10:43 [INFO] Ket qua kiem tra: OK
+11:10:43 [INFO] ──────────────────────────────────────────────────────────────────────
+11:10:43 [INFO] Se chay 3 job, tong 3,150,000 buoc (ngan sach: reduced)
+11:10:43 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] [1/3]  ctr_mappo   MAPPO @ crossroad
+11:10:43 [INFO]         run-id  : ctr_mappo_v1
+11:10:43 [INFO]         config  : ctr_mappo.yaml
+11:10:43 [INFO]         steps   : 1,200,000
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_mappo.yaml --run-id ctr_mappo_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] [2/3]  ctf_mappo   MAPPO @ capture
+11:10:43 [INFO]         run-id  : ctf_mappo_v2
+11:10:43 [INFO]         config  : ctf_mappo.yaml
+11:10:43 [INFO]         steps   : 1,500,000
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_mappo.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] [3/3]  fb_mappo   MAPPO @ football
+11:10:43 [INFO]         run-id  : Football_MAPPO_01
+11:10:43 [INFO]         config  : football_mappo.yaml
+11:10:43 [INFO]         steps   : 450,000
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_mappo.yaml --run-id Football_MAPPO_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] TONG KET  (0:00:00)
+11:10:43 [INFO]   Thanh cong : 3  ['ctr_mappo', 'ctf_mappo', 'fb_mappo']
+11:10:43 [INFO]   That bai   : 0  []
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] ──────────────────────────────────────────────────────────────────────
+11:10:43 [INFO] KIEM TRA TRUOC KHI CHAY
+11:10:43 [INFO] ──────────────────────────────────────────────────────────────────────
+11:10:43 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+11:10:43 [INFO] trainer plugins: default,a2c,dqn,mappo
+11:10:43 [ERROR] [fb_dqn] thieu build C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe
+11:10:43 [WARN] [fb_dqn] CANH BAO: CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung build 'Football' voi PPO/SAC/POCA/MAPPO duoc.
+11:10:43 [INFO] Ket qua kiem tra: CO LOI
+11:10:43 [INFO] ──────────────────────────────────────────────────────────────────────
+11:10:43 [INFO] Se chay 3 job, tong 3,150,000 buoc (ngan sach: reduced)
+11:10:43 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] [1/3]  ctr_dqn   DQN @ crossroad
+11:10:43 [INFO]         run-id  : ctr_dqn_v1
+11:10:43 [INFO]         config  : ctr_dqn.yaml
+11:10:43 [INFO]         steps   : 1,200,000
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_dqn.yaml --run-id ctr_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] [2/3]  ctf_dqn   DQN @ capture
+11:10:43 [INFO]         run-id  : ctf_dqn_v1
+11:10:43 [INFO]         config  : ctf_dqn.yaml
+11:10:43 [INFO]         steps   : 1,500,000
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_dqn.yaml --run-id ctf_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] [3/3]  fb_dqn   DQN @ football
+11:10:43 [INFO]         run-id  : football_dqn_v1
+11:10:43 [INFO]         config  : football_dqn.yaml
+11:10:43 [INFO]         steps   : 450,000
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_dqn.yaml --run-id football_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe --no-graphics --time-scale 20.0
+
+11:10:43 [INFO] ======================================================================
+11:10:43 [INFO] TONG KET  (0:00:00)
+11:10:43 [INFO]   Thanh cong : 3  ['ctr_dqn', 'ctf_dqn', 'fb_dqn']
+11:10:43 [INFO]   That bai   : 0  []
+11:10:43 [INFO] ======================================================================

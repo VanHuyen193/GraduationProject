@@ -1,0 +1,42 @@
+# Sinh tu ctf_ppo.yaml boi train_all.py — max_steps=1,700,000. Dung sua tay.
+behaviors:
+  PuzzleBehavior:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 20480
+      learning_rate: 0.0003
+      beta: 0.01
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 256
+      num_layers: 3
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      curiosity:
+        gamma: 0.99
+        strength: 0.02
+        learning_rate: 0.0003
+    keep_checkpoints: 10
+    max_steps: 1700000
+    time_horizon: 128
+    summary_freq: 20000
+environment_parameters:
+  handoff_required:
+    curriculum:
+    - name: Lesson0_DoorOpen
+      completion_criteria:
+        measure: reward
+        behavior: PuzzleBehavior
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 0.6
+      value: 0.0
+    - name: Lesson1_Handoff
+      value: 1.0

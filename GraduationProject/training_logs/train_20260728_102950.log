@@ -1,0 +1,100 @@
+10:29:50 [INFO] ──────────────────────────────────────────────────────────────────────
+10:29:50 [INFO] KIEM TRA TRUOC KHI CHAY
+10:29:50 [INFO] ──────────────────────────────────────────────────────────────────────
+10:29:50 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+10:29:50 [INFO] trainer plugins: default,a2c,dqn,mappo
+10:29:50 [WARN] [ctf_poca] CANH BAO: Khong cat duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc.
+10:29:50 [WARN] [ctf_mappo] CANH BAO: Khong cat duoi 1,5M: day la lan chay chua PHAT HIEN CHINH cua do an.
+10:29:50 [WARN] [fb_sac] CANH BAO: SAC + self_play: ML-Agents khong ho tro chinh thuc. Neu trainer bao loi, xem muc 'SAC tren Football' trong ke hoach.
+
+10:29:50 [ERROR] 5 run-id DA co thu muc trong results/ — mlagents-learn se tu choi chay:
+10:29:50 [ERROR]     [ctr_ppo] results/ctr01  (2 checkpoint .pt)
+10:29:50 [ERROR]     [ctr_poca] results/ctr_poca_v1  (6 checkpoint .pt)
+10:29:50 [ERROR]     [fb_ppo] results/FB01  (9 checkpoint .pt)
+10:29:50 [ERROR]     [fb_poca] results/Football_POCA_01  (5 checkpoint .pt)
+10:29:50 [ERROR]     [fb_sac] results/Football_SAC_01  (7 checkpoint .pt)
+10:29:50 [ERROR] Chon mot trong hai:
+10:29:50 [ERROR]   a) them --force  (ghi de, XOA checkpoint .pt cu trong cac thu muc tren)
+10:29:50 [ERROR]   b) doi cho cac thu muc do sang results_old/ de giu lai
+10:29:50 [INFO] Ket qua kiem tra: CO LOI
+10:29:50 [INFO] ──────────────────────────────────────────────────────────────────────
+10:29:50 [INFO] Se chay 9 job, tong 8,500,000 buoc (ngan sach: reduced)
+10:29:50 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [1/9]  ctr_ppo   PPO @ crossroad
+10:29:50 [INFO]         run-id  : ctr01
+10:29:50 [INFO]         config  : ctr_ppo.yaml
+10:29:50 [INFO]         steps   : 1,200,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_ppo.yaml --run-id ctr01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [2/9]  ctr_sac   SAC @ crossroad
+10:29:50 [INFO]         run-id  : CrossTheRoad_SAC_01
+10:29:50 [INFO]         config  : ctr_sac.yaml
+10:29:50 [INFO]         steps   : 200,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_sac.yaml --run-id CrossTheRoad_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [3/9]  ctr_poca   MA-POCA @ crossroad
+10:29:50 [INFO]         run-id  : ctr_poca_v1
+10:29:50 [INFO]         config  : ctr_poca.yaml
+10:29:50 [INFO]         steps   : 1,200,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_poca.yaml --run-id ctr_poca_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [4/9]  ctr_mappo   MAPPO @ crossroad
+10:29:50 [INFO]         run-id  : ctr_mappo_v1
+10:29:50 [INFO]         config  : ctr_mappo.yaml
+10:29:50 [INFO]         steps   : 1,200,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctr_mappo.yaml --run-id ctr_mappo_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [5/9]  ctf_poca   MA-POCA @ capture
+10:29:50 [INFO]         run-id  : ctf_poca_v2
+10:29:50 [INFO]         config  : ctf_poca.yaml
+10:29:50 [INFO]         steps   : 1,500,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_poca.yaml --run-id ctf_poca_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [6/9]  ctf_mappo   MAPPO @ capture
+10:29:50 [INFO]         run-id  : ctf_mappo_v2
+10:29:50 [INFO]         config  : ctf_mappo.yaml
+10:29:50 [INFO]         steps   : 1,500,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\ctf_mappo.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [7/9]  fb_ppo   PPO @ football
+10:29:50 [INFO]         run-id  : FB01
+10:29:50 [INFO]         config  : football_ppo.yaml
+10:29:50 [INFO]         steps   : 800,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_ppo.yaml --run-id FB01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [8/9]  fb_poca   MA-POCA @ football
+10:29:50 [INFO]         run-id  : Football_POCA_01
+10:29:50 [INFO]         config  : football_poca.yaml
+10:29:50 [INFO]         steps   : 450,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_poca.yaml --run-id Football_POCA_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] [9/9]  fb_sac   SAC @ football
+10:29:50 [INFO]         run-id  : Football_SAC_01
+10:29:50 [INFO]         config  : football_sac.yaml
+10:29:50 [INFO]         steps   : 450,000
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\config\football_sac.yaml --run-id Football_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+10:29:50 [INFO] ======================================================================
+10:29:50 [INFO] TONG KET  (0:00:00)
+10:29:50 [INFO]   Thanh cong : 9  ['ctr_ppo', 'ctr_sac', 'ctr_poca', 'ctr_mappo', 'ctf_poca', 'ctf_mappo', 'fb_ppo', 'fb_poca', 'fb_sac']
+10:29:50 [INFO]   That bai   : 0  []
+10:29:50 [INFO] ======================================================================
