@@ -9,44 +9,64 @@ Football Table (đối kháng một đối một), môi trường Capture The Fl
 Cross The Road (điều hướng tránh vật cản). Với mỗi môi trường, hệ thống không gian quan sát,
 không gian hành động và hàm phần thưởng đã được thiết kế phù hợp với đặc thù bài toán.
 
-\indent Đề tài đã triển khai huấn luyện và so sánh bốn thuật toán PPO, SAC, MA-POCA và
-MAPPO theo bốn tiêu chí định lượng, đồng thời hiện thực hóa quy trình tích hợp SAC ra
-ngoài trainer tích hợp sẵn của ML-Agents thông qua Python Low-Level API.
+\indent Đề tài đã triển khai huấn luyện và so sánh năm thuật toán PPO, SAC, MA-POCA,
+MAPPO và DQN theo bốn tiêu chí định lượng, tạo thành một lưới đầy đủ mười lăm lần chạy
+trong đó năm thuật toán của cùng một môi trường dùng chung ngân sách bước. Hai thuật
+toán không có sẵn trong ML-Agents là MAPPO và DQN được bổ sung dưới dạng trainer mở
+rộng, nhờ đó cả năm chạy trên cùng một đường ống đo đạc; bên cạnh đó, quy trình kết nối
+môi trường Unity với một thư viện học tăng cường bên ngoài qua Python Low-Level API cũng
+được hiện thực hóa và kiểm chứng.
 
-\indent Kết quả thực nghiệm khẳng định không tồn tại một thuật toán tối ưu duy nhất
-cho mọi bài toán: trong môi trường đối kháng, MA-POCA và PPO kết hợp self-play là hai
-thuật toán duy nhất cho thấy tiến bộ thực sự theo chỉ số ELO, SAC đạt
-hiệu quả mẫu vượt trội trong bài toán điều hướng đơn tác nhân, và đặc biệt, MAPPO
-vượt qua MA-POCA trên môi trường hợp tác đa tác nhân với tỷ lệ giải xong cao hơn đáng
-kể, cho thấy cơ chế chia sẻ tham số và phê bình tập trung đơn giản có thể hiệu quả
-hơn cơ chế attention phức tạp khi các tác nhân đồng nhất.
+\indent Kết quả thực nghiệm khẳng định không tồn tại một thuật toán tối ưu duy nhất cho
+mọi bài toán, nhưng theo một cách khác với dự đoán ban đầu của đề tài. Trong môi trường
+đối kháng, cả bốn thuật toán ghép được với tự chơi đều tiến bộ so với phiên bản cũ của
+chính mình, với mức tăng ELO từ ba mươi sáu tới sáu mươi bốn điểm; biên độ này quá hẹp
+để xếp hạng, nên kết luận đọc được chỉ là cơ chế tự chơi hoạt động đúng chứ chưa phải
+thuật toán nào mạnh hơn. Ở bài toán điều hướng đơn tác nhân, SAC dẫn đầu ($0{,}846$)
+nhưng MAPPO bám sát ($0{,}835$) và cả hai tách hẳn khỏi PPO ($0{,}690$), MA-POCA
+($0{,}556$) và DQN ($0{,}336$). Ở bài toán hợp tác, bốn thuật toán về đích trong dải hẹp
+$0{,}800$--$0{,}840$, tức cơ chế phê bình tập trung của MAPPO và MA-POCA không tạo được
+khác biệt đo lường được so với PPO thường, còn SAC thất bại hoàn toàn ở mức $0{,}183$.
+
+\indent Điều dữ liệu ủng hộ chắc chắn nhất là một dạng khác của luận điểm trung tâm: sự
+phù hợp giữa thuật toán và môi trường là có thật, nhưng nó bộc lộ qua thất bại rõ hơn
+qua chiến thắng. Chênh lệch giữa thành công của SAC trên Cross The Road và sụp đổ của
+chính nó trên Capture The Flag lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một
+môi trường. Với người làm game, hệ quả thực dụng là chọn sai thuật toán cho một cơ chế
+game gây thiệt hại lớn hơn nhiều so với lợi ích của việc chọn đúng thuật toán tốt nhất
+trong nhóm khả dụng.
 
 \indent Bên cạnh phần thực nghiệm so sánh, đề tài đã xây dựng hoàn chỉnh một ứng dụng
-trình diễn tương tác, trong đó chín mô hình đã huấn luyện được triển khai trực tiếp vào
-game dưới định dạng ONNX. Ứng dụng cho phép người dùng lựa chọn môi trường, lựa chọn
-một trong bốn chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng tác nhân, tác
-nhân đấu mô hình ngôn ngữ lớn), lựa chọn mô hình cụ thể cho tác nhân và tra cứu ngay
-đường cong huấn luyện của từng thuật toán trên giao diện menu. Các luồng chức năng đã
-được kiểm thử trong Unity Editor và đều hoạt động đúng, ngoại trừ hai chế độ đua song
-song của Cross The Road đang chờ khôi phục số khu vực trong scene
-(Mục~\ref{sub:app-testing}). Kết quả này chứng minh tính khả thi của việc nhúng mô
-hình học tăng cường vào sản phẩm game hoàn chỉnh với chi phí suy luận không đáng kể.
+trình diễn tương tác, trong đó chín trong số mười lăm mô hình đã huấn luyện được triển
+khai trực tiếp vào game dưới định dạng ONNX. Ứng dụng cho phép người dùng lựa chọn môi
+trường, lựa chọn một trong bốn chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng
+tác nhân, tác nhân đấu mô hình ngôn ngữ lớn), lựa chọn mô hình cụ thể cho tác nhân và
+tra cứu ngay đường cong huấn luyện của từng thuật toán trên giao diện menu. Các luồng
+chức năng đã được kiểm thử trong Unity Editor và đều hoạt động đúng, ngoại trừ hai chế
+độ đua song song của Cross The Road chưa được kiểm thử lại sau khi scene được khôi phục
+về đủ tám khu vực (Mục~\ref{sub:app-testing}). Kết quả này chứng minh tính khả thi của
+việc nhúng mô hình học tăng cường vào sản phẩm game hoàn chỉnh với chi phí suy luận
+không đáng kể.
 
 \subsection{Đóng góp của đề tài}
 \indent Nếu phải xếp các đóng góp của đề tài theo mức độ hữu ích, tôi đặt kết quả so
-sánh lên đầu. Việc đưa PPO, SAC, MA-POCA và MAPPO về cùng một bộ môi trường, cùng một
-cấu hình phần cứng và cùng một quy trình đo cho phép rút ra những kết luận mà việc đối
-chiếu các tài liệu rời rạc không thể cho được. Trong số đó, phát hiện MAPPO vượt MA-POCA
-trên bài toán hợp tác có tác nhân đồng nhất đi ngược lại trực giác thông thường rằng
-thuật toán chuyên biệt hơn thì mạnh hơn, và là kết quả có giá trị tham khảo trực tiếp
-nhất cho người làm game.
+sánh lên đầu. Việc đưa PPO, SAC, MA-POCA, MAPPO và DQN về cùng một bộ môi trường, cùng
+một cấu hình phần cứng, cùng một ngân sách bước và cùng một quy trình đo cho phép rút ra
+những kết luận mà việc đối chiếu các tài liệu rời rạc không thể cho được. Trong số đó,
+kết quả có giá trị tham khảo trực tiếp nhất cho người làm game là một kết quả phủ định:
+trên bài toán hợp tác có tác nhân đồng nhất, PPO thường bám sát cả MAPPO lẫn MA-POCA
+trong dải chênh lệch không tới một phần trăm, nên chi phí tích hợp một thuật toán đa tác
+nhân chuyên biệt chưa chắc được đền đáp. Đi cùng nó là một kết quả gây ngạc nhiên theo
+chiều ngược lại: MAPPO vượt PPO một khoảng lớn trên chính môi trường đơn tác nhân, nơi
+lý thuyết nói rằng phê bình tập trung của nó lẽ ra vô hiệu.
 
 \indent Kế đến là phần đóng góp mang tính công cụ. Ba môi trường ba chiều đại diện cho
 ba dạng bài toán học tăng cường phổ biến đều được đóng gói thành prefab độc lập nên tái
-sử dụng được như một benchmark mở. Đi kèm chúng là quy trình đưa một thuật toán
-off-policy tùy chỉnh vào Unity thông qua \texttt{mlagents\_envs} và Stable-Baselines3 -
-con đường mà đề tài buộc phải tự mở ra vì trainer tích hợp sẵn không hỗ trợ, và cũng
-chính vì thế mà nó dùng lại được cho bất kỳ nghiên cứu nào vấp phải đúng rào cản ấy.
+sử dụng được như một benchmark mở. Đi kèm chúng là hai con đường đưa một thuật toán
+không có sẵn vào Unity: gói trainer mở rộng đăng ký MAPPO và DQN vào chính chương trình
+huấn luyện của ML-Agents, và lớp bọc môi trường qua \texttt{mlagents\_envs} kết nối với
+Stable-Baselines3. Cả hai đều dùng lại được cho bất kỳ nghiên cứu nào cần một thuật toán
+nằm ngoài ba trainer tích hợp sẵn.
 
 \indent Đóng góp còn lại là ứng dụng trình diễn với bốn chế độ chơi, cơ chế chọn mô hình
 linh hoạt và hai tab số liệu huấn luyện nhúng thẳng trong game. Giá trị của nó không nằm
@@ -61,32 +81,56 @@ huấn luyện và dữ liệu kết quả đều được công bố dưới d�
 \indent Hạn chế nặng nhất của đề tài là mỗi tổ hợp môi trường - thuật toán chỉ được chạy
 với một seed duy nhất. Nghĩa là mọi chênh lệch báo cáo ở Chương~\ref{ch:results} đều
 chưa tách được phần do bản chất thuật toán khỏi phần do may rủi của một lần khởi tạo.
-Những khoảng cách lớn, như của SAC trên Cross The Road hay của MAPPO trên Capture The
-Flag, nhiều khả năng vẫn đứng vững; nhưng các thứ hạng sát nhau thì không nên đọc như
+Những khoảng cách lớn, như việc DQN xếp cuối trên Cross The Road hay việc SAC sụp đổ
+trên Capture The Flag, nhiều khả năng vẫn đứng vững; nhưng các thứ hạng sát nhau thì
+không nên đọc như
 một kết luận thống kê. Đây là hệ quả của quỹ thời gian tính toán chứ không phải của một
 lựa chọn phương pháp luận, và nếu chỉ được sửa một điều duy nhất trong đồ án này thì tôi
 sẽ sửa đúng điều đó.
 
-\indent Các lần chạy cũng không có chung ngân sách bước. Trên Football Table, PPO chạy
-1,59 triệu bước trong khi SAC và MA-POCA dừng ở khoảng 0,9 triệu, nên phần so sánh phần
-thưởng tuyệt đối ở môi trường này chỉ nên xem là tham khảo; chỉ số ELO mới là căn cứ
-đáng tin.
+\indent Hạn chế kế tiếp nằm ở độ phân giải của phép đo. Ở Football Table, bốn thuật toán
+tự chơi kết thúc trong dải ELO $1237$--$1260$; ở Capture The Flag, bốn thuật toán dẫn đầu
+nằm trong dải phần thưởng $0{,}800$--$0{,}840$. Cả hai khoảng cách đó đều nhỏ hơn dao
+động của chính các đường cong, nên hai môi trường này ở cấu hình hiện tại không phân biệt
+được các thuật toán trong nhóm dẫn đầu. Chỉ Cross The Road cho một phổ đủ rộng để xếp
+hạng có nghĩa. Muốn hai môi trường kia nói được nhiều hơn thì phải làm chúng khó lên, chứ
+không phải chạy chúng lâu hơn.
 
-\indent Sau cùng, Capture The Flag vẫn là bài toán chưa được giải trọn vẹn. MA-POCA mắc
-kẹt suốt quá trình ở một chính sách không bao giờ về đích, còn MAPPO cũng chỉ giải xong
-câu đố ở khoảng một phần năm cuối của lần chạy. Hàm phần thưởng, không gian quan sát và
-thời lượng huấn luyện của môi trường này đều còn chỗ để cải thiện.
+\indent Một ô của lưới thực nghiệm cũng nằm ngoài phép so sánh: DQN trên Football Table
+chạy không có tự chơi vì ML-Agents phát sinh lỗi khi ghép trainer off-policy với bộ điều
+phối đối kháng. Lần chạy này vì thế không có ELO và học trong điều kiện khác hẳn bốn
+thuật toán còn lại, nên mọi con số của nó ở môi trường này chỉ đọc được như một tham
+chiếu rời.
+
+\indent Sau cùng, đề tài không giải thích được hai hiện tượng mà chính số liệu của mình
+phơi ra. Hiện tượng đầu là việc MAPPO vượt PPO trên môi trường đơn tác nhân, nơi hai
+thuật toán chỉ khác nhau ở phần phê bình tập trung vốn lẽ ra vô hiệu khi nhóm chỉ có một
+thành viên. Hiện tượng còn lại là kiểu thất bại của SAC trên Capture The Flag, khi
+entropy của nó sụp xuống gần không rồi bật ngược trở lại đúng mức cực đại và ở đó tới
+cuối. Cả hai đều cần thêm thực nghiệm mới kết luận được, và với một hạt giống cho mỗi ô
+thì cũng chưa loại trừ được khả năng hiện tượng thứ nhất chỉ là dao động ngẫu nhiên.
 
 \subsection{Hướng phát triển}
-\indent Việc cần làm trước tiên là chạy lại toàn bộ chín tổ hợp với nhiều seed, vì
-chừng nào chưa có phương sai giữa các lần chạy thì mọi so sánh trong đồ án vẫn còn treo
-lơ lửng. Ngay sau đó là câu hỏi thú vị nhất mà đề tài đặt ra nhưng chưa trả lời được:
-MAPPO thắng MA-POCA nhờ đội hình đồng nhất, vậy ranh giới ấy nằm ở đâu? Một môi trường
-hợp tác với hai tác nhân có vai trò bất đối xứng, hoặc có tác nhân rời nhóm giữa lượt
-chơi, sẽ cho biết chia sẻ tham số bắt đầu thua attention từ điểm nào.
+\indent Việc cần làm trước tiên là chạy lại toàn bộ mười lăm tổ hợp với nhiều hạt giống,
+vì chừng nào chưa có phương sai giữa các lần chạy thì mọi so sánh trong đồ án vẫn còn
+treo lơ lửng. Song song với đó là làm hai môi trường Football Table và Capture The Flag
+khó lên, bởi ở cấu hình hiện tại chúng không đủ độ phân giải để tách các thuật toán dẫn
+đầu; với Capture The Flag, hướng cụ thể là thêm bài trong chương trình học hoặc buộc hai
+tác nhân phối hợp chặt hơn thay vì kéo dài thời lượng huấn luyện.
+
+\indent Ngay sau đó là hai câu hỏi mà đề tài đặt ra nhưng chưa trả lời được. Câu hỏi thứ
+nhất là vì sao MAPPO vượt PPO trên môi trường đơn tác nhân; một thực nghiệm tách riêng
+phần phê bình tập trung, chạy trên nhiều hạt giống, sẽ cho biết đây là một hiệu ứng thật
+hay chỉ là may rủi của một lần khởi tạo. Câu hỏi còn lại là cơ chế đứng sau kiểu thất bại
+của SAC trên bài toán hợp tác; giả thuyết phù hợp với dữ liệu là bộ đệm phát lại lưu lẫn
+lộn kinh nghiệm của hai bài học trong chương trình học, và cách kiểm chứng trực tiếp là
+chạy lại với bộ đệm tách riêng theo từng bài. Ranh giới giữa chia sẻ tham số và attention
+cũng đáng khảo sát bằng một môi trường hợp tác có hai tác nhân vai trò bất đối xứng, hoặc
+có tác nhân rời nhóm giữa lượt chơi.
 
 \indent Ở tầm xa hơn, bộ so sánh có thể được mở rộng bằng các thuật toán như DreamerV3
-hay QMIX, còn ba môi trường có thể được nâng độ phức tạp lên gần với game thương mại.
+hay QMIX - việc bổ sung nay đã rẻ hơn nhiều nhờ cơ chế trainer mở rộng đã dựng sẵn - còn
+ba môi trường có thể được nâng độ phức tạp lên gần với game thương mại.
 Ứng dụng trình diễn thì cần một bản chạy độc lập (WebGL hoặc desktop), kèm bảng xếp
 hạng người chơi đấu với tác nhân và một khảo sát trải nghiệm người dùng - đây là cách
 duy nhất để trả lời câu hỏi mà không chỉ số huấn luyện nào chạm tới được, rằng hành vi

@@ -15,12 +15,14 @@ số ELO chứ không dựa trên phần thưởng.
 TensorBoard của các lần chạy huấn luyện, thông qua kịch bản
 \texttt{export\_\allowbreak training\_\allowbreak data.py}. Đại lượng được chọn làm thước đo chính là phần
 thưởng tích lũy mà tác nhân nhận được từ môi trường, tương ứng với chuỗi
-\texttt{Environment/\allowbreak Cumulative Reward} trong tệp sự kiện. Do chuỗi thô
-dao động mạnh giữa các tập, mọi đường cong và mọi chỉ số thống kê trong chương đều được
-tính trên chuỗi đã làm mượt bằng trung bình trượt; nhờ vậy bảng số liệu và đồ thị luôn
-nhất quán với nhau, đồng thời trùng khớp với các biểu đồ hiển thị trong ứng dụng trình
-diễn ở Chương~\ref{ch:app}. Mỗi thuật toán được biểu diễn bởi đúng một lần chạy hoàn
-chỉnh.
+\texttt{Environment/\allowbreak Cumulative Reward} trong tệp sự kiện. Mọi đường cong và
+mọi chỉ số thống kê trong chương đều lấy trực tiếp từ chuỗi thô, không qua bất kỳ bước
+làm mượt nào; nhờ vậy từng điểm trên đồ thị đều đối chiếu được với đúng một bản ghi
+trong tệp sự kiện, và bảng số liệu luôn nhất quán với đồ thị. Cần lưu ý một khác biệt
+nhỏ khi đối chiếu với ứng dụng trình diễn ở Chương~\ref{ch:app}: đường cong hiển thị
+trong ứng dụng được làm mượt bằng trung bình trượt để dễ đọc trên màn hình nhỏ, nên các
+con số ở đó lệch chút ít so với chương này. Mỗi thuật toán được biểu diễn bởi đúng một
+lần chạy hoàn chỉnh.
 
 \indent Trong mỗi môi trường, năm thuật toán được cấp cùng một ngân sách bước: hai triệu
 bước cho Cross The Road, một triệu bảy trăm nghìn bước cho Capture The Flag và một triệu
@@ -35,13 +37,22 @@ mẫu trong cùng một lô cập nhật, nhờ đó rút ngắn đáng kể th�
 cần lưu ý khi đối chiếu với những công bố dùng một khu vực duy nhất, bởi cùng một số bước
 môi trường ở hai cấu hình này không tương đương nhau về độ khó của bài toán học.
 
-\indent Bốn chỉ số thống kê được sử dụng xuyên suốt gồm: phần thưởng cuối (giá
-trị tại bước huấn luyện cuối cùng), phần thưởng tốt nhất (giá trị lớn nhất đạt
-được), phần thưởng trung bình mười phần trăm cuối (mức năng lực ổn định mà
-chính sách duy trì được ở cuối quá trình) và bước hội tụ. Bước hội tụ được xác
-định là bước huấn luyện mà từ đó trở đi đường cong không còn tụt xuống dưới chín mươi
-phần trăm mức ổn định cuối cùng; cách xác định này bền vững hơn tiêu chí ``lần đầu chạm
-ngưỡng'' vì không bị một đỉnh nhiễu đơn lẻ kéo về đầu chuỗi.
+\indent Bốn chỉ số thống kê được sử dụng xuyên suốt gồm: phần thưởng trung bình mười
+phần trăm cuối (mức năng lực ổn định mà chính sách duy trì được ở cuối quá trình), phần
+thưởng tốt nhất (giá trị lớn nhất đạt được), bước hội tụ và độ lệch chuẩn của mười phần
+trăm cuối. Bước hội tụ được xác định là bước huấn luyện mà từ đó trở đi đường cong không
+còn tụt xuống dưới chín mươi phần trăm mức ổn định cuối cùng; cách xác định này bền vững
+hơn tiêu chí ``lần đầu chạm ngưỡng'' vì không bị một đỉnh nhiễu đơn lẻ kéo về đầu chuỗi.
+Hệ quả của cách xác định đó là một lần chạy vẫn còn dao động mạnh ở cuối sẽ không có bước
+hội tụ nào, và bảng số liệu ghi rõ ``không đạt'' thay vì gán cho nó bước cuối cùng.
+
+\indent Quy ước về chữ ``cuối'' áp dụng cho mọi đại lượng trong chương, chứ không riêng
+phần thưởng: giá trị cuối của entropy, của phần thưởng tò mò, của hàm mất mát phê bình
+hay của độ dài lượt chơi đều là trung bình mười phần trăm cuối của chuỗi tương ứng.
+Lấy trung bình trên một đoạn thay vì đọc điểm cuối cùng giúp các con số không phụ thuộc
+vào một bản ghi đơn lẻ, vốn có thể lệch đáng kể so với xu hướng chung. Ngoại lệ duy nhất
+là chỉ số xếp hạng ELO: đại lượng này tích lũy theo thời gian nên giá trị tại bước cuối
+mới là giá trị có nghĩa.
 
 % ═══════════════════════════════════════════════
 \subsection{Kết quả môi trường Football Table}
@@ -101,14 +112,25 @@ cơ chế này.
 
 \indent ELO của hai lần chạy khác nhau không so sánh trực tiếp được với nhau, bởi mỗi
 lần chạy tính điểm dựa trên kho đối thủ của riêng nó; đại lượng có ý nghĩa ở đây là mức
-tăng so với giá trị khởi tạo một nghìn hai trăm. Theo tiêu
-chí này, MA-POCA tăng khoảng sáu mươi chín điểm và PPO tăng khoảng bốn mươi hai điểm,
-tức cả hai đều liên tục vượt qua các phiên bản trước của chính mình. Ngược lại, SAC dao
-động quanh mốc khởi tạo trong suốt quá trình và kết thúc ở mức thấp hơn điểm xuất phát,
-cho thấy chính sách của nó gần như không tiến bộ so với chính mình.
+tăng so với giá trị khởi tạo một nghìn hai trăm. Theo tiêu chí này, cả bốn thuật toán
+đều tiến bộ so với các phiên bản trước của chính mình: MAPPO tăng khoảng sáu mươi bốn
+điểm (từ $1196$ lên $1260$), PPO tăng khoảng sáu mươi điểm (từ $1199$ lên $1259$), SAC
+tăng khoảng năm mươi bảy điểm (từ $1197$ lên $1254$) và MA-POCA tăng khoảng ba mươi sáu
+điểm (từ $1201$ lên $1237$). Không có lần chạy nào kết thúc dưới điểm xuất phát, nên kết
+luận đọc được từ hình này là cả bốn thuật toán đều học được cách đánh bại chính mình,
+chứ không phải một số thuật toán tiến bộ còn số khác thì không.
 
-\indent Hình~\ref{fig:football_reward} biểu diễn đường cong phần thưởng tích lũy của ba
-thuật toán, còn Bảng~\ref{tab:football_results} tổng hợp các chỉ số định lượng.
+\indent Diễn biến của các đường cong cũng khác nhau đáng kể dù điểm cuối gần nhau. PPO
+tăng gần như đơn điệu tới khoảng một triệu một trăm nghìn bước rồi đứng yên hoàn toàn ở
+$1258{,}9$ cho tới hết, dấu hiệu cho thấy chính sách không còn vượt được kho đối thủ của
+nó nữa. MAPPO tăng chậm hơn nhưng vẫn còn dốc lên ở đoạn cuối và đạt đỉnh $1265{,}7$
+trước khi kết thúc ở $1260{,}0$, tức chưa chạm trần trong ngân sách đã cho. SAC gần như
+đứng yên quanh mốc khởi tạo trong suốt chín trăm nghìn bước đầu rồi mới bứt lên ở nửa
+sau, phù hợp với đặc điểm của một thuật toán off-policy cần thời gian nạp đầy bộ đệm
+trước khi chính sách bắt đầu cải thiện.
+
+\indent Hình~\ref{fig:football_reward} biểu diễn đường cong phần thưởng tích lũy của cả
+năm thuật toán, còn Bảng~\ref{tab:football_results} tổng hợp các chỉ số định lượng.
 
 \begin{figure}[H]
     \centering
@@ -167,12 +189,12 @@ DQN & 1,60M & $1{,}825$ & $2{,}028$ & $0{,}073$ & --- \\
 \end{tabular}
 \end{table}
 
-\indent Trên thước đo ELO, cả bốn thuật toán dùng tự chơi đều tiến bộ, nhưng biên độ rất
-hẹp. Điểm xuất phát đều quanh 1200 và điểm kết thúc trải từ 1237 đến 1260, tức mức tăng
-lớn nhất chỉ khoảng sáu mươi điểm sau một triệu sáu trăm nghìn bước. MAPPO đạt mức cuối
-cao nhất (1260), kế đến là PPO (1259) và SAC (1254), còn MA-POCA dừng ở 1237. Khoảng
-cách một điểm giữa MAPPO và PPO nhỏ hơn nhiều so với dao động của chính đường cong ELO
-trong quá trình huấn luyện, nên số liệu hiện có không đủ để tách hai thuật toán này.
+\indent Trên thước đo ELO, thứ hạng đọc được là MAPPO ($1260$), PPO ($1259$), SAC
+($1254$) và MA-POCA ($1237$). Nhưng khoảng cách một điểm giữa MAPPO và PPO nhỏ hơn nhiều
+so với dao động của chính đường cong ELO trong quá trình huấn luyện - riêng MAPPO đã dao
+động trong dải gần hai mươi điểm ở đoạn cuối - nên số liệu hiện có không đủ để tách hai
+thuật toán này. Phân tách duy nhất vững ở đây là MA-POCA tụt lại so với ba thuật toán
+còn lại.
 
 \indent Điều đáng nói hơn con số xếp hạng là biên độ chung quá hẹp. Cơ chế tự chơi tạo
 ra một chương trình học tự nhiên trong đó độ khó của đối thủ tăng dần cùng năng lực của
@@ -266,9 +288,14 @@ MA-POCA & 2,00M & $0{,}556$ & $0{,}616$ & $\sim$450K & $42{,}2$ \\
 \hline
 MAPPO & 2,00M & $0{,}835$ & $0{,}900$ & $\sim$1,72M & $52{,}0$ \\
 \hline
-DQN & 2,00M & $0{,}336$ & $0{,}633$ & $\sim$2,00M & $124{,}7$ \\
+DQN & 2,00M & $0{,}336$ & $0{,}633$ & Không đạt & $124{,}7$ \\
 \hline
 \end{tabular}
+
+\vspace{0.15cm}
+{\footnotesize Ghi chú: ``không đạt'' nghĩa là đường cong vẫn còn tụt xuống dưới chín
+mươi phần trăm mức ổn định cuối cùng cho tới bước huấn luyện cuối, tức chưa hội tụ theo
+tiêu chí ở Mục~\ref{sub:evalcriteria}.}
 \end{table}
 
 \indent SAC đạt phần thưởng trung bình cuối cao nhất ($0{,}846$), nhưng MAPPO bám rất sát
@@ -398,10 +425,10 @@ theo quy tắc tham lam có nhiễu, nên không tồn tại phân phối chính
 
 \indent Cả bốn thuật toán đều khởi đầu quanh mức $1{,}37$, phản ánh giai đoạn khám phá
 ngẫu nhiên ban đầu, nhưng diễn biến sau đó khác hẳn nhau. MA-POCA giảm đều và kết thúc ở
-mức thấp nhất ($0{,}175$), tức chính sách quyết đoán nhất trong nhóm; đặt cạnh phần thưởng
+mức thấp nhất ($0{,}204$), tức chính sách quyết đoán nhất trong nhóm; đặt cạnh phần thưởng
 chỉ $0{,}556$, đây là dấu hiệu của một chính sách đã chốt sớm vào phương án tầm thường,
 nhất quán với mốc hội tụ rất sớm ở khoảng bốn trăm năm mươi nghìn bước. SAC giảm dốc và
-ổn định quanh $0{,}275$. MAPPO dừng ở mức cao hơn ($0{,}437$), tức vẫn giữ một phần khả
+ổn định quanh $0{,}280$. MAPPO dừng ở mức cao hơn ($0{,}429$), tức vẫn giữ một phần khả
 năng khám phá trong khi phần thưởng đã gần cao nhất.
 
 \indent Đường cong của PPO là trường hợp bất thường và đáng chú ý nhất trong hình. Entropy
@@ -516,7 +543,7 @@ trình bày kết quả tương ứng.\par}
 \hline
 PPO & 1,70M & $0{,}834$ & $0{,}844$ & $\sim$180K & $292{,}9$ \\
 \hline
-SAC & 1,70M & $0{,}183$ & $0{,}795$ & $\sim$1,64M & $4999{,}0$ \\
+SAC & 1,70M & $0{,}183$ & $0{,}795$ & Không đạt & $4999{,}0$ \\
 \hline
 MA-POCA & 1,70M & $0{,}838$ & $0{,}844$ & $\sim$540K & $174{,}3$ \\
 \hline
@@ -544,12 +571,22 @@ $0{,}834$ và rút lượt chơi xuống hai trăm chín mươi ba bước.
 \indent SAC là trường hợp thất bại duy nhất, và thất bại theo một kiểu đặc thù. Độ dài
 lượt chơi của nó nằm ở trần bốn nghìn chín trăm chín mươi chín bước gần như suốt quá
 trình, tức hai tác nhân hầu như không bao giờ hoàn thành câu đố. Nhưng đường cong phần
-thưởng lại không phẳng: nó dao động dữ dội giữa $0{,}013$ và $0{,}795$, với mười một trên
-bốn mươi bốn điểm đo vượt $0{,}5$ và cũng mười một điểm nằm dưới $0{,}1$, độ lệch chuẩn
-toàn chuỗi lên tới $0{,}221$. Chính sách của SAC vì vậy không phải là không học được gì,
-mà là học được rồi đánh mất, lặp đi lặp lại. Mức trung bình mười phần trăm cuối $0{,}183$
-là kết quả của việc lấy trung bình trên một chuỗi dao động như vậy, chứ không mô tả một
-năng lực ổn định nào.
+thưởng lại không phẳng: nó dao động dữ dội giữa $-0{,}018$ và $0{,}795$, với mười một
+trên bốn mươi bốn điểm đo vượt $0{,}5$ và cũng mười một điểm nằm dưới $0{,}1$, độ lệch
+chuẩn toàn chuỗi lên tới $0{,}221$. Chính sách của SAC vì vậy không phải là không học
+được gì, mà là học được rồi đánh mất, lặp đi lặp lại. Mức trung bình mười phần trăm cuối
+$0{,}183$ là kết quả của việc lấy trung bình trên một chuỗi dao động như vậy, chứ không
+mô tả một năng lực ổn định nào.
+
+\indent Có một chi tiết trên đồ thị cần giải thích để tránh hiểu nhầm. Đường cong phần
+thưởng của SAC dừng lại ở khoảng một triệu sáu trăm bốn mươi nghìn bước trong khi bốn
+đường còn lại kéo tới hết một triệu bảy trăm nghìn bước, nhưng lần chạy này không hề
+ngắn hơn: các chuỗi entropy và hàm mất mát của nó đều có đủ số điểm tới bước cuối cùng.
+Nguyên nhân nằm ở chỗ ML-Agents chỉ ghi phần thưởng tích lũy khi một lượt chơi kết thúc,
+mà lượt chơi của SAC gần như luôn chạm trần thời gian, nên trong sáu mươi nghìn bước
+cuối không có lượt chơi nào kết thúc để sinh ra một bản ghi mới. Chuỗi phần thưởng thưa
+thớt của SAC, chỉ bốn mươi bốn điểm so với bảy mươi chín điểm của MA-POCA và MAPPO, tự
+nó đã là một dấu hiệu của thất bại.
 
 \indent Cơ chế đứng sau hiện tượng này chưa được đề tài xác định. Một giả thuyết phù hợp
 với dữ liệu là bộ đệm phát lại của SAC lưu lẫn lộn kinh nghiệm của hai bài học trong
@@ -589,24 +626,167 @@ ngoài phạm vi đã thực hiện.
     \label{fig:ctf_signals}
 \end{figure}
 
-\indent Các chỉ số nội tại giải thích rõ vì sao SAC tách khỏi phần còn lại. Cả năm lần
+\indent Các chỉ số nội tại giải thích rõ vì sao SAC tách khỏi phần còn lại.
+Hình~\ref{fig:ctf_entropy} biểu diễn diễn biến entropy của bốn thuật toán dựa trên chính
+sách; DQN vắng mặt vì lý do đã nêu ở môi trường Cross The Road. Cả năm lần
 chạy đều khởi đầu với entropy $1{,}946$, đúng mức cực đại ứng với bảy hành động chọn ngẫu
 nhiên đều nhau. Đến cuối quá trình, MAPPO giảm còn $0{,}645$, MA-POCA còn $0{,}719$ và
-PPO còn $0{,}820$, tức cả ba đã định hình được một chính sách có cấu trúc. SAC dừng ở
-$1{,}740$, nghĩa là sau một triệu bảy trăm nghìn bước, chính sách của nó vẫn gần như chọn
-hành động ngẫu nhiên.
+PPO còn $0{,}820$, tức cả ba đã định hình được một chính sách có cấu trúc; ba đường cong
+này giảm gần như đơn điệu và song song nhau, chỉ khác nhau về độ dốc.
+
+\indent Đường cong của SAC đi theo một hình dạng hoàn toàn khác và là bằng chứng trực
+tiếp nhất cho thất bại của nó. Trong khoảng từ ba trăm nghìn tới một triệu bước, entropy
+của SAC lao xuống rất sâu, chạm đáy $0{,}013$ ở bước sáu trăm hai mươi nghìn, tức thấp
+hơn hẳn cả ba thuật toán họ PPO ở cùng thời điểm và gần với một chính sách xác định
+hoàn toàn. Nhưng ngay sau đó nó bật ngược trở lại đúng mức cực đại $1{,}946$ và nằm
+nguyên ở đó suốt đoạn từ một triệu không trăm bốn mươi nghìn tới một triệu hai trăm sáu
+mươi nghìn bước, rồi chỉ giảm chậm về $1{,}663$ ở bước cuối. Nói cách khác, SAC từng học
+được một chính sách có cấu trúc rồi đánh mất hoàn toàn, quay về trạng thái chọn hành
+động ngẫu nhiên đều nhau. Diễn biến này
+khớp chính xác với hình dạng răng cưa của đường cong phần thưởng đã mô tả ở trên, và cho
+thấy vấn đề không nằm ở chỗ SAC học quá chậm mà ở chỗ nó không giữ được thứ đã học.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Entropy của chính sách},
+        xmin=0, xmax=1.7, ymin=0, ymax=2.1,
+        legend pos=south west,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.939)(0.060,1.925)(0.080,1.895)(0.100,1.856)(0.120,1.804)(0.140,1.802)(0.160,1.808)(0.180,1.814)(0.200,1.808)(0.220,1.806)%
+        (0.240,1.824)(0.260,1.787)(0.280,1.749)(0.300,1.723)(0.320,1.706)(0.340,1.687)(0.360,1.652)(0.380,1.661)(0.400,1.631)(0.420,1.594)(0.440,1.590)%
+        (0.460,1.559)(0.480,1.528)(0.500,1.494)(0.520,1.432)(0.540,1.434)(0.560,1.431)(0.580,1.412)(0.600,1.408)(0.620,1.363)(0.640,1.359)(0.660,1.339)%
+        (0.680,1.337)(0.700,1.317)(0.720,1.291)(0.740,1.254)(0.760,1.224)(0.780,1.177)(0.800,1.175)(0.820,1.136)(0.840,1.167)(0.860,1.177)(0.880,1.178)%
+        (0.900,1.182)(0.920,1.174)(0.940,1.131)(0.960,1.124)(0.980,1.134)(1.000,1.111)(1.020,1.107)(1.040,1.124)(1.060,1.106)(1.080,1.095)(1.100,1.091)%
+        (1.120,1.076)(1.140,1.063)(1.160,1.058)(1.180,1.031)(1.200,1.034)(1.220,1.017)(1.240,1.003)(1.260,0.991)(1.280,0.977)(1.300,0.957)(1.320,0.965)%
+        (1.340,0.953)(1.360,0.936)(1.380,0.926)(1.400,0.918)(1.420,0.917)(1.440,0.915)(1.460,0.896)(1.480,0.883)(1.500,0.865)(1.520,0.846)(1.540,0.833)%
+        (1.560,0.833)(1.580,0.841)(1.600,0.836)(1.620,0.812)(1.640,0.804)(1.660,0.817)(1.680,0.806)(1.700,0.813)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.946)(0.060,1.946)(0.080,1.946)(0.100,1.946)(0.120,1.934)(0.140,1.943)(0.160,1.943)(0.180,1.942)(0.200,1.939)(0.220,1.937)%
+        (0.240,1.920)(0.260,1.909)(0.280,1.865)(0.300,0.324)(0.320,0.242)(0.340,0.188)(0.360,0.674)(0.380,0.689)(0.400,0.499)(0.420,0.993)(0.440,1.112)%
+        (0.460,0.872)(0.480,0.813)(0.500,0.714)(0.520,0.760)(0.540,0.347)(0.560,0.167)(0.580,0.185)(0.600,0.071)(0.620,0.013)(0.640,0.027)(0.660,0.336)%
+        (0.680,0.445)(0.700,0.338)(0.720,0.109)(0.740,0.351)(0.760,0.609)(0.780,0.555)(0.800,0.401)(0.820,0.503)(0.840,0.393)(0.860,0.455)(0.880,0.388)%
+        (0.900,0.280)(0.920,0.167)(0.940,0.181)(0.960,0.077)(0.980,0.454)(1.000,0.434)(1.020,1.849)(1.040,1.946)(1.060,1.946)(1.080,1.946)(1.100,1.946)%
+        (1.120,1.946)(1.140,1.946)(1.160,1.946)(1.180,1.946)(1.200,1.946)(1.220,1.946)(1.240,1.945)(1.260,1.945)(1.280,1.944)(1.300,1.943)(1.320,1.942)%
+        (1.340,1.940)(1.360,1.936)(1.380,1.931)(1.400,1.925)(1.420,1.916)(1.440,1.906)(1.460,1.894)(1.480,1.879)(1.500,1.863)(1.520,1.845)(1.540,1.828)%
+        (1.560,1.817)(1.580,1.801)(1.600,1.778)(1.620,1.752)(1.640,1.726)(1.660,1.703)(1.680,1.682)(1.700,1.663)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.940)(0.060,1.928)(0.080,1.921)(0.100,1.911)(0.120,1.902)(0.140,1.889)(0.160,1.877)(0.180,1.891)(0.200,1.862)(0.220,1.835)%
+        (0.240,1.795)(0.260,1.771)(0.280,1.758)(0.300,1.742)(0.320,1.723)(0.340,1.659)(0.360,1.686)(0.380,1.695)(0.400,1.651)(0.420,1.565)(0.440,1.517)%
+        (0.460,1.487)(0.480,1.441)(0.500,1.428)(0.520,1.386)(0.540,1.381)(0.560,1.366)(0.580,1.372)(0.600,1.397)(0.620,1.355)(0.640,1.360)(0.660,1.345)%
+        (0.680,1.329)(0.700,1.340)(0.720,1.333)(0.740,1.349)(0.760,1.306)(0.780,1.303)(0.800,1.285)(0.820,1.254)(0.840,1.257)(0.860,1.289)(0.880,1.229)%
+        (0.900,1.235)(0.920,1.187)(0.940,1.175)(0.960,1.174)(0.980,1.148)(1.000,1.147)(1.020,1.153)(1.040,1.119)(1.060,1.122)(1.080,1.107)(1.100,1.079)%
+        (1.120,1.082)(1.140,1.056)(1.160,1.036)(1.180,1.011)(1.200,0.965)(1.220,0.938)(1.240,0.940)(1.260,0.948)(1.280,0.932)(1.300,0.920)(1.320,0.895)%
+        (1.340,0.879)(1.360,0.860)(1.380,0.866)(1.400,0.849)(1.420,0.831)(1.440,0.847)(1.460,0.803)(1.480,0.772)(1.500,0.784)(1.520,0.782)(1.540,0.770)%
+        (1.560,0.732)(1.580,0.745)(1.600,0.715)(1.620,0.706)(1.640,0.730)(1.660,0.718)(1.680,0.715)(1.700,0.690)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.941)(0.060,1.934)(0.080,1.922)(0.100,1.900)(0.120,1.881)(0.140,1.886)(0.160,1.902)(0.180,1.908)(0.200,1.906)(0.220,1.877)%
+        (0.240,1.857)(0.260,1.825)(0.280,1.814)(0.300,1.786)(0.320,1.743)(0.340,1.673)(0.360,1.655)(0.380,1.617)(0.400,1.547)(0.420,1.495)(0.440,1.470)%
+        (0.460,1.427)(0.480,1.419)(0.500,1.379)(0.520,1.374)(0.540,1.377)(0.560,1.405)(0.580,1.420)(0.600,1.412)(0.620,1.389)(0.640,1.358)(0.660,1.349)%
+        (0.680,1.334)(0.700,1.297)(0.720,1.276)(0.740,1.277)(0.760,1.252)(0.780,1.268)(0.800,1.229)(0.820,1.244)(0.840,1.189)(0.860,1.199)(0.880,1.210)%
+        (0.900,1.214)(0.920,1.198)(0.940,1.194)(0.960,1.177)(0.980,1.151)(1.000,1.131)(1.020,1.116)(1.040,1.074)(1.060,1.041)(1.080,1.037)(1.100,1.045)%
+        (1.120,1.007)(1.140,0.997)(1.160,0.956)(1.180,0.936)(1.200,0.936)(1.220,0.908)(1.240,0.899)(1.260,0.890)(1.280,0.898)(1.300,0.833)(1.320,0.816)%
+        (1.340,0.803)(1.360,0.789)(1.380,0.778)(1.400,0.781)(1.420,0.771)(1.440,0.780)(1.460,0.739)(1.480,0.736)(1.500,0.720)(1.520,0.708)(1.540,0.716)%
+        (1.560,0.693)(1.580,0.659)(1.600,0.652)(1.620,0.627)(1.640,0.616)(1.660,0.651)(1.680,0.615)(1.700,0.649)};
+    \legend{PPO, SAC, MA-POCA, MAPPO}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Diễn biến entropy của chính sách trên môi trường Capture The Flag: ba thuật
+    toán họ PPO giảm đều, riêng SAC sụp xuống rồi bật ngược về mức cực đại}
+    \label{fig:ctf_entropy}
+\end{figure}
 
 \indent Phần thưởng tò mò, vốn phản ánh mức độ ``bất ngờ'' của tác nhân trước các trạng
-thái nó gặp, cho cùng một kết luận. Chỉ số này giảm về $0{,}478$ ở MAPPO, $0{,}577$ ở
+thái nó gặp, cho cùng một kết luận. Hình~\ref{fig:ctf_curiosity} biểu diễn chỉ số này
+trên trục tung theo thang lô-ga-rit, vì biên độ giữa các thuật toán trải rộng hơn một
+bậc độ lớn. Chỉ số này giảm về $0{,}478$ ở MAPPO, $0{,}577$ ở
 MA-POCA và $1{,}146$ ở PPO, tức môi trường đã trở nên quen thuộc với ba thuật toán này.
 Ở SAC, chỉ số chỉ giảm từ $33{,}6$ xuống $18{,}7$ và dừng ở đó, cho thấy mô hình động lực
 của nó vẫn liên tục dự đoán sai. DQN nằm giữa hai nhóm với giá trị cuối $7{,}014$, phù
 hợp với việc nó giải được nhiệm vụ nhưng kém dứt khoát hơn ba thuật toán dẫn đầu, thể
 hiện qua độ dài lượt chơi còn cao.
 
-\indent Bốn chỉ số độc lập cùng chỉ về một hướng ở trường hợp SAC: entropy gần như không
-giảm, phần thưởng tò mò vẫn cao, độ dài lượt chơi nằm ở trần thời gian, và phần thưởng
-dao động không hội tụ. Đây là bằng chứng đủ mạnh để kết luận SAC không hình thành được
+\indent Các đỉnh nhọn ở nửa đầu của cả năm đường cong tương ứng với thời điểm chương
+trình học chuyển bài: khi tham số \texttt{handoff\_required} được bật, môi trường đột
+ngột sinh ra những trạng thái mà mô hình động lực chưa từng gặp, nên sai số dự đoán vọt
+lên. Điều đáng đọc ở hình này nằm ở phần sau các đỉnh đó: ba thuật toán họ PPO đưa chỉ
+số về dưới một đơn vị và giữ nguyên, còn SAC giữ ở mức cao gấp hơn ba mươi lần cho tới
+hết. Sau một triệu bảy trăm nghìn bước, thế giới của SAC vẫn xa lạ như lúc bắt đầu.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Phần thưởng tò mò},
+        ymode=log,
+        xmin=0, xmax=1.7, ymin=0.3, ymax=60,
+        legend pos=south west,
+        legend columns=3,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.080,3.279)(0.100,3.401)(0.140,10.367)(0.160,7.445)(0.180,3.112)(0.200,2.486)(0.220,2.390)(0.240,3.442)(0.260,3.717)(0.280,2.946)(0.300,4.658)%
+        (0.320,6.664)(0.340,8.339)(0.360,9.200)(0.380,10.999)(0.400,25.188)(0.420,12.390)(0.440,8.876)(0.460,9.975)(0.480,7.776)(0.500,6.309)(0.520,11.170)%
+        (0.540,7.511)(0.560,8.655)(0.580,5.695)(0.600,4.879)(0.620,4.366)(0.640,4.289)(0.660,4.347)(0.680,5.254)(0.700,5.147)(0.720,4.730)(0.740,4.207)%
+        (0.760,4.428)(0.780,7.359)(0.800,5.846)(0.820,5.831)(0.840,4.685)(0.860,4.713)(0.880,4.039)(0.900,4.576)(0.920,3.944)(0.940,3.871)(0.960,2.695)%
+        (0.980,3.489)(1.000,2.741)(1.020,3.351)(1.040,2.536)(1.060,2.729)(1.080,2.412)(1.100,2.174)(1.120,2.042)(1.140,2.071)(1.160,1.826)(1.180,1.739)%
+        (1.200,1.671)(1.220,1.708)(1.240,2.110)(1.260,1.600)(1.280,1.610)(1.300,1.483)(1.320,1.370)(1.340,1.473)(1.360,1.416)(1.380,1.295)(1.400,1.277)%
+        (1.420,1.309)(1.440,1.301)(1.460,1.268)(1.480,1.299)(1.500,1.213)(1.520,1.233)(1.540,1.180)(1.560,1.139)(1.580,1.193)(1.600,1.251)(1.620,1.074)%
+        (1.640,1.135)(1.660,1.146)(1.680,1.183)(1.700,1.046)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.080,33.623)(0.100,32.523)(0.160,31.860)(0.180,31.673)(0.240,30.246)(0.260,26.276)(0.320,22.653)(0.340,26.456)(0.400,40.961)(0.420,39.458)(0.480,33.429)%
+        (0.500,32.567)(0.560,26.590)(0.580,25.674)(0.640,19.916)(0.660,16.758)(0.720,23.143)(0.740,25.642)(0.800,22.581)(0.820,23.673)(0.880,20.233)(0.900,14.542)%
+        (0.960,18.256)(0.980,15.784)(1.040,17.127)(1.060,12.391)(1.080,18.085)(1.120,15.721)(1.140,15.121)(1.160,17.345)(1.200,13.736)(1.220,14.259)(1.240,17.198)%
+        (1.280,18.651)(1.300,5.139)(1.320,17.304)(1.340,12.352)(1.360,19.366)(1.400,17.431)(1.420,23.449)(1.440,22.185)(1.480,17.712)(1.560,17.683)(1.640,17.323)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.080,2.249)(0.100,2.305)(0.160,10.704)(0.200,19.253)(0.220,41.481)(0.240,42.608)(0.260,16.304)(0.280,12.569)(0.300,16.945)(0.320,10.293)(0.340,7.695)%
+        (0.360,12.459)(0.380,18.095)(0.400,23.483)(0.420,26.561)(0.440,29.769)(0.460,5.942)(0.480,27.597)(0.500,20.702)(0.520,23.971)(0.540,17.414)(0.560,12.391)%
+        (0.580,12.217)(0.600,7.360)(0.620,8.983)(0.640,7.006)(0.660,6.176)(0.680,4.660)(0.700,4.221)(0.720,3.827)(0.740,3.796)(0.760,3.942)(0.780,3.090)%
+        (0.800,2.906)(0.820,2.914)(0.840,2.577)(0.860,2.974)(0.880,2.407)(0.900,2.162)(0.920,2.131)(0.940,2.035)(0.960,1.939)(0.980,1.913)(1.000,1.823)%
+        (1.020,1.624)(1.040,1.688)(1.060,1.347)(1.080,1.440)(1.100,1.446)(1.120,1.330)(1.140,1.305)(1.160,1.037)(1.180,1.130)(1.200,1.034)(1.220,1.286)%
+        (1.240,0.999)(1.260,1.397)(1.280,0.896)(1.300,0.912)(1.320,0.945)(1.340,0.837)(1.360,0.824)(1.380,0.949)(1.400,0.803)(1.420,0.734)(1.440,0.763)%
+        (1.460,0.643)(1.480,0.693)(1.500,0.666)(1.520,0.645)(1.540,0.722)(1.560,0.626)(1.580,0.654)(1.600,0.558)(1.620,0.540)(1.640,0.586)(1.660,0.578)%
+        (1.680,0.564)(1.700,0.562)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.080,2.391)(0.100,2.475)(0.140,13.061)(0.160,10.719)(0.220,6.218)(0.240,7.143)(0.260,5.934)(0.280,10.859)(0.300,13.451)(0.320,30.028)(0.340,20.969)%
+        (0.360,11.357)(0.380,15.925)(0.400,17.831)(0.420,22.971)(0.440,24.727)(0.460,15.495)(0.480,11.925)(0.500,6.735)(0.520,5.698)(0.540,4.479)(0.560,5.296)%
+        (0.580,4.324)(0.600,3.820)(0.620,3.800)(0.640,3.257)(0.660,2.898)(0.680,2.786)(0.700,2.816)(0.720,2.503)(0.740,2.400)(0.760,2.361)(0.780,2.442)%
+        (0.800,2.000)(0.820,1.871)(0.840,1.721)(0.860,1.889)(0.880,1.548)(0.900,1.568)(0.920,1.498)(0.940,1.512)(0.960,1.649)(0.980,1.473)(1.000,1.416)%
+        (1.020,1.154)(1.040,1.190)(1.060,1.035)(1.080,0.993)(1.100,1.048)(1.120,0.996)(1.140,1.555)(1.160,0.921)(1.180,0.891)(1.200,0.812)(1.220,0.832)%
+        (1.240,0.798)(1.260,0.792)(1.280,0.931)(1.300,0.721)(1.320,0.729)(1.340,0.735)(1.360,0.675)(1.380,0.659)(1.400,0.644)(1.420,0.596)(1.440,0.635)%
+        (1.460,0.566)(1.480,0.621)(1.500,0.560)(1.520,0.533)(1.540,0.659)(1.560,0.590)(1.580,0.506)(1.600,0.477)(1.620,0.465)(1.640,0.446)(1.660,0.505)%
+        (1.680,0.461)(1.700,0.489)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.080,33.602)(0.100,33.507)(0.160,30.984)(0.180,28.409)(0.240,33.865)(0.260,37.613)(0.320,43.140)(0.340,23.956)(0.400,28.759)(0.480,25.986)(0.520,13.825)%
+        (0.540,18.827)(0.560,22.127)(0.580,15.261)(0.600,12.693)(0.620,21.050)(0.640,13.567)(0.660,8.835)(0.680,14.227)(0.700,10.808)(0.720,11.188)(0.740,12.379)%
+        (0.760,8.295)(0.780,11.929)(0.800,11.058)(0.820,11.084)(0.840,14.340)(0.860,17.890)(0.880,10.740)(0.900,8.207)(0.920,10.838)(0.940,8.998)(0.960,8.131)%
+        (0.980,10.205)(1.000,6.581)(1.020,16.483)(1.040,12.629)(1.060,15.382)(1.080,8.486)(1.100,12.218)(1.120,8.308)(1.140,7.682)(1.160,12.655)(1.180,8.667)%
+        (1.200,5.867)(1.220,7.836)(1.240,5.652)(1.260,5.943)(1.280,8.552)(1.300,8.616)(1.320,7.258)(1.340,5.609)(1.360,5.594)(1.380,9.778)(1.400,12.655)%
+        (1.420,12.323)(1.440,8.831)(1.460,5.770)(1.480,7.872)(1.500,6.330)(1.520,7.787)(1.540,4.780)(1.560,3.982)(1.580,7.808)(1.600,8.091)(1.620,7.263)%
+        (1.640,7.652)(1.660,5.309)(1.680,8.094)(1.700,4.884)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Phần thưởng tò mò trên môi trường Capture The Flag (trục tung thang
+    lô-ga-rit)}
+    \label{fig:ctf_curiosity}
+\end{figure}
+
+\indent Bốn chỉ số độc lập cùng chỉ về một hướng ở trường hợp SAC: entropy sụp xuống rồi
+bật lại mức cực đại thay vì giảm đều, phần thưởng tò mò vẫn cao gấp hàng chục lần nhóm
+còn lại, độ dài lượt chơi nằm ở trần thời gian, và phần thưởng dao động không hội tụ.
+Đây là bằng chứng đủ mạnh để kết luận SAC không hình thành được
 chính sách ổn định trên bài toán hợp tác này, dù vẫn chưa xác định được cơ chế cụ thể gây
 ra điều đó.
 
@@ -708,8 +888,12 @@ chỉ số này mất phần lớn ý nghĩa so sánh ở môi trường đối 
 bằng chứng khách quan củng cố cho những nhận định ở trên.
 Bảng~\ref{tab:diagnostics} tổng hợp các chỉ số này cho những lần chạy có hành động rời
 rạc, nơi entropy của chính sách có cùng bản chất và có thể đối chiếu tương đối với
-nhau. Mức entropy giảm mạnh từ đầu đến cuối ở tất cả các lần chạy khẳng định rằng các
-tác nhân đều chuyển dịch từ khám phá ngẫu nhiên sang một chính sách có định hướng.
+nhau. Trừ một ngoại lệ đã phân tích ở trên là SAC trên Capture The Flag, mức entropy đều
+giảm mạnh từ đầu đến cuối, khẳng định rằng các tác nhân chuyển dịch từ khám phá ngẫu
+nhiên sang một chính sách có định hướng. Bảng bổ sung thêm cột phần thưởng tò mò vì đây
+là chỉ số phân tách các lần chạy mạnh nhất trong ba chỉ số nội tại: biên độ của nó trải
+hơn ba bậc độ lớn, từ $0{,}007$ của MA-POCA trên Cross The Road tới $18{,}726$ của SAC
+trên Capture The Flag.
 
 \begin{table}[H]
 \centering
@@ -717,33 +901,40 @@ tác nhân đều chuyển dịch từ khám phá ngẫu nhiên sang một chín
 \label{tab:diagnostics}
 \renewcommand{\arraystretch}{1.35}
 \tablefont
-\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.4cm}
-                |>{\centering\arraybackslash}p{3cm}
-                |>{\centering\arraybackslash}p{3cm}|}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|>{\centering\arraybackslash}p{2.1cm}
+                |>{\centering\arraybackslash}p{2.6cm}
+                |>{\centering\arraybackslash}p{2.6cm}
+                |>{\centering\arraybackslash}p{2.6cm}|}
 \hline
-\textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Entropy đầu $\to$ cuối} & \textbf{Mất mát phê bình cuối} \\
+\textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Entropy đầu $\to$ cuối} & \textbf{Mất mát phê bình cuối} & \textbf{Thưởng tò mò cuối} \\
 \hline
-Cross The Road & PPO & $1{,}37 \to 0{,}79$ & $0{,}006$ \\
+Cross The Road & PPO & $1{,}37 \to 0{,}79$ & $0{,}006$ & $0{,}201$ \\
 \hline
-Cross The Road & SAC & $1{,}37 \to 0{,}28$ & $\approx 0{,}000$ \\
+Cross The Road & SAC & $1{,}37 \to 0{,}28$ & $\approx 0{,}000$ & $0{,}038$ \\
 \hline
-Cross The Road & MA-POCA & $1{,}38 \to 0{,}20$ & $0{,}025$ \\
+Cross The Road & MA-POCA & $1{,}38 \to 0{,}20$ & $0{,}025$ & $0{,}007$ \\
 \hline
-Cross The Road & MAPPO & $1{,}38 \to 0{,}43$ & $0{,}010$ \\
+Cross The Road & MAPPO & $1{,}38 \to 0{,}43$ & $0{,}010$ & $0{,}015$ \\
 \hline
-Cross The Road & DQN & --- & $0{,}001$ \\
+Cross The Road & DQN & --- & $0{,}001$ & $0{,}112$ \\
 \hline
-Capture The Flag & PPO & $1{,}95 \to 0{,}82$ & $0{,}051$ \\
+Capture The Flag & PPO & $1{,}95 \to 0{,}82$ & $0{,}051$ & $1{,}146$ \\
 \hline
-Capture The Flag & SAC & $1{,}95 \to 1{,}74$ & $\approx 0{,}000$ \\
+Capture The Flag & SAC & $1{,}95 \to 1{,}74$ & $\approx 0{,}000$ & $18{,}726$ \\
 \hline
-Capture The Flag & MA-POCA & $1{,}95 \to 0{,}72$ & $0{,}047$ \\
+Capture The Flag & MA-POCA & $1{,}95 \to 0{,}72$ & $0{,}047$ & $0{,}577$ \\
 \hline
-Capture The Flag & MAPPO & $1{,}95 \to 0{,}65$ & $0{,}047$ \\
+Capture The Flag & MAPPO & $1{,}95 \to 0{,}65$ & $0{,}047$ & $0{,}478$ \\
 \hline
-Capture The Flag & DQN & --- & $0{,}001$ \\
+Capture The Flag & DQN & --- & $0{,}001$ & $7{,}014$ \\
 \hline
 \end{tabular}
+
+\vspace{0.15cm}
+{\footnotesize Mọi giá trị ``cuối'' đều là trung bình mười phần trăm cuối của chuỗi
+tương ứng. DQN không có entropy vì nó chọn hành động theo quy tắc $\varepsilon$-tham lam
+chứ không theo một phân phối chính sách.}
 \end{table}
 
 \indent Mức entropy cuối phân tách các lần chạy theo đúng mức năng lực đạt được, nhưng

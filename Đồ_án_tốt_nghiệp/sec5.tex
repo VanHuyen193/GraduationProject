@@ -37,12 +37,16 @@ cho từng lần chạy trở nên rõ ràng.\par}
 \indent Ở mỗi môi trường, toàn bộ nội dung của một lượt chơi được gom vào một khu vực
 huấn luyện và đóng gói thành một prefab độc lập. Cách tổ chức này cho phép nhân bản
 khu vực thành nhiều bản sao đặt cạnh nhau trong cùng một cảnh để thu thập nhiều mẫu
-kinh nghiệm cùng lúc; trong các lần huấn luyện được báo cáo ở Chương~\ref{ch:results},
-mỗi cảnh chỉ chứa đúng một khu vực, nên tốc độ thu thập dữ liệu hoàn toàn đến từ hệ số
-tăng tốc mô phỏng. Hệ số này được đặt ở mức gấp hai mươi lần thời gian thực, cho phép
+kinh nghiệm cùng lúc. Cả ba cảnh dùng cho các lần huấn luyện được báo cáo ở
+Chương~\ref{ch:results} đều chứa tám khu vực chạy song song. Cách làm này tăng lượng
+kinh nghiệm thu được trên mỗi bước mô phỏng và làm giảm tương quan giữa các mẫu trong
+cùng một lô cập nhật, nhưng cũng có nghĩa là cùng một số bước môi trường ở đây không
+tương đương với cùng số bước ở một cấu hình dùng một khu vực duy nhất - đây là chi tiết
+cần lưu ý khi đối chiếu kết quả của đề tài với các công bố khác. Bên cạnh đó, hệ số
+tăng tốc mô phỏng được đặt ở mức gấp hai mươi lần thời gian thực, cho phép
 Unity mô phỏng nhanh hơn nhiều so với tốc độ hiển thị thông thường mà không ảnh hưởng
-đến tính đúng đắn của vật lý. Toàn bộ chín lần huấn luyện của đề tài được điều phối tự
-động bằng một chương trình Python trình bày ở Mục~\ref{sub:codestruct}.
+đến tính đúng đắn của vật lý. Toàn bộ mười lăm lần huấn luyện của đề tài được điều phối
+tự động bằng một chương trình Python trình bày ở Mục~\ref{sub:codestruct}.
 
 \subsubsection{Không gian quan sát}
 \label{sub:obs-space}
@@ -380,13 +384,23 @@ kiện kết thúc được kích hoạt ngay khi tác nhân chạm vạch đíc
 tường hay cây; lượt chơi không bị giới hạn số bước.
 
 \indent Bảng~\ref{tab:env_speed} đối chiếu tốc độ huấn luyện thực đo của ba môi trường
-trên cùng một máy. Chênh lệch giữa chúng rất lớn và bắt nguồn từ hai yếu tố: khối
-lượng vật lý phải mô phỏng trong mỗi khu vực và số bước vật lý giữa hai lần ra quyết
-định. Cross The Road chỉ mô phỏng một khối tác nhân trượt theo ô lưới cùng năm chiếc
-xe chuyển động thẳng nên đạt tốc độ cao nhất. Football Table phải giải các khớp vật lý
-của tám thanh gạt cùng va chạm liên tục của quả bóng nên chậm hơn gần mười lần. Capture
-The Flag chậm nhất vì mỗi quyết định của tác nhân trải trên hai mươi bước vật lý và mỗi
-lượt chơi kéo dài tới một trăm nghìn bước.
+trên cùng một máy, mỗi môi trường lấy lần chạy PPO làm đại diện. Điều đáng chú ý là ba
+con số nằm khá gần nhau, trong khoảng năm trăm sáu mươi lăm tới bảy trăm bước mỗi giây,
+dù ba môi trường khác nhau rất xa về khối lượng vật lý. Nguyên nhân là hai yếu tố tác
+động ngược chiều nhau và gần như triệt tiêu lẫn nhau: khối lượng vật lý phải mô phỏng
+trong mỗi khu vực, và số bước vật lý giữa hai lần ra quyết định. Cross The Road chỉ mô
+phỏng một khối tác nhân trượt theo ô lưới cùng năm chiếc xe chuyển động thẳng nên nhanh
+nhất, dù mỗi quyết định của nó trải trên năm bước vật lý. Football Table phải giải các
+khớp vật lý của tám thanh gạt cùng va chạm liên tục của quả bóng, nhưng bù lại chỉ cách
+hai bước vật lý giữa hai quyết định. Capture The Flag có vật lý nhẹ nhất trong ba môi
+trường lại chậm nhất, vì mỗi quyết định của tác nhân trải trên tới hai mươi bước vật lý
+và mỗi lượt chơi kéo dài tối đa một trăm nghìn bước.
+
+\indent Hệ quả thực tiễn của việc ba tốc độ gần nhau là thời gian huấn luyện của các
+thuật toán on-policy trên cả ba môi trường đều rơi vào khoảng năm mươi phút cho một lần
+chạy. Chênh lệch thời gian thực đáng kể mà Chương~\ref{ch:results} ghi nhận vì vậy đến
+từ bản thân thuật toán, cụ thể là chi phí cập nhật mạng của nhóm off-policy, chứ không
+đến từ môi trường.
 
 \begin{table}[H]
 \centering
@@ -404,11 +418,11 @@ lượt chơi kéo dài tới một trăm nghìn bước.
 \textbf{Môi trường} & \textbf{Số bước huấn luyện} & \textbf{Thời gian} &
 \textbf{Số bước mỗi giây} & \textbf{Quan sát} & \textbf{Hành động} \\
 \hline
-Football Table & 1.590.000 & 1 giờ 41 phút & 262 & 60 & 8 liên tục \\
+Football Table & 1.600.000 & 47 phút 0 giây & 567 & 60 & 8 liên tục \\
 \hline
-Capture The Flag & 1.520.000 & 8 giờ 19 phút & 51 & 61 & 7 rời rạc \\
+Capture The Flag & 1.700.000 & 50 phút 8 giây & 565 & 61 & 7 rời rạc \\
 \hline
-Cross The Road & 2.000.000 & 14 phút 32 giây & 2.294 & 132 & 4 rời rạc \\
+Cross The Road & 2.000.000 & 47 phút 52 giây & 697 & 132 & 4 rời rạc \\
 \hline
 \end{tabular}
 \end{table}
@@ -622,10 +636,12 @@ hai trăm năm mươi sáu đơn vị mỗi lớp và bật chuẩn hóa quan s�
 hình để lưu lại một phiên bản đối thủ sau mỗi năm mươi nghìn bước, đổi phía sau mỗi một
 trăm nghìn bước, giữ một cửa sổ mười đối thủ gần nhất với xác suất đấu với phiên bản
 mới nhất là một nửa, và theo dõi tiến bộ qua chỉ số xếp hạng khởi tạo ở mức một nghìn
-hai trăm. Số bước huấn luyện tối đa được đặt ở mười triệu bước. Hai thuật toán còn lại
-được đưa vào so sánh là SAC và MA-POCA, huấn luyện dưới cùng điều kiện để bảo đảm mặt
-bằng so sánh công bằng. Cấu hình siêu tham số đầy đủ được liệt kê trong các Phụ lục A,
-B và C.
+hai trăm. Số bước huấn luyện được đặt ở một triệu sáu trăm nghìn bước, dùng chung cho cả
+năm thuật toán trên môi trường này. Bốn thuật toán còn lại là SAC, MA-POCA, MAPPO và
+DQN, huấn luyện dưới cùng điều kiện để bảo đảm mặt bằng so sánh công bằng; riêng DQN
+không ghép được với cơ chế tự chơi và phải chạy trên một bản dựng có không gian hành
+động rời rạc, như đã nêu ở Mục~\ref{sub:evalcriteria}. Cấu hình siêu tham số đầy đủ được
+liệt kê trong các Phụ lục A đến D.
 
 % ═══════════════════════════════════════════════
 \subsection{Môi trường Capture The Flag}
@@ -991,13 +1007,15 @@ Cách chia hai bài học này cho phép tác nhân xây dựng nền tảng đi
 
 \indent Vì môi trường sử dụng cơ chế phần thưởng nhóm, MA-POCA là thuật toán phù hợp
 nhất về mặt lý thuyết, nhờ phê bình tập trung kết hợp cơ sở phản thực giúp gán công lao
-chính xác cho từng tác nhân. Thuật toán được đưa vào so sánh là MAPPO: cùng dùng phê
-bình tập trung nhìn quan sát của cả nhóm, nhưng tính công lao theo cách khác. Cả hai
+chính xác cho từng tác nhân. Đối chứng gần nhất của nó là MAPPO: cùng dùng phê
+bình tập trung nhìn quan sát của cả nhóm, nhưng tính công lao theo cách khác. Ba thuật
+toán còn lại là PPO, SAC và DQN, vốn không có cơ chế nào dành riêng cho phối hợp, đóng
+vai trò mốc so sánh để trả lời câu hỏi phê bình tập trung có thực sự đáng giá hay không;
+với chúng, phần thưởng nhóm được ML-Agents phân bổ về từng tác nhân. Cả năm
 dùng chung mạng ba lớp ẩn với hai trăm năm mươi sáu đơn vị mỗi lớp, cùng một tín hiệu
 tò mò cường độ $0{,}02$ để khuyến khích khám phá trong môi trường phần thưởng thưa, và
 cùng một chương trình học; nhờ đó khác biệt về kết quả phản ánh đúng bản chất thuật
-toán. Số bước huấn luyện tối đa được đặt ở năm triệu bước nhằm bảo đảm đủ thời gian cho
-hành vi phối hợp phức tạp hình thành.
+toán. Số bước huấn luyện được đặt ở một triệu bảy trăm nghìn bước cho cả năm thuật toán.
 
 % ═══════════════════════════════════════════════
 \subsection{Môi trường Cross The Road}
@@ -1142,16 +1160,18 @@ trên thực tế độ dài lượt chơi ở cuối quá trình huấn luyện
 
 \subsubsection{Cấu hình huấn luyện}
 \indent Đây là môi trường đơn tác nhân với không gian hành động rời rạc nhỏ, rất phù
-hợp để so sánh trực tiếp cả bốn thuật toán trên cùng một bài toán trong điều kiện tương
-đương. Mạng nơ-ron sử dụng hai lớp ẩn với một trăm hai mươi tám đơn vị mỗi lớp, một
-kích thước vừa phải tương xứng với độ phức tạp của bài toán. Bốn thuật toán PPO, SAC,
-MA-POCA và MAPPO được cấu hình tương đương nhau nhất có thể về kích thước lô và kiến
-trúc mạng nhằm bảo đảm sự khác biệt về kết quả phản ánh đúng bản chất thuật toán. Cần
-lưu ý rằng vì đây là môi trường đơn tác nhân không có nhóm, ưu thế phê bình tập trung
-của MAPPO và MA-POCA không có đối tượng để phát huy, nên trên môi trường này cả hai về
-cơ bản suy biến thành PPO; do đó Cross The Road chủ yếu đóng vai trò kiểm chứng tính
-nhất quán của các thuật toán trên một bài toán điều hướng chuẩn. Số bước huấn luyện tối
-đa được đặt ở hai triệu bước cho cả bốn thuật toán.
+hợp để so sánh trực tiếp cả năm thuật toán trên cùng một bài toán trong điều kiện tương
+đương; đây cũng là môi trường duy nhất trong đề tài mà cả năm thuật toán đều chạy được
+mà không cần sửa đổi gì về phía Unity. Mạng nơ-ron sử dụng hai lớp ẩn với một trăm hai
+mươi tám đơn vị mỗi lớp, một
+kích thước vừa phải tương xứng với độ phức tạp của bài toán. Năm thuật toán PPO, SAC,
+MA-POCA, MAPPO và DQN được cấu hình tương đương nhau nhất có thể về kích thước lô và
+kiến trúc mạng nhằm bảo đảm sự khác biệt về kết quả phản ánh đúng bản chất thuật toán.
+Cần lưu ý rằng vì đây là môi trường đơn tác nhân không có nhóm, ưu thế phê bình tập
+trung của MAPPO và MA-POCA không có đối tượng để phát huy, nên trên môi trường này cả
+hai được kỳ vọng suy biến về PPO; do đó Cross The Road chủ yếu đóng vai trò kiểm chứng
+tính nhất quán của các thuật toán trên một bài toán điều hướng chuẩn. Số bước huấn
+luyện tối đa được đặt ở hai triệu bước cho cả năm thuật toán.
 
 % ═══════════════════════════════════════════════
 \subsection{Bảng tổng hợp đặc trưng ba môi trường}
@@ -1196,69 +1216,98 @@ Kết thúc lượt chơi & Bàn thắng hoặc 3.000 bước & Cả hai tới �
 \hline
 Cơ chế đặc thù & Tự chơi & Bàn giao và học theo chương trình & Vật cản động \\
 \hline
-Số bước tối đa & Mười triệu & Năm triệu & Hai triệu \\
+Ngân sách bước thực dùng & 1,60 triệu & 1,70 triệu & 2,00 triệu \\
 \hline
 Thuật toán kỳ vọng tốt nhất & PPO tự chơi & MA-POCA hoặc MAPPO & SAC \\
 \hline
 \end{tabular}
 \end{table}
 
+\indent Dòng cuối của bảng ghi lại kỳ vọng đặt ra trước khi chạy thực nghiệm, chứ không
+phải kết quả. Chương~\ref{ch:results} cho thấy chỉ một phần kỳ vọng đó được số liệu
+xác nhận, và chính những chỗ lệch mới là phần đáng đọc nhất của kết quả. Ngân sách bước
+ghi ở dòng trên là số bước thực tế mà cả năm thuật toán trong cùng một môi trường đều
+tiêu thụ; giá trị \texttt{max\_steps} khai báo trong tệp cấu hình của từng lần chạy
+được đặt đúng bằng con số này để mọi so sánh diễn ra trên cùng lượng kinh nghiệm.
+
 % ═══════════════════════════════════════════════
 \subsection{Triển khai thuật toán ngoài ML-Agents}
 \label{sub:custom}
 
-\subsubsection{Vấn đề với SAC trong ML-Agents}
-\indent Như đã phân tích ở Mục~\ref{sub:mllimits}, bộ huấn luyện SAC tích hợp sẵn của
-ML-Agents gặp hai giới hạn quan trọng đối với đề tài. Giới hạn đáng kể nhất liên quan
-đến cơ chế tự chơi. Môi trường Football Table đối kháng cần một cơ chế sinh đối thủ có
-trình độ tăng dần, nhưng cơ chế tự chơi chỉ được ML-Agents hỗ trợ chính thức cho các
-thuật toán on-policy. Nguyên nhân sâu xa là SAC lưu trữ kinh nghiệm cũ trong một bộ
-đệm và tái sử dụng chúng nhiều lần; khi đối thủ liên tục thay đổi trong quá trình tự
-chơi, những kinh nghiệm cũ trở nên lỗi thời vì chúng phản ánh cách chơi của các đối
-thủ đã không còn tồn tại, và điều này gây nhiễu nghiêm trọng cho quá trình học.
+\subsubsection{Hai thuật toán không có sẵn trong ML-Agents}
+\indent Như đã phân tích ở Mục~\ref{sub:mllimits}, ML-Agents 4.0.2 chỉ tích hợp sẵn ba
+trainer là \texttt{ppo}, \texttt{poca} và \texttt{sac}. Hai thuật toán còn lại trong
+lưới so sánh của đề tài, MAPPO và DQN, phải được đưa vào bằng tay. Có hai con đường
+khả dĩ, và lựa chọn giữa chúng quyết định luôn chất lượng của phép so sánh về sau.
 
-\indent Giới hạn còn lại liên quan đến phần thưởng nhóm trong môi trường hợp tác. Cơ
-chế phần thưởng nhóm của ML-Agents được thiết kế tối ưu cho MA-POCA; khi muốn áp dụng
-cho SAC, phần thưởng nhóm buộc phải được phân bổ thủ công về từng tác nhân, và cách
-phân bổ này làm mất đi phần lớn lợi thế gán công lao chính xác. Hệ quả là, để đưa SAC
-vào so sánh một cách công bằng trên môi trường đối kháng, đề tài cần một hướng tiếp cận
-cho phép kiểm soát vòng lặp huấn luyện linh hoạt hơn so với việc chỉ nạp một tệp cấu
-hình vào chương trình huấn luyện có sẵn.
+\indent Con đường thứ nhất là bỏ hẳn chương trình huấn luyện của ML-Agents, kết nối
+với môi trường Unity qua giao diện lập trình cấp thấp và dùng một thư viện học tăng
+cường bên ngoài. Con đường còn lại là giữ nguyên chương trình huấn luyện, chỉ bổ sung
+thuật toán mới dưới dạng trainer mở rộng. Đề tài chọn con đường thứ hai cho cả MAPPO
+lẫn DQN, vì một lý do có tính quyết định đối với mục tiêu so sánh: chỉ khi cả năm thuật
+toán chạy trên cùng một đường ống thu thập quỹ đạo, cùng một cách ghi nhật ký và cùng
+một định dạng mô hình xuất ra, thì chênh lệch đo được giữa chúng mới quy được cho bản
+thân thuật toán chứ không cho sự khác biệt của hạ tầng đo.
 
-\subsubsection{Cách tích hợp thuật toán tùy chỉnh qua Python API}
+\subsubsection{Bổ sung thuật toán bằng cơ chế trainer mở rộng}
 \label{sub:pyapi}
-\indent Giải pháp được lựa chọn là sử dụng giao diện lập trình cấp thấp bằng Python
-mà ML-Agents cung cấp. Thay vì để chương trình huấn luyện có sẵn điều khiển toàn bộ
-quá trình, đề tài sử dụng một lớp cho phép kết nối trực tiếp với môi trường Unity đang
-chạy, rồi bọc môi trường đó lại thành một môi trường tuân theo giao diện chuẩn thường
-dùng trong cộng đồng học tăng cường. Nhờ lớp bọc này, môi trường Unity có thể được đưa
-vào bất kỳ thư viện học tăng cường bên ngoài nào; ở đây đề tài sử dụng thư viện
-Stable-Baselines3 \cite{raffin2021stable}, một thư viện đã cài đặt sẵn và kiểm chứng
-kỹ lưỡng thuật toán SAC.
+\indent ML-Agents cho phép đăng ký thêm trainer thông qua một điểm mở rộng theo tên:
+mỗi trainer mới khai báo một mục trong danh sách \texttt{ML\_AGENTS\_TRAINER\_TYPE},
+gắn một chuỗi định danh với hàm khởi tạo tương ứng. Sau khi gói mở rộng được cài đặt,
+chương trình \texttt{mlagents-learn} nhận ra giá trị mới của trường
+\texttt{trainer\_type} trong tệp YAML và khởi tạo đúng lớp trainer đã đăng ký, còn mọi
+phần khác của quy trình giữ nguyên. Nhờ vậy MAPPO và DQN dùng chung với ba trainer có
+sẵn toàn bộ cơ chế giao tiếp gRPC với Unity, cơ chế ghi TensorBoard, cơ chế lưu điểm
+kiểm tra và cơ chế xuất mô hình ONNX.
 
-\indent Quy trình tích hợp diễn ra theo trình tự sau. Trước hết, môi trường Unity được
-khởi chạy ở chế độ chờ kết nối. Sau đó, chương trình Python tạo một đối tượng kết nối
-tới môi trường và bọc nó bằng lớp chuyển đổi giao diện. Tiếp theo, một tác nhân SAC
-được khởi tạo với kiến trúc mạng và các siêu tham số mong muốn, rồi vòng lặp huấn luyện
-của thư viện được gọi để thu thập kinh nghiệm và cập nhật mạng. Trong suốt quá trình,
-các chỉ số huấn luyện được ghi lại theo định dạng tương thích với TensorBoard, nhờ đó
-kết quả của SAC có thể được so sánh trực tiếp với kết quả của các thuật toán khác. Ưu
-điểm lớn của cách tiếp cận này là giữ nguyên môi trường Unity mà không phải sửa đổi mã
-nguồn của nó, đồng thời trao toàn quyền kiểm soát vòng lặp huấn luyện cho thuật toán
-off-policy.
+\indent MAPPO được cài đặt bằng cách kế thừa bộ tối ưu của MA-POCA và giữ lại mạng phê
+bình đa tác nhân của nó, vốn nhận quan sát của cả nhóm làm đầu vào. Khác biệt nằm ở
+cách tính lợi thế: MA-POCA trừ đi một đường cơ sở phản thực được ước lượng riêng cho
+từng tác nhân, còn MAPPO tính lợi thế trực tiếp so với giá trị tập trung và bỏ hẳn số
+hạng đường cơ sở khỏi hàm mất mát. Đây đúng là điểm khác nhau về mặt thuật toán giữa
+hai phương pháp, nên cách cài đặt này bảo đảm mọi chênh lệch quan sát được giữa MAPPO
+và MA-POCA đến từ cơ chế gán công lao chứ không từ kiến trúc mạng hay siêu tham số.
+Cấu hình của MAPPO vì thế dùng đúng bộ siêu tham số của PPO và MA-POCA.
+
+\indent DQN được cài đặt bằng cách kế thừa lớp trainer off-policy có sẵn, tức lớp mà
+SAC đang dùng, nên nó thừa hưởng nguyên vẹn bộ đệm phát lại và lịch cập nhật theo tham
+số \texttt{steps\_per\_update}. Phần viết mới là bộ tối ưu: một mạng $Q$ cùng mạng mục
+tiêu cập nhật mềm, hàm mất mát sai số thời gian khác biệt và quy tắc chọn hành động
+$\varepsilon$-tham lam. Ràng buộc kỹ thuật đáng kể nhất là DQN chỉ làm việc với không
+gian hành động rời rạc, nên môi trường Football Table phải được dựng lại thành một bản
+riêng trong đó tham số hành vi chuyển từ tám kênh liên tục sang tám nhánh ba mức.
+
+\subsubsection{Kết nối thư viện ngoài qua Python Low-Level API}
+\indent Con đường còn lại vẫn được đề tài hiện thực hóa và kiểm chứng, vì nó cần thiết
+cho những trường hợp phải can thiệp sâu vào chính vòng lặp huấn luyện. Thư viện
+\texttt{mlagents\_envs} cho phép kết nối trực tiếp với một môi trường Unity đang chạy,
+rồi bọc môi trường đó lại thành một môi trường tuân theo giao diện chuẩn thường dùng
+trong cộng đồng học tăng cường; từ đó đưa được vào bất kỳ thư viện bên ngoài nào, ở đây
+là Stable-Baselines3 \cite{raffin2021stable}. Quy trình gồm bốn bước: khởi chạy môi
+trường Unity ở chế độ chờ kết nối, tạo đối tượng kết nối và bọc bằng lớp chuyển đổi
+giao diện, khởi tạo tác nhân với kiến trúc mạng mong muốn, rồi gọi vòng lặp huấn luyện
+của thư viện. Ưu điểm của cách này là giữ nguyên môi trường Unity mà không sửa mã nguồn
+của nó, đồng thời trao toàn quyền kiểm soát vòng lặp huấn luyện cho thuật toán.
+
+\indent Cần nói rõ để tránh hiểu nhầm khi đọc kết quả: mười lăm lần chạy được báo cáo ở
+Chương~\ref{ch:results} đều thực hiện bằng chương trình huấn luyện của ML-Agents, kể cả
+năm lần chạy SAC. Đường đi qua Stable-Baselines3 được trình bày ở đây như một phương án
+đã dựng xong và dùng lại được, chứ không phải nguồn của bất kỳ con số nào trong bảng
+kết quả. Đoạn mã minh họa được đặt trong Phụ lục B.
 
 \subsubsection{Cấu trúc mã nguồn bổ sung}
 \label{sub:codestruct}
 \indent Ngoài các tệp cấu hình cho từng lần huấn luyện, hệ thống bổ sung một số thành
 phần mã nguồn Python nhằm tự động hóa và phân tích. Một chương
-trình điều phối chạy tuần tự chín lần huấn luyện, tự động nạp đúng tệp cấu hình cho từng
-tổ hợp môi trường và thuật toán, quản lý trạng thái tiến độ, ghi nhật ký và cho phép tiếp
-tục từ điểm dừng khi quá trình bị gián đoạn. Lớp bọc môi trường
-đã mô tả ở mục trên phục vụ việc huấn luyện SAC tùy chỉnh. Cuối cùng là một
-chương trình phân tích, có nhiệm vụ đọc các tệp sự kiện TensorBoard của toàn bộ chín
-lần chạy, trích xuất các chỉ số như phần thưởng, độ dài lượt chơi, hàm mất mát và
+trình điều phối chạy tuần tự mười lăm lần huấn luyện, tự động nạp đúng tệp cấu hình cho
+từng tổ hợp môi trường và thuật toán, quản lý trạng thái tiến độ, ghi nhật ký và cho
+phép tiếp tục từ điểm dừng khi quá trình bị gián đoạn. Gói trainer mở rộng đã mô tả ở
+mục trên cung cấp hai thuật toán MAPPO và DQN, còn lớp bọc môi trường phục vụ con đường
+tích hợp qua thư viện ngoài. Cuối cùng là một
+chương trình phân tích, có nhiệm vụ đọc các tệp sự kiện TensorBoard của toàn bộ mười
+lăm lần chạy, trích xuất các chỉ số như phần thưởng, độ dài lượt chơi, hàm mất mát và
 entropy, rồi tự động sinh ra các biểu đồ so sánh cùng một báo cáo tổng hợp. Một số
-trích đoạn mã nguồn minh họa của các thành phần này được đặt trong Phụ lục D.
+trích đoạn mã nguồn minh họa của các thành phần này được đặt trong Phụ lục E.
 
 % ═══════════════════════════════════════════════
 \subsection{Thiết lập thực nghiệm}
@@ -1304,14 +1353,18 @@ Hệ số tăng tốc mô phỏng & gấp hai mươi lần thời gian thực \\
 \end{table}
 
 \subsubsection{Tham số huấn luyện từng thuật toán}
-\indent Các siêu tham số chính của ba thuật toán trên từng môi trường được tóm tắt
+\indent Các siêu tham số chính của năm thuật toán trên từng môi trường được tóm tắt
 trong Bảng~\ref{tab:hyperparams}. Nguyên tắc thiết lập là giữ cho các tham số chung
 như tốc độ học, hệ số chiết khấu và kiến trúc mạng giống nhau nhiều nhất có thể giữa
-ba thuật toán trên cùng một môi trường, nhằm bảo đảm sự khác biệt về kết quả phản ánh
-đúng bản chất thuật toán chứ không phải do chênh lệch tham số. Những khác biệt về tham
+năm thuật toán trên cùng một môi trường, nhằm bảo đảm sự khác biệt về kết quả phản ánh
+đúng bản chất thuật toán chứ không phải do chênh lệch tham số. Cụ thể, cả năm lần chạy
+trong một môi trường dùng chung tốc độ học $3\text{e}{-4}$, hệ số chiết khấu $0{,}99$
+và đúng một kiến trúc mạng: hai lớp một trăm hai mươi tám đơn vị cho Cross The Road,
+hai lớp hai trăm năm mươi sáu đơn vị cho Football Table và ba lớp hai trăm năm mươi sáu
+đơn vị cho Capture The Flag. Những khác biệt về tham
 số chỉ nằm ở các thành phần đặc thù của từng loại thuật toán, chẳng hạn kích thước bộ
-đệm kinh nghiệm rất lớn của SAC hay hệ số cập nhật mềm của mạng mục tiêu. Cấu hình đầy
-đủ cho từng thuật toán được liệt kê trong các Phụ lục A, B và C.
+đệm kinh nghiệm rất lớn của hai thuật toán off-policy hay hệ số cập nhật mềm của mạng
+mục tiêu. Cấu hình đầy đủ cho từng thuật toán được liệt kê trong các Phụ lục A đến D.
 
 \begin{table}[H]
 \centering
@@ -1319,57 +1372,81 @@ số chỉ nằm ở các thành phần đặc thù của từng loại thuật 
 \label{tab:hyperparams}
 \renewcommand{\arraystretch}{1.3}
 \tablefont
-\begin{tabular}{|p{3cm}|>{\centering\arraybackslash}p{2cm}
-                |>{\centering\arraybackslash}p{2cm}
-                |>{\centering\arraybackslash}p{2.5cm}
-                |>{\centering\arraybackslash}p{2.5cm}|}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|p{2.5cm}|>{\centering\arraybackslash}p{1.9cm}
+                |>{\centering\arraybackslash}p{2.1cm}
+                |>{\centering\arraybackslash}p{2.1cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.1cm}|}
 \hline
-\textbf{Tham số} & \textbf{PPO} & \textbf{SAC} & \textbf{MA-POCA} & \textbf{MAPPO} \\
+\textbf{Tham số} & \textbf{PPO} & \textbf{SAC} & \textbf{MA-POCA} & \textbf{MAPPO} & \textbf{DQN} \\
 \hline
-Tốc độ học & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ \\
+Tốc độ học & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ & $3\text{e}{-4}$ \\
 \hline
-Hệ số chiết khấu & $0{,}99$ & $0{,}99$ & $0{,}99$ & $0{,}99$ \\
+Hệ số chiết khấu & $0{,}99$ & $0{,}99$ & $0{,}99$ & $0{,}99$ & $0{,}99$ \\
 \hline
-Kích thước lô & 512-2048 & 256-1024 & 512-2048 & 512-2048 \\
+Kích thước lô & 512-2048 & 256-1024 & 512-2048 & 512-2048 & 256-1024 \\
 \hline
-Kích thước bộ đệm & 10K-41K & 100K-500K & 10K-41K & 10K-41K \\
+Kích thước bộ đệm & 10K-41K & 100K-500K & 10K-41K & 10K-41K & 100K-500K \\
 \hline
-Số đơn vị ẩn & 128-512 & 128-512 & 128-512 & 128-512 \\
+Số đơn vị ẩn & 128-256 & 128-256 & 128-256 & 128-256 & 128-256 \\
 \hline
-Số lớp ẩn & 2-3 & 2-3 & 2-3 & 2-3 \\
+Số lớp ẩn & 2-3 & 2-3 & 2-3 & 2-3 & 2-3 \\
 \hline
-Cơ chế riêng & cắt tỉ lệ $0{,}2$ & cập nhật mềm $0{,}005$ & phê bình tập trung & phê bình tập trung + chia sẻ \\
+Cơ chế riêng & cắt tỉ lệ $0{,}2$ & cập nhật mềm $0{,}005$ & phê bình tập trung & phê bình tập trung + chia sẻ & mạng mục tiêu + $\varepsilon$-tham lam \\
 \hline
 \end{tabular}
 \end{table}
+
+\indent Hai thuật toán off-policy còn dùng chung tham số \texttt{steps\_per\_update}
+đặt bằng hai mươi, tức mạng chỉ được cập nhật một lần sau mỗi hai mươi bước môi trường.
+Giá trị này được chọn để thời gian chạy thực tế nằm trong quỹ thời gian của đề tài, và
+nó có hệ quả trực tiếp lên tốc độ hội tụ đo được của SAC như phân tích ở
+Chương~\ref{ch:results}.
 
 \subsubsection{Tiêu chí đánh giá}
 \label{sub:evalcriteria}
 \indent Hiệu năng của mỗi thuật toán trên mỗi môi trường được đánh giá theo bốn tiêu
 chí định lượng, được lựa chọn để phản ánh các khía cạnh khác nhau của chất lượng học.
-Tỷ lệ hoàn thành nhiệm vụ là tỷ lệ số lượt chơi mà tác nhân đạt
-được mục tiêu như ghi bàn, đến đích hoặc giải xong câu đố; tiêu chí này phản ánh chất
-lượng cuối cùng của chính sách học được. Tổng phần thưởng trung
-bình trên mỗi lượt chơi được đo bằng trung bình của mười phần trăm cuối cùng trong
-quá trình huấn luyện, nhằm phản ánh mức hiệu năng ổn định sau khi tác nhân đã hội tụ.
+Mức năng lực đạt được là phần thưởng trung bình của mười phần trăm cuối
+cùng trong quá trình huấn luyện, nhằm phản ánh mức hiệu năng ổn định mà chính sách duy
+trì được ở cuối quá trình thay vì một giá trị tức thời có thể rơi vào đỉnh nhiễu. Riêng
+môi trường đối kháng dùng thêm chỉ số xếp hạng ELO, vì trong cơ chế tự chơi, phần thưởng
+tuyệt đối không phản ánh được tiến bộ khi cả hai phía cùng mạnh lên.
 
-\indent Tốc độ hội tụ được đo bằng số bước huấn luyện cần thiết để
-phần thưởng đạt tới chín mươi phần trăm giá trị cực đại của nó; tiêu chí này phản ánh
-hiệu quả sử dụng dữ liệu của thuật toán, tức thuật toán cần bao nhiêu kinh nghiệm để
-đạt được năng lực tốt. Độ ổn định huấn luyện được đo bằng mức dao
-động của đường cong phần thưởng sau khi đã hội tụ; đường cong càng ít dao động thì quá
-trình học càng bền vững và đáng tin cậy. Toàn bộ các chỉ số này được thu thập tự động
+\indent Tốc độ hội tụ được đo bằng bước huấn luyện đầu tiên mà từ đó
+trở đi đường cong phần thưởng không còn tụt xuống dưới chín mươi phần trăm mức năng lực
+ổn định cuối cùng. Cách xác định này bền vững hơn tiêu chí ``lần đầu chạm ngưỡng'' vì
+không bị một đỉnh nhiễu đơn lẻ kéo về đầu chuỗi; đổi lại, một lần chạy còn dao động
+mạnh ở cuối sẽ không có bước hội tụ nào, và điều đó tự nó đã là một kết quả cần báo cáo.
+Độ ổn định huấn luyện được đo bằng độ lệch chuẩn của đường cong
+phần thưởng trên mười phần trăm cuối; đường cong càng ít dao động thì quá
+trình học càng bền vững và đáng tin cậy.
+
+\indent Tiêu chí còn lại là độ dài trung bình của một lượt chơi. Ba
+môi trường của đề tài đều kết thúc lượt chơi ngay khi nhiệm vụ hoàn thành, nên độ dài
+lượt chơi đóng vai trò thay thế đo được cho tỷ lệ hoàn thành nhiệm vụ: lượt chơi chạm
+trần thời gian nghĩa là tác nhân không giải xong, còn lượt chơi rút ngắn dần nghĩa là
+chính sách kết thúc nhiệm vụ ngày một nhanh. Chỉ số này đặc biệt hữu ích vì nó tách được
+hai kiểu kết thúc sớm mà phần thưởng đơn thuần không phân biệt nổi, giữa việc về đích
+nhanh và việc thất bại sớm. Toàn bộ các chỉ số này được thu thập tự động
 từ tệp sự kiện TensorBoard của mỗi lần chạy và được trực quan hóa dưới dạng biểu đồ và
 bảng ở Chương~\ref{ch:results}.
 
-\indent Về mặt dữ liệu, đề tài đánh giá chín tổ hợp môi trường - thuật toán: ba thuật
-toán PPO, SAC và MA-POCA trên Football Table, bốn thuật toán PPO, SAC, MA-POCA và
-MAPPO trên Cross The Road, và hai thuật toán đa tác nhân MA-POCA và MAPPO trên Capture
-The Flag. Số bước tối đa nêu trong Bảng~\ref{tab:env_summary} là giới hạn đặt trong tệp
-cấu hình, còn số bước thực tế của mỗi lần chạy được quyết định bởi thời điểm đường cong
-phần thưởng đã ổn định và bởi quỹ thời gian tính toán; các lần chạy trên Cross The Road
-đi hết hai triệu bước, trong khi các lần chạy trên Football Table và Capture The Flag
-dừng sớm hơn giới hạn cấu hình. Vì độ dài các lần chạy không bằng nhau, mọi so sánh ở
-Chương~\ref{ch:results} đều nêu rõ số bước tương ứng và đối chiếu trên cùng một khoảng
-bước khi cần. Tất cả số liệu được trích xuất trực tiếp từ tệp sự kiện TensorBoard và từ
-kết quả chạy thử của các mô hình đã huấn luyện.
+\indent Về mặt dữ liệu, đề tài đánh giá một lưới đầy đủ mười lăm tổ hợp môi trường -
+thuật toán, tức cả năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN trên cả ba môi trường.
+Trong mỗi môi trường, năm lần chạy dùng chung một ngân sách bước đúng bằng giá trị ghi ở
+Bảng~\ref{tab:env_summary}: hai triệu bước cho Cross The Road, một triệu bảy trăm nghìn
+bước cho Capture The Flag và một triệu sáu trăm nghìn bước cho Football Table. Điều kiện
+này là điều kiện cần để mọi so sánh có ý nghĩa, bởi chênh lệch phần thưởng giữa hai thuật
+toán chỉ quy được cho bản thân thuật toán khi cả hai đã tiêu thụ cùng lượng kinh nghiệm.
+Ngân sách khác nhau giữa ba môi trường không gây trở ngại, vì đề tài không so sánh chéo
+giữa các môi trường mà chỉ xếp hạng trong nội bộ từng môi trường.
+
+\indent Có đúng một ô của lưới không so sánh trực tiếp được với các ô cùng hàng: lần
+chạy DQN trên Football Table. Thuật toán này đòi hỏi hành động rời rạc nên phải dùng một
+bản dựng riêng của cảnh, và khi ghép thêm cơ chế tự chơi thì bộ điều phối đối kháng phát
+sinh lỗi ngay khi khởi tạo, buộc lần chạy phải tắt tự chơi. Hệ quả là ô này không có chỉ
+số ELO và được đọc như một tham chiếu rời. Tất cả số liệu còn lại được trích xuất trực
+tiếp từ tệp sự kiện TensorBoard của mười lăm lần chạy, không qua bất kỳ bước làm mượt
+nào, để bảng số liệu và đồ thị trong Chương~\ref{ch:results} luôn khớp nhau.

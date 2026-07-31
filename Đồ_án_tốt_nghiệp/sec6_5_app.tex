@@ -4,7 +4,7 @@
 \section{XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}
 \label{ch:app}
 
-\indent Các chương trước đã trình bày quá trình huấn luyện và so sánh bốn thuật toán
+\indent Các chương trước đã trình bày quá trình huấn luyện và so sánh năm thuật toán
 học tăng cường trên ba môi trường game ba chiều. Tuy nhiên, kết quả huấn luyện dưới
 dạng biểu đồ và bảng số liệu chưa phản ánh trực tiếp chất lượng hành vi của
 tác nhân trong game. Để khép kín quy trình từ huấn luyện đến triển khai, đề tài xây
@@ -37,7 +37,7 @@ với tác nhân RL.
 
 \indent Nhóm yêu cầu về lựa chọn mô hình quy định rằng ở mọi chế độ có sự tham gia
 của tác nhân máy, người dùng phải chọn được mô hình cụ thể (tương ứng với thuật toán
-PPO, SAC, MA-POCA, MAPPO hoặc các phiên bản huấn luyện khác nhau) cho tác nhân sử
+PPO, SAC, MA-POCA, MAPPO, DQN hoặc các phiên bản huấn luyện khác nhau) cho tác nhân sử
 dụng. Yêu cầu này biến ứng dụng thành một công cụ so sánh trực quan: người dùng có thể
 lần lượt chạy cùng một môi trường với các mô hình khác nhau để quan sát sự khác biệt
 về hành vi, hoặc cho hai mô hình đối đầu trực tiếp trong môi trường Football Table.
@@ -269,9 +269,14 @@ behaviorParameters.BehaviorType = BehaviorType.InferenceOnly;
 \end{lstlisting}
 
 \indent Cách tổ chức này tách hoàn toàn dữ liệu mô hình khỏi mã nguồn: danh mục mô
-hình trong menu phản ánh trực tiếp nội dung thư mục tài nguyên. Trong phạm vi đồ án,
-ứng dụng được đóng gói sẵn chín mô hình, liệt kê trong Bảng~\ref{tab:app_models}, bao
-phủ kết quả huấn luyện tốt nhất của từng thuật toán trên từng môi trường.
+hình trong menu phản ánh trực tiếp nội dung thư mục tài nguyên, nên việc bổ sung một mô
+hình mới chỉ là thao tác sao chép tệp. Ở phiên bản ứng dụng được mô tả trong đồ án, thư
+mục tài nguyên chứa chín trong số mười lăm mô hình đã huấn luyện, liệt kê trong
+Bảng~\ref{tab:app_models}. Chín mô hình này được chọn để mỗi môi trường có ít nhất hai
+chính sách khác thuật toán đặt cạnh nhau, đủ cho mục đích so sánh hành vi bằng mắt; sáu
+mô hình còn lại, gồm ba lần chạy DQN, hai lần chạy trên Capture The Flag và một lần chạy
+MAPPO trên Football Table, vẫn nằm trong thư mục kết quả và nạp được vào ứng dụng theo
+đúng quy trình sao chép nói trên.
 
 \begin{table}[H]
 \centering
@@ -293,16 +298,16 @@ phủ kết quả huấn luyện tốt nhất của từng thuật toán trên t
  & \texttt{ctr\_mappo\_v1} & MAPPO & 2,0M \\
 \hline
 \multirow{2}{*}{Capture The Flag}
- & \texttt{ctf\_poca\_v2} & MA-POCA & 1,68M \\
+ & \texttt{ctf\_poca\_v2} & MA-POCA & 1,70M \\
 \cline{2-4}
- & \texttt{ctf\_mappo\_v2} & MAPPO & 1,68M \\
+ & \texttt{ctf\_mappo\_v2} & MAPPO & 1,70M \\
 \hline
 \multirow{3}{*}{Football Table}
- & \texttt{FB01} & PPO (self-play) & 1,59M \\
+ & \texttt{FB01} & PPO (self-play) & 1,60M \\
 \cline{2-4}
- & \texttt{Football\_SAC\_01} & SAC & 1,59M \\
+ & \texttt{Football\_SAC\_01} & SAC (self-play) & 1,60M \\
 \cline{2-4}
- & \texttt{Football\_POCA\_01} & MA-POCA & 1,59M \\
+ & \texttt{Football\_POCA\_01} & MA-POCA (self-play) & 1,60M \\
 \hline
 \end{tabular}
 \end{table}
@@ -334,12 +339,18 @@ bình mười phần trăm cuối, bước hội tụ ước lượng và tổng
 \texttt{Resources/\allowbreak TrainingData/\allowbreak training\_data.json}, có cấu trúc phân cấp gồm danh
 sách môi trường, mỗi môi trường chứa danh sách thuật toán, mỗi thuật toán chứa mã lần
 chạy, các thống kê tóm tắt và hai mảng song song \texttt{cs} (số bước) và \texttt{cv}
-(giá trị phần thưởng đã làm mượt). Bên phía Unity, lớp \texttt{TrainingDataStore} nạp
+(giá trị phần thưởng đã làm mượt). Tệp hiện hành chứa đủ mười lăm lần chạy của
+Chương~\ref{ch:results}. Bên phía Unity, lớp \texttt{TrainingDataStore} nạp
 tệp này một lần duy nhất bằng \texttt{JsonUtility} rồi lưu đệm; mỗi thuật toán được
 gán một màu cố định (PPO - xanh dương, SAC - xanh lá, MA-POCA - cam, MAPPO - tím)
-dùng thống nhất cho cả biểu đồ, chú giải và bảng. Vì mã lần chạy được lưu kèm, mọi con
-số hiển thị trong ứng dụng đều truy vết được về đúng thư mục kết quả đã dùng để phân
-tích ở Chương~\ref{ch:results}.\par}
+dùng thống nhất cho cả biểu đồ, chú giải và bảng, và trùng với bảng màu dùng cho các đồ
+thị ở Chương~\ref{ch:results} để người xem đối chiếu được giữa hai nơi mà không phải đọc
+lại chú giải. Danh sách thuật toán được vẽ hiện dừng ở bốn tên nói trên: dữ liệu của DQN
+đã có sẵn trong tệp nhưng chưa được đưa vào danh sách hiển thị, nên hai tab số liệu của
+ứng dụng còn thiếu thuật toán này so với Chương~\ref{ch:results}. Đây là một hạng mục
+hoàn thiện còn lại, được ghi nhận ở Mục~\ref{sub:app-testing}. Vì mã lần chạy được lưu
+kèm, mọi con số hiển thị trong ứng dụng đều truy vết được về đúng thư mục kết quả đã
+dùng để phân tích ở Chương~\ref{ch:results}.\par}
 
 \subsubsection{Tab THÔNG SỐ}
 
@@ -681,7 +692,7 @@ Cross The Road - Người chơi, Agent tự chơi & Camera đóng khung đúng; 
 lựa chọn & Đạt \\
 \hline
 Cross The Road - Chơi với Agent, Agent đấu LLM & Cần từ hai khu vực huấn luyện trở
-lên trong scene & Chưa dùng được \\
+lên trong scene & Chưa kiểm thử lại \\
 \hline
 Capture The Flag - cả 4 chế độ & Phân vai người/máy/LLM đúng; hai sơ đồ phím
 độc lập & Đạt \\
@@ -704,12 +715,18 @@ Mục~\ref{sub:hardware}, khẳng định tính khả thi của việc nhúng tr
 đã huấn luyện vào sản phẩm game. Toàn bộ chín mô hình ONNX đi kèm ứng dụng đều nạp và
 vận hành chính xác với đúng phổ quan sát - hành động đã khai báo khi huấn luyện.
 
-\indent Ứng dụng còn ba hạn chế đã biết. Scene Cross The Road hiện chỉ giữ
-lại một khu vực huấn luyện, trong khi hai chế độ đua song song cần ít nhất hai khu
-vực; khắc phục chỉ đơn giản là nhân bản thêm khu vực trong scene, còn phần mã nguồn
-chọn và đóng khung khu vực đã sẵn sàng cho số lượng khu vực bất kỳ. Chế độ
+\indent Ứng dụng còn ba hạn chế đã biết. Hai tab số liệu hiện chỉ vẽ bốn thuật toán,
+trong khi tệp \texttt{training\_data.json} đi kèm đã chứa đủ mười lăm lần chạy; để DQN
+xuất hiện trong biểu đồ và bảng, chỉ cần bổ sung tên thuật toán vào danh sách hiển thị
+và gán cho nó một màu, còn toàn bộ đường ống dữ liệu đã sẵn sàng. Chế độ
 Agent đấu LLM phụ thuộc vào dịch vụ bên ngoài: cần khóa API hợp lệ, cần kết nối mạng,
 và chất lượng chơi bị giới hạn bởi độ trễ một đến hai giây mỗi lượt. Cuối cùng, hai tab
 số liệu phản ánh nội dung tệp \texttt{training\_data.json} tại thời điểm xuất, nên sau
 mỗi đợt huấn luyện mới cần chạy lại kịch bản xuất dữ liệu thì ứng dụng mới hiển thị
 số liệu cập nhật.
+
+\indent Riêng hai chế độ đua song song của Cross The Road từng không dùng được vì scene
+chỉ còn một khu vực huấn luyện, trong khi chúng cần ít nhất hai. Scene hiện đã được khôi
+phục về đủ tám khu vực như cấu hình dùng cho huấn luyện, nên rào cản đó không còn; tuy
+vậy hai chế độ này chưa được kiểm thử lại sau khi khôi phục, và bảng trên ghi nhận đúng
+trạng thái đó.

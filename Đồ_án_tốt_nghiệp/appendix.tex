@@ -14,9 +14,11 @@
 \addcontentsline{toc}{subsection}{Phụ lục A. Cấu hình huấn luyện PPO}
 
 Dưới đây là tệp cấu hình YAML của thuật toán PPO cho môi trường Football Table
-(kết hợp self-play). Các môi trường khác dùng cấu trúc tương tự với siêu tham số
-điều chỉnh theo Bảng~\ref{tab:hyperparams}. Lưu ý rằng cấu hình MAPPO hoàn toàn
-tương tự PPO, chỉ khác biệt ở việc khai báo \texttt{trainer\_type: mappo}.
+(kết hợp self-play), đúng như đã dùng cho lần chạy \texttt{FB01}. Các môi trường khác
+dùng cấu trúc tương tự với siêu tham số điều chỉnh theo Bảng~\ref{tab:hyperparams}.
+Cấu hình MAPPO hoàn toàn tương tự PPO và MA-POCA trên cùng một môi trường, chỉ khác ở
+việc khai báo \texttt{trainer\_type: mappo}; vì vậy đề tài không liệt kê riêng, và mọi
+chênh lệch kết quả giữa ba thuật toán này đều quy được về bản thân thuật toán.
 
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={football\_ppo.yaml},captionpos=b]
 behaviors:
@@ -41,13 +43,13 @@ behaviors:
         strength: 1.0
     self_play:
       save_steps: 50000
-      team_change: 200000
-      swap_steps: 2000000
+      team_change: 100000
+      swap_steps: 200000
       window: 10
       play_against_latest_model_ratio: 0.5
       initial_elo: 1200.0
     keep_checkpoints: 10
-    max_steps: 10000000
+    max_steps: 1600000
     time_horizon: 1000
     summary_freq: 10000
 \end{lstlisting}
@@ -56,7 +58,10 @@ behaviors:
 \subsection*{Phụ lục B. Cấu hình huấn luyện SAC}
 \addcontentsline{toc}{subsection}{Phụ lục B. Cấu hình huấn luyện SAC}
 
-Tệp cấu hình YAML của SAC cho môi trường Cross The Road:
+Tệp cấu hình YAML của SAC cho môi trường Cross The Road, đúng như đã dùng cho lần chạy
+\texttt{CrossTheRoad\_SAC\_01}. Tham số \texttt{steps\_per\_update} bằng hai mươi là
+điểm cần chú ý nhất: nó quyết định tốc độ hội tụ đo được của SAC, như phân tích ở
+Chương~\ref{ch:results}.
 
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctr\_sac.yaml},captionpos=b]
 behaviors:
@@ -91,10 +96,15 @@ behaviors:
     summary_freq: 10000
 \end{lstlisting}
 
-Đối với môi trường đối kháng, SAC được tích hợp qua Python Low-Level API và
-Stable-Baselines3 (xem Mục~2.6.2). Đoạn mã minh họa lớp bọc môi trường:
+Trên môi trường đối kháng, SAC vẫn dùng chính trainer \texttt{sac} của ML-Agents kết hợp
+khối \texttt{self\_play} giống hệt Phụ lục A, nên lần chạy \texttt{Football\_SAC\_01} có
+đầy đủ chỉ số ELO. Bên cạnh đó, đề tài cũng dựng sẵn con đường kết nối môi trường Unity
+với một thư viện học tăng cường bên ngoài qua Python Low-Level API (xem
+Mục~\ref{sub:pyapi}). Đoạn mã dưới đây minh họa lớp bọc môi trường; cần nhấn mạnh rằng
+đây là phương án dự phòng đã kiểm chứng, không phải nguồn của bất kỳ số liệu nào trong
+Chương~\ref{ch:results}.
 
-\begin{lstlisting}[language=Python,caption={Tích hợp SAC qua mlagents\_envs + Stable-Baselines3},captionpos=b]
+\begin{lstlisting}[language=Python,caption={Kết nối môi trường Unity với mlagents\_envs + Stable-Baselines3},captionpos=b]
 from mlagents_envs.environment import UnityEnvironment
 from mlagents_envs.envs.unity_gym_env import UnityToGymWrapper
 from stable_baselines3 import SAC
@@ -125,7 +135,9 @@ env.close()
 \subsection*{Phụ lục C. Cấu hình huấn luyện MA-POCA}
 \addcontentsline{toc}{subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}
 
-Tệp cấu hình YAML của MA-POCA cho môi trường Capture The Flag:
+Tệp cấu hình YAML của MA-POCA cho môi trường Capture The Flag, đúng như đã dùng cho lần
+chạy \texttt{ctf\_poca\_v2}. Cấu hình MAPPO của lần chạy \texttt{ctf\_mappo\_v2} trùng
+khớp từng tham số với tệp này, chỉ khác \texttt{trainer\_type: mappo}.
 
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctf\_poca.yaml},captionpos=b]
 behaviors:
@@ -154,16 +166,70 @@ behaviors:
         strength: 0.02
         learning_rate: 3.0e-4
     keep_checkpoints: 10
-    max_steps: 5000000
+    max_steps: 1700000
     time_horizon: 128
     summary_freq: 20000
 \end{lstlisting}
 
 % ═══════════════════════════════════════════════
-\subsection*{Phụ lục D. Mã nguồn minh họa}
-\addcontentsline{toc}{subsection}{Phụ lục D. Mã nguồn minh họa}
+\subsection*{Phụ lục D. Cấu hình huấn luyện DQN}
+\addcontentsline{toc}{subsection}{Phụ lục D. Cấu hình huấn luyện DQN}
 
-\noindent\textbf{D.1. Không gian quan sát (Cross The Road):}
+Tệp cấu hình YAML của DQN cho môi trường Cross The Road, đúng như đã dùng cho lần chạy
+\texttt{ctr\_dqn\_v1}. DQN được cài đặt dưới dạng trainer mở rộng (Mục~\ref{sub:pyapi})
+nên khai báo \texttt{trainer\_type: dqn} chỉ hoạt động khi gói mở rộng đã được cài đặt.
+Nhóm tham số \texttt{buffer\_size}, \texttt{tau} và \texttt{steps\_per\_update} được đặt
+trùng với cấu hình SAC ở Phụ lục B, để hai thuật toán off-policy tiêu thụ dữ liệu theo
+cùng một nhịp. Nhóm tham số \texttt{exploration\_*} là phần riêng của DQN, mô tả lịch
+giảm tuyến tính của hệ số $\varepsilon$ trong quy tắc chọn hành động tham lam có nhiễu.
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctr\_dqn.yaml},captionpos=b]
+behaviors:
+  CrossTheRoad:
+    trainer_type: dqn
+    hyperparameters:
+      batch_size: 256
+      buffer_size: 100000
+      buffer_init_steps: 1000
+      learning_rate: 3.0e-4
+      learning_rate_schedule: constant
+      tau: 0.005
+      steps_per_update: 20
+      save_replay_buffer: false
+      exploration_schedule: linear
+      exploration_initial_eps: 1.0
+      exploration_final_eps: 0.05
+      exploration_decay_steps: 500000
+      reward_signal_steps_per_update: 20
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      curiosity:
+        gamma: 0.99
+        strength: 0.02
+        learning_rate: 3.0e-4
+    keep_checkpoints: 5
+    max_steps: 2000000
+    time_horizon: 64
+    summary_freq: 10000
+\end{lstlisting}
+
+Trên môi trường Football Table, tệp cấu hình của DQN giữ nguyên cấu trúc trên nhưng
+\textbf{không có} khối \texttt{self\_play}: khi khai báo khối này, ML-Agents phát sinh
+lỗi tra cứu chính sách trong bộ điều phối đối kháng và dừng ngay khi khởi tạo. Lần chạy
+\texttt{football\_dqn\_v1} vì vậy dùng bản dựng \texttt{FootballDiscrete} với tham số
+hành vi chuyển từ tám kênh liên tục sang tám nhánh ba mức, và không sinh ra chỉ số ELO.
+
+% ═══════════════════════════════════════════════
+\subsection*{Phụ lục E. Mã nguồn minh họa}
+\addcontentsline{toc}{subsection}{Phụ lục E. Mã nguồn minh họa}
+
+\noindent\textbf{E.1. Không gian quan sát (Cross The Road):}
 \begin{lstlisting}[language=Java,caption={CollectObservations - CrossTheRoadAgent.cs},captionpos=b]
 public override void CollectObservations(VectorSensor sensor)
 {
@@ -174,7 +240,7 @@ public override void CollectObservations(VectorSensor sensor)
 }
 \end{lstlisting}
 
-\noindent\textbf{D.2. Hàm phần thưởng (Cross The Road):}
+\noindent\textbf{E.2. Hàm phần thưởng (Cross The Road):}
 \begin{lstlisting}[language=Java,caption={GivePoints / TakeAwayPoints - CrossTheRoadAgent.cs},captionpos=b]
 public void GivePoints()          // Khi den dich
 {
@@ -189,7 +255,7 @@ public void TakeAwayPoints()      // Khi va cham phuong tien
 }
 \end{lstlisting}
 
-\noindent\textbf{D.3. Phần thưởng nhóm (môi trường Capture The Flag):}
+\noindent\textbf{E.3. Phần thưởng nhóm (môi trường Capture The Flag):}
 \begin{lstlisting}[language=Java,caption={Group reward - EnvController.cs (trich doan)},captionpos=b]
 // Ca hai agent cung roi phong -> thuong nhom
 if (agents[0].agent.ThisAgentLeft && agents[1].agent.ThisAgentLeft)
@@ -205,7 +271,7 @@ if (allFound) {
 }
 \end{lstlisting}
 
-\noindent\textbf{D.4. Phần thưởng định hướng (Football Table):}
+\noindent\textbf{E.4. Phần thưởng định hướng (Football Table):}
 \begin{lstlisting}[language=Java,caption={AddShotReward - FootballAgent.cs},captionpos=b]
 void AddShotReward()
 {
@@ -220,8 +286,8 @@ void AddShotReward()
 \end{lstlisting}
 
 % ═══════════════════════════════════════════════
-\subsection*{Phụ lục E. Kết quả TensorBoard}
-\addcontentsline{toc}{subsection}{Phụ lục E. Kết quả TensorBoard}
+\subsection*{Phụ lục F. Kết quả TensorBoard}
+\addcontentsline{toc}{subsection}{Phụ lục F. Kết quả TensorBoard}
 
 Toàn bộ số liệu huấn luyện (Cumulative Reward, Episode Length, Policy Loss, Entropy,
 ELO\ldots) đều được ghi lại tự động qua TensorBoard cho từng lần chạy và lưu trong
@@ -234,10 +300,11 @@ cuối cùng thực đo được của những lần chạy đã huấn luyện 
 \label{tab:tb_summary}
 \renewcommand{\arraystretch}{1.4}
 \tablefont
-\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.0cm}
-                |>{\centering\arraybackslash}p{2.8cm}
-                |>{\centering\arraybackslash}p{2.3cm}|}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{4.2cm}|>{\centering\arraybackslash}p{2.1cm}
+                |>{\centering\arraybackslash}p{1.8cm}
+                |>{\centering\arraybackslash}p{2.6cm}
+                |>{\centering\arraybackslash}p{2.1cm}|}
 \hline
 \textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Thời gian} \\
 \hline

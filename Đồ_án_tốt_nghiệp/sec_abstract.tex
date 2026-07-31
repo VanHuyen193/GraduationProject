@@ -9,23 +9,28 @@
 môi trường game ba chiều. Trọng tâm của đề tài là xây dựng ba môi trường game 3D
 đặc trưng trên nền tảng Unity ML-Agents - Football Table (đối kháng
 một-một), môi trường Capture The Flag (hợp tác đa tác nhân) và Cross The Road
-(điều hướng tránh phương tiện) - rồi tiến hành huấn luyện và so sánh có hệ thống bốn
+(điều hướng tránh phương tiện) - rồi tiến hành huấn luyện và so sánh có hệ thống năm
 thuật toán tiêu biểu: PPO (Proximal Policy Optimization), SAC (Soft Actor-Critic),
-MA-POCA (Multi-Agent POsthumous Credit Assignment) và MAPPO (Multi-Agent Proximal Policy Optimization).
+MA-POCA (Multi-Agent POsthumous Credit Assignment), MAPPO (Multi-Agent Proximal Policy
+Optimization) và DQN (Deep Q-Network).
 
-\indent Mỗi thuật toán được huấn luyện trên từng môi trường với cùng điều kiện phần
-cứng và được đánh giá theo bốn tiêu chí định lượng: tốc độ hội tụ, tỷ lệ hoàn thành
-nhiệm vụ, tổng phần thưởng trung bình và độ ổn định huấn luyện. Đề tài cũng trình bày
-quy trình tích hợp thuật toán off-policy (SAC) ra ngoài trainer tích hợp sẵn của
-ML-Agents thông qua Python Low-Level API, nhằm khắc phục giới hạn của ML-Agents khi
-SAC không hỗ trợ cơ chế self-play và group reward.
+\indent Lưới thực nghiệm gồm mười lăm lần chạy đầy đủ, tương ứng với năm thuật toán
+trên ba môi trường, tất cả trên cùng một cấu hình phần cứng và cùng một ngân sách bước
+trong mỗi môi trường. Hiệu năng được đánh giá theo bốn tiêu chí định lượng: mức năng
+lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và độ dài lượt chơi. Đề tài cũng
+trình bày quy trình đưa hai thuật toán không có sẵn trong ML-Agents là MAPPO và DQN
+vào bộ công cụ dưới dạng trainer mở rộng, cùng quy trình kết nối một thuật toán
+off-policy với môi trường Unity qua Python Low-Level API và Stable-Baselines3.
 
 \indent Kết quả thực nghiệm cho thấy không tồn tại một thuật toán tối ưu duy nhất cho
-mọi bài toán: trong môi trường đối kháng, MA-POCA và PPO kết hợp self-play là hai thuật
-toán duy nhất cho thấy tiến bộ thực sự theo chỉ số xếp hạng ELO, SAC đạt
-hiệu quả mẫu vượt trội trong bài toán điều hướng đơn tác nhân,
-còn trong bài toán hợp tác đa tác nhân, MAPPO vượt qua MA-POCA nhờ cơ chế phê bình
-tập trung kết hợp chia sẻ tham số giữa các tác nhân đồng nhất. Trên cơ sở đó, đề tài
+mọi bài toán, nhưng sự phù hợp giữa thuật toán và môi trường bộc lộ qua thất bại rõ
+hơn qua chiến thắng. Trong môi trường đối kháng, cả bốn thuật toán dùng tự chơi đều
+tiến bộ so với phiên bản cũ của chính mình, song biên độ ELO quá hẹp (1237--1260) để
+phân định thứ hạng. Ở bài toán điều hướng đơn tác nhân, SAC dẫn đầu với phần thưởng
+$0{,}846$ và MAPPO bám sát ở $0{,}835$, trong khi DQN xếp cuối với khoảng cách lớn
+($0{,}336$). Ở bài toán hợp tác, bốn thuật toán về đích trong một dải hẹp
+$0{,}800$--$0{,}840$ nên cơ chế phê bình tập trung không tạo được khác biệt đo lường
+được so với PPO thường, còn SAC sụp đổ hoàn toàn ở mức $0{,}183$. Trên cơ sở đó, đề tài
 xây dựng một ứng dụng trình diễn tương tác hoàn chỉnh: các mô hình đã huấn luyện được
 triển khai trực tiếp vào game dưới định dạng ONNX, người dùng có thể lựa chọn môi
 trường, chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng tác nhân, tác nhân

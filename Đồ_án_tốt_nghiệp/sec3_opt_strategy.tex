@@ -5,7 +5,7 @@
 
 \indent Chương này thiết lập nền tảng lý thuyết cho toàn bộ đồ án, đi từ bối cảnh lịch
 sử của trí tuệ nhân tạo trong game tới bộ khái niệm hình thức của học tăng cường, rồi
-tới bốn thuật toán mà đề tài đem ra so sánh. Phần cuối chương dành cho Unity ML-Agents,
+tới năm thuật toán mà đề tài đem ra so sánh. Phần cuối chương dành cho Unity ML-Agents,
 và dành nhiều nhất cho những giới hạn tích hợp của nền tảng này: chính các giới hạn ấy,
 chứ không phải một lựa chọn học thuật nào, đã quy định cách đề tài phải bố trí thực
 nghiệm ở Chương~\ref{ch:design}.
@@ -282,7 +282,7 @@ trong đó SAC bổ sung thêm entropy regularization để khuyến khích agen
 MA-POCA mở rộng kiến trúc critic sang bài toán đa tác nhân với cơ chế centralized
 critic cho phép mỗi agent học dựa trên thông tin toàn cục trong quá trình huấn luyện.
 
-\indent Bảng~\ref{tab:rl_comparison} tóm tắt vị trí của bốn thuật toán được sử dụng
+\indent Bảng~\ref{tab:rl_comparison} tóm tắt vị trí của năm thuật toán được sử dụng
 trong đề tài theo cách phân loại trên.
 
 \begin{table}[H]
@@ -305,6 +305,8 @@ SAC      & Actor-Critic      & Off-policy & Hành động liên tục    \\
 MA-POCA  & Actor-Critic      & On-policy  & Hợp tác đa tác nhân   \\
 \hline
 MAPPO    & Policy-Based      & On-policy  & Hợp tác, tác nhân đồng nhất \\
+\hline
+DQN      & Value-Based       & Off-policy & Hành động rời rạc \\
 \hline
 \end{tabular}
 \end{table}
@@ -386,11 +388,12 @@ Việc huấn luyện Inverse Model buộc mạng mã hóa $\phi$ chỉ giữ l�
 
 \subsection{Các thuật toán sử dụng trong đề tài}
 
-\indent Đề tài sử dụng bốn thuật toán học tăng cường đại diện cho các hướng tiếp cận
+\indent Đề tài sử dụng năm thuật toán học tăng cường đại diện cho các hướng tiếp cận
 khác nhau: PPO thuộc nhóm policy-based on-policy đơn tác nhân, SAC thuộc nhóm
 actor-critic off-policy, MA-POCA là thuật toán chuyên biệt cho bài toán đa tác nhân
-dựa trên cơ chế attention, và MAPPO là mở rộng của PPO cho đa tác nhân thông qua chia
-sẻ tham số. Phần này trình bày nguyên lý hoạt động và đặc điểm của từng thuật toán,
+dựa trên cơ chế attention, MAPPO là mở rộng của PPO cho đa tác nhân thông qua chia
+sẻ tham số, và DQN đại diện cho nhóm phương pháp dựa trên giá trị. Phần này trình bày
+nguyên lý hoạt động và đặc điểm của từng thuật toán,
 làm cơ sở cho việc lựa chọn và phân tích kết quả thực nghiệm ở các chương sau.
 
 \subsubsection{PPO}
@@ -638,11 +641,61 @@ nhất buộc phải học lẫn lộn nhiều hành vi mâu thuẫn. Hàm giá 
 cũng phình theo quân số vì không gian trạng thái toàn cục lớn dần. Và khác MA-POCA, MAPPO
 không có sẵn cách xử lý gọn gàng cho trường hợp số agent thay đổi giữa lượt chơi.
 
-\subsubsection{Tổng kết và so sánh bốn thuật toán}
-\indent Bốn thuật toán vừa trình bày không xếp được thành một thang bậc từ yếu đến
-mạnh. Chúng phân hóa theo ba trục độc lập: cách lấy dữ liệu (on-policy hay off-policy),
+\subsubsection{DQN}
+\label{sub:dqn}
+\indent DQN (Deep Q-Network) được Mnih và cộng sự đề xuất năm 2015
+\cite{mnih2015humanlevel} và là thuật toán đầu tiên cho thấy một mạng nơ-ron sâu có thể
+học chơi game ở trình độ con người chỉ từ điểm ảnh thô. Khác với bốn thuật toán trên,
+DQN không tham số hóa chính sách: mạng nơ-ron học xấp xỉ hàm giá trị hành động
+$Q_\theta(s,a)$, còn chính sách được suy ra gián tiếp bằng cách chọn hành động có giá
+trị lớn nhất. Đề tài đưa DQN vào lưới so sánh để có một đại diện của nhóm value-based
+bên cạnh bốn thuật toán dựa trên chính sách, qua đó kiểm chứng xem hướng tiếp cận cổ
+điển này còn cạnh tranh được đến đâu trong môi trường ba chiều.
+
+\indent \textbf{Nguyên lý hoạt động:} DQN học hàm $Q$ bằng cách cực tiểu hóa sai số
+thời gian khác biệt (temporal difference) giữa giá trị dự đoán và giá trị mục tiêu
+suy ra từ phương trình Bellman:
+
+\begin{equation}
+    L(\theta) = \mathbb{E}_{(s,a,r,s') \sim \mathcal{D}} \left[
+        \Big( r + \gamma \max_{a'} Q_{\theta^-}(s', a') - Q_\theta(s, a) \Big)^2
+    \right]
+\end{equation}
+
+\noindent trong đó $\mathcal{D}$ là bộ đệm phát lại chứa các bộ chuyển tiếp đã thu thập,
+còn $\theta^-$ là tham số của mạng mục tiêu. Hai thành phần này chính là đóng góp then
+chốt của DQN. Bộ đệm phát lại cho phép mỗi mẫu kinh nghiệm được dùng lại nhiều lần và
+phá vỡ tương quan thời gian giữa các mẫu liên tiếp trong cùng một lô cập nhật. Mạng mục
+tiêu là một bản sao của mạng chính được cập nhật chậm hơn, giữ cho giá trị mục tiêu
+tương đối cố định trong từng giai đoạn ngắn; nếu thiếu nó, mạng sẽ đuổi theo chính mục
+tiêu do mình sinh ra và quá trình học dễ phân kỳ.
+
+\indent Việc khám phá trong DQN không đến từ entropy của chính sách như ở PPO hay SAC,
+mà đến từ quy tắc $\varepsilon$-tham lam: tác nhân chọn hành động ngẫu nhiên với xác
+suất $\varepsilon$ và chọn hành động có giá trị $Q$ lớn nhất với xác suất còn lại, trong
+đó $\varepsilon$ giảm dần theo số bước huấn luyện. Hệ quả trực tiếp đối với đề tài là
+DQN không sinh ra chỉ số entropy của chính sách, nên nó vắng mặt ở mọi so sánh dựa trên
+đại lượng này tại Chương~\ref{ch:results}.
+
+\indent \textbf{Ưu điểm:} DQN là thuật toán off-policy nên tận dụng lại được toàn bộ
+kinh nghiệm đã lưu, về lý thuyết cho hiệu quả mẫu cao. Kiến trúc chỉ gồm một mạng giá
+trị nên nhẹ hơn các thuật toán actor-critic vốn phải huấn luyện đồng thời nhiều mạng.
+Với không gian hành động rời rạc và nhỏ, cách chọn hành động bằng $\max_a Q(s,a)$ là
+chính xác và không tốn thêm chi phí tối ưu.
+
+\indent \textbf{Nhược điểm:} Chính phép lấy $\max_a Q(s,a)$ khiến DQN không dùng được
+trực tiếp cho không gian hành động liên tục, và đây là rào cản thực tế mà đề tài gặp
+phải trên môi trường Football Table. Toán tử cực đại cũng gây thiên lệch ước lượng vượt
+mức (overestimation bias) do nhiễu trong ước lượng $Q$ luôn bị khuếch đại về phía trên.
+Ngoài ra, vì DQN học một chính sách xác định, nó không có cơ chế nội tại nào duy trì
+tính ngẫu nhiên khi $\varepsilon$ đã giảm, nên dễ chốt sớm vào một phương án dưới tối ưu.
+
+\subsubsection{Tổng kết và so sánh năm thuật toán}
+\indent Năm thuật toán vừa trình bày không xếp được thành một thang bậc từ yếu đến
+mạnh. Chúng phân hóa theo bốn trục độc lập: đối tượng được học (hàm giá trị hay chính
+sách), cách lấy dữ liệu (on-policy hay off-policy),
 cách xử lý nhiều tác nhân (không có, attention hay chia sẻ tham số) và chi phí tính toán
-của mỗi bước cập nhật. Chính ba trục này, chứ không phải một thứ hạng chung, quyết định
+của mỗi bước cập nhật. Chính bốn trục này, chứ không phải một thứ hạng chung, quyết định
 thuật toán nào hợp với bài toán nào.
 
 \begin{table}[H]
@@ -674,6 +727,8 @@ thuật toán nào hợp với bài toán nào.
         \hline
         MAPPO & Policy gradient & On-policy & Có (CTDE) & Không & Không & Có (bắt buộc) & Trung bình \\
         \hline
+        DQN & Hàm giá trị & Off-policy & Không native & Có & Không ($\varepsilon$-tham lam) & Không & Thấp \\
+        \hline
     \end{tabular}
 \end{table}
 
@@ -685,8 +740,10 @@ buffer trả lại đủ giá trị để bù cho chi phí huấn luyện ba m�
 nhiều tác nhân, ranh giới nằm ở chỗ đội hình có đồng nhất hay không. Các tác nhân giống
 nhau và cố định về số lượng thì chia sẻ tham số của MAPPO khai thác dữ liệu triệt để
 nhất; ngược lại, khi vai trò bất đối xứng hoặc khi tác nhân có thể rời nhóm giữa chừng,
-cơ chế attention của MA-POCA mới thực sự cần thiết. Chương~\ref{ch:results} kiểm chứng
-từng khuyến nghị này bằng số liệu thực đo.
+cơ chế attention của MA-POCA mới thực sự cần thiết. DQN đứng ngoài cả ba cân nhắc trên:
+nó chỉ dùng được khi hành động rời rạc, và vai trò của nó trong đề tài là một mốc tham
+chiếu cho nhóm value-based chứ không phải một ứng viên cạnh tranh.
+Chương~\ref{ch:results} kiểm chứng từng khuyến nghị này bằng số liệu thực đo.
 
 \subsection{Unity ML-Agents Toolkit}
 \indent Unity ML-Agents Toolkit \cite{juliani2020unity} là một framework mã nguồn mở
@@ -774,32 +831,37 @@ tham số huấn luyện (\texttt{hyperparameters}), kiến trúc mạng nơ-ron
 và số bước huấn luyện tối đa (\texttt{max\_steps}). Mỗi behavior trong scene tương
 ứng với một khối cấu hình riêng, cho phép huấn luyện đồng thời nhiều loại agent với
 các thiết lập khác nhau trong cùng một session. Cấu hình chi tiết cho từng thuật toán
-được trình bày trong Phụ lục A, B và C.
+được trình bày trong các Phụ lục A đến D.
 
 \subsubsection{Hỗ trợ thuật toán và giới hạn tích hợp sẵn}
 \label{sub:mllimits}
-\indent Unity ML-Agents tích hợp sẵn hai trainer chính thức: \texttt{PPO} cho bài
-toán đơn tác nhân và đối kháng (kết hợp self-play), và \texttt{POCA} (MA-POCA) cho
-bài toán hợp tác đa tác nhân. Cả hai đều là thuật toán on-policy. Bên cạnh đó,
-ML-Agents cũng cung cấp trainer \texttt{SAC} như một lựa chọn off-policy, cùng các
-tín hiệu phần thưởng nội tại như curiosity và RND để hỗ trợ khám
-phá trong môi trường phần thưởng thưa. Người dùng lựa chọn thuật toán và cấu hình siêu
-tham số hoàn toàn thông qua tệp YAML mà không cần thay đổi mã nguồn C\# của môi trường.
+\indent Unity ML-Agents phiên bản 4.0.2 tích hợp sẵn đúng ba trainer: \texttt{ppo} cho
+bài toán đơn tác nhân và đối kháng, \texttt{poca} (MA-POCA) cho bài toán hợp tác đa tác
+nhân, và \texttt{sac} như lựa chọn off-policy duy nhất. Kèm theo đó là các tín hiệu phần
+thưởng nội tại như curiosity và RND để hỗ trợ khám phá trong môi trường phần thưởng
+thưa. Người dùng lựa chọn thuật toán và cấu hình siêu tham số hoàn toàn thông qua tệp
+YAML mà không cần thay đổi mã nguồn C\# của môi trường.
 
-\indent Tuy nhiên, việc tích hợp sẵn này cũng đi kèm một số giới hạn quan trọng đối
-với đề tài. Cơ chế self-play - vốn cần thiết cho môi trường đối
-kháng như Football Table - chỉ được hỗ trợ chính thức cho PPO và POCA, mà không hỗ
-trợ cho SAC. Nguyên nhân là replay buffer của SAC lưu trữ kinh nghiệm từ các phiên
-bản đối thủ cũ, trở nên lỗi thời và mâu thuẫn khi đối thủ liên tục được cập nhật trong
-quá trình self-play. Cơ chế group reward phục vụ bài toán hợp tác cũng
-được thiết kế tối ưu cho POCA; khi áp dụng cho PPO hoặc SAC, phần thưởng nhóm buộc
-phải được phân bổ thủ công về từng agent, làm suy giảm khả năng gán công lao. Ngoài ra,
-các trainer tích hợp sẵn không cho phép người dùng dễ dàng can thiệp sâu vào vòng lặp
-huấn luyện (ví dụ tùy biến hàm mất mát hay lịch trình cập nhật).
+\indent Giới hạn đầu tiên nằm ngay ở danh sách đó: hai trong năm thuật toán mà đề tài
+cần so sánh, MAPPO và DQN, không có mặt. Vì vậy chúng được bổ sung vào ML-Agents dưới
+dạng trainer mở rộng, tức là các lớp trainer viết thêm rồi đăng ký vào cơ chế tra cứu
+theo tên \texttt{trainer\_type}, nhờ đó dùng chung toàn bộ hạ tầng thu thập quỹ đạo,
+ghi nhật ký TensorBoard và xuất mô hình ONNX với ba trainer có sẵn. Cách làm này giữ
+cho năm thuật toán chạy trên cùng một đường ống đo đạc, điều kiện cần để mọi so sánh ở
+Chương~\ref{ch:results} có ý nghĩa. Chi tiết được trình bày trong Mục~\ref{sub:custom}.
 
-\indent Để so sánh công bằng cả ba thuật toán PPO, SAC và MA-POCA trên môi trường đối
-kháng, đề tài cần một hướng tiếp cận vượt ra ngoài trainer tích hợp sẵn của ML-Agents.
-Thư viện \texttt{mlagents\_envs} cung cấp Python Low-Level API cho phép điều khiển
-trực tiếp môi trường Unity như một môi trường kiểu Gym, từ đó kết nối với các thư viện
-RL bên ngoài như Stable-Baselines3 \cite{raffin2021stable}. Cách tiếp cận này được
-trình bày chi tiết trong Mục~\ref{sub:custom}.
+\indent Giới hạn thứ hai liên quan tới cơ chế tự chơi của môi trường đối kháng. Cơ chế
+này được ML-Agents thiết kế quanh giả định chính sách là ngẫu nhiên và được cập nhật
+theo lô on-policy; trên thực tế, PPO, MA-POCA, MAPPO và SAC đều ghép được với tự chơi
+và đều sinh ra chỉ số ELO. Riêng DQN thì không: bộ điều phối đối kháng phát sinh lỗi
+tra cứu chính sách ngay khi khởi tạo, nên lần chạy DQN trên Football Table buộc phải
+tắt tự chơi và vì thế không có ELO để đối chiếu.
+
+\indent Giới hạn còn lại liên quan tới phần thưởng nhóm. Cơ chế group reward được thiết
+kế tối ưu cho POCA; khi áp dụng cho PPO, SAC hoặc DQN, phần thưởng nhóm buộc phải được
+phân bổ thủ công về từng agent, làm suy giảm khả năng gán công lao. Ngoài ra, các
+trainer tích hợp sẵn không cho phép người dùng dễ dàng can thiệp sâu vào vòng lặp huấn
+luyện, chẳng hạn tùy biến hàm mất mát hay lịch trình cập nhật. Với những trường hợp cần
+mức kiểm soát đó, thư viện \texttt{mlagents\_envs} cung cấp Python Low-Level API cho
+phép điều khiển trực tiếp môi trường Unity như một môi trường kiểu Gym, từ đó kết nối
+với các thư viện RL bên ngoài như Stable-Baselines3 \cite{raffin2021stable}.
