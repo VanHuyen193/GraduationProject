@@ -1,0 +1,183 @@
+09:49:02 [INFO] --resume: bo qua 0 job da co ket qua
+09:49:02 [INFO] ──────────────────────────────────────────────────────────────────────
+09:49:02 [INFO] KIEM TRA TRUOC KHI CHAY
+09:49:02 [INFO] ──────────────────────────────────────────────────────────────────────
+09:49:02 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+09:49:02 [INFO] trainer plugins: default,a2c,dqn,mappo
+09:49:02 [WARN] [ctf_mappo] CANH BAO: Day la lan chay chua PHAT HIEN CHINH cua do an (buoc ngoat ~1,28M). Neu ha STEPS['capture'] xuong duoi 1,5M thi duong cong mat buoc ngoat.
+09:49:02 [WARN] [fb_sac] CANH BAO: SAC + self_play: ML-Agents khong ho tro chinh thuc. Da chay duoc 20K buoc trong smoke test nen khong chan, nhung theo doi ky.
+09:49:02 [WARN] [fb_dqn] CANH BAO: CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung build 'Football' voi PPO/SAC/POCA/MAPPO duoc.
+09:49:02 [WARN] --force: se GHI DE 1 thu muc run-id da co (ctf_mappo_v2)
+09:49:02 [INFO] Ket qua kiem tra: OK
+09:49:02 [INFO] ──────────────────────────────────────────────────────────────────────
+09:49:02 [INFO] Se chay 7 job, tong 11,400,000 buoc (ngan sach: full)
+09:49:02 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+09:49:02 [INFO] ======================================================================
+09:49:02 [INFO] [1/7]  fb_poca   MA-POCA @ football
+09:49:02 [INFO]         run-id  : Football_POCA_01
+09:49:02 [INFO]         config  : football_poca.yaml
+09:49:02 [INFO]         steps   : 1,600,000
+09:49:02 [INFO] ======================================================================
+09:49:02 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_POCA_01_1600000.yaml --run-id Football_POCA_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+09:49:05 [WARN]     E0730 09:49:05.647000000  9192 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:05.6470825+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:05.6470744+00:00", children:[UNKNOWN:Failed to prepare server socket {created_time:"2026-07-30T02:49:05.6470352+00:00", target_address:"ipv6:%5B::%5D:5005", fd:1384, children:[UNAVAILABLE:WSA Error {created_time:"2026-07-30T02:49:05.6469832+00:00", wsa_error:10048, grpc_status:14, os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", syscall:"bind"}]}]}]}
+09:49:05 [WARN]     Traceback (most recent call last):
+09:49:05 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:05 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:05 [WARN]     Traceback (most recent call last):
+09:49:05 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:05 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:05 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x0000018BB69F7DF0>>
+09:49:05 [WARN]     Traceback (most recent call last):
+09:49:05 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:05 [WARN]     Traceback (most recent call last):
+09:49:05 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:06 [ERROR] --> THAT BAI  (0:00:03, 0 steps, log: Football_POCA_01.log)
+09:49:06 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\Football_POCA_01.log
+09:49:06 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:06 [INFO] ======================================================================
+09:49:06 [INFO] [2/7]  ctf_mappo   MAPPO @ capture
+09:49:06 [INFO]         run-id  : ctf_mappo_v2
+09:49:06 [INFO]         config  : ctf_mappo.yaml
+09:49:06 [INFO]         steps   : 1,700,000
+09:49:06 [INFO] ======================================================================
+09:49:06 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_mappo_v2_1700000.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+09:49:09 [WARN]     E0730 09:49:09.584000000 22124 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:09.5842168+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:09.5842105+00:00", children:[UNKNOWN:Failed to prepare server socket {created_time:"2026-07-30T02:49:09.5841811+00:00", target_address:"ipv6:%5B::%5D:5005", fd:1764, children:[UNAVAILABLE:WSA Error {created_time:"2026-07-30T02:49:09.5841376+00:00", wsa_error:10048, grpc_status:14, os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", syscall:"bind"}]}]}]}
+09:49:09 [WARN]     Traceback (most recent call last):
+09:49:09 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:09 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:09 [WARN]     Traceback (most recent call last):
+09:49:09 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:09 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:09 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x00000288862D7DF0>>
+09:49:09 [WARN]     Traceback (most recent call last):
+09:49:09 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:09 [WARN]     Traceback (most recent call last):
+09:49:09 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:09 [ERROR] --> THAT BAI  (0:00:03, 0 steps, log: ctf_mappo_v2.log)
+09:49:09 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctf_mappo_v2.log
+09:49:09 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:09 [INFO] ======================================================================
+09:49:09 [INFO] [3/7]  fb_ppo   PPO @ football
+09:49:09 [INFO]         run-id  : FB01
+09:49:09 [INFO]         config  : football_ppo.yaml
+09:49:09 [INFO]         steps   : 1,600,000
+09:49:09 [INFO] ======================================================================
+09:49:09 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\FB01_1600000.yaml --run-id FB01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+09:49:13 [WARN]     E0730 09:49:13.558000000 19756 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:13.5582084+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:13.5582023+00:00", children:[UNKNOWN:Failed to prepare server socket {fd:1756, target_address:"ipv6:%5B::%5D:5005", created_time:"2026-07-30T02:49:13.5581696+00:00", children:[UNAVAILABLE:WSA Error {created_time:"2026-07-30T02:49:13.5581264+00:00", wsa_error:10048, grpc_status:14, os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", syscall:"bind"}]}]}]}
+09:49:13 [WARN]     Traceback (most recent call last):
+09:49:13 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:13 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:13 [WARN]     Traceback (most recent call last):
+09:49:13 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:13 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:13 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x0000022AEDB37A00>>
+09:49:13 [WARN]     Traceback (most recent call last):
+09:49:13 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:13 [WARN]     Traceback (most recent call last):
+09:49:13 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:13 [ERROR] --> THAT BAI  (0:00:04, 0 steps, log: FB01.log)
+09:49:13 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\FB01.log
+09:49:13 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:13 [INFO] ======================================================================
+09:49:13 [INFO] [4/7]  fb_sac   SAC @ football
+09:49:13 [INFO]         run-id  : Football_SAC_01
+09:49:13 [INFO]         config  : football_sac.yaml
+09:49:13 [INFO]         steps   : 1,600,000
+09:49:13 [INFO] ======================================================================
+09:49:13 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_SAC_01_1600000.yaml --run-id Football_SAC_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+09:49:17 [WARN]     E0730 09:49:17.537000000  5256 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:17.5375543+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:17.5375483+00:00", children:[UNKNOWN:Failed to prepare server socket {fd:1648, target_address:"ipv6:%5B::%5D:5005", created_time:"2026-07-30T02:49:17.5375188+00:00", children:[UNAVAILABLE:WSA Error {syscall:"bind", os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", grpc_status:14, wsa_error:10048, created_time:"2026-07-30T02:49:17.5374771+00:00"}]}]}]}
+09:49:17 [WARN]     Traceback (most recent call last):
+09:49:17 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:17 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:17 [WARN]     Traceback (most recent call last):
+09:49:17 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:17 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:17 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x000001B2AC0AC220>>
+09:49:17 [WARN]     Traceback (most recent call last):
+09:49:17 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:17 [WARN]     Traceback (most recent call last):
+09:49:17 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:18 [ERROR] --> THAT BAI  (0:00:04, 0 steps, log: Football_SAC_01.log)
+09:49:18 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\Football_SAC_01.log
+09:49:18 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:18 [INFO] ======================================================================
+09:49:18 [INFO] [5/7]  fb_mappo   MAPPO @ football
+09:49:18 [INFO]         run-id  : Football_MAPPO_01
+09:49:18 [INFO]         config  : football_mappo.yaml
+09:49:18 [INFO]         steps   : 1,600,000
+09:49:18 [INFO] ======================================================================
+09:49:18 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_MAPPO_01_1600000.yaml --run-id Football_MAPPO_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+09:49:21 [WARN]     E0730 09:49:21.600000000 23388 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:21.599925+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:21.5999186+00:00", children:[UNKNOWN:Failed to prepare server socket {created_time:"2026-07-30T02:49:21.5998897+00:00", target_address:"ipv6:%5B::%5D:5005", fd:1316, children:[UNAVAILABLE:WSA Error {created_time:"2026-07-30T02:49:21.5998474+00:00", wsa_error:10048, grpc_status:14, os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", syscall:"bind"}]}]}]}
+09:49:21 [WARN]     Traceback (most recent call last):
+09:49:21 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:21 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:21 [WARN]     Traceback (most recent call last):
+09:49:21 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:21 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:21 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x00000220CD007DF0>>
+09:49:21 [WARN]     Traceback (most recent call last):
+09:49:21 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:21 [WARN]     Traceback (most recent call last):
+09:49:21 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:22 [ERROR] --> THAT BAI  (0:00:04, 0 steps, log: Football_MAPPO_01.log)
+09:49:22 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\Football_MAPPO_01.log
+09:49:22 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:22 [INFO] ======================================================================
+09:49:22 [INFO] [6/7]  fb_dqn   DQN @ football
+09:49:22 [INFO]         run-id  : football_dqn_v1
+09:49:22 [INFO]         config  : football_dqn.yaml
+09:49:22 [INFO]         steps   : 1,600,000
+09:49:22 [INFO] ======================================================================
+09:49:22 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\football_dqn_v1_1600000.yaml --run-id football_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe --no-graphics --time-scale 20.0
+09:49:25 [WARN]     E0730 09:49:25.703000000 30548 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:25.7030259+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:25.703019+00:00", children:[UNKNOWN:Failed to prepare server socket {fd:1668, target_address:"ipv6:%5B::%5D:5005", created_time:"2026-07-30T02:49:25.7029899+00:00", children:[UNAVAILABLE:WSA Error {syscall:"bind", os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", grpc_status:14, wsa_error:10048, created_time:"2026-07-30T02:49:25.7029477+00:00"}]}]}]}
+09:49:25 [WARN]     Traceback (most recent call last):
+09:49:25 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:25 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:25 [WARN]     Traceback (most recent call last):
+09:49:25 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:25 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:25 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x000001E51FA27DF0>>
+09:49:25 [WARN]     Traceback (most recent call last):
+09:49:25 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:25 [WARN]     Traceback (most recent call last):
+09:49:25 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:26 [ERROR] --> THAT BAI  (0:00:04, 0 steps, log: football_dqn_v1.log)
+09:49:26 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\football_dqn_v1.log
+09:49:26 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:26 [INFO] ======================================================================
+09:49:26 [INFO] [7/7]  ctf_dqn   DQN @ capture
+09:49:26 [INFO]         run-id  : ctf_dqn_v1
+09:49:26 [INFO]         config  : ctf_dqn.yaml
+09:49:26 [INFO]         steps   : 1,700,000
+09:49:26 [INFO] ======================================================================
+09:49:26 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_dqn_v1_1700000.yaml --run-id ctf_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+09:49:29 [WARN]     E0730 09:49:29.838000000 25552 src/core/ext/transport/chttp2/server/chttp2_server.cc:1045] UNKNOWN:No address added out of total 1 resolved for '[::]:5005' {created_time:"2026-07-30T02:49:29.8384758+00:00", children:[UNKNOWN:Failed to add port to server {created_time:"2026-07-30T02:49:29.8384558+00:00", children:[UNKNOWN:Failed to prepare server socket {fd:1556, target_address:"ipv6:%5B::%5D:5005", created_time:"2026-07-30T02:49:29.8383994+00:00", children:[UNAVAILABLE:WSA Error {syscall:"bind", os_error:"Only one usage of each socket address (protocol/network address/port) is normally permitted.\r\n", grpc_status:14, wsa_error:10048, created_time:"2026-07-30T02:49:29.8383549+00:00"}]}]}]}
+09:49:29 [WARN]     Traceback (most recent call last):
+09:49:29 [WARN]         raise RuntimeError(_ERROR_MESSAGE_PORT_BINDING_FAILED % address)
+09:49:29 [WARN]     RuntimeError: Failed to bind to address [::]:5005; set GRPC_VERBOSITY=debug environment variable to see detailed error message.
+09:49:29 [WARN]     Traceback (most recent call last):
+09:49:29 [WARN]         raise UnityWorkerInUseException(self.worker_id)
+09:49:29 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:29 [WARN]     Exception ignored in atexit callback: <bound method UnityEnvironment._close of <mlagents_envs.environment.UnityEnvironment object at 0x000002255B4F7DF0>>
+09:49:29 [WARN]     Traceback (most recent call last):
+09:49:29 [WARN]     AttributeError: 'UnityEnvironment' object has no attribute '_communicator'
+09:49:29 [WARN]     Traceback (most recent call last):
+09:49:29 [WARN]     mlagents_envs.exception.UnityWorkerInUseException: Couldn't start socket communication because worker number Couldn't start socket communication because worker number 0 is still in use. You may need to manually close a previously opened environment or use a different worker number. is still in use. You may need to manually close a previously opened environment or use a different worker number.
+09:49:30 [ERROR] --> THAT BAI  (0:00:04, 0 steps, log: ctf_dqn_v1.log)
+09:49:30 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctf_dqn_v1.log
+09:49:30 [WARN] Job that bai — van chay tiep cac job con lai.
+
+09:49:30 [INFO] ======================================================================
+09:49:30 [INFO] TONG KET  (0:00:28)
+09:49:30 [INFO]   Thanh cong : 0  []
+09:49:30 [INFO]   That bai   : 7  ['fb_poca', 'ctf_mappo', 'fb_ppo', 'fb_sac', 'fb_mappo', 'fb_dqn', 'ctf_dqn']
+09:49:30 [INFO] ======================================================================
+09:49:30 [WARN] Chay lai rieng cac job loi:
+09:49:30 [WARN]   python train_all.py --mode build --jobs fb_poca,ctf_mappo,fb_ppo,fb_sac,fb_mappo,fb_dqn,ctf_dqn

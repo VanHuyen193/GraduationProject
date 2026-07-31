@@ -1,0 +1,161 @@
+08:37:39 [INFO] --resume: bo qua 0 job da co ket qua
+08:37:39 [INFO] ──────────────────────────────────────────────────────────────────────
+08:37:39 [INFO] KIEM TRA TRUOC KHI CHAY
+08:37:39 [INFO] ──────────────────────────────────────────────────────────────────────
+08:37:39 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+08:37:40 [INFO] trainer plugins: default,a2c,dqn,mappo
+08:37:40 [WARN] --force: se GHI DE 2 thu muc run-id da co (ctf_sac_v1, ctf_dqn_v1)
+08:37:40 [INFO] Ket qua kiem tra: OK
+08:37:40 [INFO] ──────────────────────────────────────────────────────────────────────
+08:37:40 [INFO] Se chay 2 job, tong 3,400,000 buoc (ngan sach: full)
+08:37:40 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+08:37:40 [INFO] ======================================================================
+08:37:40 [INFO] [1/2]  ctf_sac   SAC @ capture
+08:37:40 [INFO]         run-id  : ctf_sac_v1
+08:37:40 [INFO]         config  : ctf_sac.yaml
+08:37:40 [INFO]         steps   : 1,700,000
+08:37:40 [INFO] ======================================================================
+08:37:40 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_sac_v1_1700000.yaml --run-id ctf_sac_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --resume --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+08:37:49 [INFO]      1,000,000 / 1,700,000  ( 58.8%)       0 step/s  ETA 0:00:00
+08:37:51 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+08:40:41 [INFO]      1,020,000 / 1,700,000  ( 60.0%)     110 step/s  ETA 1:42:49
+08:44:24 [INFO]      1,040,000 / 1,700,000  ( 61.2%)      99 step/s  ETA 1:51:07
+08:48:21 [INFO]      1,060,000 / 1,700,000  ( 62.4%)      93 step/s  ETA 1:54:05
+08:52:17 [INFO]      1,080,000 / 1,700,000  ( 63.5%)      91 step/s  ETA 1:53:20
+08:55:58 [INFO]      1,100,000 / 1,700,000  ( 64.7%)      91 step/s  ETA 1:49:48
+08:59:52 [INFO]      1,120,000 / 1,700,000  ( 65.9%)      90 step/s  ETA 1:47:17
+09:03:42 [INFO]      1,140,000 / 1,700,000  ( 67.1%)      90 step/s  ETA 1:44:09
+09:08:35 [INFO]      1,160,000 / 1,700,000  ( 68.2%)      86 step/s  ETA 1:44:20
+09:12:26 [INFO]      1,180,000 / 1,700,000  ( 69.4%)      86 step/s  ETA 1:40:27
+09:17:25 [INFO]      1,200,000 / 1,700,000  ( 70.6%)      84 step/s  ETA 1:39:22
+09:21:49 [INFO]      1,220,000 / 1,700,000  ( 71.8%)      83 step/s  ETA 1:36:19
+09:26:27 [INFO]      1,240,000 / 1,700,000  ( 72.9%)      82 step/s  ETA 1:33:31
+09:30:37 [INFO]      1,260,000 / 1,700,000  ( 74.1%)      82 step/s  ETA 1:29:37
+09:35:03 [INFO]      1,280,000 / 1,700,000  ( 75.3%)      81 step/s  ETA 1:26:04
+09:39:25 [INFO]      1,300,000 / 1,700,000  ( 76.5%)      81 step/s  ETA 1:22:20
+09:43:43 [INFO]      1,320,000 / 1,700,000  ( 77.6%)      81 step/s  ETA 1:18:25
+09:47:23 [INFO]      1,340,000 / 1,700,000  ( 78.8%)      81 step/s  ETA 1:13:48
+09:51:45 [INFO]      1,360,000 / 1,700,000  ( 80.0%)      81 step/s  ETA 1:09:58
+09:56:17 [INFO]      1,380,000 / 1,700,000  ( 81.2%)      81 step/s  ETA 1:06:12
+10:00:51 [INFO]      1,400,000 / 1,700,000  ( 82.4%)      80 step/s  ETA 1:02:23
+10:04:58 [INFO]      1,420,000 / 1,700,000  ( 83.5%)      80 step/s  ETA 0:58:12
+10:09:45 [INFO]      1,440,000 / 1,700,000  ( 84.7%)      80 step/s  ETA 0:54:25
+10:14:35 [INFO]      1,460,000 / 1,700,000  ( 85.9%)      79 step/s  ETA 0:50:33
+10:20:15 [INFO]      1,480,000 / 1,700,000  ( 87.1%)      78 step/s  ETA 0:47:00
+10:24:11 [INFO]      1,500,000 / 1,700,000  ( 88.2%)      78 step/s  ETA 0:42:36
+10:28:46 [INFO]      1,520,000 / 1,700,000  ( 89.4%)      78 step/s  ETA 0:38:27
+10:33:12 [INFO]      1,540,000 / 1,700,000  ( 90.6%)      78 step/s  ETA 0:34:13
+10:37:44 [INFO]      1,560,000 / 1,700,000  ( 91.8%)      78 step/s  ETA 0:30:00
+10:41:46 [INFO]      1,580,000 / 1,700,000  ( 92.9%)      78 step/s  ETA 0:25:40
+10:46:43 [INFO]      1,600,000 / 1,700,000  ( 94.1%)      77 step/s  ETA 0:21:30
+10:51:20 [INFO]      1,620,000 / 1,700,000  ( 95.3%)      77 step/s  ETA 0:17:14
+10:56:00 [INFO]      1,640,000 / 1,700,000  ( 96.5%)      77 step/s  ETA 0:12:58
+11:00:32 [INFO]      1,660,000 / 1,700,000  ( 97.6%)      77 step/s  ETA 0:08:39
+11:05:01 [INFO]      1,680,000 / 1,700,000  ( 98.8%)      77 step/s  ETA 0:04:20
+11:09:32 [INFO]      1,700,000 / 1,700,000  (100.0%)      77 step/s  ETA 0:00:00
+11:09:39 [INFO] --> XONG  (2:31:59, 1,700,000 steps, log: ctf_sac_v1.log)
+
+11:09:39 [INFO] ======================================================================
+11:09:39 [INFO] [2/2]  ctf_dqn   DQN @ capture
+11:09:39 [INFO]         run-id  : ctf_dqn_v1
+11:09:39 [INFO]         config  : ctf_dqn.yaml
+11:09:39 [INFO]         steps   : 1,700,000
+11:09:39 [INFO] ======================================================================
+11:09:39 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_dqn_v1_1700000.yaml --run-id ctf_dqn_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+11:09:50 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+11:12:12 [INFO]         20,000 / 1,700,000  (  1.2%)       0 step/s  ETA 0:00:00
+11:15:09 [INFO]         40,000 / 1,700,000  (  2.4%)      61 step/s  ETA 7:35:58
+11:18:06 [INFO]         60,000 / 1,700,000  (  3.5%)      79 step/s  ETA 5:46:32
+11:21:09 [INFO]         80,000 / 1,700,000  (  4.7%)      87 step/s  ETA 5:10:41
+11:23:50 [INFO]        100,000 / 1,700,000  (  5.9%)      94 step/s  ETA 4:43:30
+11:26:48 [INFO]        120,000 / 1,700,000  (  7.1%)      97 step/s  ETA 4:30:55
+11:29:44 [INFO]        140,000 / 1,700,000  (  8.2%)     100 step/s  ETA 4:21:06
+11:32:39 [INFO]        160,000 / 1,700,000  (  9.4%)     101 step/s  ETA 4:13:03
+11:35:22 [INFO]        180,000 / 1,700,000  ( 10.6%)     104 step/s  ETA 4:04:18
+11:38:19 [INFO]        200,000 / 1,700,000  ( 11.8%)     105 step/s  ETA 3:58:51
+11:41:19 [INFO]        220,000 / 1,700,000  ( 12.9%)     105 step/s  ETA 3:54:19
+11:44:23 [INFO]        240,000 / 1,700,000  ( 14.1%)     106 step/s  ETA 3:50:33
+11:47:16 [INFO]        260,000 / 1,700,000  ( 15.3%)     106 step/s  ETA 3:45:39
+11:50:21 [INFO]        280,000 / 1,700,000  ( 16.5%)     106 step/s  ETA 3:42:14
+11:53:19 [INFO]        300,000 / 1,700,000  ( 17.6%)     107 step/s  ETA 3:38:17
+11:56:17 [INFO]        320,000 / 1,700,000  ( 18.8%)     107 step/s  ETA 3:34:29
+11:58:58 [INFO]        340,000 / 1,700,000  ( 20.0%)     108 step/s  ETA 3:29:36
+12:01:52 [INFO]        360,000 / 1,700,000  ( 21.2%)     109 step/s  ETA 3:25:47
+12:04:51 [INFO]        380,000 / 1,700,000  ( 22.4%)     109 step/s  ETA 3:22:23
+12:07:51 [INFO]        400,000 / 1,700,000  ( 23.5%)     109 step/s  ETA 3:19:05
+12:10:41 [INFO]        420,000 / 1,700,000  ( 24.7%)     109 step/s  ETA 3:15:19
+12:13:45 [INFO]        440,000 / 1,700,000  ( 25.9%)     109 step/s  ETA 3:12:17
+12:16:49 [INFO]        460,000 / 1,700,000  ( 27.1%)     109 step/s  ETA 3:09:17
+12:19:49 [INFO]        480,000 / 1,700,000  ( 28.2%)     109 step/s  ETA 3:06:06
+12:22:48 [INFO]        500,000 / 1,700,000  ( 29.4%)     109 step/s  ETA 3:02:51
+12:25:44 [INFO]        520,000 / 1,700,000  ( 30.6%)     110 step/s  ETA 2:59:33
+12:28:47 [INFO]        540,000 / 1,700,000  ( 31.8%)     110 step/s  ETA 2:56:31
+12:31:44 [INFO]        560,000 / 1,700,000  ( 32.9%)     110 step/s  ETA 2:53:17
+12:34:42 [INFO]        580,000 / 1,700,000  ( 34.1%)     110 step/s  ETA 2:50:06
+12:37:40 [INFO]        600,000 / 1,700,000  ( 35.3%)     110 step/s  ETA 2:46:56
+12:40:39 [INFO]        620,000 / 1,700,000  ( 36.5%)     110 step/s  ETA 2:43:48
+12:43:39 [INFO]        640,000 / 1,700,000  ( 37.6%)     110 step/s  ETA 2:40:43
+12:46:45 [INFO]        660,000 / 1,700,000  ( 38.8%)     110 step/s  ETA 2:37:47
+12:49:46 [INFO]        680,000 / 1,700,000  ( 40.0%)     110 step/s  ETA 2:34:42
+12:52:44 [INFO]        700,000 / 1,700,000  ( 41.2%)     110 step/s  ETA 2:31:34
+12:55:47 [INFO]        720,000 / 1,700,000  ( 42.4%)     110 step/s  ETA 2:28:34
+12:58:45 [INFO]        740,000 / 1,700,000  ( 43.5%)     110 step/s  ETA 2:25:28
+13:01:38 [INFO]        760,000 / 1,700,000  ( 44.7%)     110 step/s  ETA 2:22:15
+13:04:31 [INFO]        780,000 / 1,700,000  ( 45.9%)     110 step/s  ETA 2:19:03
+13:07:22 [INFO]        800,000 / 1,700,000  ( 47.1%)     110 step/s  ETA 2:15:49
+13:10:13 [INFO]        820,000 / 1,700,000  ( 48.2%)     111 step/s  ETA 2:12:37
+13:13:04 [INFO]        840,000 / 1,700,000  ( 49.4%)     111 step/s  ETA 2:09:26
+13:15:55 [INFO]        860,000 / 1,700,000  ( 50.6%)     111 step/s  ETA 2:06:15
+13:18:46 [INFO]        880,000 / 1,700,000  ( 51.8%)     111 step/s  ETA 2:03:06
+13:21:39 [INFO]        900,000 / 1,700,000  ( 52.9%)     111 step/s  ETA 1:59:59
+13:24:28 [INFO]        920,000 / 1,700,000  ( 54.1%)     111 step/s  ETA 1:56:50
+13:27:20 [INFO]        940,000 / 1,700,000  ( 55.3%)     111 step/s  ETA 1:53:44
+13:30:12 [INFO]        960,000 / 1,700,000  ( 56.5%)     111 step/s  ETA 1:50:38
+13:33:03 [INFO]        980,000 / 1,700,000  ( 57.6%)     112 step/s  ETA 1:47:32
+13:35:56 [INFO]      1,000,000 / 1,700,000  ( 58.8%)     112 step/s  ETA 1:44:29
+13:38:50 [INFO]      1,020,000 / 1,700,000  ( 60.0%)     112 step/s  ETA 1:41:26
+13:41:45 [INFO]      1,040,000 / 1,700,000  ( 61.2%)     112 step/s  ETA 1:38:25
+13:44:39 [INFO]      1,060,000 / 1,700,000  ( 62.4%)     112 step/s  ETA 1:35:23
+13:47:36 [INFO]      1,080,000 / 1,700,000  ( 63.5%)     112 step/s  ETA 1:32:23
+13:50:41 [INFO]      1,100,000 / 1,700,000  ( 64.7%)     112 step/s  ETA 1:29:27
+13:53:52 [INFO]      1,120,000 / 1,700,000  ( 65.9%)     112 step/s  ETA 1:26:35
+13:57:01 [INFO]      1,140,000 / 1,700,000  ( 67.1%)     112 step/s  ETA 1:23:41
+14:00:21 [INFO]      1,160,000 / 1,700,000  ( 68.2%)     111 step/s  ETA 1:20:51
+14:03:54 [INFO]      1,180,000 / 1,700,000  ( 69.4%)     111 step/s  ETA 1:18:06
+14:07:38 [INFO]      1,200,000 / 1,700,000  ( 70.6%)     110 step/s  ETA 1:15:25
+14:10:57 [INFO]      1,220,000 / 1,700,000  ( 71.8%)     110 step/s  ETA 1:12:31
+14:14:00 [INFO]      1,240,000 / 1,700,000  ( 72.9%)     110 step/s  ETA 1:09:30
+14:17:09 [INFO]      1,260,000 / 1,700,000  ( 74.1%)     110 step/s  ETA 1:06:32
+14:20:51 [INFO]      1,280,000 / 1,700,000  ( 75.3%)     110 step/s  ETA 1:03:43
+14:24:29 [INFO]      1,300,000 / 1,700,000  ( 76.5%)     109 step/s  ETA 1:00:53
+14:27:31 [INFO]      1,320,000 / 1,700,000  ( 77.6%)     110 step/s  ETA 0:57:50
+14:30:30 [INFO]      1,340,000 / 1,700,000  ( 78.8%)     110 step/s  ETA 0:54:46
+14:33:33 [INFO]      1,360,000 / 1,700,000  ( 80.0%)     110 step/s  ETA 0:51:44
+14:36:36 [INFO]      1,380,000 / 1,700,000  ( 81.2%)     110 step/s  ETA 0:48:41
+14:39:35 [INFO]      1,400,000 / 1,700,000  ( 82.4%)     110 step/s  ETA 0:45:38
+14:42:33 [INFO]      1,420,000 / 1,700,000  ( 83.5%)     110 step/s  ETA 0:42:34
+14:45:48 [INFO]      1,440,000 / 1,700,000  ( 84.7%)     109 step/s  ETA 0:39:34
+14:49:08 [INFO]      1,460,000 / 1,700,000  ( 85.9%)     109 step/s  ETA 0:36:34
+14:52:05 [INFO]      1,480,000 / 1,700,000  ( 87.1%)     109 step/s  ETA 0:33:31
+14:55:10 [INFO]      1,500,000 / 1,700,000  ( 88.2%)     109 step/s  ETA 0:30:28
+15:00:22 [INFO]      1,520,000 / 1,700,000  ( 89.4%)     108 step/s  ETA 0:27:41
+15:03:31 [INFO]      1,540,000 / 1,700,000  ( 90.6%)     108 step/s  ETA 0:24:37
+15:06:29 [INFO]      1,560,000 / 1,700,000  ( 91.8%)     108 step/s  ETA 0:21:31
+15:09:32 [INFO]      1,580,000 / 1,700,000  ( 92.9%)     108 step/s  ETA 0:18:27
+15:12:46 [INFO]      1,600,000 / 1,700,000  ( 94.1%)     108 step/s  ETA 0:15:23
+15:15:54 [INFO]      1,620,000 / 1,700,000  ( 95.3%)     108 step/s  ETA 0:12:18
+15:18:52 [INFO]      1,640,000 / 1,700,000  ( 96.5%)     108 step/s  ETA 0:09:13
+15:21:55 [INFO]      1,660,000 / 1,700,000  ( 97.6%)     108 step/s  ETA 0:06:09
+15:24:59 [INFO]      1,680,000 / 1,700,000  ( 98.8%)     108 step/s  ETA 0:03:04
+15:28:03 [INFO]      1,700,000 / 1,700,000  (100.0%)     108 step/s  ETA 0:00:00
+15:28:08 [INFO] --> XONG  (4:18:28, 1,700,000 steps, log: ctf_dqn_v1.log)
+
+15:28:08 [INFO] ======================================================================
+15:28:08 [INFO] TONG KET  (6:50:28)
+15:28:08 [INFO]   Thanh cong : 2  ['ctf_sac', 'ctf_dqn']
+15:28:08 [INFO]   That bai   : 0  []
+15:28:08 [INFO] ======================================================================
+
+15:28:08 [INFO] Xuat training_data.json ...
+15:28:15 [INFO] Da xuat. Nho paste lai toa do pgfplots vao sec6.tex.

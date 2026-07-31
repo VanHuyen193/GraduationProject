@@ -1,0 +1,57 @@
+{
+    "Football": {
+        "checkpoints": [
+            {
+                "steps": 499681,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-499681.onnx",
+                "reward": 0.6825184689627753,
+                "creation_time": 1785399584.8870294,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-499681.pt"
+                ]
+            },
+            {
+                "steps": 999933,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-999933.onnx",
+                "reward": 2.7386577548207462,
+                "creation_time": 1785400512.2327356,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-999933.pt"
+                ]
+            },
+            {
+                "steps": 1499848,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-1499848.onnx",
+                "reward": 2.122103808061132,
+                "creation_time": 1785401441.9696958,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-1499848.pt"
+                ]
+            },
+            {
+                "steps": 1600260,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-1600260.onnx",
+                "reward": 1.8792584875355596,
+                "creation_time": 1785401632.8883822,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-1600260.pt"
+                ]
+            }
+        ],
+        "elo": 1259.9362554807346,
+        "final_checkpoint": {
+            "steps": 1600260,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football.onnx",
+            "reward": 1.8792584875355596,
+            "creation_time": 1785401632.8883822,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\Football_MAPPO_01\\Football\\Football-1600260.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

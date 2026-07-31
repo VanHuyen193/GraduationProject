@@ -21,6 +21,7 @@
   ml-agents-envs: 1.2.0.dev0,
   Communicator API: 1.5.0,
   PyTorch: 2.2.2+cu121
+[WARNING] Deleting TensorBoard data events.out.tfevents.1785410467.Admin-PC.7544.0 that was left over from a previous run.
 [INFO] Hyperparameters for behavior name PuzzleBehavior: 
 	trainer_type:	dqn
 	hyperparameters:	
@@ -36,9 +37,9 @@
 	  exploration_decay_steps:	1000000
 	  target_update_interval:	10000
 	  tau:	0.005
-	  steps_per_update:	1.0
+	  steps_per_update:	20.0
 	  save_replay_buffer:	False
-	  reward_signal_steps_per_update:	1.0
+	  reward_signal_steps_per_update:	20.0
 	checkpoint_interval:	500000
 	network_settings:	
 	  normalize:	False
@@ -76,24 +77,108 @@
 	init_path:	None
 	keep_checkpoints:	10
 	even_checkpoints:	False
-	max_steps:	20000
+	max_steps:	1700000
 	time_horizon:	128
-	summary_freq:	5000
+	summary_freq:	20000
 	threaded:	False
 	self_play:	None
 	behavioral_cloning:	None
 [WARNING] An agent recieved a Group Reward, but you are not using a multi-agent trainer. Please use the POCA trainer for best results.
 C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
   return func(*args, **kwargs)
-[INFO] PuzzleBehavior. Step: 5000. Time Elapsed: 426.118 s. No episode was completed since last summary. Training.
-[INFO] PuzzleBehavior. Step: 10000. Time Elapsed: 1042.623 s. No episode was completed since last summary. Training.
-[INFO] PuzzleBehavior. Step: 15000. Time Elapsed: 2010.638 s. No episode was completed since last summary. Training.
-[INFO] PuzzleBehavior. Step: 20000. Time Elapsed: 2619.614 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 20000. Time Elapsed: 150.306 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 40000. Time Elapsed: 326.998 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 60000. Time Elapsed: 504.517 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 80000. Time Elapsed: 687.821 s. Mean Reward: 0.048. Std of Reward: 0.064. Training.
+[INFO] PuzzleBehavior. Step: 100000. Time Elapsed: 847.929 s. Mean Reward: 0.076. Std of Reward: 0.000. Training.
+[INFO] PuzzleBehavior. Step: 120000. Time Elapsed: 1026.202 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 140000. Time Elapsed: 1202.489 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 160000. Time Elapsed: 1377.707 s. Mean Reward: 0.069. Std of Reward: 0.075. Training.
+[INFO] PuzzleBehavior. Step: 180000. Time Elapsed: 1540.393 s. Mean Reward: 0.064. Std of Reward: 0.000. Training.
+[INFO] PuzzleBehavior. Step: 200000. Time Elapsed: 1717.181 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 220000. Time Elapsed: 1897.320 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 240000. Time Elapsed: 2081.823 s. Mean Reward: 0.281. Std of Reward: 0.129. Training.
+[INFO] PuzzleBehavior. Step: 260000. Time Elapsed: 2254.046 s. Mean Reward: 0.173. Std of Reward: 0.000. Training.
+[INFO] PuzzleBehavior. Step: 280000. Time Elapsed: 2438.989 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 300000. Time Elapsed: 2616.911 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 320000. Time Elapsed: 2794.994 s. Mean Reward: 0.391. Std of Reward: 0.189. Training.
+[INFO] PuzzleBehavior. Step: 340000. Time Elapsed: 2956.462 s. Mean Reward: 0.065. Std of Reward: 0.000. Training.
+[INFO] PuzzleBehavior. Step: 360000. Time Elapsed: 3130.306 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 380000. Time Elapsed: 3309.263 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 400000. Time Elapsed: 3489.261 s. Mean Reward: 0.493. Std of Reward: 0.278. Training.
+[INFO] PuzzleBehavior. Step: 420000. Time Elapsed: 3659.854 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 440000. Time Elapsed: 3843.230 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 460000. Time Elapsed: 4027.531 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 480000. Time Elapsed: 4207.731 s. Mean Reward: 0.573. Std of Reward: 0.211. Training.
+[INFO] PuzzleBehavior. Step: 500000. Time Elapsed: 4385.921 s. No episode was completed since last summary. Training.
 C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1314: UserWarning: This model contains a squeeze operation on dimension 1. If the model is intended to be used with dynamic input shapes, please use opset version 11 to export the model.
   warnings.warn(
 C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1270: UserWarning: ONNX export squeeze with negative axis -1 might cause the onnx model to be incorrect. Negative axis is not supported in ONNX. Axis is converted to 1 based on input shape at export time. Passing an tensor of different rank in execution will be incorrect.
   warnings.warn(
 C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1301: UserWarning: This model contains a squeeze operation on dimension 1. The size of this dimension in the given input is 7. The model will be exported without the squeeze node. If the model is intended to be used with dynamic input shapes, please use opset version 11 to export the model.
   warnings.warn(
-[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-20480.onnx
-[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-20480.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior.onnx.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-499956.onnx
+[INFO] PuzzleBehavior. Step: 520000. Time Elapsed: 4562.396 s. Mean Reward: 0.734. Std of Reward: 0.073. Training.
+[INFO] PuzzleBehavior. Step: 540000. Time Elapsed: 4745.108 s. Mean Reward: 0.816. Std of Reward: 0.071. Training.
+[INFO] PuzzleBehavior. Step: 560000. Time Elapsed: 4922.552 s. Mean Reward: 0.664. Std of Reward: 0.156. Training.
+[INFO] PuzzleBehavior. Step: 580000. Time Elapsed: 5100.845 s. Mean Reward: 0.799. Std of Reward: 0.039. Training.
+[INFO] PuzzleBehavior. Step: 600000. Time Elapsed: 5278.547 s. Mean Reward: 0.791. Std of Reward: 0.069. Training.
+[INFO] PuzzleBehavior. Step: 620000. Time Elapsed: 5457.752 s. Mean Reward: 0.478. Std of Reward: 0.339. Training.
+[INFO] PuzzleBehavior. Step: 640000. Time Elapsed: 5637.706 s. Mean Reward: 0.808. Std of Reward: 0.056. Training.
+[INFO] PuzzleBehavior. Step: 660000. Time Elapsed: 5823.339 s. Mean Reward: 0.729. Std of Reward: 0.097. Training.
+[INFO] PuzzleBehavior. Step: 680000. Time Elapsed: 6003.978 s. Mean Reward: 0.764. Std of Reward: 0.077. Training.
+[INFO] PuzzleBehavior. Step: 700000. Time Elapsed: 6181.898 s. Mean Reward: 0.736. Std of Reward: 0.076. Training.
+[INFO] PuzzleBehavior. Step: 720000. Time Elapsed: 6365.173 s. Mean Reward: 0.728. Std of Reward: 0.227. Training.
+[INFO] PuzzleBehavior. Step: 740000. Time Elapsed: 6543.576 s. Mean Reward: 0.796. Std of Reward: 0.070. Training.
+[INFO] PuzzleBehavior. Step: 760000. Time Elapsed: 6716.542 s. Mean Reward: 0.831. Std of Reward: 0.045. Training.
+[INFO] PuzzleBehavior. Step: 780000. Time Elapsed: 6889.472 s. Mean Reward: 0.631. Std of Reward: 0.308. Training.
+[INFO] PuzzleBehavior. Step: 800000. Time Elapsed: 7060.556 s. Mean Reward: 0.824. Std of Reward: 0.047. Training.
+[INFO] PuzzleBehavior. Step: 820000. Time Elapsed: 7231.030 s. Mean Reward: 0.807. Std of Reward: 0.059. Training.
+[INFO] PuzzleBehavior. Step: 840000. Time Elapsed: 7402.190 s. Mean Reward: 0.814. Std of Reward: 0.049. Training.
+[INFO] PuzzleBehavior. Step: 860000. Time Elapsed: 7573.011 s. Mean Reward: 0.791. Std of Reward: 0.055. Training.
+[INFO] PuzzleBehavior. Step: 880000. Time Elapsed: 7744.147 s. Mean Reward: 0.770. Std of Reward: 0.078. Training.
+[INFO] PuzzleBehavior. Step: 900000. Time Elapsed: 7917.113 s. Mean Reward: 0.823. Std of Reward: 0.075. Training.
+[INFO] PuzzleBehavior. Step: 920000. Time Elapsed: 8086.851 s. Mean Reward: 0.776. Std of Reward: 0.076. Training.
+[INFO] PuzzleBehavior. Step: 940000. Time Elapsed: 8258.234 s. Mean Reward: 0.806. Std of Reward: 0.051. Training.
+[INFO] PuzzleBehavior. Step: 960000. Time Elapsed: 8430.371 s. Mean Reward: 0.801. Std of Reward: 0.050. Training.
+[INFO] PuzzleBehavior. Step: 980000. Time Elapsed: 8601.217 s. Mean Reward: 0.815. Std of Reward: 0.057. Training.
+[INFO] PuzzleBehavior. Step: 1000000. Time Elapsed: 8774.194 s. Mean Reward: 0.704. Std of Reward: 0.055. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-999954.onnx
+[INFO] PuzzleBehavior. Step: 1020000. Time Elapsed: 8948.007 s. Mean Reward: 0.607. Std of Reward: 0.313. Training.
+[INFO] PuzzleBehavior. Step: 1040000. Time Elapsed: 9123.870 s. Mean Reward: 0.785. Std of Reward: 0.072. Training.
+[INFO] PuzzleBehavior. Step: 1060000. Time Elapsed: 9297.448 s. Mean Reward: 0.792. Std of Reward: 0.108. Training.
+[INFO] PuzzleBehavior. Step: 1080000. Time Elapsed: 9474.578 s. Mean Reward: 0.773. Std of Reward: 0.072. Training.
+[INFO] PuzzleBehavior. Step: 1100000. Time Elapsed: 9659.589 s. Mean Reward: 0.775. Std of Reward: 0.081. Training.
+[INFO] PuzzleBehavior. Step: 1120000. Time Elapsed: 9850.661 s. Mean Reward: 0.816. Std of Reward: 0.052. Training.
+[INFO] PuzzleBehavior. Step: 1140000. Time Elapsed: 10039.727 s. Mean Reward: 0.808. Std of Reward: 0.056. Training.
+[INFO] PuzzleBehavior. Step: 1160000. Time Elapsed: 10239.028 s. Mean Reward: 0.775. Std of Reward: 0.066. Training.
+[INFO] PuzzleBehavior. Step: 1180000. Time Elapsed: 10452.286 s. Mean Reward: 0.823. Std of Reward: 0.051. Training.
+[INFO] PuzzleBehavior. Step: 1200000. Time Elapsed: 10676.870 s. Mean Reward: 0.757. Std of Reward: 0.081. Training.
+[INFO] PuzzleBehavior. Step: 1220000. Time Elapsed: 10875.652 s. Mean Reward: 0.789. Std of Reward: 0.067. Training.
+[INFO] PuzzleBehavior. Step: 1240000. Time Elapsed: 11058.335 s. Mean Reward: 0.788. Std of Reward: 0.067. Training.
+[INFO] PuzzleBehavior. Step: 1260000. Time Elapsed: 11247.594 s. Mean Reward: 0.779. Std of Reward: 0.047. Training.
+[INFO] PuzzleBehavior. Step: 1280000. Time Elapsed: 11469.374 s. Mean Reward: 0.816. Std of Reward: 0.075. Training.
+[INFO] PuzzleBehavior. Step: 1300000. Time Elapsed: 11687.023 s. Mean Reward: 0.791. Std of Reward: 0.052. Training.
+[INFO] PuzzleBehavior. Step: 1320000. Time Elapsed: 11869.103 s. Mean Reward: 0.804. Std of Reward: 0.059. Training.
+[INFO] PuzzleBehavior. Step: 1340000. Time Elapsed: 12048.303 s. Mean Reward: 0.815. Std of Reward: 0.051. Training.
+[INFO] PuzzleBehavior. Step: 1360000. Time Elapsed: 12231.594 s. Mean Reward: 0.811. Std of Reward: 0.051. Training.
+[INFO] PuzzleBehavior. Step: 1380000. Time Elapsed: 12414.353 s. Mean Reward: 0.761. Std of Reward: 0.079. Training.
+[INFO] PuzzleBehavior. Step: 1400000. Time Elapsed: 12593.520 s. Mean Reward: 0.836. Std of Reward: 0.050. Training.
+[INFO] PuzzleBehavior. Step: 1420000. Time Elapsed: 12771.048 s. Mean Reward: 0.783. Std of Reward: 0.080. Training.
+[INFO] PuzzleBehavior. Step: 1440000. Time Elapsed: 12966.250 s. Mean Reward: 0.805. Std of Reward: 0.083. Training.
+[INFO] PuzzleBehavior. Step: 1460000. Time Elapsed: 13166.358 s. Mean Reward: 0.784. Std of Reward: 0.085. Training.
+[INFO] PuzzleBehavior. Step: 1480000. Time Elapsed: 13343.459 s. Mean Reward: 0.792. Std of Reward: 0.056. Training.
+[INFO] PuzzleBehavior. Step: 1500000. Time Elapsed: 13528.618 s. Mean Reward: 0.820. Std of Reward: 0.071. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-1499982.onnx
+[INFO] PuzzleBehavior. Step: 1520000. Time Elapsed: 13839.907 s. Mean Reward: 0.822. Std of Reward: 0.060. Training.
+[INFO] PuzzleBehavior. Step: 1540000. Time Elapsed: 14029.137 s. Mean Reward: 0.800. Std of Reward: 0.069. Training.
+[INFO] PuzzleBehavior. Step: 1560000. Time Elapsed: 14207.770 s. Mean Reward: 0.826. Std of Reward: 0.053. Training.
+[INFO] PuzzleBehavior. Step: 1580000. Time Elapsed: 14390.799 s. Mean Reward: 0.795. Std of Reward: 0.084. Training.
+[INFO] PuzzleBehavior. Step: 1600000. Time Elapsed: 14584.573 s. Mean Reward: 0.802. Std of Reward: 0.063. Training.
+[INFO] PuzzleBehavior. Step: 1620000. Time Elapsed: 14772.688 s. Mean Reward: 0.773. Std of Reward: 0.092. Training.
+[INFO] PuzzleBehavior. Step: 1640000. Time Elapsed: 14950.543 s. Mean Reward: 0.801. Std of Reward: 0.082. Training.
+[INFO] PuzzleBehavior. Step: 1660000. Time Elapsed: 15133.460 s. Mean Reward: 0.805. Std of Reward: 0.067. Training.
+[INFO] PuzzleBehavior. Step: 1680000. Time Elapsed: 15317.622 s. Mean Reward: 0.830. Std of Reward: 0.039. Training.
+[INFO] PuzzleBehavior. Step: 1700000. Time Elapsed: 15501.389 s. Mean Reward: 0.797. Std of Reward: 0.048. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-1700372.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior\PuzzleBehavior-1700372.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_dqn_v1\PuzzleBehavior.onnx.

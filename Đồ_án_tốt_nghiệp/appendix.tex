@@ -230,32 +230,64 @@ cuối cùng thực đo được của những lần chạy đã huấn luyện 
 
 \begin{table}[H]
 \centering
-\caption{Tóm tắt chỉ số cuối thực đo từ TensorBoard}
+\caption{Kết quả thực đo của 15 lần huấn luyện (5 thuật toán $\times$ 3 môi trường)}
 \label{tab:tb_summary}
 \renewcommand{\arraystretch}{1.4}
 \tablefont
 \begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.3cm}
-                |>{\centering\arraybackslash}p{2.5cm}
+                |>{\centering\arraybackslash}p{2.0cm}
+                |>{\centering\arraybackslash}p{2.8cm}
                 |>{\centering\arraybackslash}p{2.3cm}|}
 \hline
-\textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward/ELO} & \textbf{Thời gian} \\
+\textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward cuối} & \textbf{Thời gian} \\
 \hline
-FB01 (Football) & PPO & 1{,}59M & ELO 1242 & $\sim$109 phút \\
+\multicolumn{5}{|l|}{\textbf{Cross The Road}} \\
 \hline
-ctr01 (CrossRoad) & PPO & 2M & $0{,}703$ & $\sim$114 phút \\
+ctr01 & PPO & 2M & $0{,}690$ & $\sim$48 phút \\
 \hline
-CrossRoad\_SAC & SAC & 200K & $0{,}818$ & $\sim$104 phút \\
+CrossTheRoad\_SAC\_01 & SAC & 2M & $0{,}844$ & $\sim$139 phút \\
 \hline
-ctr\_poca (CrossRoad) & MA-POCA & 2M & $0{,}655$ & $\sim$67 phút \\
+ctr\_poca\_v1 & MA-POCA & 2M & $0{,}551$ & $\sim$59 phút \\
 \hline
-ctr\_mappo (CrossRoad) & MAPPO & 2M & $0{,}567$ & $\sim$75 phút \\
+ctr\_mappo\_v1 & MAPPO & 2M & $0{,}824$ & $\sim$58 phút \\
 \hline
-ctf\_poca (Capture) & MA-POCA & 1{,}68M & $0{,}534$ & $\sim$626 phút \\
+ctr\_dqn\_v1 & DQN & 2M & $0{,}311$ & $\sim$148 phút \\
 \hline
-ctf\_mappo (Capture) & MAPPO & 1{,}52M & $0{,}795$ & $\sim$499 phút \\
+\multicolumn{5}{|l|}{\textbf{Capture The Flag}} \\
+\hline
+ctf\_ppo\_v1 & PPO & 1{,}70M & $0{,}834$ & $\sim$50 phút \\
+\hline
+ctf\_sac\_v1$^{\dagger}$ & SAC & 1{,}70M & $0{,}059$ & $\sim$152 phút \\
+\hline
+ctf\_poca\_v2 & MA-POCA & 1{,}70M & $0{,}839$ & $\sim$53 phút \\
+\hline
+ctf\_mappo\_v2 & MAPPO & 1{,}70M & $0{,}840$ & $\sim$52 phút \\
+\hline
+ctf\_dqn\_v1 & DQN & 1{,}70M & $0{,}801$ & $\sim$258 phút \\
+\hline
+\multicolumn{5}{|l|}{\textbf{Football Table}} \\
+\hline
+FB01 & PPO & 1{,}60M & $1{,}733$ \newline (ELO 1259) & $\sim$47 phút \\
+\hline
+Football\_SAC\_01 & SAC & 1{,}60M & $2{,}238$ \newline (ELO 1254) & $\sim$165 phút \\
+\hline
+Football\_POCA\_01 & MA-POCA & 1{,}60M & $1{,}723$ \newline (ELO 1237) & $\sim$50 phút \\
+\hline
+Football\_MAPPO\_01 & MAPPO & 1{,}60M & $2{,}141$ \newline (ELO 1260) & $\sim$48 phút \\
+\hline
+football\_dqn\_v1$^{\ddagger}$ & DQN & 1{,}60M & $1{,}839$ \newline (không có ELO) & $\sim$147 phút \\
 \hline
 \end{tabular}
+
+\vspace{0.2cm}
+{\footnotesize
+$^{\dagger}$ Thời gian của \texttt{ctf\_sac\_v1} chỉ tính đoạn $1{,}0$M--$1{,}7$M sau khi khôi phục từ checkpoint; đoạn $0$--$1{,}0$M chạy trong một phiên trước đó bị ngắt nên không đo được liền mạch.
+
+\smallskip
+$^{\ddagger}$ Riêng DQN trên Football phải tắt self-play, do ML-Agents phát sinh lỗi khi kết hợp trainer off-policy với ghost trainer. Vì vậy lần chạy này không có chỉ số ELO và \textbf{không so sánh trực tiếp được} với bốn thuật toán còn lại trên cùng môi trường.
+
+\smallskip
+Ghi chú chung: mọi lần chạy đều dùng 8 training area song song trong mỗi scene. Reward là trung bình 5 điểm ghi cuối cùng của \texttt{Environment/Cumulative Reward} đọc từ TensorBoard.}
 \end{table}
 
 \vspace{0.5cm}

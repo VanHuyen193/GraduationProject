@@ -1,0 +1,135 @@
+08:49:53 [INFO] --resume: bo qua 6 job da co ket qua
+08:49:53 [INFO] ──────────────────────────────────────────────────────────────────────
+08:49:53 [INFO] KIEM TRA TRUOC KHI CHAY
+08:49:53 [INFO] ──────────────────────────────────────────────────────────────────────
+08:49:53 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+08:49:54 [INFO] trainer plugins: default,a2c,dqn,mappo
+08:49:54 [WARN] [ctf_mappo] CANH BAO: Day la lan chay chua PHAT HIEN CHINH cua do an (buoc ngoat ~1,28M). Neu ha STEPS['capture'] xuong duoi 1,5M thi duong cong mat buoc ngoat.
+08:49:54 [WARN] [fb_sac] CANH BAO: SAC + self_play: ML-Agents khong ho tro chinh thuc. Da chay duoc 20K buoc trong smoke test nen khong chan, nhung theo doi ky.
+08:49:54 [WARN] [fb_dqn] CANH BAO: CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung build 'Football' voi PPO/SAC/POCA/MAPPO duoc.
+08:49:54 [WARN] --force: se GHI DE 1 thu muc run-id da co (ctf_sac_v1)
+08:49:54 [INFO] Ket qua kiem tra: OK
+08:49:54 [INFO] ──────────────────────────────────────────────────────────────────────
+08:49:54 [INFO] Se chay 9 job, tong 14,800,000 buoc (ngan sach: full)
+08:49:54 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+08:49:54 [INFO] ======================================================================
+08:49:54 [INFO] [1/9]  ctf_sac   SAC @ capture
+08:49:54 [INFO]         run-id  : ctf_sac_v1
+08:49:54 [INFO]         config  : ctf_sac.yaml
+08:49:54 [INFO]         steps   : 1,700,000
+08:49:54 [INFO] ======================================================================
+08:49:54 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_sac_v1_1700000.yaml --run-id ctf_sac_v1 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --resume --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+08:50:08 [INFO]      1,000,000 / 1,700,000  ( 58.8%)   67640 step/s  ETA 0:00:10
+08:50:11 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+08:53:31 [ERROR] --> THAT BAI  (0:03:37, 1,000,000 steps, log: ctf_sac_v1.log)
+08:53:31 [ERROR]     xem chi tiet: C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\ctf_sac_v1.log
+08:53:31 [WARN] Job that bai — van chay tiep cac job con lai.
+
+08:53:31 [INFO] ======================================================================
+08:53:31 [INFO] [2/9]  ctf_poca   MA-POCA @ capture
+08:53:31 [INFO]         run-id  : ctf_poca_v2
+08:53:31 [INFO]         config  : ctf_poca.yaml
+08:53:31 [INFO]         steps   : 1,700,000
+08:53:31 [INFO] ======================================================================
+08:53:31 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_poca_v2_1700000.yaml --run-id ctf_poca_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+08:53:37 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+08:53:51 [INFO]         20,000 / 1,700,000  (  1.2%)    1024 step/s  ETA 0:27:21
+08:54:20 [INFO]         40,000 / 1,700,000  (  2.4%)     813 step/s  ETA 0:34:00
+08:54:55 [INFO]         60,000 / 1,700,000  (  3.5%)     713 step/s  ETA 0:38:21
+08:55:29 [INFO]         80,000 / 1,700,000  (  4.7%)     678 step/s  ETA 0:39:49
+08:56:03 [INFO]        100,000 / 1,700,000  (  5.9%)     656 step/s  ETA 0:40:37
+08:56:40 [INFO]        120,000 / 1,700,000  (  7.1%)     636 step/s  ETA 0:41:25
+08:57:17 [INFO]        140,000 / 1,700,000  (  8.2%)     619 step/s  ETA 0:41:59
+08:57:54 [INFO]        160,000 / 1,700,000  (  9.4%)     608 step/s  ETA 0:42:11
+08:58:28 [INFO]        180,000 / 1,700,000  ( 10.6%)     606 step/s  ETA 0:41:47
+08:59:04 [INFO]        200,000 / 1,700,000  ( 11.8%)     600 step/s  ETA 0:41:38
+08:59:39 [INFO]        220,000 / 1,700,000  ( 12.9%)     598 step/s  ETA 0:41:15
+09:00:13 [INFO]        240,000 / 1,700,000  ( 14.1%)     597 step/s  ETA 0:40:47
+09:00:49 [INFO]        260,000 / 1,700,000  ( 15.3%)     594 step/s  ETA 0:40:25
+09:01:25 [INFO]        280,000 / 1,700,000  ( 16.5%)     591 step/s  ETA 0:40:03
+09:01:50 [INFO]        300,000 / 1,700,000  ( 17.6%)     601 step/s  ETA 0:38:48
+09:02:29 [INFO]        320,000 / 1,700,000  ( 18.8%)     594 step/s  ETA 0:38:41
+09:03:08 [INFO]        340,000 / 1,700,000  ( 20.0%)     590 step/s  ETA 0:38:26
+09:03:45 [INFO]        360,000 / 1,700,000  ( 21.2%)     587 step/s  ETA 0:38:03
+09:04:21 [INFO]        380,000 / 1,700,000  ( 22.4%)     585 step/s  ETA 0:37:38
+09:04:57 [INFO]        400,000 / 1,700,000  ( 23.5%)     583 step/s  ETA 0:37:09
+09:05:32 [INFO]        420,000 / 1,700,000  ( 24.7%)     583 step/s  ETA 0:36:36
+09:06:07 [INFO]        440,000 / 1,700,000  ( 25.9%)     582 step/s  ETA 0:36:03
+09:06:42 [INFO]        460,000 / 1,700,000  ( 27.1%)     582 step/s  ETA 0:35:31
+09:07:17 [INFO]        480,000 / 1,700,000  ( 28.2%)     581 step/s  ETA 0:34:59
+09:07:53 [INFO]        500,000 / 1,700,000  ( 29.4%)     580 step/s  ETA 0:34:29
+09:08:29 [INFO]        520,000 / 1,700,000  ( 30.6%)     579 step/s  ETA 0:33:57
+09:09:04 [INFO]        540,000 / 1,700,000  ( 31.8%)     579 step/s  ETA 0:33:23
+09:09:39 [INFO]        560,000 / 1,700,000  ( 32.9%)     578 step/s  ETA 0:32:50
+09:10:16 [INFO]        580,000 / 1,700,000  ( 34.1%)     577 step/s  ETA 0:32:20
+09:10:51 [INFO]        600,000 / 1,700,000  ( 35.3%)     577 step/s  ETA 0:31:47
+09:11:27 [INFO]        620,000 / 1,700,000  ( 36.5%)     576 step/s  ETA 0:31:13
+09:12:04 [INFO]        640,000 / 1,700,000  ( 37.6%)     575 step/s  ETA 0:30:43
+09:12:41 [INFO]        660,000 / 1,700,000  ( 38.8%)     574 step/s  ETA 0:30:12
+09:13:16 [INFO]        680,000 / 1,700,000  ( 40.0%)     574 step/s  ETA 0:29:38
+09:13:53 [INFO]        700,000 / 1,700,000  ( 41.2%)     573 step/s  ETA 0:29:06
+09:14:30 [INFO]        720,000 / 1,700,000  ( 42.4%)     572 step/s  ETA 0:28:32
+09:15:04 [INFO]        740,000 / 1,700,000  ( 43.5%)     572 step/s  ETA 0:27:57
+09:15:42 [INFO]        760,000 / 1,700,000  ( 44.7%)     571 step/s  ETA 0:27:26
+09:16:18 [INFO]        780,000 / 1,700,000  ( 45.9%)     571 step/s  ETA 0:26:52
+09:16:55 [INFO]        800,000 / 1,700,000  ( 47.1%)     570 step/s  ETA 0:26:19
+09:17:53 [INFO]        820,000 / 1,700,000  ( 48.2%)     561 step/s  ETA 0:26:08
+09:18:32 [INFO]        840,000 / 1,700,000  ( 49.4%)     560 step/s  ETA 0:25:36
+09:19:09 [INFO]        860,000 / 1,700,000  ( 50.6%)     559 step/s  ETA 0:25:02
+09:19:47 [INFO]        880,000 / 1,700,000  ( 51.8%)     559 step/s  ETA 0:24:28
+09:20:30 [INFO]        900,000 / 1,700,000  ( 52.9%)     556 step/s  ETA 0:23:59
+09:21:07 [INFO]        920,000 / 1,700,000  ( 54.1%)     555 step/s  ETA 0:23:24
+09:21:45 [INFO]        940,000 / 1,700,000  ( 55.3%)     555 step/s  ETA 0:22:49
+09:22:11 [INFO]        960,000 / 1,700,000  ( 56.5%)     558 step/s  ETA 0:22:05
+09:22:48 [INFO]        980,000 / 1,700,000  ( 57.6%)     558 step/s  ETA 0:21:31
+09:23:26 [INFO]      1,000,000 / 1,700,000  ( 58.8%)     557 step/s  ETA 0:20:56
+09:24:05 [INFO]      1,020,000 / 1,700,000  ( 60.0%)     556 step/s  ETA 0:20:22
+09:24:44 [INFO]      1,040,000 / 1,700,000  ( 61.2%)     555 step/s  ETA 0:19:48
+09:25:22 [INFO]      1,060,000 / 1,700,000  ( 62.4%)     555 step/s  ETA 0:19:13
+09:26:00 [INFO]      1,080,000 / 1,700,000  ( 63.5%)     554 step/s  ETA 0:18:38
+09:26:38 [INFO]      1,100,000 / 1,700,000  ( 64.7%)     554 step/s  ETA 0:18:03
+09:27:16 [INFO]      1,120,000 / 1,700,000  ( 65.9%)     553 step/s  ETA 0:17:28
+09:27:54 [INFO]      1,140,000 / 1,700,000  ( 67.1%)     553 step/s  ETA 0:16:53
+09:28:32 [INFO]      1,160,000 / 1,700,000  ( 68.2%)     552 step/s  ETA 0:16:18
+09:29:09 [INFO]      1,180,000 / 1,700,000  ( 69.4%)     552 step/s  ETA 0:15:42
+09:29:45 [INFO]      1,200,000 / 1,700,000  ( 70.6%)     552 step/s  ETA 0:15:05
+09:30:23 [INFO]      1,220,000 / 1,700,000  ( 71.8%)     552 step/s  ETA 0:14:30
+09:30:59 [INFO]      1,240,000 / 1,700,000  ( 72.9%)     552 step/s  ETA 0:13:53
+09:31:37 [INFO]      1,260,000 / 1,700,000  ( 74.1%)     551 step/s  ETA 0:13:18
+09:32:14 [INFO]      1,280,000 / 1,700,000  ( 75.3%)     551 step/s  ETA 0:12:42
+09:32:51 [INFO]      1,300,000 / 1,700,000  ( 76.5%)     551 step/s  ETA 0:12:06
+09:33:27 [INFO]      1,320,000 / 1,700,000  ( 77.6%)     551 step/s  ETA 0:11:29
+09:34:04 [INFO]      1,340,000 / 1,700,000  ( 78.8%)     551 step/s  ETA 0:10:53
+09:34:41 [INFO]      1,360,000 / 1,700,000  ( 80.0%)     551 step/s  ETA 0:10:17
+09:35:18 [INFO]      1,380,000 / 1,700,000  ( 81.2%)     550 step/s  ETA 0:09:41
+09:35:58 [INFO]      1,400,000 / 1,700,000  ( 82.4%)     550 step/s  ETA 0:09:05
+09:36:36 [INFO]      1,420,000 / 1,700,000  ( 83.5%)     549 step/s  ETA 0:08:29
+09:37:15 [INFO]      1,440,000 / 1,700,000  ( 84.7%)     549 step/s  ETA 0:07:53
+09:37:51 [INFO]      1,460,000 / 1,700,000  ( 85.9%)     549 step/s  ETA 0:07:17
+09:38:36 [INFO]      1,480,000 / 1,700,000  ( 87.1%)     547 step/s  ETA 0:06:42
+09:39:20 [INFO]      1,500,000 / 1,700,000  ( 88.2%)     546 step/s  ETA 0:06:06
+09:40:01 [INFO]      1,520,000 / 1,700,000  ( 89.4%)     545 step/s  ETA 0:05:30
+09:40:39 [INFO]      1,540,000 / 1,700,000  ( 90.6%)     545 step/s  ETA 0:04:53
+09:41:23 [INFO]      1,560,000 / 1,700,000  ( 91.8%)     543 step/s  ETA 0:04:17
+09:42:07 [INFO]      1,580,000 / 1,700,000  ( 92.9%)     542 step/s  ETA 0:03:41
+09:42:50 [INFO]      1,600,000 / 1,700,000  ( 94.1%)     541 step/s  ETA 0:03:04
+09:43:28 [INFO]      1,620,000 / 1,700,000  ( 95.3%)     541 step/s  ETA 0:02:27
+09:44:07 [INFO]      1,640,000 / 1,700,000  ( 96.5%)     540 step/s  ETA 0:01:51
+09:44:34 [INFO]      1,660,000 / 1,700,000  ( 97.6%)     542 step/s  ETA 0:01:13
+09:45:13 [INFO]      1,680,000 / 1,700,000  ( 98.8%)     542 step/s  ETA 0:00:36
+09:46:00 [INFO]      1,700,000 / 1,700,000  (100.0%)     540 step/s  ETA 0:00:00
+09:46:05 [INFO] --> XONG  (0:52:33, 1,700,000 steps, log: ctf_poca_v2.log)
+
+09:46:05 [INFO] ======================================================================
+09:46:05 [INFO] [3/9]  ctf_mappo   MAPPO @ capture
+09:46:05 [INFO]         run-id  : ctf_mappo_v2
+09:46:05 [INFO]         config  : ctf_mappo.yaml
+09:46:05 [INFO]         steps   : 1,700,000
+09:46:05 [INFO] ======================================================================
+09:46:05 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_mappo_v2_1700000.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+09:46:18 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+09:46:41 [INFO]         20,000 / 1,700,000  (  1.2%)     555 step/s  ETA 0:50:28
+09:47:25 [INFO]         40,000 / 1,700,000  (  2.4%)     500 step/s  ETA 0:55:19
+09:48:05 [INFO]         60,000 / 1,700,000  (  3.5%)     499 step/s  ETA 0:54:47
+09:48:38 [INFO]         80,000 / 1,700,000  (  4.7%)     521 step/s  ETA 0:51:49

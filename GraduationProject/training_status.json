@@ -34,41 +34,41 @@
   "ctf_poca": {
     "run_id": "ctf_poca_v2",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 3153.8,
+    "steps": 1700000,
+    "at": "2026-07-30T09:46:05",
     "smoke": false
   },
   "ctf_mappo": {
     "run_id": "ctf_mappo_v2",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 3135.7,
+    "steps": 1700000,
+    "at": "2026-07-30T11:33:34",
     "smoke": false
   },
   "fb_ppo": {
     "run_id": "FB01",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 2823.4,
+    "steps": 1600000,
+    "at": "2026-07-30T12:20:37",
     "smoke": false
   },
   "fb_poca": {
     "run_id": "Football_POCA_01",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 3016.2,
+    "steps": 1600000,
+    "at": "2026-07-30T10:41:18",
     "smoke": false
   },
   "fb_sac": {
     "run_id": "Football_SAC_01",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 9928.2,
+    "steps": 1600000,
+    "at": "2026-07-30T15:06:06",
     "smoke": false
   },
   "ctr_dqn": {
@@ -89,34 +89,34 @@
   },
   "ctf_sac": {
     "run_id": "ctf_sac_v1",
-    "ok": false,
-    "seconds": 0.1,
-    "steps": 0,
-    "at": "2026-07-28T17:38:15",
+    "ok": true,
+    "seconds": 9119.2,
+    "steps": 1700000,
+    "at": "2026-07-31T11:09:39",
     "smoke": false
   },
   "ctf_dqn": {
     "run_id": "ctf_dqn_v1",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 15508.9,
+    "steps": 1700000,
+    "at": "2026-07-31T15:28:08",
     "smoke": false
   },
   "fb_mappo": {
     "run_id": "Football_MAPPO_01",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 2870.3,
+    "steps": 1600000,
+    "at": "2026-07-30T15:53:56",
     "smoke": false
   },
   "fb_dqn": {
     "run_id": "football_dqn_v1",
     "ok": true,
-    "seconds": 0.0,
-    "steps": 0,
-    "at": "2026-07-28T12:12:10",
+    "seconds": 8823.2,
+    "steps": 1600000,
+    "at": "2026-07-30T18:20:59",
     "smoke": false
   }
 }

@@ -1,0 +1,247 @@
+[INFO] Connected to Unity environment with package version 4.0.2 and communication version 1.5.0
+[INFO] Connected new brain: Football?team=1
+[INFO] Connected new brain: Football?team=0
+
+            ┐  ╖
+        ╓╖╬│╡  ││╬╖╖
+    ╓╖╬│││││┘  ╬│││││╬╖
+ ╖╬│││││╬╜        ╙╬│││││╖╖                               ╗╗╗
+ ╬╬╬╬╖││╦╖        ╖╬││╗╣╣╣╬      ╟╣╣╬    ╟╣╣╣             ╜╜╜  ╟╣╣
+ ╬╬╬╬╬╬╬╬╖│╬╖╖╓╬╪│╓╣╣╣╣╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╒╣╣╖╗╣╣╣╗   ╣╣╣ ╣╣╣╣╣╣ ╟╣╣╖   ╣╣╣
+ ╬╬╬╬┐  ╙╬╬╬╬│╓╣╣╣╝╜  ╫╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╟╣╣╣╙ ╙╣╣╣  ╣╣╣ ╙╟╣╣╜╙  ╫╣╣  ╟╣╣
+ ╬╬╬╬┐     ╙╬╬╣╣      ╫╣╣╣╬      ╟╣╣╬    ╟╣╣╣ ╟╣╣╬   ╣╣╣  ╣╣╣  ╟╣╣     ╣╣╣┌╣╣╜
+ ╬╬╬╜       ╬╬╣╣      ╙╝╣╣╬      ╙╣╣╣╗╖╓╗╣╣╣╜ ╟╣╣╬   ╣╣╣  ╣╣╣  ╟╣╣╦╓    ╣╣╣╣╣
+ ╙   ╓╦╖    ╬╬╣╣   ╓╗╗╖            ╙╝╣╣╣╣╝╜   ╘╝╝╜   ╝╝╝  ╝╝╝   ╙╣╣╣    ╟╣╣╣
+   ╩╬╬╬╬╬╬╦╦╬╬╣╣╗╣╣╣╣╣╣╣╝                                             ╫╣╣╣╣
+      ╙╬╬╬╬╬╬╬╣╣╣╣╣╣╝╜
+          ╙╬╬╬╣╣╣╜
+             ╙
+        
+ Version information:
+  ml-agents: 1.2.0.dev0,
+  ml-agents-envs: 1.2.0.dev0,
+  Communicator API: 1.5.0,
+  PyTorch: 2.2.2+cu121
+[INFO] Hyperparameters for behavior name Football: 
+	trainer_type:	dqn
+	hyperparameters:	
+	  learning_rate:	0.0003
+	  learning_rate_schedule:	constant
+	  batch_size:	1024
+	  buffer_size:	500000
+	  buffer_init_steps:	5000
+	  gamma:	0.99
+	  exploration_schedule:	linear
+	  exploration_initial_eps:	1.0
+	  exploration_final_eps:	0.05
+	  exploration_decay_steps:	2000000
+	  target_update_interval:	10000
+	  tau:	0.005
+	  steps_per_update:	20.0
+	  save_replay_buffer:	False
+	  reward_signal_steps_per_update:	20.0
+	checkpoint_interval:	500000
+	network_settings:	
+	  normalize:	True
+	  hidden_units:	256
+	  num_layers:	2
+	  vis_encode_type:	simple
+	  memory:	None
+	  goal_conditioning_type:	hyper
+	  deterministic:	False
+	reward_signals:	
+	  extrinsic:	
+	    gamma:	0.99
+	    strength:	1.0
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	init_path:	None
+	keep_checkpoints:	10
+	even_checkpoints:	False
+	max_steps:	1600000
+	time_horizon:	1000
+	summary_freq:	10000
+	threaded:	False
+	self_play:	None
+	behavioral_cloning:	None
+[WARNING] Your environment contains multiple teams, but DQNTrainer doesn't support adversarial games. Enable self-play to                     train adversarial games.
+[INFO] Football. Step: 10000. Time Elapsed: 38.570 s. Mean Reward: 1.915. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 20000. Time Elapsed: 87.502 s. Mean Reward: 1.844. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 30000. Time Elapsed: 137.499 s. Mean Reward: 1.691. Std of Reward: 2.998. Training.
+[INFO] Football. Step: 40000. Time Elapsed: 196.160 s. Mean Reward: 1.831. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 50000. Time Elapsed: 245.164 s. Mean Reward: 1.882. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 60000. Time Elapsed: 301.006 s. Mean Reward: 1.914. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 70000. Time Elapsed: 349.189 s. Mean Reward: 1.879. Std of Reward: 2.994. Training.
+[INFO] Football. Step: 80000. Time Elapsed: 407.334 s. Mean Reward: 1.722. Std of Reward: 3.013. Training.
+[INFO] Football. Step: 90000. Time Elapsed: 463.705 s. Mean Reward: 1.864. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 100000. Time Elapsed: 518.003 s. Mean Reward: 1.922. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 110000. Time Elapsed: 567.464 s. Mean Reward: 1.765. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 120000. Time Elapsed: 623.028 s. Mean Reward: 1.736. Std of Reward: 2.990. Training.
+[INFO] Football. Step: 130000. Time Elapsed: 673.843 s. Mean Reward: 1.855. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 140000. Time Elapsed: 725.967 s. Mean Reward: 1.981. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 150000. Time Elapsed: 780.729 s. Mean Reward: 1.825. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 160000. Time Elapsed: 835.955 s. Mean Reward: 1.871. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 170000. Time Elapsed: 887.386 s. Mean Reward: 1.765. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 180000. Time Elapsed: 938.051 s. Mean Reward: 2.028. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 190000. Time Elapsed: 993.360 s. Mean Reward: 1.607. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 200000. Time Elapsed: 1044.896 s. Mean Reward: 1.854. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 210000. Time Elapsed: 1103.448 s. Mean Reward: 1.923. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 220000. Time Elapsed: 1155.922 s. Mean Reward: 1.803. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 230000. Time Elapsed: 1211.605 s. Mean Reward: 1.980. Std of Reward: 2.997. Training.
+[INFO] Football. Step: 240000. Time Elapsed: 1266.402 s. Mean Reward: 1.821. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 250000. Time Elapsed: 1321.983 s. Mean Reward: 1.888. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 260000. Time Elapsed: 1376.431 s. Mean Reward: 1.838. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 270000. Time Elapsed: 1429.336 s. Mean Reward: 1.819. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 280000. Time Elapsed: 1485.557 s. Mean Reward: 1.665. Std of Reward: 2.990. Training.
+[INFO] Football. Step: 290000. Time Elapsed: 1529.633 s. Mean Reward: 1.836. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 300000. Time Elapsed: 1590.020 s. Mean Reward: 1.909. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 310000. Time Elapsed: 1641.970 s. Mean Reward: 1.779. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 320000. Time Elapsed: 1696.169 s. Mean Reward: 1.789. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 330000. Time Elapsed: 1743.033 s. Mean Reward: 1.953. Std of Reward: 2.997. Training.
+[INFO] Football. Step: 340000. Time Elapsed: 1807.530 s. Mean Reward: 1.753. Std of Reward: 3.025. Training.
+[INFO] Football. Step: 350000. Time Elapsed: 1860.836 s. Mean Reward: 1.867. Std of Reward: 2.989. Training.
+[INFO] Football. Step: 360000. Time Elapsed: 1912.868 s. Mean Reward: 1.916. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 370000. Time Elapsed: 1959.116 s. Mean Reward: 1.790. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 380000. Time Elapsed: 2023.106 s. Mean Reward: 1.810. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 390000. Time Elapsed: 2075.360 s. Mean Reward: 1.788. Std of Reward: 3.006. Training.
+[INFO] Football. Step: 400000. Time Elapsed: 2134.507 s. Mean Reward: 1.869. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 410000. Time Elapsed: 2187.620 s. Mean Reward: 1.846. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 420000. Time Elapsed: 2244.670 s. Mean Reward: 1.891. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 430000. Time Elapsed: 2298.284 s. Mean Reward: 1.778. Std of Reward: 3.006. Training.
+[INFO] Football. Step: 440000. Time Elapsed: 2350.320 s. Mean Reward: 1.803. Std of Reward: 3.008. Training.
+[INFO] Football. Step: 450000. Time Elapsed: 2409.350 s. Mean Reward: 1.921. Std of Reward: 2.994. Training.
+[INFO] Football. Step: 460000. Time Elapsed: 2467.102 s. Mean Reward: 1.811. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 470000. Time Elapsed: 2522.245 s. Mean Reward: 1.872. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 480000. Time Elapsed: 2578.924 s. Mean Reward: 1.667. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 490000. Time Elapsed: 2631.487 s. Mean Reward: 1.987. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 500000. Time Elapsed: 2688.810 s. Mean Reward: 1.686. Std of Reward: 2.998. Training.
+[WARNING] Trainer has multiple policies, but default behavior only saves the first.
+C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1270: UserWarning: ONNX export squeeze with negative axis -1 might cause the onnx model to be incorrect. Negative axis is not supported in ONNX. Axis is converted to 1 based on input shape at export time. Passing an tensor of different rank in execution will be incorrect.
+  warnings.warn(
+C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1301: UserWarning: This model contains a squeeze operation on dimension 1. The size of this dimension in the given input is 24. The model will be exported without the squeeze node. If the model is intended to be used with dynamic input shapes, please use opset version 11 to export the model.
+  warnings.warn(
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\football_dqn_v1\Football\Football-499708.onnx
+[INFO] Football. Step: 510000. Time Elapsed: 2747.797 s. Mean Reward: 1.837. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 520000. Time Elapsed: 2801.214 s. Mean Reward: 1.908. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 530000. Time Elapsed: 2861.488 s. Mean Reward: 1.776. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 540000. Time Elapsed: 2915.486 s. Mean Reward: 1.791. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 550000. Time Elapsed: 2967.484 s. Mean Reward: 1.845. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 560000. Time Elapsed: 3021.545 s. Mean Reward: 1.838. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 570000. Time Elapsed: 3075.869 s. Mean Reward: 1.860. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 580000. Time Elapsed: 3130.097 s. Mean Reward: 1.932. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 590000. Time Elapsed: 3180.730 s. Mean Reward: 1.815. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 600000. Time Elapsed: 3241.450 s. Mean Reward: 1.632. Std of Reward: 2.989. Training.
+[INFO] Football. Step: 610000. Time Elapsed: 3295.483 s. Mean Reward: 1.763. Std of Reward: 3.008. Training.
+[INFO] Football. Step: 620000. Time Elapsed: 3350.553 s. Mean Reward: 1.923. Std of Reward: 2.995. Training.
+[INFO] Football. Step: 630000. Time Elapsed: 3406.978 s. Mean Reward: 1.794. Std of Reward: 3.009. Training.
+[INFO] Football. Step: 640000. Time Elapsed: 3463.953 s. Mean Reward: 1.735. Std of Reward: 2.994. Training.
+[INFO] Football. Step: 650000. Time Elapsed: 3515.769 s. Mean Reward: 1.926. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 660000. Time Elapsed: 3568.275 s. Mean Reward: 1.888. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 670000. Time Elapsed: 3623.772 s. Mean Reward: 1.741. Std of Reward: 3.014. Training.
+[INFO] Football. Step: 680000. Time Elapsed: 3676.333 s. Mean Reward: 1.838. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 690000. Time Elapsed: 3734.350 s. Mean Reward: 1.921. Std of Reward: 2.996. Training.
+[INFO] Football. Step: 700000. Time Elapsed: 3788.933 s. Mean Reward: 1.848. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 710000. Time Elapsed: 3843.385 s. Mean Reward: 1.826. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 720000. Time Elapsed: 3899.231 s. Mean Reward: 1.922. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 730000. Time Elapsed: 3952.228 s. Mean Reward: 1.931. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 740000. Time Elapsed: 4009.864 s. Mean Reward: 1.623. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 750000. Time Elapsed: 4061.123 s. Mean Reward: 1.886. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 760000. Time Elapsed: 4118.243 s. Mean Reward: 1.916. Std of Reward: 2.997. Training.
+[INFO] Football. Step: 770000. Time Elapsed: 4171.474 s. Mean Reward: 1.823. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 780000. Time Elapsed: 4226.305 s. Mean Reward: 1.854. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 790000. Time Elapsed: 4278.947 s. Mean Reward: 1.935. Std of Reward: 2.998. Training.
+[INFO] Football. Step: 800000. Time Elapsed: 4332.315 s. Mean Reward: 1.820. Std of Reward: 2.994. Training.
+[INFO] Football. Step: 810000. Time Elapsed: 4394.352 s. Mean Reward: 1.790. Std of Reward: 3.013. Training.
+[INFO] Football. Step: 820000. Time Elapsed: 4447.853 s. Mean Reward: 1.902. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 830000. Time Elapsed: 4508.292 s. Mean Reward: 1.666. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 840000. Time Elapsed: 4562.631 s. Mean Reward: 1.854. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 850000. Time Elapsed: 4621.912 s. Mean Reward: 1.680. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 860000. Time Elapsed: 4676.299 s. Mean Reward: 1.947. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 870000. Time Elapsed: 4734.256 s. Mean Reward: 1.511. Std of Reward: 2.982. Training.
+[INFO] Football. Step: 880000. Time Elapsed: 4785.041 s. Mean Reward: 1.884. Std of Reward: 2.991. Training.
+[INFO] Football. Step: 890000. Time Elapsed: 4848.133 s. Mean Reward: 1.803. Std of Reward: 3.019. Training.
+[INFO] Football. Step: 900000. Time Elapsed: 4902.074 s. Mean Reward: 1.788. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 910000. Time Elapsed: 4959.281 s. Mean Reward: 1.739. Std of Reward: 2.994. Training.
+[INFO] Football. Step: 920000. Time Elapsed: 5011.382 s. Mean Reward: 1.751. Std of Reward: 3.027. Training.
+[INFO] Football. Step: 930000. Time Elapsed: 5066.680 s. Mean Reward: 1.958. Std of Reward: 2.977. Training.
+[INFO] Football. Step: 940000. Time Elapsed: 5126.939 s. Mean Reward: 1.761. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 950000. Time Elapsed: 5182.452 s. Mean Reward: 1.861. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 960000. Time Elapsed: 5233.398 s. Mean Reward: 1.808. Std of Reward: 3.006. Training.
+[INFO] Football. Step: 970000. Time Elapsed: 5293.707 s. Mean Reward: 1.937. Std of Reward: 2.997. Training.
+[INFO] Football. Step: 980000. Time Elapsed: 5349.776 s. Mean Reward: 1.914. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 990000. Time Elapsed: 5402.139 s. Mean Reward: 1.775. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1000000. Time Elapsed: 5466.732 s. Mean Reward: 1.812. Std of Reward: 3.007. Training.
+[WARNING] Trainer has multiple policies, but default behavior only saves the first.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\football_dqn_v1\Football\Football-999814.onnx
+[INFO] Football. Step: 1010000. Time Elapsed: 5520.730 s. Mean Reward: 1.805. Std of Reward: 3.009. Training.
+[INFO] Football. Step: 1020000. Time Elapsed: 5575.877 s. Mean Reward: 1.900. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1030000. Time Elapsed: 5631.109 s. Mean Reward: 1.684. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 1040000. Time Elapsed: 5684.842 s. Mean Reward: 1.674. Std of Reward: 3.009. Training.
+[INFO] Football. Step: 1050000. Time Elapsed: 5745.918 s. Mean Reward: 1.952. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1060000. Time Elapsed: 5804.928 s. Mean Reward: 1.785. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 1070000. Time Elapsed: 5856.033 s. Mean Reward: 1.925. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 1080000. Time Elapsed: 5912.588 s. Mean Reward: 1.673. Std of Reward: 2.993. Training.
+[INFO] Football. Step: 1090000. Time Elapsed: 5971.798 s. Mean Reward: 1.925. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1100000. Time Elapsed: 6026.274 s. Mean Reward: 1.768. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 1110000. Time Elapsed: 6084.777 s. Mean Reward: 1.830. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1120000. Time Elapsed: 6136.113 s. Mean Reward: 1.825. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 1130000. Time Elapsed: 6192.801 s. Mean Reward: 1.850. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1140000. Time Elapsed: 6246.889 s. Mean Reward: 1.887. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 1150000. Time Elapsed: 6300.699 s. Mean Reward: 1.654. Std of Reward: 2.992. Training.
+[INFO] Football. Step: 1160000. Time Elapsed: 6355.576 s. Mean Reward: 1.726. Std of Reward: 2.995. Training.
+[INFO] Football. Step: 1170000. Time Elapsed: 6409.404 s. Mean Reward: 1.731. Std of Reward: 3.010. Training.
+[INFO] Football. Step: 1180000. Time Elapsed: 6464.662 s. Mean Reward: 1.849. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1190000. Time Elapsed: 6518.445 s. Mean Reward: 1.842. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1200000. Time Elapsed: 6573.051 s. Mean Reward: 1.920. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 1210000. Time Elapsed: 6633.602 s. Mean Reward: 1.859. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1220000. Time Elapsed: 6688.395 s. Mean Reward: 1.889. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1230000. Time Elapsed: 6741.518 s. Mean Reward: 1.795. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1240000. Time Elapsed: 6794.553 s. Mean Reward: 1.985. Std of Reward: 2.998. Training.
+[INFO] Football. Step: 1250000. Time Elapsed: 6845.630 s. Mean Reward: 1.585. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 1260000. Time Elapsed: 6903.844 s. Mean Reward: 1.917. Std of Reward: 2.998. Training.
+[INFO] Football. Step: 1270000. Time Elapsed: 6959.723 s. Mean Reward: 1.864. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1280000. Time Elapsed: 7013.846 s. Mean Reward: 1.831. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 1290000. Time Elapsed: 7066.808 s. Mean Reward: 1.842. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 1300000. Time Elapsed: 7121.368 s. Mean Reward: 1.841. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 1310000. Time Elapsed: 7176.872 s. Mean Reward: 1.887. Std of Reward: 3.006. Training.
+[INFO] Football. Step: 1320000. Time Elapsed: 7229.676 s. Mean Reward: 1.915. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1330000. Time Elapsed: 7287.851 s. Mean Reward: 1.801. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 1340000. Time Elapsed: 7343.801 s. Mean Reward: 1.664. Std of Reward: 2.988. Training.
+[INFO] Football. Step: 1350000. Time Elapsed: 7404.828 s. Mean Reward: 1.822. Std of Reward: 2.995. Training.
+[INFO] Football. Step: 1360000. Time Elapsed: 7458.018 s. Mean Reward: 1.549. Std of Reward: 2.982. Training.
+[INFO] Football. Step: 1370000. Time Elapsed: 7516.147 s. Mean Reward: 1.923. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1380000. Time Elapsed: 7569.734 s. Mean Reward: 1.881. Std of Reward: 2.992. Training.
+[INFO] Football. Step: 1390000. Time Elapsed: 7631.357 s. Mean Reward: 1.748. Std of Reward: 3.011. Training.
+[INFO] Football. Step: 1400000. Time Elapsed: 7687.810 s. Mean Reward: 1.871. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 1410000. Time Elapsed: 7747.159 s. Mean Reward: 1.909. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1420000. Time Elapsed: 7804.432 s. Mean Reward: 1.700. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 1430000. Time Elapsed: 7851.167 s. Mean Reward: 1.863. Std of Reward: 2.998. Training.
+[INFO] Football. Step: 1440000. Time Elapsed: 7919.625 s. Mean Reward: 1.823. Std of Reward: 3.015. Training.
+[INFO] Football. Step: 1450000. Time Elapsed: 7969.680 s. Mean Reward: 1.909. Std of Reward: 2.999. Training.
+[INFO] Football. Step: 1460000. Time Elapsed: 8029.514 s. Mean Reward: 1.793. Std of Reward: 3.008. Training.
+[INFO] Football. Step: 1470000. Time Elapsed: 8085.938 s. Mean Reward: 1.664. Std of Reward: 2.988. Training.
+[INFO] Football. Step: 1480000. Time Elapsed: 8145.435 s. Mean Reward: 1.816. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 1490000. Time Elapsed: 8200.103 s. Mean Reward: 1.925. Std of Reward: 3.005. Training.
+[INFO] Football. Step: 1500000. Time Elapsed: 8256.803 s. Mean Reward: 1.748. Std of Reward: 3.005. Training.
+[WARNING] Trainer has multiple policies, but default behavior only saves the first.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\football_dqn_v1\Football\Football-1499584.onnx
+[INFO] Football. Step: 1510000. Time Elapsed: 8315.477 s. Mean Reward: 1.856. Std of Reward: 3.003. Training.
+[INFO] Football. Step: 1520000. Time Elapsed: 8370.669 s. Mean Reward: 1.890. Std of Reward: 3.008. Training.
+[INFO] Football. Step: 1530000. Time Elapsed: 8425.969 s. Mean Reward: 1.809. Std of Reward: 3.000. Training.
+[INFO] Football. Step: 1540000. Time Elapsed: 8482.105 s. Mean Reward: 1.768. Std of Reward: 3.007. Training.
+[INFO] Football. Step: 1550000. Time Elapsed: 8539.515 s. Mean Reward: 1.835. Std of Reward: 2.995. Training.
+[INFO] Football. Step: 1560000. Time Elapsed: 8600.049 s. Mean Reward: 1.927. Std of Reward: 3.002. Training.
+[INFO] Football. Step: 1570000. Time Elapsed: 8653.408 s. Mean Reward: 1.918. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 1580000. Time Elapsed: 8710.671 s. Mean Reward: 1.817. Std of Reward: 3.001. Training.
+[INFO] Football. Step: 1590000. Time Elapsed: 8766.875 s. Mean Reward: 1.783. Std of Reward: 3.004. Training.
+[INFO] Football. Step: 1600000. Time Elapsed: 8816.630 s. Mean Reward: 1.748. Std of Reward: 3.009. Training.
+[WARNING] Trainer has multiple policies, but default behavior only saves the first.
+[WARNING] Trainer has multiple policies, but default behavior only saves the first.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\football_dqn_v1\Football\Football-1600096.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\football_dqn_v1\Football\Football-1600096.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\football_dqn_v1\Football.onnx.

@@ -59,9 +59,9 @@
 	init_path:	None
 	keep_checkpoints:	10
 	even_checkpoints:	False
-	max_steps:	20000
+	max_steps:	1600000
 	time_horizon:	1000
-	summary_freq:	5000
+	summary_freq:	10000
 	threaded:	False
 	self_play:	
 	  save_steps:	50000
@@ -71,10 +71,168 @@
 	  play_against_latest_model_ratio:	0.5
 	  initial_elo:	1200.0
 	behavioral_cloning:	None
-[WARNING] The max steps of the GhostTrainer for behavior name Football is less than team change. This team will not face                 opposition that has been trained if the opposition is managed by a different GhostTrainer as in an                 asymmetric game.
-[INFO] Football. Step: 5000. Time Elapsed: 15.301 s. Mean Reward: 1.186. Mean Group Reward: 0.000. Training. ELO: 1198.056.
-[INFO] Football. Step: 10000. Time Elapsed: 24.598 s. Mean Reward: 2.824. Mean Group Reward: 0.000. Training. ELO: 1198.626.
-[INFO] Football. Step: 15000. Time Elapsed: 30.433 s. Mean Reward: 2.531. Mean Group Reward: 0.000. Training. ELO: 1200.884.
-[INFO] Football. Step: 20000. Time Elapsed: 37.814 s. Mean Reward: 3.001. Mean Group Reward: 0.000. Training. ELO: 1203.941.
-[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-20217.onnx
-[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-20217.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football.onnx.
+[INFO] Football. Step: 10000. Time Elapsed: 19.291 s. Mean Reward: 1.033. Mean Group Reward: 0.000. Training. ELO: 1196.246.
+[INFO] Football. Step: 20000. Time Elapsed: 27.774 s. Mean Reward: 2.575. Mean Group Reward: 0.000. Training. ELO: 1196.542.
+[INFO] Football. Step: 30000. Time Elapsed: 39.202 s. Mean Reward: 1.820. Mean Group Reward: 0.000. Training. ELO: 1199.217.
+[INFO] Football. Step: 40000. Time Elapsed: 48.068 s. Mean Reward: 0.909. Mean Group Reward: 0.000. Training. ELO: 1196.371.
+[INFO] Football. Step: 50000. Time Elapsed: 63.503 s. Mean Reward: 1.765. Mean Group Reward: 0.000. Training. ELO: 1197.471.
+[INFO] Football. Step: 60000. Time Elapsed: 72.641 s. Mean Reward: 1.965. Mean Group Reward: 0.000. Training. ELO: 1198.070.
+[INFO] Football. Step: 70000. Time Elapsed: 82.517 s. Mean Reward: 1.852. Mean Group Reward: 0.000. Training. ELO: 1197.317.
+[INFO] Football. Step: 80000. Time Elapsed: 93.057 s. Mean Reward: 1.784. Mean Group Reward: 0.000. Training. ELO: 1199.155.
+[INFO] Football. Step: 90000. Time Elapsed: 108.617 s. Mean Reward: 1.201. Mean Group Reward: 0.000. Training. ELO: 1197.906.
+[INFO] Football. Step: 100000. Time Elapsed: 120.165 s. Mean Reward: 2.096. Mean Group Reward: 0.000. Training. ELO: 1196.925.
+[INFO] Football. Step: 110000. Time Elapsed: 132.173 s. Mean Reward: 1.779. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 120000. Time Elapsed: 140.696 s. Mean Reward: 1.457. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 130000. Time Elapsed: 157.695 s. Mean Reward: 2.313. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 140000. Time Elapsed: 166.892 s. Mean Reward: 0.153. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 150000. Time Elapsed: 178.038 s. Mean Reward: 2.298. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 160000. Time Elapsed: 186.639 s. Mean Reward: 1.499. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 170000. Time Elapsed: 202.381 s. Mean Reward: 1.760. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 180000. Time Elapsed: 212.438 s. Mean Reward: 3.169. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 190000. Time Elapsed: 225.643 s. Mean Reward: 1.912. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 200000. Time Elapsed: 238.387 s. Mean Reward: 1.874. Mean Group Reward: 0.000. Training. ELO: 1197.732.
+[INFO] Football. Step: 210000. Time Elapsed: 269.478 s. Mean Reward: 2.201. Mean Group Reward: 0.000. Training. ELO: 1198.530.
+[INFO] Football. Step: 220000. Time Elapsed: 285.063 s. Mean Reward: 2.294. Mean Group Reward: 0.000. Training. ELO: 1200.486.
+[INFO] Football. Step: 230000. Time Elapsed: 302.533 s. Mean Reward: 2.782. Mean Group Reward: 0.000. Training. ELO: 1206.455.
+[INFO] Football. Step: 240000. Time Elapsed: 320.092 s. Mean Reward: 1.601. Mean Group Reward: 0.000. Training. ELO: 1205.913.
+[INFO] Football. Step: 250000. Time Elapsed: 348.667 s. Mean Reward: 1.451. Mean Group Reward: 0.000. Training. ELO: 1204.052.
+[INFO] Football. Step: 260000. Time Elapsed: 363.558 s. Mean Reward: 2.119. Mean Group Reward: 0.000. Training. ELO: 1203.314.
+[INFO] Football. Step: 270000. Time Elapsed: 378.077 s. Mean Reward: 2.214. Mean Group Reward: 0.000. Training. ELO: 1206.221.
+[INFO] Football. Step: 280000. Time Elapsed: 395.521 s. Mean Reward: 1.757. Mean Group Reward: 0.000. Training. ELO: 1205.365.
+[INFO] Football. Step: 290000. Time Elapsed: 422.733 s. Mean Reward: 1.611. Mean Group Reward: 0.000. Training. ELO: 1205.255.
+[INFO] Football. Step: 300000. Time Elapsed: 437.370 s. Mean Reward: 2.485. Mean Group Reward: 0.000. Training. ELO: 1206.441.
+[INFO] Football. Step: 310000. Time Elapsed: 456.086 s. Mean Reward: 2.053. Mean Group Reward: 0.000. Training. ELO: 1207.410.
+[INFO] Football. Step: 320000. Time Elapsed: 472.298 s. Mean Reward: 2.442. Mean Group Reward: 0.000. Training. ELO: 1210.452.
+[INFO] Football. Step: 330000. Time Elapsed: 485.692 s. Mean Reward: 2.149. Mean Group Reward: 0.000. Training. ELO: 1212.276.
+[INFO] Football. Step: 340000. Time Elapsed: 512.380 s. Mean Reward: 1.594. Mean Group Reward: 0.000. Training. ELO: 1211.026.
+[INFO] Football. Step: 350000. Time Elapsed: 527.162 s. Mean Reward: 2.591. Mean Group Reward: 0.000. Training. ELO: 1213.119.
+[INFO] Football. Step: 360000. Time Elapsed: 541.618 s. Mean Reward: 2.072. Mean Group Reward: 0.000. Training. ELO: 1214.573.
+[INFO] Football. Step: 370000. Time Elapsed: 556.499 s. Mean Reward: 1.585. Mean Group Reward: 0.000. Training. ELO: 1212.986.
+[INFO] Football. Step: 380000. Time Elapsed: 588.211 s. Mean Reward: 1.722. Mean Group Reward: 0.000. Training. ELO: 1211.847.
+[INFO] Football. Step: 390000. Time Elapsed: 603.339 s. Mean Reward: 1.993. Mean Group Reward: 0.000. Training. ELO: 1209.721.
+[INFO] Football. Step: 400000. Time Elapsed: 619.310 s. Mean Reward: 1.722. Mean Group Reward: 0.000. Training. ELO: 1208.859.
+[INFO] Football. Step: 410000. Time Elapsed: 636.762 s. Mean Reward: 1.563. Mean Group Reward: 0.000. Training. ELO: 1208.362.
+[INFO] Football. Step: 420000. Time Elapsed: 666.213 s. Mean Reward: 1.880. Mean Group Reward: 0.000. Training. ELO: 1209.645.
+[INFO] Football. Step: 430000. Time Elapsed: 683.173 s. Mean Reward: 3.394. Mean Group Reward: 0.000. Training. ELO: 1213.841.
+[INFO] Football. Step: 440000. Time Elapsed: 697.385 s. Mean Reward: 2.241. Mean Group Reward: 0.000. Training. ELO: 1218.554.
+[INFO] Football. Step: 450000. Time Elapsed: 716.354 s. Mean Reward: 2.211. Mean Group Reward: 0.000. Training. ELO: 1219.794.
+[INFO] Football. Step: 460000. Time Elapsed: 742.326 s. Mean Reward: 1.402. Mean Group Reward: 0.000. Training. ELO: 1218.986.
+[INFO] Football. Step: 470000. Time Elapsed: 755.695 s. Mean Reward: 1.393. Mean Group Reward: 0.000. Training. ELO: 1216.772.
+[INFO] Football. Step: 480000. Time Elapsed: 770.590 s. Mean Reward: 2.804. Mean Group Reward: 0.000. Training. ELO: 1218.190.
+[INFO] Football. Step: 490000. Time Elapsed: 786.627 s. Mean Reward: 2.129. Mean Group Reward: 0.000. Training. ELO: 1220.283.
+[INFO] Football. Step: 500000. Time Elapsed: 816.445 s. Mean Reward: 1.304. Mean Group Reward: 0.000. Training. ELO: 1219.387.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-499681.onnx
+[INFO] Football. Step: 510000. Time Elapsed: 834.243 s. Mean Reward: 1.740. Mean Group Reward: 0.000. Training. ELO: 1216.836.
+[INFO] Football. Step: 520000. Time Elapsed: 850.238 s. Mean Reward: 1.976. Mean Group Reward: 0.000. Training. ELO: 1218.835.
+[INFO] Football. Step: 530000. Time Elapsed: 866.819 s. Mean Reward: 1.160. Mean Group Reward: 0.000. Training. ELO: 1218.139.
+[INFO] Football. Step: 540000. Time Elapsed: 895.546 s. Mean Reward: 1.589. Mean Group Reward: 0.000. Training. ELO: 1214.536.
+[INFO] Football. Step: 550000. Time Elapsed: 915.092 s. Mean Reward: 2.370. Mean Group Reward: 0.000. Training. ELO: 1215.424.
+[INFO] Football. Step: 560000. Time Elapsed: 930.026 s. Mean Reward: 2.217. Mean Group Reward: 0.000. Training. ELO: 1220.089.
+[INFO] Football. Step: 570000. Time Elapsed: 947.014 s. Mean Reward: 2.116. Mean Group Reward: 0.000. Training. ELO: 1222.527.
+[INFO] Football. Step: 580000. Time Elapsed: 975.429 s. Mean Reward: 1.894. Mean Group Reward: 0.000. Training. ELO: 1223.053.
+[INFO] Football. Step: 590000. Time Elapsed: 989.912 s. Mean Reward: 1.910. Mean Group Reward: 0.000. Training. ELO: 1224.047.
+[INFO] Football. Step: 600000. Time Elapsed: 1004.919 s. Mean Reward: 1.523. Mean Group Reward: 0.000. Training. ELO: 1222.387.
+[INFO] Football. Step: 610000. Time Elapsed: 1021.903 s. Mean Reward: 1.861. Mean Group Reward: 0.000. Training. ELO: 1224.402.
+[INFO] Football. Step: 620000. Time Elapsed: 1037.621 s. Mean Reward: 1.724. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 630000. Time Elapsed: 1062.951 s. Mean Reward: 1.807. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 640000. Time Elapsed: 1080.921 s. Mean Reward: 1.354. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 650000. Time Elapsed: 1096.299 s. Mean Reward: 0.826. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 660000. Time Elapsed: 1110.432 s. Mean Reward: 2.271. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 670000. Time Elapsed: 1137.703 s. Mean Reward: 2.056. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 680000. Time Elapsed: 1151.832 s. Mean Reward: 1.167. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 690000. Time Elapsed: 1167.666 s. Mean Reward: 1.761. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 700000. Time Elapsed: 1182.303 s. Mean Reward: 1.829. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 710000. Time Elapsed: 1211.928 s. Mean Reward: 1.915. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 720000. Time Elapsed: 1225.448 s. Mean Reward: 1.988. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 730000. Time Elapsed: 1240.765 s. Mean Reward: 1.449. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 740000. Time Elapsed: 1256.045 s. Mean Reward: 1.983. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 750000. Time Elapsed: 1282.451 s. Mean Reward: 1.451. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 760000. Time Elapsed: 1297.732 s. Mean Reward: 0.739. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 770000. Time Elapsed: 1314.230 s. Mean Reward: 2.700. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 780000. Time Elapsed: 1326.965 s. Mean Reward: 2.261. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 790000. Time Elapsed: 1355.714 s. Mean Reward: 2.929. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 800000. Time Elapsed: 1369.876 s. Mean Reward: 1.711. Mean Group Reward: 0.000. Training. ELO: 1224.664.
+[INFO] Football. Step: 810000. Time Elapsed: 1389.819 s. Mean Reward: 1.492. Mean Group Reward: 0.000. Training. ELO: 1225.439.
+[INFO] Football. Step: 820000. Time Elapsed: 1405.124 s. Mean Reward: 1.900. Mean Group Reward: 0.000. Training. ELO: 1224.411.
+[INFO] Football. Step: 830000. Time Elapsed: 1433.413 s. Mean Reward: 2.225. Mean Group Reward: 0.000. Training. ELO: 1224.998.
+[INFO] Football. Step: 840000. Time Elapsed: 1448.974 s. Mean Reward: 2.212. Mean Group Reward: 0.000. Training. ELO: 1230.675.
+[INFO] Football. Step: 850000. Time Elapsed: 1465.412 s. Mean Reward: 2.290. Mean Group Reward: 0.000. Training. ELO: 1229.808.
+[INFO] Football. Step: 860000. Time Elapsed: 1481.377 s. Mean Reward: 2.116. Mean Group Reward: 0.000. Training. ELO: 1229.414.
+[INFO] Football. Step: 870000. Time Elapsed: 1509.893 s. Mean Reward: 2.938. Mean Group Reward: 0.000. Training. ELO: 1235.676.
+[INFO] Football. Step: 880000. Time Elapsed: 1524.087 s. Mean Reward: 1.765. Mean Group Reward: 0.000. Training. ELO: 1238.003.
+[INFO] Football. Step: 890000. Time Elapsed: 1538.295 s. Mean Reward: 1.535. Mean Group Reward: 0.000. Training. ELO: 1235.575.
+[INFO] Football. Step: 900000. Time Elapsed: 1553.404 s. Mean Reward: 2.298. Mean Group Reward: 0.000. Training. ELO: 1234.726.
+[INFO] Football. Step: 910000. Time Elapsed: 1583.727 s. Mean Reward: 2.630. Mean Group Reward: 0.000. Training. ELO: 1238.902.
+[INFO] Football. Step: 920000. Time Elapsed: 1598.617 s. Mean Reward: 1.508. Mean Group Reward: 0.000. Training. ELO: 1238.283.
+[INFO] Football. Step: 930000. Time Elapsed: 1613.212 s. Mean Reward: 1.034. Mean Group Reward: 0.000. Training. ELO: 1236.049.
+[INFO] Football. Step: 940000. Time Elapsed: 1629.300 s. Mean Reward: 3.185. Mean Group Reward: 0.000. Training. ELO: 1236.175.
+[INFO] Football. Step: 950000. Time Elapsed: 1656.541 s. Mean Reward: 1.903. Mean Group Reward: 0.000. Training. ELO: 1239.658.
+[INFO] Football. Step: 960000. Time Elapsed: 1671.228 s. Mean Reward: 1.788. Mean Group Reward: 0.000. Training. ELO: 1241.024.
+[INFO] Football. Step: 970000. Time Elapsed: 1685.696 s. Mean Reward: 2.382. Mean Group Reward: 0.000. Training. ELO: 1241.884.
+[INFO] Football. Step: 980000. Time Elapsed: 1702.403 s. Mean Reward: 1.233. Mean Group Reward: 0.000. Training. ELO: 1240.567.
+[INFO] Football. Step: 990000. Time Elapsed: 1716.990 s. Mean Reward: 1.083. Mean Group Reward: 0.000. Training. ELO: 1235.405.
+[INFO] Football. Step: 1000000. Time Elapsed: 1743.827 s. Mean Reward: 2.786. Mean Group Reward: 0.000. Training. ELO: 1235.263.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-999933.onnx
+[INFO] Football. Step: 1010000. Time Elapsed: 1763.282 s. Mean Reward: 1.817. Mean Group Reward: 0.000. Training. ELO: 1238.067.
+[INFO] Football. Step: 1020000. Time Elapsed: 1777.868 s. Mean Reward: 1.536. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1030000. Time Elapsed: 1790.863 s. Mean Reward: 1.705. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1040000. Time Elapsed: 1820.251 s. Mean Reward: 1.646. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1050000. Time Elapsed: 1835.332 s. Mean Reward: 1.701. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1060000. Time Elapsed: 1850.137 s. Mean Reward: 1.808. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1070000. Time Elapsed: 1867.355 s. Mean Reward: 1.464. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1080000. Time Elapsed: 1893.151 s. Mean Reward: 2.145. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1090000. Time Elapsed: 1908.606 s. Mean Reward: 2.272. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1100000. Time Elapsed: 1923.053 s. Mean Reward: 2.431. Mean Group Reward: 0.000. Training. ELO: 1237.941.
+[INFO] Football. Step: 1110000. Time Elapsed: 1940.366 s. Mean Reward: 2.318. Mean Group Reward: 0.000. Training. ELO: 1239.324.
+[INFO] Football. Step: 1120000. Time Elapsed: 1967.398 s. Mean Reward: 2.048. Mean Group Reward: 0.000. Training. ELO: 1240.533.
+[INFO] Football. Step: 1130000. Time Elapsed: 1982.204 s. Mean Reward: 1.833. Mean Group Reward: 0.000. Training. ELO: 1239.860.
+[INFO] Football. Step: 1140000. Time Elapsed: 1996.761 s. Mean Reward: 2.196. Mean Group Reward: 0.000. Training. ELO: 1244.864.
+[INFO] Football. Step: 1150000. Time Elapsed: 2011.657 s. Mean Reward: 1.806. Mean Group Reward: 0.000. Training. ELO: 1243.323.
+[INFO] Football. Step: 1160000. Time Elapsed: 2038.144 s. Mean Reward: 1.528. Mean Group Reward: 0.000. Training. ELO: 1238.679.
+[INFO] Football. Step: 1170000. Time Elapsed: 2054.579 s. Mean Reward: 1.290. Mean Group Reward: 0.000. Training. ELO: 1239.376.
+[INFO] Football. Step: 1180000. Time Elapsed: 2069.223 s. Mean Reward: 2.137. Mean Group Reward: 0.000. Training. ELO: 1240.104.
+[INFO] Football. Step: 1190000. Time Elapsed: 2082.026 s. Mean Reward: 2.472. Mean Group Reward: 0.000. Training. ELO: 1242.238.
+[INFO] Football. Step: 1200000. Time Elapsed: 2108.946 s. Mean Reward: 2.457. Mean Group Reward: 0.000. Training. ELO: 1245.438.
+[INFO] Football. Step: 1210000. Time Elapsed: 2128.642 s. Mean Reward: 2.269. Mean Group Reward: 0.000. Training. ELO: 1246.969.
+[INFO] Football. Step: 1220000. Time Elapsed: 2144.136 s. Mean Reward: 1.818. Mean Group Reward: 0.000. Training. ELO: 1249.876.
+[INFO] Football. Step: 1230000. Time Elapsed: 2159.270 s. Mean Reward: 1.727. Mean Group Reward: 0.000. Training. ELO: 1247.718.
+[INFO] Football. Step: 1240000. Time Elapsed: 2185.188 s. Mean Reward: 2.139. Mean Group Reward: 0.000. Training. ELO: 1247.895.
+[INFO] Football. Step: 1250000. Time Elapsed: 2200.876 s. Mean Reward: 2.050. Mean Group Reward: 0.000. Training. ELO: 1248.518.
+[INFO] Football. Step: 1260000. Time Elapsed: 2218.921 s. Mean Reward: 2.175. Mean Group Reward: 0.000. Training. ELO: 1250.643.
+[INFO] Football. Step: 1270000. Time Elapsed: 2229.424 s. Mean Reward: 2.056. Mean Group Reward: 0.000. Training. ELO: 1249.778.
+[INFO] Football. Step: 1280000. Time Elapsed: 2256.860 s. Mean Reward: 1.436. Mean Group Reward: 0.000. Training. ELO: 1248.649.
+[INFO] Football. Step: 1290000. Time Elapsed: 2273.066 s. Mean Reward: 1.545. Mean Group Reward: 0.000. Training. ELO: 1243.570.
+[INFO] Football. Step: 1300000. Time Elapsed: 2287.110 s. Mean Reward: 1.843. Mean Group Reward: 0.000. Training. ELO: 1243.304.
+[INFO] Football. Step: 1310000. Time Elapsed: 2305.099 s. Mean Reward: 1.078. Mean Group Reward: 0.000. Training. ELO: 1242.475.
+[INFO] Football. Step: 1320000. Time Elapsed: 2335.627 s. Mean Reward: 0.624. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1330000. Time Elapsed: 2351.717 s. Mean Reward: 1.440. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1340000. Time Elapsed: 2366.813 s. Mean Reward: 2.608. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1350000. Time Elapsed: 2381.679 s. Mean Reward: 1.031. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1360000. Time Elapsed: 2409.455 s. Mean Reward: 2.409. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1370000. Time Elapsed: 2426.209 s. Mean Reward: 2.249. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1380000. Time Elapsed: 2439.727 s. Mean Reward: 1.978. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1390000. Time Elapsed: 2456.495 s. Mean Reward: 1.488. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1400000. Time Elapsed: 2473.699 s. Mean Reward: 1.275. Mean Group Reward: 0.000. Training. ELO: 1242.426.
+[INFO] Football. Step: 1410000. Time Elapsed: 2506.766 s. Mean Reward: 1.991. Mean Group Reward: 0.000. Training. ELO: 1243.376.
+[INFO] Football. Step: 1420000. Time Elapsed: 2522.693 s. Mean Reward: 2.259. Mean Group Reward: 0.000. Training. ELO: 1249.069.
+[INFO] Football. Step: 1430000. Time Elapsed: 2539.007 s. Mean Reward: 1.556. Mean Group Reward: 0.000. Training. ELO: 1247.956.
+[INFO] Football. Step: 1440000. Time Elapsed: 2557.184 s. Mean Reward: 2.353. Mean Group Reward: 0.000. Training. ELO: 1250.375.
+[INFO] Football. Step: 1450000. Time Elapsed: 2584.782 s. Mean Reward: 2.279. Mean Group Reward: 0.000. Training. ELO: 1252.835.
+[INFO] Football. Step: 1460000. Time Elapsed: 2600.242 s. Mean Reward: 3.111. Mean Group Reward: 0.000. Training. ELO: 1258.496.
+[INFO] Football. Step: 1470000. Time Elapsed: 2616.421 s. Mean Reward: 2.643. Mean Group Reward: 0.000. Training. ELO: 1262.911.
+[INFO] Football. Step: 1480000. Time Elapsed: 2630.687 s. Mean Reward: 1.627. Mean Group Reward: 0.000. Training. ELO: 1265.724.
+[INFO] Football. Step: 1490000. Time Elapsed: 2657.729 s. Mean Reward: 2.102. Mean Group Reward: 0.000. Training. ELO: 1263.383.
+[INFO] Football. Step: 1500000. Time Elapsed: 2673.551 s. Mean Reward: 2.305. Mean Group Reward: 0.000. Training. ELO: 1262.700.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-1499848.onnx
+[INFO] Football. Step: 1510000. Time Elapsed: 2692.373 s. Mean Reward: 1.071. Mean Group Reward: 0.000. Training. ELO: 1258.482.
+[INFO] Football. Step: 1520000. Time Elapsed: 2708.002 s. Mean Reward: 1.818. Mean Group Reward: 0.000. Training. ELO: 1255.297.
+[INFO] Football. Step: 1530000. Time Elapsed: 2737.431 s. Mean Reward: 2.436. Mean Group Reward: 0.000. Training. ELO: 1258.375.
+[INFO] Football. Step: 1540000. Time Elapsed: 2753.501 s. Mean Reward: 1.732. Mean Group Reward: 0.000. Training. ELO: 1255.864.
+[INFO] Football. Step: 1550000. Time Elapsed: 2769.807 s. Mean Reward: 2.044. Mean Group Reward: 0.000. Training. ELO: 1256.606.
+[INFO] Football. Step: 1560000. Time Elapsed: 2787.298 s. Mean Reward: 2.715. Mean Group Reward: 0.000. Training. ELO: 1257.477.
+[INFO] Football. Step: 1570000. Time Elapsed: 2816.278 s. Mean Reward: 2.461. Mean Group Reward: 0.000. Training. ELO: 1262.912.
+[INFO] Football. Step: 1580000. Time Elapsed: 2832.708 s. Mean Reward: 1.898. Mean Group Reward: 0.000. Training. ELO: 1264.168.
+[INFO] Football. Step: 1590000. Time Elapsed: 2848.898 s. Mean Reward: 2.011. Mean Group Reward: 0.000. Training. ELO: 1262.312.
+[INFO] Football. Step: 1600000. Time Elapsed: 2864.421 s. Mean Reward: 1.623. Mean Group Reward: 0.000. Training. ELO: 1260.038.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-1600260.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football\Football-1600260.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\Football_MAPPO_01\Football.onnx.

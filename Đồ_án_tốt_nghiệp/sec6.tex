@@ -201,7 +201,7 @@ thưởng thực đo của bốn thuật toán, còn Bảng~\ref{tab:ctr_results
 
 \begin{table}[H]
 \centering
-\caption{Kết quả bốn thuật toán trên môi trường Cross The Road}
+\caption{Kết quả năm thuật toán trên môi trường Cross The Road}
 \label{tab:ctr_results}
 \renewcommand{\arraystretch}{1.35}
 \tablefont
@@ -213,13 +213,15 @@ thưởng thực đo của bốn thuật toán, còn Bảng~\ref{tab:ctr_results
 \hline
 \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Bước hội tụ} & \textbf{Độ dài lượt chơi} \\
 \hline
-PPO & 2,00M & $0{,}703$ & $0{,}737$ & $\sim$1,02M & $76{,}5$ \\
+PPO & 2,00M & $0{,}690$ & $1{,}000$ & $\sim$1,97M & $811{,}6$ \\
 \hline
-SAC & 0,20M & $0{,}818$ & $0{,}860$ & $\sim$150K & $67{,}7$ \\
+SAC & 2,00M & $0{,}846$ & $0{,}914$ & $\sim$1,79M & $61{,}8$ \\
 \hline
-MA-POCA & 2,00M & $0{,}655$ & $0{,}672$ & $\sim$1,22M & $45{,}3$ \\
+MA-POCA & 2,00M & $0{,}556$ & $0{,}616$ & $\sim$450K & $42{,}2$ \\
 \hline
-MAPPO & 2,00M & $0{,}567$ & $0{,}628$ & $\sim$700K & $42{,}4$ \\
+MAPPO & 2,00M & $0{,}835$ & $0{,}900$ & $\sim$1,72M & $52{,}0$ \\
+\hline
+DQN & 2,00M & $0{,}336$ & $0{,}633$ & $\sim$2,00M & $124{,}7$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -404,7 +406,7 @@ bày kết quả tương ứng.\par}
 
 \begin{table}[H]
 \centering
-\caption{Kết quả hai thuật toán trên môi trường Capture The Flag}
+\caption{Kết quả năm thuật toán trên môi trường Capture The Flag}
 \label{tab:ctf_results}
 \renewcommand{\arraystretch}{1.35}
 \tablefont
@@ -416,9 +418,15 @@ bày kết quả tương ứng.\par}
 \hline
 \textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Bước hội tụ} & \textbf{Độ dài lượt chơi} \\
 \hline
-MA-POCA & 1,68M & $0{,}534$ & $0{,}828$ & $\sim$200K & $4999$ \\
+PPO & 1,70M & $0{,}834$ & $0{,}844$ & $\sim$180K & $292{,}9$ \\
 \hline
-MAPPO & 1,52M & $0{,}795$ & $0{,}818$ & $\sim$1,28M & $468$ \\
+SAC & 1,70M & $0{,}087$ & $0{,}092$ & $\sim$1,64M & $4999{,}0$ \\
+\hline
+MA-POCA & 1,70M & $0{,}838$ & $0{,}844$ & $\sim$540K & $174{,}3$ \\
+\hline
+MAPPO & 1,70M & $0{,}840$ & $0{,}852$ & $\sim$260K & $153{,}3$ \\
+\hline
+DQN & 1,70M & $0{,}800$ & $0{,}836$ & $\sim$1,04M & $2017{,}9$ \\
 \hline
 \end{tabular}
 \end{table}

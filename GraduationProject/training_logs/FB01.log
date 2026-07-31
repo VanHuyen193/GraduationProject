@@ -60,9 +60,9 @@
 	init_path:	None
 	keep_checkpoints:	10
 	even_checkpoints:	False
-	max_steps:	20000
+	max_steps:	1600000
 	time_horizon:	1000
-	summary_freq:	5000
+	summary_freq:	10000
 	threaded:	False
 	self_play:	
 	  save_steps:	50000
@@ -72,10 +72,168 @@
 	  play_against_latest_model_ratio:	0.5
 	  initial_elo:	1200.0
 	behavioral_cloning:	None
-[WARNING] The max steps of the GhostTrainer for behavior name Football is less than team change. This team will not face                 opposition that has been trained if the opposition is managed by a different GhostTrainer as in an                 asymmetric game.
-[INFO] Football. Step: 5000. Time Elapsed: 15.703 s. Mean Reward: 1.511. Std of Reward: 2.949. Training. ELO: 1198.897.
-[INFO] Football. Step: 10000. Time Elapsed: 22.035 s. Mean Reward: 1.050. Std of Reward: 2.934. Training. ELO: 1196.889.
-[INFO] Football. Step: 15000. Time Elapsed: 25.156 s. Mean Reward: 1.285. Std of Reward: 3.062. Training. ELO: 1196.775.
-[INFO] Football. Step: 20000. Time Elapsed: 31.620 s. Mean Reward: 2.987. Std of Reward: 2.770. Training. ELO: 1198.380.
-[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-20213.onnx
-[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-20213.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football.onnx.
+[INFO] Football. Step: 10000. Time Elapsed: 13.723 s. Mean Reward: 1.637. Std of Reward: 2.998. Training. ELO: 1198.780.
+[INFO] Football. Step: 20000. Time Elapsed: 22.621 s. Mean Reward: 2.788. Std of Reward: 2.872. Training. ELO: 1203.130.
+[INFO] Football. Step: 30000. Time Elapsed: 31.596 s. Mean Reward: 1.387. Std of Reward: 2.954. Training. ELO: 1203.168.
+[INFO] Football. Step: 40000. Time Elapsed: 40.085 s. Mean Reward: 1.040. Std of Reward: 2.885. Training. ELO: 1200.989.
+[INFO] Football. Step: 50000. Time Elapsed: 65.454 s. Mean Reward: 1.110. Std of Reward: 2.870. Training. ELO: 1195.836.
+[INFO] Football. Step: 60000. Time Elapsed: 81.080 s. Mean Reward: 2.498. Std of Reward: 2.995. Training. ELO: 1196.673.
+[INFO] Football. Step: 70000. Time Elapsed: 96.864 s. Mean Reward: 1.424. Std of Reward: 2.962. Training. ELO: 1197.222.
+[INFO] Football. Step: 80000. Time Elapsed: 112.759 s. Mean Reward: 1.401. Std of Reward: 2.988. Training. ELO: 1195.232.
+[INFO] Football. Step: 90000. Time Elapsed: 138.563 s. Mean Reward: 2.860. Std of Reward: 2.826. Training. ELO: 1199.544.
+[INFO] Football. Step: 100000. Time Elapsed: 152.608 s. Mean Reward: 1.234. Std of Reward: 2.917. Training. ELO: 1200.282.
+[INFO] Football. Step: 110000. Time Elapsed: 168.497 s. Mean Reward: 1.371. Std of Reward: 2.979. Training. ELO: 1196.733.
+[INFO] Football. Step: 120000. Time Elapsed: 182.462 s. Mean Reward: 1.984. Std of Reward: 2.998. Training. ELO: 1195.262.
+[INFO] Football. Step: 130000. Time Elapsed: 208.940 s. Mean Reward: 2.231. Std of Reward: 2.944. Training. ELO: 1198.650.
+[INFO] Football. Step: 140000. Time Elapsed: 223.040 s. Mean Reward: 1.721. Std of Reward: 3.018. Training. ELO: 1199.907.
+[INFO] Football. Step: 150000. Time Elapsed: 239.593 s. Mean Reward: 1.801. Std of Reward: 3.049. Training. ELO: 1200.860.
+[INFO] Football. Step: 160000. Time Elapsed: 250.605 s. Mean Reward: 1.306. Std of Reward: 3.029. Training. ELO: 1197.267.
+[INFO] Football. Step: 170000. Time Elapsed: 277.736 s. Mean Reward: 2.412. Std of Reward: 2.923. Training. ELO: 1200.816.
+[INFO] Football. Step: 180000. Time Elapsed: 290.517 s. Mean Reward: 0.395. Std of Reward: 2.690. Training. ELO: 1199.863.
+[INFO] Football. Step: 190000. Time Elapsed: 303.084 s. Mean Reward: 2.184. Std of Reward: 2.971. Training. ELO: 1197.122.
+[INFO] Football. Step: 200000. Time Elapsed: 317.221 s. Mean Reward: 2.071. Std of Reward: 2.948. Training. ELO: 1199.269.
+[INFO] Football. Step: 210000. Time Elapsed: 344.672 s. Mean Reward: 2.174. Std of Reward: 2.980. Training. ELO: 1200.820.
+[INFO] Football. Step: 220000. Time Elapsed: 358.413 s. Mean Reward: 3.044. Std of Reward: 2.770. Training. ELO: 1200.820.
+[INFO] Football. Step: 230000. Time Elapsed: 372.569 s. Mean Reward: 1.760. Std of Reward: 2.997. Training. ELO: 1200.820.
+[INFO] Football. Step: 240000. Time Elapsed: 384.561 s. Mean Reward: 1.763. Std of Reward: 2.968. Training. ELO: 1200.820.
+[INFO] Football. Step: 250000. Time Elapsed: 410.878 s. Mean Reward: 0.919. Std of Reward: 2.906. Training. ELO: 1200.820.
+[INFO] Football. Step: 260000. Time Elapsed: 424.783 s. Mean Reward: 2.530. Std of Reward: 2.930. Training. ELO: 1200.820.
+[INFO] Football. Step: 270000. Time Elapsed: 438.729 s. Mean Reward: 1.617. Std of Reward: 2.986. Training. ELO: 1200.820.
+[INFO] Football. Step: 280000. Time Elapsed: 455.347 s. Mean Reward: 3.047. Std of Reward: 2.691. Training. ELO: 1200.820.
+[INFO] Football. Step: 290000. Time Elapsed: 483.729 s. Mean Reward: 1.705. Std of Reward: 3.054. Training. ELO: 1200.820.
+[INFO] Football. Step: 300000. Time Elapsed: 499.549 s. Mean Reward: 0.831. Std of Reward: 2.853. Training. ELO: 1200.820.
+[INFO] Football. Step: 310000. Time Elapsed: 515.977 s. Mean Reward: 1.179. Std of Reward: 2.910. Training. ELO: 1199.693.
+[INFO] Football. Step: 320000. Time Elapsed: 532.259 s. Mean Reward: 1.672. Std of Reward: 3.013. Training. ELO: 1196.542.
+[INFO] Football. Step: 330000. Time Elapsed: 560.708 s. Mean Reward: 2.628. Std of Reward: 2.950. Training. ELO: 1198.773.
+[INFO] Football. Step: 340000. Time Elapsed: 574.476 s. Mean Reward: 1.434. Std of Reward: 3.022. Training. ELO: 1200.482.
+[INFO] Football. Step: 350000. Time Elapsed: 587.999 s. Mean Reward: 2.322. Std of Reward: 2.939. Training. ELO: 1201.809.
+[INFO] Football. Step: 360000. Time Elapsed: 603.104 s. Mean Reward: 2.234. Std of Reward: 2.978. Training. ELO: 1203.219.
+[INFO] Football. Step: 370000. Time Elapsed: 630.564 s. Mean Reward: 3.258. Std of Reward: 2.608. Training. ELO: 1209.190.
+[INFO] Football. Step: 380000. Time Elapsed: 646.769 s. Mean Reward: 2.696. Std of Reward: 2.889. Training. ELO: 1213.683.
+[INFO] Football. Step: 390000. Time Elapsed: 658.648 s. Mean Reward: 2.150. Std of Reward: 2.963. Training. ELO: 1217.408.
+[INFO] Football. Step: 400000. Time Elapsed: 675.906 s. Mean Reward: 2.393. Std of Reward: 2.955. Training. ELO: 1217.235.
+[INFO] Football. Step: 410000. Time Elapsed: 693.083 s. Mean Reward: 1.987. Std of Reward: 3.000. Training. ELO: 1218.271.
+[INFO] Football. Step: 420000. Time Elapsed: 724.596 s. Mean Reward: 1.814. Std of Reward: 2.977. Training. ELO: 1217.562.
+[INFO] Football. Step: 430000. Time Elapsed: 738.320 s. Mean Reward: 2.105. Std of Reward: 2.954. Training. ELO: 1217.927.
+[INFO] Football. Step: 440000. Time Elapsed: 753.792 s. Mean Reward: 1.905. Std of Reward: 2.991. Training. ELO: 1219.312.
+[INFO] Football. Step: 450000. Time Elapsed: 767.385 s. Mean Reward: 2.089. Std of Reward: 3.030. Training. ELO: 1217.685.
+[INFO] Football. Step: 460000. Time Elapsed: 796.698 s. Mean Reward: 1.981. Std of Reward: 2.981. Training. ELO: 1217.619.
+[INFO] Football. Step: 470000. Time Elapsed: 812.996 s. Mean Reward: 2.775. Std of Reward: 2.865. Training. ELO: 1222.285.
+[INFO] Football. Step: 480000. Time Elapsed: 828.119 s. Mean Reward: 1.647. Std of Reward: 3.036. Training. ELO: 1222.667.
+[INFO] Football. Step: 490000. Time Elapsed: 844.595 s. Mean Reward: 1.800. Std of Reward: 2.957. Training. ELO: 1221.363.
+[INFO] Football. Step: 500000. Time Elapsed: 871.459 s. Mean Reward: 2.276. Std of Reward: 2.969. Training. ELO: 1221.094.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-499750.onnx
+[INFO] Football. Step: 510000. Time Elapsed: 888.037 s. Mean Reward: 2.849. Std of Reward: 2.814. Training. ELO: 1223.313.
+[INFO] Football. Step: 520000. Time Elapsed: 902.791 s. Mean Reward: 2.736. Std of Reward: 2.857. Training. ELO: 1230.325.
+[INFO] Football. Step: 530000. Time Elapsed: 916.530 s. Mean Reward: 2.930. Std of Reward: 2.784. Training. ELO: 1233.965.
+[INFO] Football. Step: 540000. Time Elapsed: 941.847 s. Mean Reward: 2.496. Std of Reward: 2.931. Training. ELO: 1235.163.
+[INFO] Football. Step: 550000. Time Elapsed: 954.879 s. Mean Reward: 2.210. Std of Reward: 2.954. Training. ELO: 1237.574.
+[INFO] Football. Step: 560000. Time Elapsed: 971.367 s. Mean Reward: 2.643. Std of Reward: 2.880. Training. ELO: 1235.681.
+[INFO] Football. Step: 570000. Time Elapsed: 983.682 s. Mean Reward: 2.540. Std of Reward: 2.937. Training. ELO: 1238.745.
+[INFO] Football. Step: 580000. Time Elapsed: 1009.268 s. Mean Reward: 1.687. Std of Reward: 3.014. Training. ELO: 1237.876.
+[INFO] Football. Step: 590000. Time Elapsed: 1021.456 s. Mean Reward: 2.375. Std of Reward: 2.962. Training. ELO: 1235.898.
+[INFO] Football. Step: 600000. Time Elapsed: 1035.129 s. Mean Reward: 2.358. Std of Reward: 2.973. Training. ELO: 1236.426.
+[INFO] Football. Step: 610000. Time Elapsed: 1049.250 s. Mean Reward: 2.207. Std of Reward: 3.005. Training. ELO: 1238.014.
+[INFO] Football. Step: 620000. Time Elapsed: 1073.798 s. Mean Reward: 2.645. Std of Reward: 2.815. Training. ELO: 1239.151.
+[INFO] Football. Step: 630000. Time Elapsed: 1088.895 s. Mean Reward: 3.548. Std of Reward: 2.393. Training. ELO: 1243.208.
+[INFO] Football. Step: 640000. Time Elapsed: 1099.683 s. Mean Reward: 3.157. Std of Reward: 2.660. Training. ELO: 1248.522.
+[INFO] Football. Step: 650000. Time Elapsed: 1113.763 s. Mean Reward: 3.003. Std of Reward: 2.803. Training. ELO: 1252.926.
+[INFO] Football. Step: 660000. Time Elapsed: 1138.883 s. Mean Reward: 2.523. Std of Reward: 2.923. Training. ELO: 1254.062.
+[INFO] Football. Step: 670000. Time Elapsed: 1157.165 s. Mean Reward: 1.732. Std of Reward: 2.995. Training. ELO: 1250.284.
+[INFO] Football. Step: 680000. Time Elapsed: 1172.195 s. Mean Reward: 2.801. Std of Reward: 2.819. Training. ELO: 1248.548.
+[INFO] Football. Step: 690000. Time Elapsed: 1188.165 s. Mean Reward: 2.374. Std of Reward: 2.971. Training. ELO: 1250.237.
+[INFO] Football. Step: 700000. Time Elapsed: 1203.769 s. Mean Reward: 1.678. Std of Reward: 3.039. Training. ELO: 1246.477.
+[INFO] Football. Step: 710000. Time Elapsed: 1232.492 s. Mean Reward: 1.645. Std of Reward: 2.978. Training. ELO: 1246.821.
+[INFO] Football. Step: 720000. Time Elapsed: 1248.745 s. Mean Reward: 2.315. Std of Reward: 2.996. Training. ELO: 1244.812.
+[INFO] Football. Step: 730000. Time Elapsed: 1262.073 s. Mean Reward: 0.854. Std of Reward: 2.868. Training. ELO: 1244.965.
+[INFO] Football. Step: 740000. Time Elapsed: 1275.436 s. Mean Reward: 2.352. Std of Reward: 2.960. Training. ELO: 1245.327.
+[INFO] Football. Step: 750000. Time Elapsed: 1300.396 s. Mean Reward: 1.420. Std of Reward: 2.967. Training. ELO: 1245.689.
+[INFO] Football. Step: 760000. Time Elapsed: 1314.453 s. Mean Reward: 2.665. Std of Reward: 2.849. Training. ELO: 1246.969.
+[INFO] Football. Step: 770000. Time Elapsed: 1327.904 s. Mean Reward: 1.410. Std of Reward: 2.979. Training. ELO: 1249.821.
+[INFO] Football. Step: 780000. Time Elapsed: 1341.269 s. Mean Reward: 1.594. Std of Reward: 2.983. Training. ELO: 1249.181.
+[INFO] Football. Step: 790000. Time Elapsed: 1368.008 s. Mean Reward: 1.958. Std of Reward: 3.016. Training. ELO: 1248.453.
+[INFO] Football. Step: 800000. Time Elapsed: 1382.213 s. Mean Reward: 2.071. Std of Reward: 3.001. Training. ELO: 1249.927.
+[INFO] Football. Step: 810000. Time Elapsed: 1396.308 s. Mean Reward: 1.595. Std of Reward: 3.025. Training. ELO: 1249.923.
+[INFO] Football. Step: 820000. Time Elapsed: 1410.709 s. Mean Reward: 2.466. Std of Reward: 2.948. Training. ELO: 1249.910.
+[INFO] Football. Step: 830000. Time Elapsed: 1436.148 s. Mean Reward: 1.760. Std of Reward: 2.976. Training. ELO: 1249.910.
+[INFO] Football. Step: 840000. Time Elapsed: 1451.313 s. Mean Reward: 1.746. Std of Reward: 3.018. Training. ELO: 1249.910.
+[INFO] Football. Step: 850000. Time Elapsed: 1463.245 s. Mean Reward: 1.574. Std of Reward: 2.998. Training. ELO: 1249.910.
+[INFO] Football. Step: 860000. Time Elapsed: 1477.051 s. Mean Reward: 1.309. Std of Reward: 2.968. Training. ELO: 1249.910.
+[INFO] Football. Step: 870000. Time Elapsed: 1502.157 s. Mean Reward: 2.814. Std of Reward: 2.795. Training. ELO: 1249.910.
+[INFO] Football. Step: 880000. Time Elapsed: 1517.032 s. Mean Reward: 2.078. Std of Reward: 3.009. Training. ELO: 1249.910.
+[INFO] Football. Step: 890000. Time Elapsed: 1529.776 s. Mean Reward: 1.343. Std of Reward: 2.951. Training. ELO: 1249.910.
+[INFO] Football. Step: 900000. Time Elapsed: 1542.593 s. Mean Reward: 2.439. Std of Reward: 2.972. Training. ELO: 1249.910.
+[INFO] Football. Step: 910000. Time Elapsed: 1569.769 s. Mean Reward: 1.523. Std of Reward: 2.996. Training. ELO: 1248.444.
+[INFO] Football. Step: 920000. Time Elapsed: 1584.387 s. Mean Reward: 1.929. Std of Reward: 2.974. Training. ELO: 1245.322.
+[INFO] Football. Step: 930000. Time Elapsed: 1598.712 s. Mean Reward: 2.203. Std of Reward: 2.966. Training. ELO: 1249.375.
+[INFO] Football. Step: 940000. Time Elapsed: 1614.640 s. Mean Reward: 1.836. Std of Reward: 3.003. Training. ELO: 1249.020.
+[INFO] Football. Step: 950000. Time Elapsed: 1640.208 s. Mean Reward: 2.438. Std of Reward: 2.940. Training. ELO: 1250.654.
+[INFO] Football. Step: 960000. Time Elapsed: 1655.252 s. Mean Reward: 1.863. Std of Reward: 2.991. Training. ELO: 1250.731.
+[INFO] Football. Step: 970000. Time Elapsed: 1670.585 s. Mean Reward: 2.367. Std of Reward: 2.929. Training. ELO: 1251.182.
+[INFO] Football. Step: 980000. Time Elapsed: 1683.366 s. Mean Reward: 0.942. Std of Reward: 2.897. Training. ELO: 1250.368.
+[INFO] Football. Step: 990000. Time Elapsed: 1711.012 s. Mean Reward: 1.920. Std of Reward: 2.990. Training. ELO: 1246.469.
+[INFO] Football. Step: 1000000. Time Elapsed: 1722.674 s. Mean Reward: 1.903. Std of Reward: 3.004. Training. ELO: 1246.590.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-999973.onnx
+[INFO] Football. Step: 1010000. Time Elapsed: 1740.730 s. Mean Reward: 2.037. Std of Reward: 3.014. Training. ELO: 1249.899.
+[INFO] Football. Step: 1020000. Time Elapsed: 1752.425 s. Mean Reward: 2.340. Std of Reward: 2.952. Training. ELO: 1251.523.
+[INFO] Football. Step: 1030000. Time Elapsed: 1780.086 s. Mean Reward: 1.856. Std of Reward: 3.002. Training. ELO: 1253.204.
+[INFO] Football. Step: 1040000. Time Elapsed: 1792.550 s. Mean Reward: 1.358. Std of Reward: 2.960. Training. ELO: 1252.165.
+[INFO] Football. Step: 1050000. Time Elapsed: 1808.791 s. Mean Reward: 1.517. Std of Reward: 2.998. Training. ELO: 1248.604.
+[INFO] Football. Step: 1060000. Time Elapsed: 1821.130 s. Mean Reward: 3.043. Std of Reward: 2.790. Training. ELO: 1252.557.
+[INFO] Football. Step: 1070000. Time Elapsed: 1836.286 s. Mean Reward: 2.236. Std of Reward: 2.954. Training. ELO: 1256.119.
+[INFO] Football. Step: 1080000. Time Elapsed: 1863.118 s. Mean Reward: 2.699. Std of Reward: 2.854. Training. ELO: 1260.524.
+[INFO] Football. Step: 1090000. Time Elapsed: 1874.559 s. Mean Reward: 1.459. Std of Reward: 2.977. Training. ELO: 1260.549.
+[INFO] Football. Step: 1100000. Time Elapsed: 1891.444 s. Mean Reward: 2.043. Std of Reward: 2.981. Training. ELO: 1260.640.
+[INFO] Football. Step: 1110000. Time Elapsed: 1908.012 s. Mean Reward: 1.923. Std of Reward: 2.999. Training. ELO: 1258.937.
+[INFO] Football. Step: 1120000. Time Elapsed: 1934.240 s. Mean Reward: 1.919. Std of Reward: 2.963. Training. ELO: 1258.865.
+[INFO] Football. Step: 1130000. Time Elapsed: 1947.139 s. Mean Reward: 1.202. Std of Reward: 2.900. Training. ELO: 1258.865.
+[INFO] Football. Step: 1140000. Time Elapsed: 1963.568 s. Mean Reward: 2.110. Std of Reward: 2.965. Training. ELO: 1258.865.
+[INFO] Football. Step: 1150000. Time Elapsed: 1979.503 s. Mean Reward: 2.060. Std of Reward: 2.993. Training. ELO: 1258.865.
+[INFO] Football. Step: 1160000. Time Elapsed: 2006.642 s. Mean Reward: 2.075. Std of Reward: 2.963. Training. ELO: 1258.865.
+[INFO] Football. Step: 1170000. Time Elapsed: 2022.342 s. Mean Reward: 2.115. Std of Reward: 3.038. Training. ELO: 1258.865.
+[INFO] Football. Step: 1180000. Time Elapsed: 2036.808 s. Mean Reward: 2.406. Std of Reward: 2.972. Training. ELO: 1258.865.
+[INFO] Football. Step: 1190000. Time Elapsed: 2054.068 s. Mean Reward: 1.920. Std of Reward: 3.019. Training. ELO: 1258.865.
+[INFO] Football. Step: 1200000. Time Elapsed: 2081.928 s. Mean Reward: 1.607. Std of Reward: 2.973. Training. ELO: 1258.865.
+[INFO] Football. Step: 1210000. Time Elapsed: 2103.886 s. Mean Reward: 1.025. Std of Reward: 2.850. Training. ELO: 1258.865.
+[INFO] Football. Step: 1220000. Time Elapsed: 2118.168 s. Mean Reward: 1.926. Std of Reward: 2.998. Training. ELO: 1258.865.
+[INFO] Football. Step: 1230000. Time Elapsed: 2136.022 s. Mean Reward: 2.188. Std of Reward: 2.980. Training. ELO: 1258.865.
+[INFO] Football. Step: 1240000. Time Elapsed: 2161.618 s. Mean Reward: 1.436. Std of Reward: 2.952. Training. ELO: 1258.865.
+[INFO] Football. Step: 1250000. Time Elapsed: 2178.327 s. Mean Reward: 1.115. Std of Reward: 2.912. Training. ELO: 1258.865.
+[INFO] Football. Step: 1260000. Time Elapsed: 2191.594 s. Mean Reward: 2.638. Std of Reward: 2.946. Training. ELO: 1258.865.
+[INFO] Football. Step: 1270000. Time Elapsed: 2208.453 s. Mean Reward: 1.579. Std of Reward: 3.007. Training. ELO: 1258.865.
+[INFO] Football. Step: 1280000. Time Elapsed: 2234.615 s. Mean Reward: 2.337. Std of Reward: 2.988. Training. ELO: 1258.865.
+[INFO] Football. Step: 1290000. Time Elapsed: 2251.529 s. Mean Reward: 2.114. Std of Reward: 3.021. Training. ELO: 1258.865.
+[INFO] Football. Step: 1300000. Time Elapsed: 2266.347 s. Mean Reward: 1.903. Std of Reward: 2.987. Training. ELO: 1258.865.
+[INFO] Football. Step: 1310000. Time Elapsed: 2284.305 s. Mean Reward: 1.699. Std of Reward: 3.043. Training. ELO: 1258.865.
+[INFO] Football. Step: 1320000. Time Elapsed: 2310.433 s. Mean Reward: 1.478. Std of Reward: 2.939. Training. ELO: 1258.865.
+[INFO] Football. Step: 1330000. Time Elapsed: 2324.717 s. Mean Reward: 2.455. Std of Reward: 3.001. Training. ELO: 1258.865.
+[INFO] Football. Step: 1340000. Time Elapsed: 2341.849 s. Mean Reward: 1.817. Std of Reward: 2.995. Training. ELO: 1258.865.
+[INFO] Football. Step: 1350000. Time Elapsed: 2356.569 s. Mean Reward: 1.987. Std of Reward: 2.999. Training. ELO: 1258.865.
+[INFO] Football. Step: 1360000. Time Elapsed: 2384.929 s. Mean Reward: 2.288. Std of Reward: 2.957. Training. ELO: 1258.865.
+[INFO] Football. Step: 1370000. Time Elapsed: 2397.996 s. Mean Reward: 1.661. Std of Reward: 3.000. Training. ELO: 1258.865.
+[INFO] Football. Step: 1380000. Time Elapsed: 2413.309 s. Mean Reward: 1.592. Std of Reward: 2.971. Training. ELO: 1258.865.
+[INFO] Football. Step: 1390000. Time Elapsed: 2431.587 s. Mean Reward: 2.571. Std of Reward: 2.964. Training. ELO: 1258.865.
+[INFO] Football. Step: 1400000. Time Elapsed: 2456.081 s. Mean Reward: 1.725. Std of Reward: 2.993. Training. ELO: 1258.865.
+[INFO] Football. Step: 1410000. Time Elapsed: 2473.859 s. Mean Reward: 1.164. Std of Reward: 2.889. Training. ELO: 1258.865.
+[INFO] Football. Step: 1420000. Time Elapsed: 2492.005 s. Mean Reward: 1.986. Std of Reward: 2.990. Training. ELO: 1258.865.
+[INFO] Football. Step: 1430000. Time Elapsed: 2504.212 s. Mean Reward: 2.186. Std of Reward: 3.023. Training. ELO: 1258.865.
+[INFO] Football. Step: 1440000. Time Elapsed: 2521.413 s. Mean Reward: 1.703. Std of Reward: 3.003. Training. ELO: 1258.865.
+[INFO] Football. Step: 1450000. Time Elapsed: 2547.963 s. Mean Reward: 1.827. Std of Reward: 2.997. Training. ELO: 1258.865.
+[INFO] Football. Step: 1460000. Time Elapsed: 2562.244 s. Mean Reward: 1.819. Std of Reward: 2.968. Training. ELO: 1258.865.
+[INFO] Football. Step: 1470000. Time Elapsed: 2578.946 s. Mean Reward: 1.435. Std of Reward: 2.967. Training. ELO: 1258.865.
+[INFO] Football. Step: 1480000. Time Elapsed: 2594.200 s. Mean Reward: 1.702. Std of Reward: 2.923. Training. ELO: 1258.865.
+[INFO] Football. Step: 1490000. Time Elapsed: 2624.468 s. Mean Reward: 2.052. Std of Reward: 2.993. Training. ELO: 1258.865.
+[INFO] Football. Step: 1500000. Time Elapsed: 2637.099 s. Mean Reward: 2.012. Std of Reward: 2.982. Training. ELO: 1258.865.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-1499784.onnx
+[INFO] Football. Step: 1510000. Time Elapsed: 2655.966 s. Mean Reward: 1.367. Std of Reward: 2.962. Training. ELO: 1258.865.
+[INFO] Football. Step: 1520000. Time Elapsed: 2671.334 s. Mean Reward: 1.754. Std of Reward: 2.997. Training. ELO: 1258.865.
+[INFO] Football. Step: 1530000. Time Elapsed: 2699.716 s. Mean Reward: 1.239. Std of Reward: 2.964. Training. ELO: 1258.865.
+[INFO] Football. Step: 1540000. Time Elapsed: 2714.419 s. Mean Reward: 1.126. Std of Reward: 2.897. Training. ELO: 1258.865.
+[INFO] Football. Step: 1550000. Time Elapsed: 2729.293 s. Mean Reward: 2.064. Std of Reward: 2.991. Training. ELO: 1258.865.
+[INFO] Football. Step: 1560000. Time Elapsed: 2745.794 s. Mean Reward: 1.727. Std of Reward: 3.025. Training. ELO: 1258.865.
+[INFO] Football. Step: 1570000. Time Elapsed: 2772.236 s. Mean Reward: 1.659. Std of Reward: 3.007. Training. ELO: 1258.865.
+[INFO] Football. Step: 1580000. Time Elapsed: 2788.753 s. Mean Reward: 1.545. Std of Reward: 2.980. Training. ELO: 1258.865.
+[INFO] Football. Step: 1590000. Time Elapsed: 2804.441 s. Mean Reward: 1.753. Std of Reward: 3.066. Training. ELO: 1258.865.
+[INFO] Football. Step: 1600000. Time Elapsed: 2817.651 s. Mean Reward: 1.980. Std of Reward: 3.015. Training. ELO: 1258.865.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-1600073.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football\Football-1600073.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\FB01\Football.onnx.

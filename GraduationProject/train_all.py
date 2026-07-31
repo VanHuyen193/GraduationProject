@@ -128,9 +128,17 @@ class Job:
 # 4". Sau khi can bang thi khong con dung nghia do nua (cac lan chay cu von
 # khong bang nhau). Gio 'full' chi con nghia la ngan sach dai.
 #
-#   * CTF khong duoc xuong duoi 1,5M: MAPPO chi giai duoc cau do tu ~1,28M buoc
-#     tro di, day la PHAT HIEN CHINH cua ca do an. Cat ngan hon thi duong cong
-#     khong bao gio the hien buoc ngoat.
+#   * CTF: ghi chu cu o day noi "khong duoc xuong duoi 1,5M vi MAPPO chi giai
+#     duoc cau do tu ~1,28M buoc tro di". Do dung voi cac lan chay CU (1 training
+#     area). Voi 8 area — cau hinh hien tai — dieu do KHONG con dung:
+#         reward tai 60K buoc : PPO 0.791 | MA-POCA 0.466 | MAPPO 0.756
+#         reward tai 1,62M    : PPO 0.837 | MA-POCA 0.844 | MAPPO 0.844
+#     Ca ba deu vuot curriculum sang Lesson1_Handoff rat som va ve cung mot muc,
+#     khong con buoc ngoat nao. Nhan 8 area lam moi lan cap nhat chinh sach nhan
+#     kinh nghiem tu 8 moi truong song song, batch da dang hon nen bai toan de
+#     hon han tinh theo so buoc.
+#     => So lieu moi KHONG ghep duoc voi chuong 4 cu. Da chon huong viet lai
+#        ket luan theo bo 8 area (quyet dinh ngay 30/07/2026).
 STEPS: dict[str, tuple[int, int]] = {
     #              full        reduced
     "crossroad": (2_000_000, 1_200_000),
@@ -167,8 +175,9 @@ JOBS: list[Job] = [
         "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
     Job("ctf_mappo", "capture", "MAPPO",   "ctf_mappo.yaml", "ctf_mappo_v2",
         "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE,
-        risky="Day la lan chay chua PHAT HIEN CHINH cua do an (buoc ngoat ~1,28M). "
-              "Neu ha STEPS['capture'] xuong duoi 1,5M thi duong cong mat buoc ngoat."),
+        risky="Voi 8 area, MAPPO khong con the hien buoc ngoat ~1,28M nhu cac lan "
+              "chay 1-area cu; ket qua gan nhu trung PPO va MA-POCA. Xem ghi chu "
+              "o khoi STEPS."),
     Job("ctf_dqn",   "capture", "DQN",     "ctf_dqn.yaml",   "ctf_dqn_v1",
         "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
 
@@ -501,6 +510,11 @@ def run_job(job: Job, args, idx: int, total: int) -> tuple[bool, float, int]:
 
     t0 = time.time()
     last_step = 0
+    # Moc bat dau THUC TE cua lan chay nay. Khi --resume, mlagents bao cao tu
+    # buoc cua checkpoint (vi du 1.000.000) chu khong tu 0; lay tong buoc chia
+    # thoi gian ke tu luc khoi dong lai se ra nhip vo nghia — da thay
+    # "67640 step/s, ETA 0:00:10" cho mot job con hon hai tieng nua moi xong.
+    base_step: int | None = None
     logf = LOG_DIR / f"{job.run_id}.log"
     proc = subprocess.Popen(cmd, cwd=str(PROJECT_DIR), stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT, text=True, bufsize=1,
@@ -512,8 +526,11 @@ def run_job(job: Job, args, idx: int, total: int) -> tuple[bool, float, int]:
                 m = STEP_RE.search(line)
                 if m:
                     last_step = int(m.group(1).replace(",", ""))
+                    if base_step is None:
+                        base_step = last_step
                     el = time.time() - t0
-                    sps = last_step / el if el > 0 else 0
+                    done_now = last_step - base_step
+                    sps = done_now / el if el > 0 and done_now > 0 else 0
                     eta = (steps - last_step) / sps if sps > 0 else 0
                     log(f"    {last_step:>10,} / {steps:,}  "
                         f"({100*last_step/steps:5.1f}%)  "
@@ -597,8 +614,18 @@ def main() -> int:
             return 1
         jobs = [j for j in jobs if j.algo == want]
     if args.jobs:
-        want = {s.strip() for s in args.jobs.split(",")}
-        jobs = [j for j in jobs if j.id in want]
+        # GIU DUNG THU TU nguoi dung go. Truoc day dung set roi loc theo JOBS nen
+        # thu tu goc luon thang — '--jobs fb_poca,ctf_dqn' van chay ctf_dqn truoc.
+        # Can thu tu that de xep job ngan chay truoc, thay vi de mot job 6 tieng
+        # chan ca hang doi.
+        want = [s.strip() for s in args.jobs.split(",") if s.strip()]
+        by_id = {j.id: j for j in jobs}
+        unknown = [w for w in want if w not in by_id]
+        if unknown:
+            log(f"--jobs co id la: {', '.join(unknown)}. Hop le: "
+                f"{', '.join(j.id for j in JOBS)}", "ERROR")
+            return 1
+        jobs = [by_id[w] for w in want]
     if args.skip:
         drop = {s.strip() for s in args.skip.split(",")}
         jobs = [j for j in jobs if j.id not in drop]

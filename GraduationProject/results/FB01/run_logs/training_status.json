@@ -1,0 +1,57 @@
+{
+    "Football": {
+        "checkpoints": [
+            {
+                "steps": 499750,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-499750.onnx",
+                "reward": 2.1754166781902313,
+                "creation_time": 1785386888.096938,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-499750.pt"
+                ]
+            },
+            {
+                "steps": 999973,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-999973.onnx",
+                "reward": 2.047470144736461,
+                "creation_time": 1785387739.2855973,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-999973.pt"
+                ]
+            },
+            {
+                "steps": 1499784,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-1499784.onnx",
+                "reward": 2.029034516934691,
+                "creation_time": 1785388653.7120817,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-1499784.pt"
+                ]
+            },
+            {
+                "steps": 1600073,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-1600073.onnx",
+                "reward": 1.700939657031626,
+                "creation_time": 1785388834.2718165,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-1600073.pt"
+                ]
+            }
+        ],
+        "elo": 1258.8647823368026,
+        "final_checkpoint": {
+            "steps": 1600073,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football.onnx",
+            "reward": 1.700939657031626,
+            "creation_time": 1785388834.2718165,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\FB01\\Football\\Football-1600073.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

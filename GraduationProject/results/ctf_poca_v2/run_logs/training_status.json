@@ -1,0 +1,59 @@
+{
+    "handoff_required": {
+        "lesson_num": 1
+    },
+    "PuzzleBehavior": {
+        "checkpoints": [
+            {
+                "steps": 499938,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-499938.onnx",
+                "reward": 0.755341529744328,
+                "creation_time": 1785377275.0457072,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-499938.pt"
+                ]
+            },
+            {
+                "steps": 999874,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-999874.onnx",
+                "reward": 0.8205760376760736,
+                "creation_time": 1785378207.5798516,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-999874.pt"
+                ]
+            },
+            {
+                "steps": 1499988,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-1499988.onnx",
+                "reward": 0.8418736367655749,
+                "creation_time": 1785379161.0828218,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-1499988.pt"
+                ]
+            },
+            {
+                "steps": 1700194,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-1700194.onnx",
+                "reward": 0.8317314400255942,
+                "creation_time": 1785379561.1859782,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-1700194.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1700194,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior.onnx",
+            "reward": 0.8317314400255942,
+            "creation_time": 1785379561.1859782,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_poca_v2\\PuzzleBehavior\\PuzzleBehavior-1700194.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "PuzzleBehavior": {
+        "checkpoints": [
+            {
+                "steps": 999936,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-999936.onnx",
+                "reward": null,
+                "creation_time": 1785461871.4086723,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-999936.pt"
+                ]
+            },
+            {
+                "steps": 1499904,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-1499904.onnx",
+                "reward": null,
+                "creation_time": 1785468254.0100274,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-1499904.pt"
+                ]
+            },
+            {
+                "steps": 1701376,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-1701376.onnx",
+                "reward": null,
+                "creation_time": 1785470975.1332183,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-1701376.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1701376,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior.onnx",
+            "reward": null,
+            "creation_time": 1785470975.1332183,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\ctf_sac_v1\\PuzzleBehavior\\PuzzleBehavior-1701376.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

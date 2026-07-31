@@ -21,6 +21,7 @@
   ml-agents-envs: 1.2.0.dev0,
   Communicator API: 1.5.0,
   PyTorch: 2.2.2+cu121
+[WARNING] Deleting TensorBoard data events.out.tfevents.1785379574.Admin-PC.8904.0 that was left over from a previous run.
 [INFO] Hyperparameters for behavior name PuzzleBehavior: 
 	trainer_type:	mappo
 	hyperparameters:	
@@ -71,9 +72,9 @@
 	init_path:	None
 	keep_checkpoints:	10
 	even_checkpoints:	False
-	max_steps:	20000
+	max_steps:	1700000
 	time_horizon:	128
-	summary_freq:	5000
+	summary_freq:	20000
 	threaded:	False
 	self_play:	None
 	behavioral_cloning:	None
@@ -81,11 +82,96 @@
 [INFO] Parameter 'handoff_required' is in lesson 'Lesson0_DoorOpen' and has value 'Float: value=0.0'.
 C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
   return func(*args, **kwargs)
-[INFO] PuzzleBehavior. Step: 5000. Time Elapsed: 8.654 s. No episode was completed since last summary. Training.
-[INFO] PuzzleBehavior. Step: 10000. Time Elapsed: 12.977 s. No episode was completed since last summary. Training.
-[INFO] PuzzleBehavior. Step: 15000. Time Elapsed: 19.322 s. No episode was completed since last summary. Training.
-[INFO] PuzzleBehavior. Step: 20000. Time Elapsed: 23.991 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 20000. Time Elapsed: 24.032 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 40000. Time Elapsed: 57.196 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 60000. Time Elapsed: 89.804 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 80000. Time Elapsed: 120.443 s. Mean Reward: 0.065. Mean Group Reward: -0.100. Training.
+[INFO] PuzzleBehavior. Step: 100000. Time Elapsed: 153.840 s. Mean Reward: -0.018. Mean Group Reward: -0.100. Training.
+[INFO] PuzzleBehavior. Step: 120000. Time Elapsed: 187.395 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 140000. Time Elapsed: 220.207 s. Mean Reward: 0.756. Mean Group Reward: 1.929. Training.
+[INFO] PuzzleBehavior. Step: 160000. Time Elapsed: 251.050 s. Mean Reward: 0.551. Mean Group Reward: 1.102. Training.
+[INFO] PuzzleBehavior. Step: 180000. Time Elapsed: 283.570 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 200000. Time Elapsed: 315.508 s. No episode was completed since last summary. Training.
+[INFO] PuzzleBehavior. Step: 220000. Time Elapsed: 348.288 s. Mean Reward: 0.591. Mean Group Reward: 0.909. Training.
+[INFO] PuzzleBehavior. Step: 240000. Time Elapsed: 388.244 s. Mean Reward: 0.582. Mean Group Reward: 0.405. Training.
+[INFO] PuzzleBehavior. Step: 260000. Time Elapsed: 425.770 s. Mean Reward: 0.815. Mean Group Reward: 1.956. Training.
+[INFO] PuzzleBehavior. Step: 280000. Time Elapsed: 460.469 s. Mean Reward: 0.841. Mean Group Reward: 1.960. Training.
+[INFO] PuzzleBehavior. Step: 300000. Time Elapsed: 493.260 s. Mean Reward: 0.811. Mean Group Reward: 1.974. Training.
+[INFO] PuzzleBehavior. Step: 320000. Time Elapsed: 525.926 s. Mean Reward: 0.795. Mean Group Reward: 1.939. Training.
+[INFO] PuzzleBehavior. Step: 340000. Time Elapsed: 560.502 s. Mean Reward: 0.814. Mean Group Reward: 1.956. Training.
+[INFO] Parameter 'handoff_required' is in lesson 'Lesson1_Handoff' and has value 'Float: value=1.0'.
+[INFO] PuzzleBehavior. Step: 360000. Time Elapsed: 583.853 s. Mean Reward: 0.820. Mean Group Reward: 1.973. Training.
+[INFO] PuzzleBehavior. Step: 380000. Time Elapsed: 618.854 s. Mean Reward: 0.804. Mean Group Reward: 1.962. Training.
+[INFO] PuzzleBehavior. Step: 400000. Time Elapsed: 652.131 s. Mean Reward: 0.804. Mean Group Reward: 2.960. Training.
+[INFO] PuzzleBehavior. Step: 420000. Time Elapsed: 692.285 s. Mean Reward: 0.852. Mean Group Reward: 2.945. Training.
+[INFO] PuzzleBehavior. Step: 440000. Time Elapsed: 732.255 s. Mean Reward: 0.812. Mean Group Reward: 2.936. Training.
+[INFO] PuzzleBehavior. Step: 460000. Time Elapsed: 768.093 s. Mean Reward: 0.779. Mean Group Reward: 2.959. Training.
+[INFO] PuzzleBehavior. Step: 480000. Time Elapsed: 802.636 s. Mean Reward: 0.800. Mean Group Reward: 2.967. Training.
+[INFO] PuzzleBehavior. Step: 500000. Time Elapsed: 836.034 s. Mean Reward: 0.791. Mean Group Reward: 2.979. Training.
 C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1314: UserWarning: This model contains a squeeze operation on dimension 1. If the model is intended to be used with dynamic input shapes, please use opset version 11 to export the model.
   warnings.warn(
-[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-20480.onnx
-[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-20480.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior.onnx.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-499876.onnx
+[INFO] PuzzleBehavior. Step: 520000. Time Elapsed: 871.877 s. Mean Reward: 0.803. Mean Group Reward: 2.982. Training.
+[INFO] PuzzleBehavior. Step: 540000. Time Elapsed: 906.895 s. Mean Reward: 0.812. Mean Group Reward: 2.986. Training.
+[INFO] PuzzleBehavior. Step: 560000. Time Elapsed: 941.878 s. Mean Reward: 0.793. Mean Group Reward: 2.984. Training.
+[INFO] PuzzleBehavior. Step: 580000. Time Elapsed: 977.337 s. Mean Reward: 0.831. Mean Group Reward: 2.987. Training.
+[INFO] PuzzleBehavior. Step: 600000. Time Elapsed: 1012.122 s. Mean Reward: 0.793. Mean Group Reward: 2.989. Training.
+[INFO] PuzzleBehavior. Step: 620000. Time Elapsed: 1048.098 s. Mean Reward: 0.818. Mean Group Reward: 2.989. Training.
+[INFO] PuzzleBehavior. Step: 640000. Time Elapsed: 1083.044 s. Mean Reward: 0.819. Mean Group Reward: 2.990. Training.
+[INFO] PuzzleBehavior. Step: 660000. Time Elapsed: 1118.138 s. Mean Reward: 0.829. Mean Group Reward: 2.991. Training.
+[INFO] PuzzleBehavior. Step: 680000. Time Elapsed: 1153.207 s. Mean Reward: 0.829. Mean Group Reward: 2.990. Training.
+[INFO] PuzzleBehavior. Step: 700000. Time Elapsed: 1188.929 s. Mean Reward: 0.830. Mean Group Reward: 2.991. Training.
+[INFO] PuzzleBehavior. Step: 720000. Time Elapsed: 1224.929 s. Mean Reward: 0.824. Mean Group Reward: 2.992. Training.
+[INFO] PuzzleBehavior. Step: 740000. Time Elapsed: 1259.592 s. Mean Reward: 0.809. Mean Group Reward: 2.992. Training.
+[INFO] PuzzleBehavior. Step: 760000. Time Elapsed: 1295.910 s. Mean Reward: 0.825. Mean Group Reward: 2.992. Training.
+[INFO] PuzzleBehavior. Step: 780000. Time Elapsed: 1333.415 s. Mean Reward: 0.810. Mean Group Reward: 2.974. Training.
+[INFO] PuzzleBehavior. Step: 800000. Time Elapsed: 1370.475 s. Mean Reward: 0.820. Mean Group Reward: 2.993. Training.
+[INFO] PuzzleBehavior. Step: 820000. Time Elapsed: 1409.700 s. Mean Reward: 0.833. Mean Group Reward: 2.993. Training.
+[INFO] PuzzleBehavior. Step: 840000. Time Elapsed: 1449.528 s. Mean Reward: 0.831. Mean Group Reward: 2.994. Training.
+[INFO] PuzzleBehavior. Step: 860000. Time Elapsed: 1489.068 s. Mean Reward: 0.824. Mean Group Reward: 2.993. Training.
+[INFO] PuzzleBehavior. Step: 880000. Time Elapsed: 1529.771 s. Mean Reward: 0.815. Mean Group Reward: 2.994. Training.
+[INFO] PuzzleBehavior. Step: 900000. Time Elapsed: 1569.087 s. Mean Reward: 0.829. Mean Group Reward: 2.994. Training.
+[INFO] PuzzleBehavior. Step: 920000. Time Elapsed: 1610.559 s. Mean Reward: 0.827. Mean Group Reward: 2.995. Training.
+[INFO] PuzzleBehavior. Step: 940000. Time Elapsed: 1655.048 s. Mean Reward: 0.823. Mean Group Reward: 2.995. Training.
+[INFO] PuzzleBehavior. Step: 960000. Time Elapsed: 1698.020 s. Mean Reward: 0.832. Mean Group Reward: 2.994. Training.
+[INFO] PuzzleBehavior. Step: 980000. Time Elapsed: 1740.990 s. Mean Reward: 0.833. Mean Group Reward: 2.995. Training.
+[INFO] PuzzleBehavior. Step: 1000000. Time Elapsed: 1783.554 s. Mean Reward: 0.829. Mean Group Reward: 2.994. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-999970.onnx
+[INFO] PuzzleBehavior. Step: 1020000. Time Elapsed: 1813.647 s. Mean Reward: 0.835. Mean Group Reward: 2.995. Training.
+[INFO] PuzzleBehavior. Step: 1040000. Time Elapsed: 1850.713 s. Mean Reward: 0.826. Mean Group Reward: 2.995. Training.
+[INFO] PuzzleBehavior. Step: 1060000. Time Elapsed: 1885.992 s. Mean Reward: 0.836. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1080000. Time Elapsed: 1925.465 s. Mean Reward: 0.838. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1100000. Time Elapsed: 1965.027 s. Mean Reward: 0.824. Mean Group Reward: 2.995. Training.
+[INFO] PuzzleBehavior. Step: 1120000. Time Elapsed: 2007.266 s. Mean Reward: 0.828. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1140000. Time Elapsed: 2043.893 s. Mean Reward: 0.811. Mean Group Reward: 2.924. Training.
+[INFO] PuzzleBehavior. Step: 1160000. Time Elapsed: 2080.372 s. Mean Reward: 0.839. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1180000. Time Elapsed: 2116.701 s. Mean Reward: 0.837. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1200000. Time Elapsed: 2153.927 s. Mean Reward: 0.830. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1220000. Time Elapsed: 2192.398 s. Mean Reward: 0.831. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1240000. Time Elapsed: 2235.911 s. Mean Reward: 0.840. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1260000. Time Elapsed: 2278.568 s. Mean Reward: 0.833. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1280000. Time Elapsed: 2314.611 s. Mean Reward: 0.838. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1300000. Time Elapsed: 2359.129 s. Mean Reward: 0.841. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1320000. Time Elapsed: 2401.838 s. Mean Reward: 0.846. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1340000. Time Elapsed: 2439.110 s. Mean Reward: 0.842. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1360000. Time Elapsed: 2476.717 s. Mean Reward: 0.836. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1380000. Time Elapsed: 2514.607 s. Mean Reward: 0.838. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1400000. Time Elapsed: 2551.553 s. Mean Reward: 0.845. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1420000. Time Elapsed: 2590.218 s. Mean Reward: 0.841. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1440000. Time Elapsed: 2626.404 s. Mean Reward: 0.845. Mean Group Reward: 2.996. Training.
+[INFO] PuzzleBehavior. Step: 1460000. Time Elapsed: 2663.666 s. Mean Reward: 0.840. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1480000. Time Elapsed: 2699.985 s. Mean Reward: 0.848. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1500000. Time Elapsed: 2738.479 s. Mean Reward: 0.843. Mean Group Reward: 2.997. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-1499978.onnx
+[INFO] PuzzleBehavior. Step: 1520000. Time Elapsed: 2775.778 s. Mean Reward: 0.842. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1540000. Time Elapsed: 2813.368 s. Mean Reward: 0.844. Mean Group Reward: 2.987. Training.
+[INFO] PuzzleBehavior. Step: 1560000. Time Elapsed: 2851.206 s. Mean Reward: 0.842. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1580000. Time Elapsed: 2895.807 s. Mean Reward: 0.843. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1600000. Time Elapsed: 2939.376 s. Mean Reward: 0.837. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1620000. Time Elapsed: 2976.767 s. Mean Reward: 0.844. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1640000. Time Elapsed: 3013.699 s. Mean Reward: 0.839. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1660000. Time Elapsed: 3052.479 s. Mean Reward: 0.840. Mean Group Reward: 2.989. Training.
+[INFO] PuzzleBehavior. Step: 1680000. Time Elapsed: 3091.312 s. Mean Reward: 0.839. Mean Group Reward: 2.997. Training.
+[INFO] PuzzleBehavior. Step: 1700000. Time Elapsed: 3129.327 s. Mean Reward: 0.841. Mean Group Reward: 2.997. Training.
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-1700236.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior\PuzzleBehavior-1700236.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctf_mappo_v2\PuzzleBehavior.onnx.

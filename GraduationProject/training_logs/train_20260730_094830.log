@@ -1,0 +1,42 @@
+09:48:30 [INFO] ──────────────────────────────────────────────────────────────────────
+09:48:30 [INFO] KIEM TRA TRUOC KHI CHAY
+09:48:30 [INFO] ──────────────────────────────────────────────────────────────────────
+09:48:30 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+09:48:30 [INFO] trainer plugins: default,a2c,dqn,mappo
+09:48:30 [WARN] [ctf_mappo] CANH BAO: Day la lan chay chua PHAT HIEN CHINH cua do an (buoc ngoat ~1,28M). Neu ha STEPS['capture'] xuong duoi 1,5M thi duong cong mat buoc ngoat.
+09:48:30 [WARN] --force: se GHI DE 1 thu muc run-id da co (ctf_mappo_v2)
+09:48:30 [INFO] Ket qua kiem tra: OK
+09:48:30 [INFO] ──────────────────────────────────────────────────────────────────────
+09:48:30 [INFO] Se chay 3 job, tong 4,900,000 buoc (ngan sach: full)
+09:48:30 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] [1/3]  fb_poca   MA-POCA @ football
+09:48:30 [INFO]         run-id  : Football_POCA_01
+09:48:30 [INFO]         config  : football_poca.yaml
+09:48:30 [INFO]         steps   : 1,600,000
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\Football_POCA_01_1600000.yaml --run-id Football_POCA_01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] [2/3]  ctf_mappo   MAPPO @ capture
+09:48:30 [INFO]         run-id  : ctf_mappo_v2
+09:48:30 [INFO]         config  : ctf_mappo.yaml
+09:48:30 [INFO]         steps   : 1,700,000
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_mappo_v2_1700000.yaml --run-id ctf_mappo_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] [3/3]  fb_ppo   PPO @ football
+09:48:30 [INFO]         run-id  : FB01
+09:48:30 [INFO]         config  : football_ppo.yaml
+09:48:30 [INFO]         steps   : 1,600,000
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\FB01_1600000.yaml --run-id FB01 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\Football\Football.exe --no-graphics --time-scale 20.0
+
+09:48:30 [INFO] ======================================================================
+09:48:30 [INFO] TONG KET  (0:00:00)
+09:48:30 [INFO]   Thanh cong : 3  ['fb_poca', 'ctf_mappo', 'fb_ppo']
+09:48:30 [INFO]   That bai   : 0  []
+09:48:30 [INFO] ======================================================================
+09:48:30 [ERROR] --jobs co id la: khong_co. Hop le: ctr_ppo, ctr_sac, ctr_poca, ctr_mappo, ctr_dqn, ctf_ppo, ctf_sac, ctf_poca, ctf_mappo, ctf_dqn, fb_ppo, fb_sac, fb_poca, fb_mappo, fb_dqn
