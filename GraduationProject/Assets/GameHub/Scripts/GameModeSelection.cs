@@ -41,6 +41,12 @@ namespace GameHub
         // LLM được chọn cho chế độ AgentVsLLM
         public static LLMOption LLM;
 
+        // Model đã chọn dùng action rời rạc (DQN). Chỉ có ý nghĩa với Football:
+        // các thuật toán khác trên môi trường này xuất model liên tục, còn Cross
+        // The Road và Capture The Flag vốn đã rời rạc cho cả năm thuật toán.
+        public static bool DiscreteActions;
+
+        /// <summary>Scene gốc dùng để huấn luyện môi trường.</summary>
         public static string SceneNameFor(GameEnvironment env)
         {
             switch (env)
@@ -50,6 +56,23 @@ namespace GameHub
                 case GameEnvironment.Football: return "Football";
                 default: return null;
             }
+        }
+
+        /// <summary>
+        /// Scene thực sự được nạp cho lựa chọn hiện tại. Không gian hành động được
+        /// "nướng" vào Behavior Parameters của scene và ML-Agents dựng bộ truyền
+        /// động ngay trong OnEnable, tức trước khi ứng dụng kịp can thiệp — nên
+        /// model DQN của Football phải chạy trên bản sao rời rạc của scene
+        /// (sinh bởi Tools ▸ Training ▸ Make FootballDiscrete Scene).
+        /// </summary>
+        public static string SceneToLoad()
+        {
+            if (Environment == GameEnvironment.Football && DiscreteActions)
+            {
+                return "FootballDiscrete";
+            }
+
+            return SceneNameFor(Environment);
         }
 
         public static string DisplayNameFor(GameEnvironment env)
@@ -87,6 +110,7 @@ namespace GameHub
             ModelA = null;
             ModelB = null;
             LLM = null;
+            DiscreteActions = false;
         }
     }
 }

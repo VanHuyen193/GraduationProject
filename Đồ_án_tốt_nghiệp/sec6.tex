@@ -1,12 +1,36 @@
 \fontsize{13pt}{22.5pt}\selectfont
 
-\section{KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ}
+\section{KIỂM CHỨNG MÔI TRƯỜNG QUA THỰC NGHIỆM}
 \label{ch:results}
 
-\indent Chương này trình bày kết quả của mười lăm lần huấn luyện, tương ứng với lưới đầy
-đủ năm thuật toán trên ba môi trường, và trả lời câu hỏi trung tâm của đề tài: thuật
-toán nào thắng ở đâu, và vì sao. Kết quả được đọc lần lượt theo từng môi trường, rồi mới
-đặt cạnh nhau để so sánh theo bốn tiêu chí ở Mục~\ref{sub:evalcriteria}. Có một điều cần
+\indent Chương~\ref{ch:design} đã trình bày đặc tả của ba môi trường. Nhưng một đặc tả
+chỉ tồn tại trên giấy cho tới khi có thứ gì đó học được trong nó: mã nguồn biên dịch
+được không nói lên rằng hàm phần thưởng dẫn tới hành vi ta muốn, và một môi trường hỏng
+thường không báo lỗi mà chỉ lặng lẽ dạy tác nhân điều khác. Chương này vì vậy dùng thực
+nghiệm để nghiệm thu ba môi trường đã xây dựng, dựa trên ba câu hỏi:
+
+\begin{itemize}
+    \item \textbf{Môi trường có học được không?} Nếu không thuật toán nào tiến bộ thì
+    khả năng cao lỗi nằm ở đặc tả - quan sát thiếu thông tin hoặc phần thưởng không dẫn
+    đường - chứ không ở thuật toán.
+    \item \textbf{Môi trường có phân biệt được không?} Nếu mọi thuật toán đều về đích
+    ngang nhau ở mức tối đa thì môi trường hoặc quá dễ, hoặc đang tồn tại một lối tắt
+    cho phép gom phần thưởng mà không giải nhiệm vụ. Một môi trường dùng được phải tách
+    được các hướng tiếp cận khác nhau thành thứ hạng \textit{giải thích được} bằng cơ
+    chế của bài toán.
+    \item \textbf{Kết quả có ổn định và tái lập được không?} Đường cong phải hội tụ chứ
+    không dao động vô hạn, và mọi lần chạy trên cùng một môi trường phải so sánh được
+    với nhau.
+\end{itemize}
+
+\indent Công cụ để trả lời ba câu hỏi đó là mười lăm lần huấn luyện, tương ứng với lưới
+đầy đủ năm thuật toán trên ba môi trường. Cần nhấn mạnh vai trò của năm thuật toán ở
+đây: chúng là \textit{phép thử} chứ không phải \textit{đối tượng} đánh giá. Việc dùng
+tới năm thuật toán khác hẳn nhau về nguyên lý - on-policy, off-policy, phê bình tập
+trung, dựa trên giá trị - là có chủ đích, vì một môi trường chỉ được kiểm chứng chắc
+chắn khi nó phản ứng nhất quán trước nhiều hướng tiếp cận độc lập, thay vì được điều
+chỉnh vừa khít cho đúng một thuật toán. Kết quả được đọc lần lượt theo từng môi trường,
+rồi mới đặt cạnh nhau theo bốn tiêu chí ở Mục~\ref{sub:evalcriteria}. Có một điều cần
 nói trước, vì nó chi phối cách đọc toàn bộ chương: trong cơ chế tự chơi, phần thưởng
 tuyệt đối là chỉ báo gây hiểu nhầm, nên mọi kết luận về Football Table đều dựa trên chỉ
 số ELO chứ không dựa trên phần thưởng.

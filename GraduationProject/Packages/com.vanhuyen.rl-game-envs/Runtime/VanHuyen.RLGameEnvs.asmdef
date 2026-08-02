@@ -1,0 +1,18 @@
+{
+    "name": "VanHuyen.RLGameEnvs",
+    "rootNamespace": "",
+    "references": [
+        "Unity.ML-Agents",
+        "Unity.InferenceEngine",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

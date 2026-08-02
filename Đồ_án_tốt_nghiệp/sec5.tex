@@ -3,13 +3,27 @@
 \section{THIẾT KẾ MÔI TRƯỜNG VÀ PHƯƠNG PHÁP THỰC NGHIỆM}
 \label{ch:design}
 
-\indent Chương này thuật lại quá trình biến ý tưởng của đề tài thành một hệ thống thực
-nghiệm chạy được. Phần đầu chương dành cho những gì áp dụng chung cho cả ba môi trường:
-kiến trúc huấn luyện, cách chọn quan sát và hành động, và bốn nguyên tắc thiết kế hàm
-phần thưởng mà mọi con số trong các bảng về sau đều phải giải thích được bằng chúng. Ba
-mục kế tiếp đi vào từng môi trường một. Chương khép lại bằng lối đi vòng qua Python
-Low-Level API - thứ mà đề tài buộc phải dùng đến vì trainer tích hợp sẵn không đáp ứng
-được - rồi tới thiết lập thực nghiệm và tiêu chí đánh giá.
+\indent Đây là chương trọng tâm của đồ án. Nếu phần khó nhất của một dự án học tăng
+cường nằm ở khâu xây dựng môi trường - như đã lập luận ở Mục~\ref{ch:intro} - thì
+chương này chính là nơi trình bày phần khó đó: quá trình biến ba ý tưởng trò chơi thành
+ba đặc tả mà tác nhân học được.
+
+\indent Trọng tâm được đặt vào \textit{lý do} của từng quyết định thiết kế chứ không
+chỉ vào kết quả cuối cùng. Với mỗi môi trường, chương trình bày đại lượng nào được đưa
+vào quan sát và vì sao đại lượng khác bị loại, phần thưởng được chia thành những thành
+phần nào và mỗi thành phần chống lại hành vi sai lệch cụ thể nào, cùng những đặc tả đã
+thử rồi phải bỏ. Phần cuối cùng này quan trọng không kém phần thành công: một hàm phần
+thưởng hỏng không làm chương trình báo lỗi, nó chỉ khiến tác nhân học sai, nên biết
+được dấu hiệu nhận ra nó có giá trị thực dụng cao hơn là chép lại một cấu hình đã chạy
+được.
+
+\indent Bố cục chương như sau. Phần đầu dành cho những gì áp dụng chung cho cả ba môi
+trường: kiến trúc huấn luyện, cách chọn quan sát và hành động, và bốn nguyên tắc thiết
+kế hàm phần thưởng mà mọi con số trong các bảng về sau đều phải giải thích được bằng
+chúng. Ba mục kế tiếp đi vào từng môi trường một. Chương khép lại bằng lối đi vòng qua
+Python Low-Level API - thứ mà đề tài buộc phải dùng đến vì trainer tích hợp sẵn không
+đáp ứng được - rồi tới thiết lập thực nghiệm và tiêu chí đánh giá dùng để nghiệm thu ba
+môi trường ở Chương~\ref{ch:results}.
 
 % ═══════════════════════════════════════════════
 \subsection{Tổng quan thiết kế hệ thống}
@@ -27,8 +41,9 @@ theo từng bước thời gian thông qua giao thức truyền thông nội b�
 {\sloppy
 \indent Ba môi trường của đề tài được tổ chức thành ba khu vực độc lập trong cùng một
 dự án Unity, tương ứng với ba thư mục \texttt{Assets/\allowbreak Football},
-\texttt{Assets/\allowbreak Collaboration} và \texttt{Assets/\allowbreak CrossTheRoad}.
-Mỗi môi trường được gắn
+\texttt{Assets/\allowbreak Collaboration} và \texttt{Assets/\allowbreak CrossTheRoad};
+riêng phần mã điều khiển của cả ba đã được tách ra thành một gói dùng lại được, trình
+bày ở Mục~\ref{sub:app-package}. Mỗi môi trường được gắn
 với một loại hành vi riêng, lần lượt mang tên \texttt{Football}, \texttt{PuzzleBehavior}
 và \texttt{CrossTheRoad}. Việc tách biệt này cho phép huấn luyện từng môi trường một
 cách độc lập mà không gây nhiễu lẫn nhau, đồng thời giúp việc nạp đúng tệp cấu hình
@@ -1244,10 +1259,10 @@ khả dĩ, và lựa chọn giữa chúng quyết định luôn chất lượng 
 với môi trường Unity qua giao diện lập trình cấp thấp và dùng một thư viện học tăng
 cường bên ngoài. Con đường còn lại là giữ nguyên chương trình huấn luyện, chỉ bổ sung
 thuật toán mới dưới dạng trainer mở rộng. Đề tài chọn con đường thứ hai cho cả MAPPO
-lẫn DQN, vì một lý do có tính quyết định đối với mục tiêu so sánh: chỉ khi cả năm thuật
-toán chạy trên cùng một đường ống thu thập quỹ đạo, cùng một cách ghi nhật ký và cùng
-một định dạng mô hình xuất ra, thì chênh lệch đo được giữa chúng mới quy được cho bản
-thân thuật toán chứ không cho sự khác biệt của hạ tầng đo.
+lẫn DQN, vì một lý do có tính quyết định đối với mục tiêu kiểm chứng môi trường: chỉ khi
+cả năm thuật toán chạy trên cùng một đường ống thu thập quỹ đạo, cùng một cách ghi nhật
+ký và cùng một định dạng mô hình xuất ra, thì chênh lệch đo được giữa chúng mới phản ánh
+đặc tính của môi trường chứ không phản ánh sự khác biệt của hạ tầng đo.
 
 \subsubsection{Bổ sung thuật toán bằng cơ chế trainer mở rộng}
 \label{sub:pyapi}

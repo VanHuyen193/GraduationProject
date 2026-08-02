@@ -7,7 +7,8 @@ namespace GameHub
 {
     /// <summary>
     /// Menu chính: xem trước môi trường 3D tương tác (carousel), chọn chế độ chơi &
-    /// model, xem thông số huấn luyện thật và so sánh các thuật toán (PPO/SAC/MA-POCA).
+    /// model, xem thông số huấn luyện thật và so sánh năm thuật toán
+    /// (PPO / SAC / MA-POCA / MAPPO / DQN) trên cả ba môi trường.
     /// </summary>
     public class MainMenuUI : MonoBehaviour
     {
@@ -65,13 +66,26 @@ namespace GameHub
         private Text statsTitle, statsYMax, statsYMin, statsXMax, statsEmpty;
         private UILineChart chart;
         private RectTransform legendRow;
-        private readonly Text[] tableCells = new Text[36]; // 6 hàng x 6 cột
+        // 6 hàng x 6 cột = 1 hàng tiêu đề + 5 thuật toán (PPO/SAC/MA-POCA/MAPPO/DQN)
+        private readonly Text[] tableCells = new Text[36];
 
         private readonly GameEnvironment[] allEnvs =
         {
             GameEnvironment.CrossTheRoad,
             GameEnvironment.CaptureTheFlag,
             GameEnvironment.Football,
+        };
+
+        /// <summary>
+        /// Các chế độ được chào trong menu. <see cref="PlayMode.AgentVsLLM"/> nằm
+        /// ngoài phạm vi bản trình diễn nên không xuất hiện ở lưới chọn chế độ, dù
+        /// phần mã điều khiển bằng LLM vẫn còn trong nguồn.
+        /// </summary>
+        private static readonly PlayMode[] SelectableModes =
+        {
+            PlayMode.Player,
+            PlayMode.Agent,
+            PlayMode.PlayerWithAgent,
         };
 
         private void Start()
@@ -147,7 +161,8 @@ namespace GameHub
 
             Text footer = UIBuilder.CreateText(
                 bg, "Footer",
-                "Đồ án tốt nghiệp  •  So sánh PPO / SAC / MA-POCA trên 3 môi trường Unity ML-Agents",
+                "Đồ án tốt nghiệp  •  So sánh PPO / SAC / MA-POCA / MAPPO / DQN "
+                + "trên 3 môi trường Unity ML-Agents  •  15 model đã huấn luyện",
                 17, MutedColor);
             UIBuilder.Place((RectTransform)footer.transform,
                 new Vector2(0.5f, 0f), new Vector2(0, 26), new Vector2(1700, 26));
@@ -296,15 +311,16 @@ namespace GameHub
 
             RectTransform grid = UIBuilder.CreateGroup(playView, "ModeGrid");
             UIBuilder.Place(grid,
-                new Vector2(0.5f, 1f), new Vector2(rx, -294), new Vector2(752, 138));
+                new Vector2(0.5f, 1f), new Vector2(rx, -262), new Vector2(752, 62));
+            // Ba chế độ xếp trên một hàng để lưới không bị lẻ một ô ở hàng dưới
             var g = grid.gameObject.AddComponent<GridLayoutGroup>();
-            g.cellSize = new Vector2(368, 62);
+            g.cellSize = new Vector2(240, 62);
             g.spacing = new Vector2(16, 14);
             g.childAlignment = TextAnchor.MiddleCenter;
             g.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            g.constraintCount = 2;
+            g.constraintCount = SelectableModes.Length;
 
-            foreach (PlayMode mode in System.Enum.GetValues(typeof(PlayMode)))
+            foreach (PlayMode mode in SelectableModes)
             {
                 PlayMode captured = mode;
                 Button b = UIBuilder.CreateRoundedButton(
@@ -363,32 +379,34 @@ namespace GameHub
                 new Vector2(0.5f, 1f), new Vector2(0, -92 - slot * 54),
                 new Vector2(710, 50));
 
+            // Nhãn model gồm cả tên thuật toán ("MA-POCA · Football_POCA_01") nên ô
+            // giá trị rộng hơn phần nhãn mô tả bên trái.
             slotLabels[slot] = UIBuilder.CreateText(
-                row, "SlotLabel", "", 22, TextColor, TextAnchor.MiddleRight);
+                row, "SlotLabel", "", 20, TextColor, TextAnchor.MiddleRight);
             UIBuilder.Place((RectTransform)slotLabels[slot].transform,
-                new Vector2(0.5f, 0.5f), new Vector2(-192, 0), new Vector2(300, 50));
+                new Vector2(0.5f, 0.5f), new Vector2(-215, 0), new Vector2(250, 50));
 
             Button prev = UIBuilder.CreateRoundedButton(
                 row, "Prev", "‹", 28, ButtonColor, TextColor, 9,
                 () => CycleModel(slot, -1), ButtonBorder);
             UIBuilder.Place((RectTransform)prev.transform,
-                new Vector2(0.5f, 0.5f), new Vector2(-8, 0), new Vector2(46, 46));
+                new Vector2(0.5f, 0.5f), new Vector2(-52, 0), new Vector2(46, 46));
 
             RectTransform valueField = UIBuilder.CreateRoundedPanel(
                 row, "ValueField", FieldColor, 9, ButtonBorder);
             UIBuilder.Place(valueField,
-                new Vector2(0.5f, 0.5f), new Vector2(158, 0), new Vector2(266, 46));
+                new Vector2(0.5f, 0.5f), new Vector2(140, 0), new Vector2(320, 46));
             slotValues[slot] = UIBuilder.CreateText(
-                valueField, "SlotValue", "", 22, AccentColor,
+                valueField, "SlotValue", "", 19, AccentColor,
                 TextAnchor.MiddleCenter, FontStyle.Bold);
             UIBuilder.Place((RectTransform)slotValues[slot].transform,
-                new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(240, 42));
+                new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(300, 42));
 
             Button next = UIBuilder.CreateRoundedButton(
                 row, "Next", "›", 28, ButtonColor, TextColor, 9,
                 () => CycleModel(slot, 1), ButtonBorder);
             UIBuilder.Place((RectTransform)next.transform,
-                new Vector2(0.5f, 0.5f), new Vector2(324, 0), new Vector2(46, 46));
+                new Vector2(0.5f, 0.5f), new Vector2(330, 0), new Vector2(46, 46));
 
             return row;
         }
@@ -497,10 +515,11 @@ namespace GameHub
             UIBuilder.Place(panel,
                 new Vector2(0.5f, 1f), new Vector2(0, -880), new Vector2(1520, 230));
 
-            string[] headers = { "Thuật toán", "Reward cuối", "Tốt nhất",
+            // Cột thuật toán rộng hơn vì còn kèm mã lần chạy ở cỡ chữ nhỏ.
+            string[] headers = { "Thuật toán / lần chạy", "Reward cuối", "Tốt nhất",
                 "Mean (10% cuối)", "Hội tụ (step)", "Tổng steps" };
-            float[] cx = { -600, -300, -60, 190, 450, 660 };
-            float[] cw = { 320, 220, 220, 260, 240, 240 };
+            float[] cx = { -560, -240, -20, 230, 470, 670 };
+            float[] cw = { 400, 200, 200, 240, 200, 180 };
 
             for (int row = 0; row < 6; row++)
             {
@@ -580,7 +599,12 @@ namespace GameHub
             for (int i = 0; i < count; i++)
             {
                 AlgoTraining a = data.algorithms[i];
-                bool ok = a != null && a.found;
+                if (a == null)
+                {
+                    continue;
+                }
+
+                bool ok = a.found;
                 Color col = TrainingDataStore.ColorFor(a.algo);
                 float posX = startX + i * stepX;
 
@@ -593,20 +617,23 @@ namespace GameHub
                     new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH + h / 2f),
                     new Vector2(Mathf.Min(80, 320 / count), h));
 
+                // Bề rộng ô chữ bám theo khoảng cách cột để năm thuật toán không đè nhau
+                float cellW = count > 1 ? stepX - 6f : 120f;
+
                 Text valText = UIBuilder.CreateText(
                     card, "V_" + a.algo, ok ? a.meanLast10.ToString("0.00") : "N/A",
-                    17, ok ? TextColor : MutedColor,
+                    16, ok ? TextColor : MutedColor,
                     TextAnchor.MiddleCenter, FontStyle.Bold);
                 UIBuilder.Place((RectTransform)valText.transform,
                     new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH + h + 22),
-                    new Vector2(120, 26));
+                    new Vector2(cellW, 26));
 
                 Text algoText = UIBuilder.CreateText(
-                    card, "A_" + a.algo, a.algo, 16, col,
+                    card, "A_" + a.algo, a.algo, 14, col,
                     TextAnchor.MiddleCenter, FontStyle.Bold);
                 UIBuilder.Place((RectTransform)algoText.transform,
                     new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH - 24),
-                    new Vector2(120, 24));
+                    new Vector2(cellW, 24));
             }
         }
 
@@ -617,14 +644,17 @@ namespace GameHub
             UIBuilder.Place(panel,
                 new Vector2(0.5f, 1f), new Vector2(0, -800), new Vector2(1560, 236));
 
-            string[] headers = { "Môi trường", "Hạng nhất", "Hạng nhì", "Hạng ba" };
-            float[] cx = { -560, -180, 180, 540 };
-            float[] cw = { 380, 360, 360, 360 };
+            // Năm thuật toán nên bảng xếp hạng liệt kê đủ năm vị trí, không cắt ở top 3.
+            string[] headers = { "Môi trường", "Hạng nhất", "Hạng nhì", "Hạng ba",
+                "Hạng tư", "Hạng năm" };
+            float[] cx = { -630, -360, -120, 120, 360, 600 };
+            float[] cw = { 300, 240, 240, 240, 240, 240 };
+            int places = headers.Length - 1;
 
-            for (int col = 0; col < 4; col++)
+            for (int col = 0; col < headers.Length; col++)
             {
                 Text h = UIBuilder.CreateText(
-                    panel, "H", headers[col], 19, MutedColor,
+                    panel, "H", headers[col], 18, MutedColor,
                     col == 0 ? TextAnchor.MiddleLeft : TextAnchor.MiddleCenter,
                     FontStyle.Bold);
                 UIBuilder.Place((RectTransform)h.transform,
@@ -637,13 +667,13 @@ namespace GameHub
                 float y = -84 - r * 46;
 
                 Text envCell = UIBuilder.CreateText(
-                    panel, "E", GameModeSelection.DisplayNameFor(env), 20, TextColor,
+                    panel, "E", GameModeSelection.DisplayNameFor(env), 19, TextColor,
                     TextAnchor.MiddleLeft);
                 UIBuilder.Place((RectTransform)envCell.transform,
                     new Vector2(0.5f, 1f), new Vector2(cx[0], y), new Vector2(cw[0], 40));
 
                 List<KeyValuePair<string, float>> ranking = RankFor(env);
-                for (int p = 0; p < 3; p++)
+                for (int p = 0; p < places; p++)
                 {
                     string text = "—";
                     Color c = MutedColor;
@@ -654,7 +684,7 @@ namespace GameHub
                     }
 
                     Text cell = UIBuilder.CreateText(
-                        panel, "R", text, 20, c,
+                        panel, "R", text, 18, c,
                         TextAnchor.MiddleCenter,
                         p == 0 ? FontStyle.Bold : FontStyle.Normal);
                     UIBuilder.Place((RectTransform)cell.transform,
@@ -829,11 +859,26 @@ namespace GameHub
                 }
 
                 slotLabels[i].text = slotNames[i];
-                slotValues[i].text = IsLLMSlot(i)
-                    ? LLMConfig.Options[llmIndex].DisplayName
-                    : hasModels
-                        ? availableModels[modelIndex[i]]
-                        : "(chưa có model)";
+
+                if (IsLLMSlot(i))
+                {
+                    slotValues[i].text = LLMConfig.Options[llmIndex].DisplayName;
+                    slotValues[i].color = AccentColor;
+                }
+                else if (hasModels)
+                {
+                    string model = availableModels[modelIndex[i]];
+                    AlgoTraining run = TrainingDataStore.RunOf(selectedEnv, model);
+                    slotValues[i].text = TrainingDataStore.LabelFor(selectedEnv, model);
+                    slotValues[i].color = run != null
+                        ? TrainingDataStore.ColorFor(run.algo)
+                        : AccentColor;
+                }
+                else
+                {
+                    slotValues[i].text = "(chưa có model)";
+                    slotValues[i].color = MutedColor;
+                }
             }
 
             descriptionText.text = GetDescription();
@@ -843,6 +888,12 @@ namespace GameHub
                 ? ""
                 : "Chưa có model trong Assets/GameHub/Resources/AgentModels/"
                   + selectedEnv + " — thêm file .onnx vào đó.";
+
+            if (canPlay && needModels)
+            {
+                warning = ActionSpaceWarning(slotNames.Length);
+                canPlay = warning.Length == 0;
+            }
 
             if (canPlay && selectedMode == PlayMode.AgentVsLLM)
             {
@@ -857,6 +908,44 @@ namespace GameHub
 
             playButton.interactable = canPlay;
             warningText.text = warning;
+        }
+
+        /// <summary>
+        /// Model DQN của Football xuất action rời rạc nên phải chạy trên scene
+        /// FootballDiscrete, bốn thuật toán còn lại dùng scene liên tục. Một trận
+        /// chỉ nạp được một scene, vì vậy hai ô model phải cùng loại action.
+        /// Trả về chuỗi rỗng nếu lựa chọn hợp lệ.
+        /// </summary>
+        private string ActionSpaceWarning(int slotCount)
+        {
+            // Ô thứ hai là LLM thì không có model để so — LLM chơi được cả hai loại.
+            bool comparable = slotCount > 1 && !IsLLMSlot(1);
+
+            if (comparable && NeedsDiscreteScene(0) != NeedsDiscreteScene(1))
+            {
+                return "Không ghép được model rời rạc (DQN) với model liên tục "
+                     + "trong cùng một trận — chọn DQN cho cả hai đội hoặc bỏ DQN.";
+            }
+
+            return "";
+        }
+
+        /// <summary>
+        /// Model ở ô này đòi hỏi bản scene rời rạc hay không. Cross The Road và
+        /// Capture The Flag vốn đã rời rạc cho cả năm thuật toán nên luôn là false.
+        /// </summary>
+        private bool NeedsDiscreteScene(int slot)
+        {
+            if (selectedEnv != GameEnvironment.Football
+                || IsLLMSlot(slot) || availableModels.Length == 0)
+            {
+                return false;
+            }
+
+            AlgoTraining run = TrainingDataStore.RunOf(
+                selectedEnv, availableModels[modelIndex[slot]]);
+
+            return run != null && run.IsDiscrete;
         }
 
         private string GetDescription()
@@ -1005,7 +1094,11 @@ namespace GameHub
 
                     AddLegend(a.algo, col);
 
-                    tableCells[row * 6 + 0].text = a.algo;
+                    // Kèm mã lần chạy (= tên file ONNX trong menu CHƠI) để mỗi dòng
+                    // truy vết được về đúng model đã sinh ra con số đó.
+                    tableCells[row * 6 + 0].text = string.IsNullOrEmpty(a.runId)
+                        ? a.algo
+                        : a.algo + "  <size=13><color=#8C9AB0>" + a.runId + "</color></size>";
                     tableCells[row * 6 + 0].color = col;
                     tableCells[row * 6 + 1].text = a.final.ToString("0.000");
                     tableCells[row * 6 + 2].text = a.max.ToString("0.000");
@@ -1101,8 +1194,15 @@ namespace GameHub
                 ? LLMConfig.Options[llmIndex]
                 : null;
 
+            // Model rời rạc (DQN trên Football) cần bản scene có Behavior Parameters
+            // rời rạc; Refresh() đã chặn tổ hợp hai ô khác loại action.
+            int slotCount = GetModelSlotLabels().Length;
+            GameModeSelection.DiscreteActions =
+                slotCount > 0
+                && (NeedsDiscreteScene(0) || (slotCount > 1 && NeedsDiscreteScene(1)));
+
             Time.timeScale = 1f;
-            SceneManager.LoadScene(GameModeSelection.SceneNameFor(selectedEnv));
+            SceneManager.LoadScene(GameModeSelection.SceneToLoad());
         }
     }
 }

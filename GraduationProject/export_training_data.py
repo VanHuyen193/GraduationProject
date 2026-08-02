@@ -2,16 +2,22 @@
 """
 export_training_data.py
 =======================
-Doc tfevents cua cac lan train (PPO / SAC / MA-POCA x 3 moi truong), rut gon
-duong cong reward + thong ke, roi xuat ra 1 file JSON goi nhe cho menu Unity doc.
+Doc tfevents cua cac lan train (PPO / SAC / MA-POCA / MAPPO / DQN x 3 moi truong),
+rut gon duong cong reward + thong ke, roi xuat ra 1 file JSON goi nhe cho menu
+Unity doc. Dong thoi sao chep model ONNX cuoi cung cua TUNG lan chay vao thu muc
+Resources cua ung dung, de menu liet ke duoc day du 15 model da huan luyen.
 
 Chay trong conda env 'mlagents':
-  C:\\Users\\Admin\\miniconda3\\envs\\mlagents\\python.exe export_training_data.py
+  C:\\Users\\vanhu\\miniconda3\\envs\\mlagents\\python.exe export_training_data.py
+  ... --no-models   neu chi muon xuat JSON, khong dong goi lai ONNX
 
 Ket qua: Assets/GameHub/Resources/TrainingData/training_data.json
+         Assets/GameHub/Resources/AgentModels/<Env>/<run_id>.onnx
 """
 
+import argparse
 import json
+import shutil
 import warnings
 from pathlib import Path
 from datetime import datetime
@@ -23,8 +29,10 @@ from tensorboard.backend.event_processing.event_accumulator import EventAccumula
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = SCRIPT_DIR / "results"
-OUT_DIR = SCRIPT_DIR / "Assets" / "GameHub" / "Resources" / "TrainingData"
+RESOURCES_DIR = SCRIPT_DIR / "Assets" / "GameHub" / "Resources"
+OUT_DIR = RESOURCES_DIR / "TrainingData"
 OUT_FILE = OUT_DIR / "training_data.json"
+MODELS_DIR = RESOURCES_DIR / "AgentModels"
 
 REWARD_KEY = "Environment/Cumulative Reward"
 EPLEN_KEY = "Environment/Episode Length"
@@ -87,6 +95,52 @@ def all_tfevents(run_dir: Path, behavior: str):
     # loc trung
     uniq = {p.resolve(): p for p in found}
     return list(uniq.values())
+
+
+def final_model(run_dir: Path, behavior: str):
+    """Model ONNX cuoi cung cua mot lan chay: results/<run>/<behavior>.onnx."""
+    direct = run_dir / f"{behavior}.onnx"
+    if direct.exists():
+        return direct
+    # du phong: checkpoint co so buoc lon nhat trong thu muc con
+    ckpts = sorted(run_dir.glob(f"**/{behavior}-*.onnx"))
+    return ckpts[-1] if ckpts else None
+
+
+def action_space_of(onnx_path: Path):
+    """'discrete' hay 'continuous', doc truc tiep tu ten tensor dau ra trong ONNX.
+
+    Chi DQN sinh model rời rạc trên Football, va Unity se tu choi nap model do
+    vao scene co Behavior Parameters lien tuc — ung dung phai biet truoc de chon
+    dung scene (xem GameModeSelection.SceneNameFor).
+    """
+    if onnx_path is None or not onnx_path.exists():
+        return ""
+    blob = onnx_path.read_bytes()
+    has_disc = b"discrete_action_output_shape" in blob
+    has_cont = b"continuous_action_output_shape" in blob
+    if has_disc and not has_cont:
+        return "discrete"
+    if has_cont and not has_disc:
+        return "continuous"
+    return "mixed" if (has_disc and has_cont) else ""
+
+
+def copy_model(onnx_path: Path, env_key: str, run_id: str):
+    """Dong goi model vao Resources/AgentModels/<Env>/<run_id>.onnx.
+
+    Ten tep = ma lan chay, dung ten dung trong training_data.json, nho vay menu
+    doi chieu duoc model <-> thuat toan/thong ke ma khong can bang tra rieng.
+    """
+    if onnx_path is None:
+        return False
+    dest_dir = MODELS_DIR / env_key
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    dest = dest_dir / f"{run_id}.onnx"
+    if dest.exists() and dest.stat().st_size == onnx_path.stat().st_size:
+        return False  # da co ban giong het, khong ghi de (tranh Unity import lai)
+    shutil.copy2(onnx_path, dest)
+    return True
 
 
 def read_series(tf_paths, key):
@@ -168,7 +222,7 @@ def stats_of(series, vals_sm):
     }
 
 
-def build_algo(env, algo_cfg):
+def build_algo(env, algo_cfg, pack_models=True):
     behavior = env["behavior"]
     tf_paths = []
     used_dir = None
@@ -186,12 +240,21 @@ def build_algo(env, algo_cfg):
         "steps": 0, "maxEnvSteps": 0, "actualCount": 0,
         "final": 0.0, "max": 0.0, "meanLast10": 0.0,
         "convergeStep": 0, "epLenFinal": 0.0,
+        "actionSpace": "", "model": "",
         "cs": [], "cv": [],
     }
 
     if not tf_paths:
         print(f"    [{algo_cfg['algo']}] KHONG CO DU LIEU")
         return out
+
+    onnx = final_model(RESULTS_DIR / used_dir, behavior)
+    out["actionSpace"] = action_space_of(onnx)
+    if onnx is not None:
+        out["model"] = used_dir
+        if pack_models and copy_model(onnx, env["key"], used_dir):
+            print(f"    [{algo_cfg['algo']}] -> Resources/AgentModels/"
+                  f"{env['key']}/{used_dir}.onnx")
 
     reward = read_series(tf_paths, REWARD_KEY)
     if not reward:
@@ -218,11 +281,18 @@ def build_algo(env, algo_cfg):
         "cv": [round(float(v), 4) for v in cv],
     })
     print(f"    [{algo_cfg['algo']}] {used_dir}: {len(cs)} diem, "
-          f"final={out['final']} max={out['max']} steps={out['steps']:,}")
+          f"final={out['final']} max={out['max']} steps={out['steps']:,} "
+          f"({out['actionSpace'] or '?'})")
     return out
 
 
 def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--no-models", action="store_true",
+                    help="chi xuat JSON, khong sao chep ONNX vao Resources")
+    args = ap.parse_args()
+    pack_models = not args.no_models
+
     print("=" * 56)
     print("  XUAT DU LIEU TRAINING -> JSON cho menu Unity")
     print("=" * 56)
@@ -230,7 +300,7 @@ def main():
     environments = []
     for env in ENVIRONMENTS:
         print(f"\n[{env['name']}]")
-        algos = [build_algo(env, a) for a in env["algos"]]
+        algos = [build_algo(env, a, pack_models) for a in env["algos"]]
 
         # Truc hoanh dung chung cho ca moi truong = run dai nhat; cac run ngan hon
         # ket thuc som tren bieu do thay vi bi keo dan ra cho bang.
@@ -255,6 +325,10 @@ def main():
 
     size_kb = OUT_FILE.stat().st_size / 1024
     print(f"\nDa ghi: {OUT_FILE}  ({size_kb:.1f} KB)")
+
+    if pack_models:
+        n = sum(1 for e in environments for a in e["algorithms"] if a["model"])
+        print(f"Model ONNX trong Resources/AgentModels: {n}")
     print("=" * 56)
 
 

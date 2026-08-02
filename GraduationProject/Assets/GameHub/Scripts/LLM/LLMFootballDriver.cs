@@ -2,6 +2,7 @@ using System.Text;
 using TableFootball;
 using Unity.MLAgents.Actuators;
 using UnityEngine;
+using VanHuyen.RLGameEnvs;
 
 namespace GameHub
 {
@@ -12,8 +13,11 @@ namespace GameHub
     /// Tọa độ/hành động được chuẩn hoá theo Team.Sign giống FootballHumanInput,
     /// nên LLM luôn "nhìn" sân theo một hướng cố định.
     /// </summary>
-    public class LLMFootballDriver : LLMDriverBase
+    public class LLMFootballDriver : LLMDriverBase, IManualActionSource
     {
+        // Đệm 8 giá trị liên tục trước khi giao cho ManualActionSource.Write
+        private readonly float[] buffer = new float[8];
+
         [HideInInspector]
         public Team team;
 
@@ -104,7 +108,7 @@ namespace GameHub
             return true;
         }
 
-        /// <summary>FootballAgent gọi trong Heuristic (giống FootballHumanInput).</summary>
+        /// <summary>Ghi 8 giá trị liên tục theo dấu của đội.</summary>
         public void WriteActions(ActionSegment<float> actionsOut)
         {
             float sign = team != null ? team.Sign : 1f;
@@ -113,6 +117,17 @@ namespace GameHub
             {
                 actionsOut[i] = i < actions.Length ? actions[i] * sign : 0f;
             }
+        }
+
+        /// <summary>
+        /// Ghi hành động cho môi trường (IManualActionSource). Nếu brain đang ở chế
+        /// độ rời rạc thì helper của gói môi trường tự lượng tử hoá về ba mức, nên
+        /// chế độ này dùng được cả với bản scene dành cho DQN.
+        /// </summary>
+        public void WriteActions(in ActionBuffers actionsOut)
+        {
+            WriteActions(new ActionSegment<float>(buffer));
+            ManualActionSource.Write(actionsOut, buffer);
         }
     }
 }

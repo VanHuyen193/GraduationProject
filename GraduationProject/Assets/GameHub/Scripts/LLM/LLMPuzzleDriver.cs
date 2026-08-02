@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Text;
+using Unity.MLAgents.Actuators;
 using UnityEngine;
+using VanHuyen.RLGameEnvs;
 
 namespace GameHub
 {
@@ -10,7 +12,7 @@ namespace GameHub
     /// LLM chọn 1 trong 7 action. Action được giữ nguyên giữa 2 lần trả lời
     /// (di chuyển bằng lực nên cần bấm giữ như người chơi).
     /// </summary>
-    public class LLMPuzzleDriver : LLMDriverBase
+    public class LLMPuzzleDriver : LLMDriverBase, IManualActionSource
     {
         private PuzzleAgent agent;
         private PuzzleAgent teammate;
@@ -128,5 +130,14 @@ namespace GameHub
 
         /// <summary>Agent đọc trong Heuristic; action được giữ tới lượt sau.</summary>
         public int CurrentAction => currentAction;
+
+        /// <summary>Ghi hành động cho môi trường (IManualActionSource).</summary>
+        public void WriteActions(in ActionBuffers actionsOut)
+        {
+            // ActionSegment là struct bọc mảng: gán qua biến cục bộ vẫn
+            // ghi vào đúng mảng gốc.
+            var discrete = actionsOut.DiscreteActions;
+            discrete[0] = CurrentAction;
+        }
     }
 }

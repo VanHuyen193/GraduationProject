@@ -3,77 +3,108 @@
 \section{KẾT LUẬN}
 
 \subsection{Kết quả đạt được}
-\indent Đồ án đã hoàn thành các mục tiêu đề ra ban đầu. Cụ thể, đề tài đã xây dựng
-thành công ba môi trường game 3D có tính chất khác nhau trên nền tảng Unity ML-Agents:
-Football Table (đối kháng một đối một), môi trường Capture The Flag đa tác nhân và
-Cross The Road (điều hướng tránh vật cản). Với mỗi môi trường, hệ thống không gian quan sát,
-không gian hành động và hàm phần thưởng đã được thiết kế phù hợp với đặc thù bài toán.
+\indent Đồ án đã hoàn thành các mục tiêu đề ra ban đầu. Kết quả chính là ba môi trường
+huấn luyện game 3D có tính chất khác nhau trên nền tảng Unity ML-Agents: Football Table
+(đối kháng một đối một, hành động liên tục, tự chơi), Capture The Flag (hợp tác hai tác
+nhân với phần thưởng nhóm và chương trình học theo bậc) và Cross The Road (điều hướng
+đơn tác nhân với phần thưởng thưa). Với mỗi môi trường, đề tài trình bày trọn vẹn quá
+trình thiết kế không gian quan sát, không gian hành động và hàm phần thưởng, kể cả những
+phương án đã thử và phải bỏ.
 
-\indent Đề tài đã triển khai huấn luyện và so sánh năm thuật toán PPO, SAC, MA-POCA,
-MAPPO và DQN theo bốn tiêu chí định lượng, tạo thành một lưới đầy đủ mười lăm lần chạy
-trong đó năm thuật toán của cùng một môi trường dùng chung ngân sách bước. Hai thuật
-toán không có sẵn trong ML-Agents là MAPPO và DQN được bổ sung dưới dạng trainer mở
-rộng, nhờ đó cả năm chạy trên cùng một đường ống đo đạc; bên cạnh đó, quy trình kết nối
-môi trường Unity với một thư viện học tăng cường bên ngoài qua Python Low-Level API cũng
-được hiện thực hóa và kiểm chứng.
+\indent Phần tri thức thiết kế thu được từ quá trình đó là kết quả đáng kể không kém
+bản thân ba môi trường. Trường hợp điển hình là Capture The Flag: đặc tả ban đầu trừng
+phạt đúng trạng thái phối hợp mà nhiệm vụ đòi hỏi - hai tác nhân đứng tách nhau ở hai
+phía cửa - nên tác nhân mắc kẹt ở đáy phần thưởng nhóm bất kể thuật toán nào. Lỗi này
+không biểu hiện thành lỗi chương trình mà chỉ thành một đường cong phẳng, và chỉ được
+tìm ra khi quan sát hành vi thật. Bài học rút ra - hàm phần thưởng phải được kiểm tra
+xem nó có vô tình phạt chính hành vi đích hay không - áp dụng được cho bất kỳ môi trường
+hợp tác nào, không riêng môi trường này.
 
-\indent Kết quả thực nghiệm khẳng định không tồn tại một thuật toán tối ưu duy nhất cho
-mọi bài toán, nhưng theo một cách khác với dự đoán ban đầu của đề tài. Trong môi trường
-đối kháng, cả bốn thuật toán ghép được với tự chơi đều tiến bộ so với phiên bản cũ của
-chính mình, với mức tăng ELO từ ba mươi sáu tới sáu mươi bốn điểm; biên độ này quá hẹp
-để xếp hạng, nên kết luận đọc được chỉ là cơ chế tự chơi hoạt động đúng chứ chưa phải
-thuật toán nào mạnh hơn. Ở bài toán điều hướng đơn tác nhân, SAC dẫn đầu ($0{,}846$)
-nhưng MAPPO bám sát ($0{,}835$) và cả hai tách hẳn khỏi PPO ($0{,}690$), MA-POCA
-($0{,}556$) và DQN ($0{,}336$). Ở bài toán hợp tác, bốn thuật toán về đích trong dải hẹp
-$0{,}800$--$0{,}840$, tức cơ chế phê bình tập trung của MAPPO và MA-POCA không tạo được
-khác biệt đo lường được so với PPO thường, còn SAC thất bại hoàn toàn ở mức $0{,}183$.
+\indent Ba môi trường được đóng gói thành một gói Unity Package Manager kèm mười lăm
+tệp cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn cài đặt bảy bước, nên
+chúng tồn tại được như một sản phẩm dùng lại chứ không chỉ như mã nguồn của một đồ án.
+Đề tài cũng bổ sung hai thuật toán không có sẵn trong ML-Agents là MAPPO và DQN dưới
+dạng trainer mở rộng, và hiện thực hóa quy trình kết nối môi trường Unity với một thư
+viện học tăng cường bên ngoài qua Python Low-Level API.
 
-\indent Điều dữ liệu ủng hộ chắc chắn nhất là một dạng khác của luận điểm trung tâm: sự
-phù hợp giữa thuật toán và môi trường là có thật, nhưng nó bộc lộ qua thất bại rõ hơn
-qua chiến thắng. Chênh lệch giữa thành công của SAC trên Cross The Road và sụp đổ của
-chính nó trên Capture The Flag lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một
-môi trường. Với người làm game, hệ quả thực dụng là chọn sai thuật toán cho một cơ chế
-game gây thiệt hại lớn hơn nhiều so với lợi ích của việc chọn đúng thuật toán tốt nhất
-trong nhóm khả dụng.
+\indent Mười lăm lần huấn luyện đã xác nhận cả ba môi trường đạt yêu cầu theo ba tiêu
+chí đặt ra ở Chương~\ref{ch:results}. Chúng \textit{học được}: trên cả ba môi trường
+đều có ít nhất bốn trong năm thuật toán tiến bộ rõ rệt so với lúc khởi tạo. Chúng
+\textit{phân biệt được}: trên Cross The Road phần thưởng cuối trải từ $0{,}846$ (SAC)
+xuống $0{,}336$ (DQN), còn trên Capture The Flag bốn thuật toán về đích trong dải
+$0{,}800$--$0{,}840$ trong khi SAC sụp đổ ở $0{,}183$ - thứ hạng ở cả hai đều giải thích
+được bằng cơ chế của bài toán. Và chúng \textit{không có lối tắt}: không lần chạy nào
+đạt phần thưởng gần trần mà lại không giải được nhiệm vụ khi quan sát trực tiếp trong
+ứng dụng trình diễn.
+
+\indent Riêng Football Table cho thấy một giới hạn cần ghi nhận thẳng thắn: cả bốn thuật
+toán ghép được với tự chơi đều tăng ELO từ ba mươi sáu tới sáu mươi bốn điểm so với
+phiên bản cũ của chính mình, nghĩa là cơ chế tự chơi hoạt động đúng, nhưng biên độ đó
+quá hẹp để môi trường phân định được các thuật toán với nhau. Ở cấu hình hiện tại,
+Football Table đạt hai trong ba tiêu chí; muốn dùng nó làm thước đo so sánh thì cần
+ngân sách bước lớn hơn hoặc một đối thủ mốc cố định thay cho tự chơi thuần túy.
+
+\indent Một quan sát xuyên suốt cả ba môi trường ủng hộ chính luận điểm trung tâm của
+đề tài: chênh lệch của cùng một thuật toán giữa hai môi trường luôn lớn hơn chênh lệch
+giữa các thuật toán trong cùng một môi trường. Khoảng cách giữa thành công của SAC trên
+Cross The Road và sụp đổ của chính nó trên Capture The Flag lớn hơn mọi khoảng cách nội
+bộ. Nói cách khác, đặc tính bài toán - thứ do thiết kế môi trường quyết định - chi phối
+kết quả mạnh hơn lựa chọn thuật toán, và đó là lý do khâu xây dựng môi trường xứng đáng
+được đầu tư nhiều hơn mức thường thấy.
 
 \indent Bên cạnh phần thực nghiệm so sánh, đề tài đã xây dựng hoàn chỉnh một ứng dụng
-trình diễn tương tác, trong đó chín trong số mười lăm mô hình đã huấn luyện được triển
+trình diễn tương tác, trong đó toàn bộ mười lăm mô hình đã huấn luyện được triển
 khai trực tiếp vào game dưới định dạng ONNX. Ứng dụng cho phép người dùng lựa chọn môi
-trường, lựa chọn một trong bốn chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng
-tác nhân, tác nhân đấu mô hình ngôn ngữ lớn), lựa chọn mô hình cụ thể cho tác nhân và
-tra cứu ngay đường cong huấn luyện của từng thuật toán trên giao diện menu. Các luồng
-chức năng đã được kiểm thử trong Unity Editor và đều hoạt động đúng, ngoại trừ hai chế
-độ đua song song của Cross The Road chưa được kiểm thử lại sau khi scene được khôi phục
-về đủ tám khu vực (Mục~\ref{sub:app-testing}). Kết quả này chứng minh tính khả thi của
+trường, lựa chọn một trong ba chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng
+tác nhân), lựa chọn mô hình cụ thể cho tác nhân và
+tra cứu ngay đường cong huấn luyện của cả năm thuật toán trên giao diện menu. Danh mục
+mô hình cùng dữ liệu biểu đồ được sinh ra từ một kịch bản duy nhất chạy trên thư mục
+kết quả, nên phần trình diễn và phần số liệu của Chương~\ref{ch:results} không thể lệch
+nhau. Các luồng chức năng đã được kiểm thử trong Unity Editor và đều hoạt động đúng
+(Mục~\ref{sub:app-testing}). Kết quả này chứng minh tính khả thi của
 việc nhúng mô hình học tăng cường vào sản phẩm game hoàn chỉnh với chi phí suy luận
 không đáng kể.
 
 \subsection{Đóng góp của đề tài}
-\indent Nếu phải xếp các đóng góp của đề tài theo mức độ hữu ích, tôi đặt kết quả so
-sánh lên đầu. Việc đưa PPO, SAC, MA-POCA, MAPPO và DQN về cùng một bộ môi trường, cùng
-một cấu hình phần cứng, cùng một ngân sách bước và cùng một quy trình đo cho phép rút ra
-những kết luận mà việc đối chiếu các tài liệu rời rạc không thể cho được. Trong số đó,
-kết quả có giá trị tham khảo trực tiếp nhất cho người làm game là một kết quả phủ định:
+\indent Nếu phải xếp các đóng góp của đề tài theo mức độ hữu ích, tôi đặt bộ môi trường
+lên đầu. Ba môi trường ba chiều bao phủ ba dạng bài toán học tăng cường phổ biến được
+đóng gói thành một gói Unity Package Manager cài được vào dự án bất kỳ, kèm mười lăm cấu
+hình huấn luyện đã chạy thật, bộ công cụ Editor và một trình hướng dẫn cài đặt bảy bước
+tự kiểm tra trạng thái. Điều làm nên khác biệt so với việc chỉ công bố mã nguồn là ba
+môi trường này đã được kiểm chứng: mỗi môi trường đã chịu năm thuật toán khác hẳn nhau
+về nguyên lý, nên người dùng lại biết trước nó học được, nó phân biệt được, và nó không
+có lối tắt - những điều mà một môi trường mới dựng không bao giờ bảo đảm được. Chính đồ
+án này tiêu thụ gói đó qua ranh giới assembly đúng như một dự án bên ngoài, nên phần
+trình diễn trở thành phép kiểm thử thường trực cho gói.
+
+\indent Kế đến là phần tri thức thiết kế môi trường, thứ mà tài liệu về học tăng cường
+thường bỏ qua. Đề tài ghi lại đầy đủ quá trình đặc tả cho ba dạng bài toán khác nhau,
+bao gồm cả các phương án thất bại và dấu hiệu nhận biết chúng: một hàm phần thưởng
+trừng phạt chính hành vi đích, một tác nhân thiếu quan sát về đồng đội nên không thể
+định thời điểm phối hợp, một phạt thời gian chia cho không khi giới hạn bước bằng không.
+Đi cùng là các quyết định vận hành có ảnh hưởng lớn nhưng ít được bàn tới - nhân khu vực
+huấn luyện để tăng thông lượng, dựng biến thể không gian hành động rời rạc cho thuật
+toán dựa trên giá trị - và hai con đường đưa một thuật toán không có sẵn vào Unity: gói
+trainer mở rộng đăng ký MAPPO và DQN vào chính chương trình huấn luyện của ML-Agents, và
+lớp bọc môi trường qua \texttt{mlagents\_envs} kết nối với Stable-Baselines3.
+
+\indent Kết quả so sánh năm thuật toán, tuy là sản phẩm phụ của khâu kiểm chứng, vẫn có
+giá trị tham khảo trực tiếp cho người làm game. Đáng chú ý nhất là một kết quả phủ định:
 trên bài toán hợp tác có tác nhân đồng nhất, PPO thường bám sát cả MAPPO lẫn MA-POCA
 trong dải chênh lệch không tới một phần trăm, nên chi phí tích hợp một thuật toán đa tác
 nhân chuyên biệt chưa chắc được đền đáp. Đi cùng nó là một kết quả gây ngạc nhiên theo
 chiều ngược lại: MAPPO vượt PPO một khoảng lớn trên chính môi trường đơn tác nhân, nơi
 lý thuyết nói rằng phê bình tập trung của nó lẽ ra vô hiệu.
 
-\indent Kế đến là phần đóng góp mang tính công cụ. Ba môi trường ba chiều đại diện cho
-ba dạng bài toán học tăng cường phổ biến đều được đóng gói thành prefab độc lập nên tái
-sử dụng được như một benchmark mở. Đi kèm chúng là hai con đường đưa một thuật toán
-không có sẵn vào Unity: gói trainer mở rộng đăng ký MAPPO và DQN vào chính chương trình
-huấn luyện của ML-Agents, và lớp bọc môi trường qua \texttt{mlagents\_envs} kết nối với
-Stable-Baselines3. Cả hai đều dùng lại được cho bất kỳ nghiên cứu nào cần một thuật toán
-nằm ngoài ba trainer tích hợp sẵn.
-
-\indent Đóng góp còn lại là ứng dụng trình diễn với bốn chế độ chơi, cơ chế chọn mô hình
-linh hoạt và hai tab số liệu huấn luyện nhúng thẳng trong game. Giá trị của nó không nằm
-ở phần game, mà ở chỗ nó khép kín quãng đường từ một tệp cấu hình YAML tới một hành vi
-mà người chơi cảm nhận được bằng tay. Riêng chế độ tác nhân đấu mô hình ngôn ngữ lớn
-dựng lên một phép đối chiếu mà đề tài không dự tính từ đầu, giữa chính sách học từ tương
-tác và chính sách suy luận zero-shot từ văn bản. Toàn bộ mã nguồn môi trường, cấu hình
+\indent Đóng góp còn lại là ứng dụng trình diễn với ba chế độ chơi, cơ chế chọn mô hình
+cho phép đặt cạnh nhau cả mười lăm chính sách đã huấn luyện, và hai tab số liệu huấn
+luyện nhúng thẳng trong game. Giá trị của nó không nằm
+ở phần game, mà ở chỗ nó là công cụ soi lỗi đặc tả: quan sát hành vi thật là cách duy
+nhất phát hiện những sai sót mà đường cong phần thưởng không thể hiện, và cũng là cách
+khép kín quãng đường từ một tệp cấu hình YAML tới một hành vi
+mà người chơi cảm nhận được bằng tay: cùng một bảng xếp hạng ở Chương~\ref{ch:results}
+có thể được kiểm chứng lại bằng mắt, bằng cách cho hai mô hình khác thuật toán chạy
+trên cùng một nhiệm vụ. Toàn bộ mã nguồn môi trường, cấu hình
 huấn luyện và dữ liệu kết quả đều được công bố dưới dạng mở.
 
 \subsection{Hạn chế}

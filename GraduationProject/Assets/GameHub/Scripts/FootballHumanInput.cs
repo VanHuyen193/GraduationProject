@@ -1,5 +1,6 @@
 using Unity.MLAgents.Actuators;
 using UnityEngine;
+using VanHuyen.RLGameEnvs;
 
 namespace TableFootball
 {
@@ -8,8 +9,11 @@ namespace TableFootball
     /// Q/E hoặc phím 1-4: chọn thanh | W/S: trượt thanh | A/D: xoay (sút).
     /// FootballAgent.Heuristic sẽ đọc action từ component này.
     /// </summary>
-    public class FootballHumanInput : MonoBehaviour
+    public class FootballHumanInput : MonoBehaviour, IManualActionSource
     {
+        // Đệm 8 giá trị liên tục trước khi giao cho ManualActionSource.Write
+        private readonly float[] buffer = new float[8];
+
         // Team mà người chơi điều khiển (gán runtime bởi GameModeApplier)
         public Team team;
 
@@ -78,6 +82,17 @@ namespace TableFootball
                 actions[moveIndex] = slide * sign;
                 actions[spinIndex] = spin * sign;
             }
+        }
+
+        /// <summary>
+        /// Ghi hành động cho môi trường (IManualActionSource). Luôn sinh ra 8 giá
+        /// trị liên tục; nếu brain đang ở chế độ rời rạc thì helper của gói môi
+        /// trường tự lượng tử hoá về ba mức.
+        /// </summary>
+        public void WriteActions(in ActionBuffers actionsOut)
+        {
+            WriteActions(new ActionSegment<float>(buffer));
+            ManualActionSource.Write(actionsOut, buffer);
         }
     }
 }

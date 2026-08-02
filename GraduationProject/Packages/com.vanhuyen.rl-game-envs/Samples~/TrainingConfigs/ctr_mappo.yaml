@@ -1,0 +1,38 @@
+# Algorithm: MAPPO (Multi-Agent PPO, Yu et al. 2022) - custom trainer plugin
+# Environment: Cross The Road
+# Action space: Discrete (4: idle, left, right, forward)
+# Notes: PPO voi centralized critic (MultiAgentNetworkBody nhu POCA)
+#        nhung KHONG dung counterfactual baseline.
+#        Voi single-agent (khong group) MAPPO suy bien gan nhu PPO thuong -
+#        dung lam doi chung so voi ctr_poca / ctr_ppo.
+#        Hyperparameter giu giong ctr_poca.yaml de so sanh cong bang.
+
+behaviors:
+  CrossTheRoad:
+    trainer_type: mappo
+    hyperparameters:
+      batch_size: 512
+      buffer_size: 10240
+      learning_rate: 3.0e-4
+      beta: 5.0e-3
+      epsilon: 0.2
+      lambd: 0.99
+      num_epoch: 3
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      curiosity:
+        gamma: 0.99
+        strength: 0.02
+        learning_rate: 3.0e-4
+    keep_checkpoints: 5
+    max_steps: 2000000
+    time_horizon: 64
+    summary_freq: 10000

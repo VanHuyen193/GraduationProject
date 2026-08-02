@@ -307,6 +307,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.vanhuyen.rl-game-envs": {
+      "version": "file:com.vanhuyen.rl-game-envs",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.ml-agents": "4.0.2",
+        "com.unity.ai.inference": "2.6.1"
+      }
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

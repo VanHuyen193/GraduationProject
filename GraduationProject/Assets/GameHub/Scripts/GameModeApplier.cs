@@ -29,8 +29,7 @@ namespace GameHub
                 return;
             }
 
-            string expected = GameModeSelection.SceneNameFor(
-                GameModeSelection.Environment);
+            string expected = GameModeSelection.SceneToLoad();
 
             if (scene.name != expected)
             {
@@ -56,6 +55,41 @@ namespace GameHub
         // =====================================================
         // HELPERS
         // =====================================================
+
+        /// <summary>
+        /// Tên đối tượng chứa các bản sao khu vực huấn luyện. Ba scene môi trường
+        /// đều đã được nhân bản khu vực để huấn luyện song song: bản gốc nằm ngay
+        /// dưới gốc scene, các bản sao nằm trong đối tượng này.
+        /// </summary>
+        private const string AreaContainer = "_TrainingAreas";
+
+        /// <summary>
+        /// Khu vực huấn luyện chứa thành phần này. Không dùng
+        /// <c>transform.root</c> được, vì với các bản sao thì root là
+        /// <see cref="AreaContainer"/> chung chứ không phải từng khu vực.
+        /// </summary>
+        private static GameObject AreaOf(Component component)
+        {
+            Transform t = component.transform;
+
+            while (t.parent != null && t.parent.name != AreaContainer)
+            {
+                t = t.parent;
+            }
+
+            return t.gameObject;
+        }
+
+        /// <summary>Các khu vực chứa những tác nhân này, xếp trái sang phải.</summary>
+        private static GameObject[] OrderedAreas<T>(T[] agents) where T : Component
+        {
+            return agents
+                .Select(AreaOf)
+                .Distinct()
+                .OrderBy(a => a.transform.position.x)
+                .ThenBy(a => a.transform.position.z)
+                .ToArray();
+        }
 
         /// <summary>
         /// Đặt chế độ hoạt động cho một agent:
@@ -114,13 +148,11 @@ namespace GameHub
             // Mỗi khu vực (prefab CrossTheRoadArea) chứa 1 agent, sắp theo trục X
             CrossTheRoadAgent[] agents = Object
                 .FindObjectsByType<CrossTheRoadAgent>(FindObjectsSortMode.None)
-                .OrderBy(a => a.transform.root.position.x)
-                .ThenBy(a => a.transform.root.position.z)
+                .OrderBy(a => AreaOf(a).transform.position.x)
+                .ThenBy(a => AreaOf(a).transform.position.z)
                 .ToArray();
 
-            GameObject[] areas = agents
-                .Select(a => a.transform.root.gameObject)
-                .ToArray();
+            GameObject[] areas = agents.Select(AreaOf).ToArray();
 
             PlayMode mode = GameModeSelection.Mode;
             string info = ModeInfo();
@@ -210,16 +242,33 @@ namespace GameHub
         // =====================================================
         private static void ApplyCaptureTheFlag()
         {
-            PuzzleAgent[] agents = Object
+            // Scene huấn luyện có nhiều khu vực song song; chế độ chơi chỉ giữ lại
+            // một khu vực để người xem theo dõi đúng một cặp tác nhân phối hợp.
+            PuzzleAgent[] all = Object
                 .FindObjectsByType<PuzzleAgent>(FindObjectsSortMode.None)
+                .ToArray();
+
+            if (all.Length < 2)
+            {
+                Debug.LogError("[GameHub] CaptureTheFlag cần 2 agent trong scene.");
+                return;
+            }
+
+            GameObject[] areas = OrderedAreas(all);
+            KeepAreas(areas, 1);
+
+            PuzzleAgent[] agents = all
+                .Where(a => AreaOf(a) == areas[0])
                 .OrderBy(a => a.name)
                 .ToArray();
 
             if (agents.Length < 2)
             {
-                Debug.LogError("[GameHub] CaptureTheFlag cần 2 agent trong scene.");
+                Debug.LogError("[GameHub] CaptureTheFlag cần 2 agent trong một khu vực.");
                 return;
             }
+
+            FrameCamera(new[] { areas[0] });
 
             PlayMode mode = GameModeSelection.Mode;
             string info = ModeInfo();
@@ -293,13 +342,29 @@ namespace GameHub
         // =====================================================
         private static void ApplyFootball()
         {
-            FootballAgent[] agents = Object
+            FootballAgent[] all = Object
                 .FindObjectsByType<FootballAgent>(FindObjectsSortMode.None)
+                .ToArray();
+
+            if (all.Length < 2)
+            {
+                Debug.LogError("[GameHub] Football cần 2 agent trong scene.");
+                return;
+            }
+
+            // Chỉ chơi trên MỘT bàn: scene huấn luyện có nhiều bàn song song, nếu
+            // chọn tác nhân trên toàn scene thì "đội Đỏ" có thể rơi vào một tác nhân
+            // Xanh của bàn khác và trận đấu không bao giờ hình thành.
+            GameObject[] tables = OrderedAreas(all);
+            KeepAreas(tables, 1);
+
+            FootballAgent[] agents = all
+                .Where(a => AreaOf(a) == tables[0])
                 .ToArray();
 
             if (agents.Length < 2)
             {
-                Debug.LogError("[GameHub] Football cần 2 agent trong scene.");
+                Debug.LogError("[GameHub] Football cần 2 agent trong một bàn.");
                 return;
             }
 
@@ -307,6 +372,8 @@ namespace GameHub
                 agents.FirstOrDefault(a => a.name.Contains("Blue")) ?? agents[0];
 
             FootballAgent red = agents.First(a => a != blue);
+
+            FrameCamera(new[] { tables[0] });
 
             PlayMode mode = GameModeSelection.Mode;
             string info = ModeInfo();
@@ -354,7 +421,7 @@ namespace GameHub
                     var footballLLM = red.gameObject
                         .AddComponent<LLMFootballDriver>();
                     footballLLM.team = red.AgentTeam;
-                    footballLLM.ball = Object.FindFirstObjectByType<Ball>();
+                    footballLLM.ball = tables[0].GetComponentInChildren<Ball>(true);
                     llmDriver = footballLLM;
 
                     Configure(red, null, 1);
@@ -407,10 +474,9 @@ namespace GameHub
             // Không cho episode tự kết thúc theo bước (đội người chơi quản lý reset)
             agent.MaxStep = 0;
 
-            // Bật bot điều khiển đúng team này
-            DumbHeuristic bot = Object
-                .FindObjectsByType<DumbHeuristic>(
-                    FindObjectsInactive.Include, FindObjectsSortMode.None)
+            // Bật bot điều khiển đúng team này, chỉ tìm trong bàn đang chơi
+            DumbHeuristic bot = AreaOf(agent)
+                .GetComponentsInChildren<DumbHeuristic>(true)
                 .FirstOrDefault(b =>
                     b.Team == agent.AgentTeam ||
                     b.gameObject == agent.gameObject);

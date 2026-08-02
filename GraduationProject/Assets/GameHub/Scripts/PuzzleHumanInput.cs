@@ -1,4 +1,6 @@
+using Unity.MLAgents.Actuators;
 using UnityEngine;
+using VanHuyen.RLGameEnvs;
 
 namespace GameHub
 {
@@ -6,7 +8,7 @@ namespace GameHub
     /// Sơ đồ phím cho PuzzleAgent (Capture The Flag) ở chế độ người chơi.
     /// Cho phép 2 người chơi trên cùng bàn phím: WASD và phím mũi tên.
     /// </summary>
-    public class PuzzleHumanInput : MonoBehaviour
+    public class PuzzleHumanInput : MonoBehaviour, IManualActionSource
     {
         public enum Scheme
         {
@@ -43,6 +45,15 @@ namespace GameHub
             }
 
             return 0;
+        }
+
+        /// <summary>Ghi hành động cho môi trường (IManualActionSource).</summary>
+        public void WriteActions(in ActionBuffers actionsOut)
+        {
+            // ActionSegment là struct bọc mảng: gán qua biến cục bộ vẫn
+            // ghi vào đúng mảng gốc.
+            var discrete = actionsOut.DiscreteActions;
+            discrete[0] = GetAction();
         }
     }
 }

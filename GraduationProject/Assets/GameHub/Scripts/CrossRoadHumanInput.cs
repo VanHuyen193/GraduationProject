@@ -1,4 +1,6 @@
+using Unity.MLAgents.Actuators;
 using UnityEngine;
+using VanHuyen.RLGameEnvs;
 
 namespace GameHub
 {
@@ -7,7 +9,7 @@ namespace GameHub
     /// Bắt phím trong Update (không bị mất phím như GetKeyDown trong Heuristic)
     /// rồi Heuristic tiêu thụ ở lần quyết định kế tiếp.
     /// </summary>
-    public class CrossRoadHumanInput : MonoBehaviour
+    public class CrossRoadHumanInput : MonoBehaviour, IManualActionSource
     {
         // 0 = đứng yên, 1 = trái, 2 = phải, 3 = tiến
         private int pendingAction;
@@ -34,6 +36,15 @@ namespace GameHub
             int action = pendingAction;
             pendingAction = 0;
             return action;
+        }
+
+        /// <summary>Ghi hành động cho môi trường (IManualActionSource).</summary>
+        public void WriteActions(in ActionBuffers actionsOut)
+        {
+            // ActionSegment là struct bọc mảng: gán qua biến cục bộ vẫn
+            // ghi vào đúng mảng gốc.
+            var discrete = actionsOut.DiscreteActions;
+            discrete[0] = Consume();
         }
     }
 }

@@ -1,5 +1,7 @@
 using System.Text;
+using Unity.MLAgents.Actuators;
 using UnityEngine;
+using VanHuyen.RLGameEnvs;
 
 namespace GameHub
 {
@@ -8,7 +10,7 @@ namespace GameHub
     /// LLM chọn 1 trong 4 action. Agent tiêu thụ action qua Heuristic
     /// (giống CrossRoadHumanInput).
     /// </summary>
-    public class LLMCrossRoadDriver : LLMDriverBase
+    public class LLMCrossRoadDriver : LLMDriverBase, IManualActionSource
     {
         private CrossTheRoadAgent agent;
         private CrossTheRoadCar[] cars;
@@ -103,6 +105,15 @@ namespace GameHub
             int action = pendingAction;
             pendingAction = 0;
             return action;
+        }
+
+        /// <summary>Ghi hành động cho môi trường (IManualActionSource).</summary>
+        public void WriteActions(in ActionBuffers actionsOut)
+        {
+            // ActionSegment là struct bọc mảng: gán qua biến cục bộ vẫn
+            // ghi vào đúng mảng gốc.
+            var discrete = actionsOut.DiscreteActions;
+            discrete[0] = ConsumeAction();
         }
     }
 }

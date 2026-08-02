@@ -4,39 +4,25 @@
 
 \vspace{0.5cm}
 
-\indent Đồ án nghiên cứu việc ứng dụng học tăng cường (Reinforcement Learning - RL)
-để tối ưu hóa khả năng tương tác của các tác nhân trí tuệ nhân tạo trong
-môi trường game ba chiều. Trọng tâm của đề tài là xây dựng ba môi trường game 3D
-đặc trưng trên nền tảng Unity ML-Agents - Football Table (đối kháng
-một-một), môi trường Capture The Flag (hợp tác đa tác nhân) và Cross The Road
-(điều hướng tránh phương tiện) - rồi tiến hành huấn luyện và so sánh có hệ thống năm
-thuật toán tiêu biểu: PPO (Proximal Policy Optimization), SAC (Soft Actor-Critic),
-MA-POCA (Multi-Agent POsthumous Credit Assignment), MAPPO (Multi-Agent Proximal Policy
-Optimization) và DQN (Deep Q-Network).
+\indent Đồ án tập trung vào việc xây dựng các môi trường game ba chiều phù hợp với việc học tăng cường. Hiện nay, các thuật toán học tăng cường đã được đóng gói trong nhiều thư viện nên phần lớn công việc của một dự án học tăng cường trong game nằm ở việc thiết kế môi trường chứ không phải là triển khai thuật toán.
 
-\indent Lưới thực nghiệm gồm mười lăm lần chạy đầy đủ, tương ứng với năm thuật toán
-trên ba môi trường, tất cả trên cùng một cấu hình phần cứng và cùng một ngân sách bước
-trong mỗi môi trường. Hiệu năng được đánh giá theo bốn tiêu chí định lượng: mức năng
-lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và độ dài lượt chơi. Đề tài cũng
-trình bày quy trình đưa hai thuật toán không có sẵn trong ML-Agents là MAPPO và DQN
-vào bộ công cụ dưới dạng trainer mở rộng, cùng quy trình kết nối một thuật toán
-off-policy với môi trường Unity qua Python Low-Level API và Stable-Baselines3.
+\indent Đề tài xây dựng ba môi trường game ba chiều trên nền tảng Unity ML-Agents, mỗi
+môi trường đại diện cho một dạng bài toán: Football Table (đối kháng một-một, hành động
+liên tục, tự chơi), Capture The Flag (hợp tác hai tác nhân với phần thưởng nhóm và
+chương trình học theo bậc) và Cross The Road (điều hướng đơn tác nhân, phần thưởng
+thưa). Với từng môi trường, đồ án trình bày quá trình thiết kế quan sát - hành
+động - phần thưởng. Cả ba được đóng gói thành một gói Unity
+Package Manager kèm 15 cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn
+cài đặt.
 
-\indent Kết quả thực nghiệm cho thấy không tồn tại một thuật toán tối ưu duy nhất cho
-mọi bài toán, nhưng sự phù hợp giữa thuật toán và môi trường bộc lộ qua thất bại rõ
-hơn qua chiến thắng. Trong môi trường đối kháng, cả bốn thuật toán dùng tự chơi đều
-tiến bộ so với phiên bản cũ của chính mình, song biên độ ELO quá hẹp (1237--1260) để
-phân định thứ hạng. Ở bài toán điều hướng đơn tác nhân, SAC dẫn đầu với phần thưởng
-$0{,}846$ và MAPPO bám sát ở $0{,}835$, trong khi DQN xếp cuối với khoảng cách lớn
-($0{,}336$). Ở bài toán hợp tác, bốn thuật toán về đích trong một dải hẹp
-$0{,}800$--$0{,}840$ nên cơ chế phê bình tập trung không tạo được khác biệt đo lường
-được so với PPO thường, còn SAC sụp đổ hoàn toàn ở mức $0{,}183$. Trên cơ sở đó, đề tài
-xây dựng một ứng dụng trình diễn tương tác hoàn chỉnh: các mô hình đã huấn luyện được
-triển khai trực tiếp vào game dưới định dạng ONNX, người dùng có thể lựa chọn môi
-trường, chế độ chơi (tự điều khiển, tác nhân tự chơi, chơi cùng tác nhân, tác nhân
-đấu mô hình ngôn ngữ lớn), mô hình cho tác nhân và tra cứu ngay biểu đồ huấn luyện
-của từng thuật toán trên giao diện menu.
-Kết luận thực tiễn rút ra là việc chọn thuật toán RL nên xuất phát từ cơ chế của chính
-trò chơi - đối kháng, hợp tác hay điều hướng - chứ không từ thứ hạng của thuật toán trên
-các bộ benchmark chuẩn.
+\indent Đề tài cũng thực hiện chạy 5 thuật toán PPO, SAC, MA-POCA,
+MAPPO và DQN trên cả ba môi trường với cùng cấu hình và ngân sách bước chạy. Năm thuật toán ở đây là phép thử cho thấy một môi trường đạt yêu cầu phải cho thấy tác nhân học được, phân biệt được các
+hướng tiếp cận và không tồn tại lối tắt. Kết quả xác nhận cả ba đều đạt, với phần
+thưởng cuối trải rộng và giải thích được bằng cơ chế bài toán - chẳng hạn SAC dẫn đầu
+trên Cross The Road ($0{,}846$) nhưng sụp đổ trên Capture The Flag ($0{,}183$). Khoảng
+cách của cùng một thuật toán giữa hai môi trường luôn lớn hơn khoảng cách giữa các thuật
+toán trong cùng một môi trường: đặc tính bài toán, do thiết kế môi trường quyết định,
+chi phối kết quả mạnh hơn lựa chọn thuật toán. Đồ án cũng xây dựng một ứng dụng trình
+diễn cho phép nạp trực tiếp mười lăm mô hình ONNX đã huấn luyện và quan sát hành vi
+thật.
 

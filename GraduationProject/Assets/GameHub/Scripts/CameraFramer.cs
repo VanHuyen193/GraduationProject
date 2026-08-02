@@ -73,40 +73,53 @@ namespace GameHub
                 return;
             }
 
-            float radius = bounds.extents.magnitude;
+            // Chiếu 8 đỉnh hộp bao lên ba trục của camera: dùng chung cho cả hai
+            // kiểu chiếu, thay vì lấy bán kính hình cầu (quá rộng với vùng chơi
+            // dài và dẹt như bàn bi lắc).
+            Transform t = camera.transform;
+            float halfWidth = 0f;
+            float halfHeight = 0f;
+            float halfDepth = 0f;
 
-            // Đặt camera trên trục nhìn đi qua tâm vùng chơi
-            camera.transform.position =
-                bounds.center - camera.transform.forward * (radius * 2.2f);
+            for (int i = 0; i < 8; i++)
+            {
+                Vector3 local = Vector3.Scale(
+                    bounds.extents,
+                    new Vector3(
+                        (i & 1) == 0 ? 1 : -1,
+                        (i & 2) == 0 ? 1 : -1,
+                        (i & 4) == 0 ? 1 : -1));
+
+                halfWidth = Mathf.Max(
+                    halfWidth, Mathf.Abs(Vector3.Dot(local, t.right)));
+
+                halfHeight = Mathf.Max(
+                    halfHeight, Mathf.Abs(Vector3.Dot(local, t.up)));
+
+                halfDepth = Mathf.Max(
+                    halfDepth, Mathf.Abs(Vector3.Dot(local, t.forward)));
+            }
+
+            const float margin = 1.08f;
 
             if (camera.orthographic)
             {
-                // Chiếu 8 góc bounds lên trục ngang/dọc của camera
-                // để tính orthographicSize vừa khít
-                Transform t = camera.transform;
-                float halfWidth = 0f;
-                float halfHeight = 0f;
-
-                for (int i = 0; i < 8; i++)
-                {
-                    Vector3 corner = bounds.center + Vector3.Scale(
-                        bounds.extents,
-                        new Vector3(
-                            (i & 1) == 0 ? 1 : -1,
-                            (i & 2) == 0 ? 1 : -1,
-                            (i & 4) == 0 ? 1 : -1));
-
-                    Vector3 local = corner - bounds.center;
-
-                    halfWidth = Mathf.Max(
-                        halfWidth, Mathf.Abs(Vector3.Dot(local, t.right)));
-
-                    halfHeight = Mathf.Max(
-                        halfHeight, Mathf.Abs(Vector3.Dot(local, t.up)));
-                }
+                camera.transform.position = bounds.center
+                    - t.forward * (halfDepth + bounds.extents.magnitude);
 
                 camera.orthographicSize = Mathf.Max(
-                    halfHeight, halfWidth / camera.aspect) * 1.08f;
+                    halfHeight, halfWidth / camera.aspect) * margin;
+            }
+            else
+            {
+                // Khoảng cách đủ để nửa chiều cao/rộng nằm trong góc nhìn
+                float tanV = Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+                float tanH = tanV * camera.aspect;
+
+                float distance = Mathf.Max(halfHeight / tanV, halfWidth / tanH)
+                    * margin + halfDepth;
+
+                camera.transform.position = bounds.center - t.forward * distance;
             }
         }
     }

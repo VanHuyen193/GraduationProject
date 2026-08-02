@@ -1,0 +1,44 @@
+{
+  "name": "com.vanhuyen.rl-game-envs",
+  "version": "1.0.0",
+  "displayName": "RL Game Environments",
+  "description": "Ba môi trường game 3D dựng sẵn để huấn luyện và so sánh thuật toán học tăng cường với Unity ML-Agents: Cross The Road (điều hướng, đơn tác nhân), Capture The Flag (hợp tác, hai tác nhân, group reward) và Football Table (đối kháng 1v1, self-play). Gói kèm cấu hình huấn luyện cho PPO, SAC, MA-POCA, MAPPO, DQN và một trình hướng dẫn cài đặt trong Editor.",
+  "unity": "6000.0",
+  "keywords": [
+    "ml-agents",
+    "reinforcement-learning",
+    "machine-learning",
+    "ai",
+    "benchmark",
+    "environment"
+  ],
+  "author": {
+    "name": "Văn Thị Minh Huyền"
+  },
+  "dependencies": {
+    "com.unity.ml-agents": "4.0.2",
+    "com.unity.ai.inference": "2.6.1"
+  },
+  "samples": [
+    {
+      "displayName": "Cross The Road",
+      "description": "Môi trường điều hướng đơn tác nhân: băng qua nhiều làn xe để tới đích. 4 hành động rời rạc, phần thưởng thưa.",
+      "path": "Samples~/CrossTheRoad"
+    },
+    {
+      "displayName": "Capture The Flag",
+      "description": "Môi trường hợp tác hai tác nhân: thay nhau giữ bàn đạp mở cửa để cả hai cùng tới đích. Dùng group reward.",
+      "path": "Samples~/CaptureTheFlag"
+    },
+    {
+      "displayName": "Football Table",
+      "description": "Môi trường đối kháng 1v1: bi lắc bốn thanh gạt, hành động liên tục 8 kênh, huấn luyện bằng self-play.",
+      "path": "Samples~/FootballTable"
+    },
+    {
+      "displayName": "Training Configs",
+      "description": "Mười lăm tệp cấu hình YAML cho năm thuật toán trên ba môi trường.",
+      "path": "Samples~/TrainingConfigs"
+    }
+  ]
+}

@@ -18,8 +18,15 @@ namespace GameHub
         public float meanLast10;
         public int convergeStep;
         public float epLenFinal;
+        public string actionSpace; // "discrete" | "continuous" — đọc từ chính file ONNX
+        public string model;       // tên file ONNX trong Resources/AgentModels (= runId)
         public int[] cs;   // curve steps
         public float[] cv; // curve values (đã làm mượt + rút gọn)
+
+        public bool IsDiscrete
+        {
+            get { return actionSpace == "discrete"; }
+        }
     }
 
     [Serializable]
@@ -46,6 +53,25 @@ namespace GameHub
 
             return null;
         }
+
+        /// <summary>Lần chạy đã sinh ra file ONNX này (tên file = mã lần chạy).</summary>
+        public AlgoTraining ByModel(string modelName)
+        {
+            if (algorithms == null || string.IsNullOrEmpty(modelName))
+            {
+                return null;
+            }
+
+            foreach (AlgoTraining a in algorithms)
+            {
+                if (a.model == modelName || a.runId == modelName)
+                {
+                    return a;
+                }
+            }
+
+            return null;
+        }
     }
 
     [Serializable]
@@ -64,7 +90,8 @@ namespace GameHub
         private static TrainingDataRoot cached;
         private static bool loaded;
 
-        public static readonly string[] AlgoOrder = { "PPO", "SAC", "MA-POCA", "MAPPO" };
+        public static readonly string[] AlgoOrder =
+            { "PPO", "SAC", "MA-POCA", "MAPPO", "DQN" };
 
         public static TrainingDataRoot Data
         {
@@ -120,8 +147,26 @@ namespace GameHub
                 case "SAC": return new Color32(76, 175, 80, 255);     // xanh lá
                 case "MA-POCA": return new Color32(255, 152, 0, 255); // cam
                 case "MAPPO": return new Color32(156, 39, 176, 255);  // tím
+                case "DQN": return new Color32(229, 57, 53, 255);     // đỏ
                 default: return new Color32(160, 160, 160, 255);
             }
+        }
+
+        /// <summary>Lần chạy ứng với một file ONNX trong Resources/AgentModels.</summary>
+        public static AlgoTraining RunOf(GameEnvironment env, string modelName)
+        {
+            EnvTraining e = ForEnv(env);
+            return e != null ? e.ByModel(modelName) : null;
+        }
+
+        /// <summary>
+        /// Nhãn hiển thị cho một model trong menu: "PPO · ctr01".
+        /// Model lạ (người dùng tự thả vào thư mục) giữ nguyên tên file.
+        /// </summary>
+        public static string LabelFor(GameEnvironment env, string modelName)
+        {
+            AlgoTraining a = RunOf(env, modelName);
+            return a != null ? a.algo + " · " + modelName : modelName;
         }
     }
 }

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Football/Football.unity
     guid: 1016d6715fe70674f8610496e146dfc4
+  - enabled: 1
+    path: Assets/Football/FootballDiscrete.unity
+    guid: 14b09cc358d7f824b8f592b776ed8afc
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
   m_UseUCBPForAssetBundles: 0
