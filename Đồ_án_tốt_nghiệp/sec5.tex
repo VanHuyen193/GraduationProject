@@ -652,8 +652,10 @@ MA-POCA sinh ra để giải.
 
 \indent Hình~\ref{fig:puzzle_layout} thể hiện bố cục không gian: một hành lang dài trải
 theo một trục, chia thành ba khoang bởi hai bức tường ngăn có khe hở lệch nhau. Khoang đầu
-là phòng xuất phát, nơi đặt sẵn hai tác nhân và một khối vật cản; lối ra là khe hở nằm
-lệch về một bên của bức tường ngăn thứ nhất. Khoang giữa chứa bàn đạp áp lực thứ nhất.
+là phòng xuất phát, nơi đặt sẵn hai tác nhân và một khối vật cản; lối ra duy nhất là khe
+hở nằm lệch về một bên của bức tường ngăn thứ nhất, và ngay từ đầu lượt chơi khe hở ấy bị
+chính khối vật cản bịt kín, nên muốn rời phòng thì trước hết phải đẩy khối đi chỗ khác.
+Khoang giữa chứa bàn đạp áp lực thứ nhất.
 Ngăn khoang giữa với khoang cuối là một cổng cửa đặt ở khe hở chính giữa bức tường ngăn
 thứ hai, gồm hai cánh có thể hạ xuống để mở hoặc nâng lên để chặn. Khoang cuối có bàn đạp
 áp lực thứ hai, và ở tận cùng là vạch đích trải suốt chiều rộng hành lang. Điểm thiết kế
@@ -671,6 +673,12 @@ bàn giao mà lời giải buộc phải tuân theo.
   % Tường ngăn 1
   \draw[thick] (4,0) -- (4,2.5);
   \draw[thick] (4,3.5) -- (4,4);
+
+  % Khối vật cản bịt kín khe hở của tường ngăn 1
+  \fill[brown!45!gray] (3.65,2.55) rectangle (4.35,3.45);
+  \draw[thick] (3.65,2.55) rectangle (4.35,3.45);
+  \node[font=\footnotesize] at (2.2,3.7) {Khối vật cản};
+  \draw[thin] (2.95,3.55) -- (3.55,3.3);
 
   % Tường ngăn 2 (Cổng)
   \draw[thick] (8,0) -- (8,1.5);
@@ -696,6 +704,42 @@ bàn giao mà lời giải buộc phải tuân theo.
 \caption{Sơ đồ bố cục không gian và trình tự bàn giao trong Capture The Flag}
 \label{fig:puzzle_layout}
 \end{figure}
+
+\subsubsection{Cửa ải khối vật cản}
+\label{sub:coop-block}
+\indent Khối vật cản trong phòng xuất phát không phải vật trang trí, mà là chướng ngại bắt
+buộc đầu tiên của lượt chơi. Khe hở của bức tường ngăn thứ nhất rộng chừng bảy phẩy sáu
+đơn vị, tính từ mặt trong của tường biên tới đầu mút bức tường ngăn. Khối vật cản là một
+hình lập phương cạnh bảy đơn vị, khối lượng một trăm đơn vị, đặt nằm gọn trong khe hở ấy
+và chỉ chừa lại hai kẽ trống rộng $0{,}25$ và $0{,}36$ đơn vị ở hai bên, trong khi bề
+ngang của tác nhân là hai đơn vị. Vậy nên không tồn tại quỹ đạo nào lách qua được: muốn ra
+khỏi phòng xuất phát, tác nhân buộc phải đẩy khối trượt dọc theo khe cho tới khi lối đi hở
+ra. Đây cũng là lý do khối vật cản có mặt trong danh sách nhãn của cảm biến tia ở
+Mục~\ref{sub:coop-obs} - tác nhân cần phân biệt được nó với tường để biết chỗ nào đẩy
+được, chỗ nào không.
+
+\indent Có một điều phải nói rõ để tránh hiểu nhầm về mức độ ràng buộc của cửa ải này: nó
+không ép buộc hợp tác theo nghĩa chặt như cổng cửa. Bởi lệnh di chuyển cộng thẳng một
+lượng vận tốc vào thân vật lý chứ không tác dụng một lực hữu hạn, khả năng đẩy của tác
+nhân không bị khối lượng của khối chặn lại. Mỗi bước vật lý, một tác nhân nặng mười đơn vị
+khối lượng truyền vào hệ một xung lượng bằng mười bốn; chia cho tổng khối lượng của hệ tác
+nhân cộng khối là một trăm mười, hệ nhận thêm chừng $0{,}13$ đơn vị vận tốc. Hai tác nhân
+cùng đẩy thì con số ấy là hai mươi tám chia cho một trăm hai mươi, tức khoảng $0{,}23$ -
+nhanh gần gấp đôi. Nói cách khác, một tác nhân đơn độc vẫn dọn được lối đi, chỉ là chậm
+hơn hẳn. Thêm nữa, khối chỉ bị khóa xoay quanh hai trục ngang mà vẫn xoay tự do quanh trục
+đứng, nên một tác nhân đẩy lệch tâm dễ làm khối xoay chéo rồi kẹt trong khe, còn hai tác
+nhân đẩy hai bên thì khối đi thẳng. Cửa ải này vì thế chỉ tạo ra một sức ép hợp tác mềm:
+hợp tác thì nhanh hơn và ít rủi ro hơn, nhưng không hợp tác vẫn qua được. Ràng buộc hợp
+tác cứng, tức thứ không có lời giải cá nhân nào, nằm ở cơ chế cổng cửa trình bày tại
+Mục~\ref{sub:coop-handoff}.
+
+\indent Vai trò thiết kế của khối vì vậy là một cửa ải khởi động đặt trước pha bàn giao
+thật sự. Nó tách lượt chơi thành hai giai đoạn có yêu cầu khác hẳn nhau, và quan trọng hơn
+là đặt một việc phải làm ngay trong tầm với của chính sách ngẫu nhiên lúc khởi đầu: tác
+nhân chưa biết gì về bàn đạp hay cổng vẫn có lý do va vào khối rồi trôi ra khỏi phòng xuất
+phát, thay vì lang thang trong một căn phòng kín chẳng có tín hiệu nào. Nó cũng giữ hai
+tác nhân ở gần nhau trong những bước đầu, nhờ đó cấu hình cần thiết cho màn bàn giao có cơ
+hội xuất hiện sớm hơn trong quá trình khám phá.
 
 \subsubsection{Không gian quan sát}
 \label{sub:coop-obs}
@@ -773,10 +817,11 @@ thì Mục~\ref{sub:coop-reward-process} thuật lại.
 
 \indent Mọi thứ khởi đầu từ lời giải mẫu, đúng theo nguyên tắc bám theo lời giải mẫu ở
 Mục~\ref{sub:reward-principle}. Với bố cục đã mô tả, một lượt chơi thành công bắt buộc đi
-qua chuỗi trạng thái này: hai tác nhân rời phòng xuất phát; một tác nhân bước lên bàn đạp
-phía trong rồi đứng yên giữ cửa; tác nhân còn lại vượt cổng; tác nhân vừa vượt cổng bước
-lên bàn đạp phía ngoài để giữ cửa ngược lại; tác nhân đang ở bàn đạp phía trong rời chỗ và
-vượt cổng; cuối cùng cả hai cùng tiến tới vạch đích. Mỗi thành phần phần thưởng đều được
+qua chuỗi trạng thái này: khối vật cản bị đẩy khỏi khe hở của bức tường ngăn thứ nhất; hai
+tác nhân rời phòng xuất phát; một tác nhân bước lên bàn đạp phía trong rồi đứng yên giữ
+cửa; tác nhân còn lại vượt cổng; tác nhân vừa vượt cổng bước lên bàn đạp phía ngoài để giữ
+cửa ngược lại; tác nhân đang ở bàn đạp phía trong rời chỗ và vượt cổng; cuối cùng cả hai
+cùng tiến tới vạch đích. Mỗi thành phần phần thưởng đều được
 soi chiếu vào chuỗi này, với một yêu cầu bắt buộc: không thành phần nào được phạt một
 trạng thái nằm trên chuỗi. Yêu cầu tưởng như hiển nhiên ấy chính là thứ mà phiên bản phần
 thưởng đầu tiên vi phạm.
@@ -846,6 +891,18 @@ nào cho nó thì xác suất tác nhân tình cờ đứng yên đủ lâu trê
 nấn ná được khống chế bằng cách chuẩn hóa theo độ dài lượt chơi: khoản thưởng chỉ $0{,}5/N$
 mỗi bước, nên tác nhân có đứng lì trên bàn đạp suốt lượt chơi thì tổng thu cũng vừa đúng
 $0{,}5$ điểm - thua xa mức $1{,}5$ điểm nếu nó tham gia trọn vẹn một lời giải bàn giao.
+Khoản thưởng cho việc đẩy khối vật cản đi theo đúng logic ấy, nhưng kèm một lựa chọn cài
+đặt cần nói rõ: nó được trao ở mỗi bước vật lý mà tác nhân còn tiếp xúc với khối, chứ
+không trao theo quãng đường khối dịch chuyển. Cách đo theo quãng đường thoạt nghe sát mục
+tiêu hơn, song nó phụ thuộc vào phép chuyển chứ không phải hàm của riêng trạng thái, tức
+không mang dạng thế năng của Định nghĩa~\ref{dn:pbrs}, nên tác nhân có thể đẩy khối tới
+lui để gặt phần thưởng vô hạn - đúng cơ chế đã khiến đề tài tắt phần thưởng theo vận tốc
+bóng ở Mục~\ref{sub:env-football}. Đo theo tiếp xúc thì tín hiệu bị chặn cứng bởi độ dài
+lượt chơi: chỉ $0{,}25/N$ mỗi bước, nên tác nhân có tì vào khối suốt lượt chơi cũng chỉ
+thu về $0{,}25$ điểm. Cái giá phải trả là tín hiệu này đo tiếp xúc chứ không đo tiến bộ,
+nghĩa là tì vào một khối đã kẹt cứng vẫn được thưởng; với mức trần bằng một phần tư điểm,
+sai lệch đó vô hại so với hai điểm của các khoản mục tiêu, nên đề tài chấp nhận đánh đổi
+để lấy tính không thể khai thác.
 Sau cùng là khoản phạt thời gian nhóm $0{,}1/N$ mỗi bước, để thúc nhóm hoàn thành nhanh
 hơn. Giá trị này cố ý giữ rất nhỏ, tổng phạt trọn lượt chơi chỉ $0{,}1$ điểm: đủ phá thế
 hòa giữa hai chính sách cùng hoàn thành nhiệm vụ, nhưng không đủ để chi phối tín hiệu học
@@ -883,8 +940,8 @@ thưởng tích lũy ở một thang đo hợp lý.
 \indent Xếp cạnh nhau, các thành phần trên tạo nên một trật tự độ lớn được kiểm soát rất
 chặt. Một lượt chơi hoàn thành trọn vẹn mang về cho nhóm một điểm ở mục tiêu cuối, cộng
 tối đa một điểm cho hai lần vượt cổng, cộng phần định hình vốn đã bị chặn trên bởi
-$\kappa\,d(s_0)$. Trong khi đó toàn bộ các khoản theo bước, dù tác nhân xoay xở kiểu gì,
-cũng chỉ nằm trong khoảng từ $-0{,}1$ tới $+0{,}75$ điểm. Bất đẳng thức $\Sigma_{\mathrm{b}}
+$\kappa\,d(s_0)$. Trong khi đó toàn bộ các khoản theo bước mà một tác nhân có thể thu về,
+dù nó xoay xở kiểu gì, cũng chỉ nằm trong khoảng từ $-0{,}1$ tới $+0{,}75$ điểm. Bất đẳng thức $\Sigma_{\mathrm{b}}
 < |R_{\mathrm{mt}}|$ của nguyên tắc giữ trật tự độ lớn nhờ vậy được thỏa mãn, và không tồn
 tại chính sách nào vừa không hoàn thành nhiệm vụ vừa thu được tổng phần thưởng cao hơn một
 chính sách hoàn thành nhiệm vụ. Phiên bản phần thưởng đầu tiên thiếu đúng tính chất này.
