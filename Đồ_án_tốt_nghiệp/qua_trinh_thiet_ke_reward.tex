@@ -11,102 +11,99 @@
 \section{QUÁ TRÌNH THIẾT KẾ HÀM PHẦN THƯỞNG CHO MÔI TRƯỜNG HỢP TÁC}
 \label{ap:reward-process}
 
-\indent Phần này ghi lại quá trình thiết kế lặp của hàm phần thưởng cho môi trường
-Capture The Flag, từ phiên bản ban đầu thất bại cho tới thiết kế cuối cùng đã trình
-bày trong thân đồ án. Việc tách riêng quá trình này nhằm giữ cho phần thân trình bày
-gọn gàng ở thiết kế cuối, đồng thời lưu lại một ghi chép trung thực về khía cạnh khó
-nhất và mang tính kỹ thuật nhất của đề tài: kỹ thuật thiết kế phần thưởng. Kinh nghiệm
-rút ra ở đây, đặc biệt là cách chẩn đoán một hàm phần thưởng hỏng thông qua chính các
-chỉ số huấn luyện, có giá trị phương pháp luận vượt ra ngoài một môi trường cụ thể.
+\indent Phần này ghi lại quá trình thiết kế lặp của hàm phần thưởng cho môi trường Capture
+The Flag: từ phiên bản đầu tiên thất bại cho tới thiết kế cuối cùng đã trình bày trong
+thân đồ án. Tách riêng ra như vậy có hai mục đích. Một là giữ cho phần thân gọn gàng, chỉ
+nói thiết kế cuối. Hai là lưu lại một ghi chép trung thực về khía cạnh khó nhất và kỹ
+thuật nhất của đề tài, tức kỹ thuật thiết kế phần thưởng. Kinh nghiệm rút ra ở đây - nhất
+là cách chẩn đoán một hàm phần thưởng hỏng ngay từ chính các chỉ số huấn luyện - có giá
+trị phương pháp luận vượt ra ngoài phạm vi một môi trường cụ thể.
 
 \subsection{Thiết kế ban đầu và động cơ của nó}
-\indent Phiên bản phần thưởng đầu tiên được xây dựng theo trực giác thông thường: thưởng
-cho các cột mốc trung gian hướng tới đích và phạt cho các trạng thái ``xấu''. Cụ thể,
-ngoài phần thưởng nhóm cộng một điểm khi cả hai tới đích, thiết kế ban đầu gồm: một
-khoản thưởng cá nhân nhỏ khi đứng trên bàn đạp, một khoản thưởng cá nhân khi đã rời khỏi
-phòng đầu, một khoản thưởng nhóm khi cả hai đã rời phòng, một khoản thưởng khi đẩy khối
-vật cản, và một khoản phạt thời gian ở mỗi bước. Đáng chú ý nhất, thiết kế này còn có
-hai khoản phạt nhóm nhằm ``ép'' hai tác nhân hành động đồng bộ: phạt khi một tác
-nhân đứng trên bàn đạp trong lúc đồng đội chưa rời phòng, và phạt nặng hơn khi một tác
-nhân đã ra ngoài còn tác nhân kia vẫn kẹt lại. Về mặt trực giác, các khoản phạt này
-nhằm ngăn tình trạng ``bỏ rơi đồng đội''.
+\indent Phiên bản phần thưởng đầu tiên đi theo trực giác thông thường: thưởng cho các cột
+mốc trung gian hướng tới đích, phạt cho những trạng thái ``xấu''. Ngoài phần thưởng nhóm
+cộng một điểm khi cả hai tới đích, nó gồm một khoản thưởng cá nhân nhỏ khi đứng trên bàn
+đạp, một khoản khi đã rời phòng đầu, một khoản nhóm khi cả hai đã rời phòng, một khoản cho
+việc đẩy khối vật cản, và một khoản phạt thời gian mỗi bước. Đáng chú ý nhất là hai khoản
+phạt nhóm nhằm ``ép'' hai tác nhân hành động đồng bộ: phạt khi một tác nhân đứng trên bàn
+đạp mà đồng đội chưa rời phòng, và phạt nặng hơn khi một tác nhân đã ra ngoài còn tác nhân
+kia vẫn kẹt lại. Về trực giác, hai khoản này ngăn chuyện ``bỏ rơi đồng đội''.
 
 \subsection{Chẩn đoán thất bại}
-\indent Khi huấn luyện với MA-POCA, phần thưởng nhóm trung bình mắc kẹt ở đúng mức sàn
-tương ứng với khoản phạt thời gian tích lũy trọn một lượt chơi, và không nhích lên trong
-suốt hàng triệu bước. Việc chỉ số đứng yên ở đúng giá trị của riêng khoản phạt thời gian
-là một manh mối định lượng quan trọng: nó cho thấy không lượt chơi nào chạm đích và cũng
-không hành vi trung gian nào được tưởng thưởng đủ để kéo chỉ số lên. Phân tích kỹ hơn
-phát hiện ba khuyết tật nghiêm trọng đan xen nhau.
+\indent Huấn luyện với MA-POCA, phần thưởng nhóm trung bình mắc kẹt ngay ở mức sàn - đúng
+bằng khoản phạt thời gian tích lũy trọn một lượt chơi - và không nhúc nhích suốt hàng
+triệu bước. Việc chỉ số đứng im ở đúng giá trị của riêng khoản phạt thời gian là manh mối
+định lượng rất đáng giá: nó cho thấy không lượt chơi nào chạm đích, và cũng chẳng hành vi
+trung gian nào được tưởng thưởng đủ để kéo chỉ số lên. Đào sâu thêm thì lộ ra ba khuyết
+tật nghiêm trọng đan vào nhau.
 
-\indent Khuyết tật nghiêm trọng nhất là các khoản phạt nhóm phạt
-đúng hành vi mà bài toán đòi hỏi. Lời giải của câu đố bắt buộc phải trải qua trạng thái
-bất đối xứng: một tác nhân giữ bàn đạp trong khi tác nhân kia vượt cổng. Nhưng đây chính
-xác là trạng thái mà hai khoản phạt nhóm giáng xuống. Nói cách khác, mọi con đường dẫn
-tới lời giải đều đi qua vùng bị phạt, khiến tác nhân học được rằng cách ``an toàn'' nhất
-là không ai cố gắng bàn giao cả. Đây là một ví dụ điển hình của việc thiết kế phần
-thưởng đi ngược lại cấu trúc bài toán.
+\indent Nghiêm trọng nhất: các khoản phạt nhóm giáng đúng vào hành vi mà bài toán đòi hỏi.
+Lời giải câu đố nhất thiết phải đi qua một trạng thái bất đối xứng - một tác nhân giữ bàn
+đạp trong khi tác nhân kia vượt cổng. Mà đó chính xác là trạng thái bị hai khoản phạt nhóm
+nhắm tới. Mọi con đường dẫn tới lời giải đều xuyên qua vùng bị phạt, nên tác nhân học được
+rằng cách ``an toàn'' nhất là chẳng ai cố gắng bàn giao cả. Đây là ví dụ điển hình của
+việc thiết kế phần thưởng đi ngược cấu trúc bài toán.
 
-\indent Khuyết tật tiếp theo là hiện tượng lợi dụng phần thưởng ở giai đoạn cửa mở.
-Do một số khoản thưởng được cộng theo từng bước, tác nhân phát hiện ra rằng chỉ cần nấn
-ná ở một cấu hình cho điểm, chẳng hạn một tác nhân đứng gần bàn đạp trong khi tác nhân
-kia ở phía đối diện, là có thể tích lũy phần thưởng mà không cần hoàn thành nhiệm vụ.
-Chỉ số phần thưởng nhóm khi đó có thể phình lên tới gần gấp đôi giá trị của một lời giải
-sạch, tạo ra một ảo giác về tiến bộ trong khi hành vi thực chất là vô nghĩa.
+\indent Khuyết tật thứ hai là lợi dụng phần thưởng ở giai đoạn cửa mở. Vì một số khoản
+thưởng cộng theo từng bước, tác nhân sớm phát hiện rằng chỉ cần nấn ná ở một cấu hình cho
+điểm - chẳng hạn một tác nhân đứng gần bàn đạp trong khi tác nhân kia ở phía đối diện - là
+tích được phần thưởng mà khỏi hoàn thành nhiệm vụ. Chỉ số phần thưởng nhóm khi đó phình
+lên tới gần gấp đôi giá trị của một lời giải sạch, tạo ảo giác tiến bộ trong khi hành vi
+thực chất vô nghĩa.
 
-\indent Khuyết tật còn lại nằm ở cơ chế môi trường chứ không ở phần thưởng: cửa đóng lại
-tức thì khi tác nhân rời bàn đạp. Điều này khiến màn bàn giao đòi hỏi một sự đồng
-bộ thời gian gần như hoàn hảo, một sự kiện có xác suất khám phá bằng thử-sai cực thấp.
-Ngay cả khi phần thưởng đúng, xác suất để chuỗi hành động bàn giao tình cờ xảy ra là quá
-nhỏ để việc học có thể bắt đầu.
+\indent Khuyết tật cuối nằm ở cơ chế môi trường chứ không ở phần thưởng: cửa sập xuống tức
+thì khi tác nhân rời bàn đạp. Màn bàn giao vì thế đòi hỏi đồng bộ thời gian gần như hoàn
+hảo, một sự kiện có xác suất khám phá bằng thử-sai cực thấp. Phần thưởng có đúng đến mấy
+cũng vô ích, bởi xác suất để chuỗi hành động bàn giao tình cờ xảy ra là quá nhỏ để việc
+học kịp bắt đầu.
 
 \subsection{Tái thiết kế}
-\indent Dựa trên chẩn đoán trên, hàm phần thưởng và một phần cơ chế môi trường được
-thiết kế lại theo bốn thay đổi phối hợp.
+\indent Từ chẩn đoán trên, hàm phần thưởng cùng một phần cơ chế môi trường được thiết kế
+lại theo bốn thay đổi phối hợp.
 
-\indent \textbf{Loại bỏ các khoản phạt hợp tác và thay bằng phần thưởng bàn
-giao một lần.} Toàn bộ các khoản phạt nhóm cho trạng thái bất đối xứng bị gỡ bỏ. Thay
-vào đó, mỗi khi một tác nhân vừa vượt qua cổng đang khóa, cả nhóm được thưởng một khoản
-cố định, và mỗi tác nhân chỉ nhận khoản này một lần trong mỗi lượt. Vì vượt cổng đang
-khóa chỉ khả thi khi có đồng đội giữ cửa, khoản thưởng này định hướng trực tiếp cho hành
-vi bàn giao thay vì phạt nó. Đặc tính một lần loại trừ khả năng farm.
+\indent \textbf{Loại bỏ các khoản phạt hợp tác và thay bằng phần thưởng bàn giao một
+lần.} Toàn bộ khoản phạt nhóm cho trạng thái bất đối xứng bị gỡ. Thay vào đó, mỗi khi một
+tác nhân vừa vượt qua cổng đang khóa, cả nhóm nhận một khoản thưởng cố định, và mỗi tác
+nhân chỉ nhận đúng một lần trong mỗi lượt. Vượt cổng đang khóa chỉ khả thi khi có đồng đội
+giữ cửa, nên khoản thưởng này định hướng thẳng cho hành vi bàn giao thay vì phạt nó. Đặc
+tính một lần thì loại trừ khả năng farm.
 
-\indent \textbf{Thay các khoản thưởng định hướng theo bước bằng định hình phần
-thưởng theo thế năng.} Thay cho các khoản thưởng rời rạc dễ bị lợi dụng, đề tài dùng một
-phần thưởng theo khoảng cách tới đích dưới dạng hiệu thế năng, vốn bất biến chính sách
-và miễn nhiễm với lợi dụng kiểu đi tới đi lui, như đã chứng minh trong thân đồ án.
+\indent \textbf{Thay các khoản thưởng định hướng theo bước bằng định hình phần thưởng theo
+thế năng.} Những khoản thưởng rời rạc dễ bị lợi dụng được thay bằng một phần thưởng theo
+khoảng cách tới đích, dưới dạng hiệu thế năng - vốn bất biến chính sách và miễn nhiễm với
+kiểu lợi dụng đi tới đi lui, đúng như đã chứng minh trong thân đồ án.
 
-\indent \textbf{Thêm khoảng ân hạn cho cửa.} Cửa được giữ mở thêm khoảng một
-giây sau khi tác nhân rời bàn đạp. Khoảng ân hạn được chọn đủ ngắn để không cho phép một
-tác nhân đơn độc vượt cổng, nhưng đủ dài để đồng đội kịp bàn giao, nhờ đó biến màn bàn
-giao từ chỗ gần như không thể khám phá thành chỗ khả học.
+\indent \textbf{Thêm khoảng ân hạn cho cửa.} Cửa giữ mở thêm khoảng một giây sau khi tác
+nhân rời bàn đạp. Khoảng ân hạn chọn đủ ngắn để không tác nhân nào tự vượt cổng một mình,
+nhưng đủ dài để đồng đội kịp bàn giao - biến màn bàn giao từ chỗ gần như không thể khám
+phá thành chỗ khả học.
 
-\indent \textbf{Bổ sung trạng thái đồng đội vào quan sát và áp dụng học theo
-chương trình.} Quan sát của mỗi tác nhân được thêm hai cờ cho biết bản thân và đồng đội
-đã vượt cổng hay chưa, giúp chính sách phi tập trung có căn cứ trực tiếp để định thời
-điểm nhả bàn đạp. Đồng thời, một chương trình hai bài học được đưa vào: bài đầu để cửa
-mở sẵn cho tác nhân học điều hướng, bài sau khóa cửa để buộc học bàn giao.
+\indent \textbf{Bổ sung trạng thái đồng đội vào quan sát và áp dụng học theo chương
+trình.} Quan sát của mỗi tác nhân được thêm hai cờ cho biết bản thân và đồng đội đã vượt
+cổng hay chưa, để chính sách phi tập trung có căn cứ trực tiếp định thời điểm nhả bàn đạp.
+Kèm theo là một chương trình hai bài học: bài đầu để cửa mở sẵn cho tác nhân học điều
+hướng, bài sau khóa cửa để buộc học bàn giao.
 
 \subsection{Kiểm chứng thiết kế mới}
-\indent Với thiết kế mới, phần thưởng nhóm không còn mắc kẹt ở mức sàn mà tăng lên tới
-giá trị tương ứng với một lời giải bàn giao trọn vẹn. Để loại trừ khả năng chỉ số đẹp
-đến từ một lối tắt cá nhân, đề tài kiểm chứng bằng lập luận vật lý đã trình bày trong
-thân đồ án: với vận tốc tối đa hữu hạn của robot và khoảng ân hạn một giây, không tồn
-tại quỹ đạo giúp một tác nhân đơn độc vượt cổng. Do đó chỉ số phần thưởng cao là bằng
-chứng của hành vi hợp tác thực sự. Kết quả này cho thấy toàn bộ bốn thay đổi phối hợp
-với nhau: định hình theo thế năng dẫn đường, phần thưởng bàn giao một lần tưởng thưởng
-đúng cột mốc hợp tác, khoảng ân hạn làm cho cột mốc đó khả thi, và quan sát trạng thái
-đồng đội cùng chương trình học giúp chính sách hội tụ.
+\indent Với thiết kế mới, phần thưởng nhóm thoát khỏi mức sàn và leo lên tới giá trị tương
+ứng với một lời giải bàn giao trọn vẹn. Để chắc chắn chỉ số đẹp không đến từ lối tắt cá
+nhân, đề tài kiểm chứng bằng lập luận vật lý đã trình bày trong thân đồ án: vận tốc tối đa
+của robot là hữu hạn và khoảng ân hạn chỉ một giây, nên không tồn tại quỹ đạo nào cho một
+tác nhân đơn độc vượt cổng. Phần thưởng cao vì thế chỉ có thể là bằng chứng của hành vi
+hợp tác thật. Kết quả cho thấy cả bốn thay đổi ăn khớp với nhau: định hình theo thế năng
+dẫn đường, phần thưởng bàn giao một lần tưởng thưởng đúng cột mốc hợp tác, khoảng ân hạn
+làm cột mốc đó trở nên khả thi, còn quan sát trạng thái đồng đội cùng chương trình học đưa
+chính sách tới hội tụ.
 
 \subsection{Bài học phương pháp}
-\indent Quá trình trên gợi ra vài nguyên tắc chung cho việc thiết kế phần thưởng trong
-các bài toán hợp tác. Phần thưởng phải tưởng thưởng cho các trạng thái nằm trên
-con đường dẫn tới lời giải, chứ không được vô tình phạt chúng; muốn vậy, người
-thiết kế phải hình dung rõ lời giải mẫu trước khi đặt phần thưởng. Các khoản
-thưởng cộng theo từng bước tiềm ẩn nguy cơ bị lợi dụng, và nên được thay bằng phần
-thưởng sự kiện một lần hoặc phần thưởng định hình theo thế năng khi có thể. Một
-hàm phần thưởng hỏng thường để lại dấu vết định lượng rõ ràng trên các chỉ số huấn
-luyện, chẳng hạn việc mắc kẹt ở đúng giá trị của một thành phần phạt; biết đọc những dấu
-vết này là công cụ chẩn đoán hữu hiệu. Và khi một hành vi mục tiêu quá khó khám phá
-bằng thử-sai, đôi khi lời giải nằm ở việc điều chỉnh cơ chế môi trường, như thêm
-khoảng ân hạn, chứ không nằm ở việc điều chỉnh phần thưởng.
+\indent Quá trình trên gợi ra vài nguyên tắc chung cho việc thiết kế phần thưởng trong các
+bài toán hợp tác. Trước hết, phần thưởng phải tưởng thưởng những trạng thái nằm trên con
+đường dẫn tới lời giải, tuyệt đối không được vô tình phạt chúng - muốn vậy, người thiết kế
+phải hình dung rõ lời giải mẫu trước khi đặt bất kỳ hệ số nào. Tiếp đó, các khoản thưởng
+cộng theo từng bước luôn tiềm ẩn nguy cơ bị lợi dụng, nên thay bằng phần thưởng sự kiện
+một lần hoặc phần thưởng định hình theo thế năng bất cứ khi nào có thể. Thứ ba, một hàm
+phần thưởng hỏng thường để lại dấu vết định lượng rất rõ trên các chỉ số huấn luyện, chẳng
+hạn việc mắc kẹt đúng ở giá trị của một thành phần phạt; biết đọc những dấu vết ấy là công
+cụ chẩn đoán hữu hiệu. Và cuối cùng, khi một hành vi mục tiêu quá khó khám phá bằng
+thử-sai, lời giải đôi khi nằm ở việc chỉnh chính cơ chế môi trường - thêm khoảng ân hạn
+chẳng hạn - chứ không phải ở việc chỉnh phần thưởng.

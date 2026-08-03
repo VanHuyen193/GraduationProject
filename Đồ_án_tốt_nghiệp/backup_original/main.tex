@@ -1,13 +1,10 @@
 \documentclass[12pt,a4paper]{article}
 
-
-
 % 1. Thiết lập Font và Ngôn ngữ (Dùng với trình biên dịch XeLaTeX)
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setmainlanguage{vietnamese}
 \setmainfont{Times New Roman}
-\setdefaultlanguage{vietnamese}
 
 \usepackage{graphicx}
 \usepackage{tikz}
@@ -35,10 +32,7 @@
 \usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2.5cm, headheight=15pt]{geometry}
 \usepackage{amsmath,latexsym,amscd,amsfonts,amssymb,mathrsfs,enumerate}
 \usepackage{upgreek}
-% Không dùng tuỳ chọn "thref" vì cả đồ án không có lệnh \thref nào; tuỳ chọn này
-% định nghĩa lại \label nên nameref (do hyperref nạp sau) phải khôi phục lại định
-% nghĩa gốc và in cảnh báo "The definition of \label has changed!".
-\usepackage[thmmarks,standard,amsmath,hyperref]{ntheorem}
+\usepackage[thref,thmmarks,standard,amsmath,hyperref]{ntheorem}
 \usepackage[mathscr]{eucal}
 \usepackage{makecell} % Đặt ở phần preamble
 \usepackage{graphicx}
@@ -307,7 +301,7 @@ KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME
 
 \vspace{0.5cm}
 
-\noindent{\bfseries Giảng viên hướng dẫn:} Th.S Nguyễn Văn Sơn
+\noindent{\bfseries Giảng viên hướng dẫn:} Th.S. Nguyễn Văn Sơn
 
 \end{adjustwidth}
 
@@ -374,7 +368,7 @@ HÀ NỘI, THÁNG 8 NĂM 2026
 
 \vspace{0.5cm}
 
-\noindent{\bfseries Giảng viên hướng dẫn:} Th.S Nguyễn Văn Sơn
+\noindent{\bfseries Giảng viên hướng dẫn:} Th.S. Nguyễn Văn Sơn
 
 \end{adjustwidth}
 

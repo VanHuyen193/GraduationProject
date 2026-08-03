@@ -1,0 +1,28 @@
+\begin{center}
+    {\large\bfseries TÓM TẮT ĐỒ ÁN}
+\end{center}
+
+\vspace{0.5cm}
+
+\indent Đồ án tập trung vào việc xây dựng các môi trường game ba chiều phù hợp với việc học tăng cường. Hiện nay, các thuật toán học tăng cường đã được đóng gói trong nhiều thư viện nên phần lớn công việc của một dự án học tăng cường trong game nằm ở việc thiết kế môi trường chứ không phải là triển khai thuật toán.
+
+\indent Đề tài xây dựng ba môi trường game ba chiều trên nền tảng Unity ML-Agents, mỗi
+môi trường đại diện cho một dạng bài toán: Football Table (đối kháng một-một, hành động
+liên tục, tự chơi), Capture The Flag (hợp tác hai tác nhân với phần thưởng nhóm và
+chương trình học theo bậc) và Cross The Road (điều hướng đơn tác nhân, phần thưởng
+thưa). Với từng môi trường, đồ án trình bày quá trình thiết kế quan sát - hành
+động - phần thưởng. Cả ba được đóng gói thành một gói Unity
+Package Manager kèm 15 cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn
+cài đặt.
+
+\indent Đề tài cũng thực hiện chạy 5 thuật toán PPO, SAC, MA-POCA,
+MAPPO và DQN trên cả ba môi trường với cùng cấu hình và ngân sách bước chạy. Năm thuật toán ở đây là phép thử cho thấy một môi trường đạt yêu cầu phải cho thấy tác nhân học được, phân biệt được các
+hướng tiếp cận và không tồn tại lối tắt. Kết quả xác nhận cả ba đều đạt, với phần
+thưởng cuối trải rộng và giải thích được bằng cơ chế bài toán - chẳng hạn SAC dẫn đầu
+trên Cross The Road ($0{,}846$) nhưng sụp đổ trên Capture The Flag ($0{,}183$). Khoảng
+cách của cùng một thuật toán giữa hai môi trường luôn lớn hơn khoảng cách giữa các thuật
+toán trong cùng một môi trường: đặc tính bài toán, do thiết kế môi trường quyết định,
+chi phối kết quả mạnh hơn lựa chọn thuật toán. Đồ án cũng xây dựng một ứng dụng trình
+diễn cho phép nạp trực tiếp mười lăm mô hình ONNX đã huấn luyện và quan sát hành vi
+thật.
+

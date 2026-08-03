@@ -1,0 +1,1077 @@
+\fontsize{13pt}{22.5pt}\selectfont
+
+\section{KIỂM CHỨNG MÔI TRƯỜNG QUA THỰC NGHIỆM}
+\label{ch:results}
+
+\indent Chương~\ref{ch:design} đã trình bày đặc tả của ba môi trường. Nhưng một đặc tả
+chỉ tồn tại trên giấy cho tới khi có thứ gì đó học được trong nó: mã nguồn biên dịch
+được không nói lên rằng hàm phần thưởng dẫn tới hành vi ta muốn, và một môi trường hỏng
+thường không báo lỗi mà chỉ lặng lẽ dạy tác nhân điều khác. Chương này vì vậy dùng thực
+nghiệm để nghiệm thu ba môi trường đã xây dựng, dựa trên ba câu hỏi:
+
+\begin{itemize}
+    \item \textbf{Môi trường có học được không?} Nếu không thuật toán nào tiến bộ thì
+    khả năng cao lỗi nằm ở đặc tả - quan sát thiếu thông tin hoặc phần thưởng không dẫn
+    đường - chứ không ở thuật toán.
+    \item \textbf{Môi trường có phân biệt được không?} Nếu mọi thuật toán đều về đích
+    ngang nhau ở mức tối đa thì môi trường hoặc quá dễ, hoặc đang tồn tại một lối tắt
+    cho phép gom phần thưởng mà không giải nhiệm vụ. Một môi trường dùng được phải tách
+    được các hướng tiếp cận khác nhau thành thứ hạng \textit{giải thích được} bằng cơ
+    chế của bài toán.
+    \item \textbf{Kết quả có ổn định và tái lập được không?} Đường cong phải hội tụ chứ
+    không dao động vô hạn, và mọi lần chạy trên cùng một môi trường phải so sánh được
+    với nhau.
+\end{itemize}
+
+\indent Công cụ để trả lời ba câu hỏi đó là mười lăm lần huấn luyện, tương ứng với lưới
+đầy đủ năm thuật toán trên ba môi trường. Cần nhấn mạnh vai trò của năm thuật toán ở
+đây: chúng là \textit{phép thử} chứ không phải \textit{đối tượng} đánh giá. Việc dùng
+tới năm thuật toán khác hẳn nhau về nguyên lý - on-policy, off-policy, phê bình tập
+trung, dựa trên giá trị - là có chủ đích, vì một môi trường chỉ được kiểm chứng chắc
+chắn khi nó phản ứng nhất quán trước nhiều hướng tiếp cận độc lập, thay vì được điều
+chỉnh vừa khít cho đúng một thuật toán. Kết quả được đọc lần lượt theo từng môi trường,
+rồi mới đặt cạnh nhau theo bốn tiêu chí ở Mục~\ref{sub:evalcriteria}. Có một điều cần
+nói trước, vì nó chi phối cách đọc toàn bộ chương: trong cơ chế tự chơi, phần thưởng
+tuyệt đối là chỉ báo gây hiểu nhầm, nên mọi kết luận về Football Table đều dựa trên chỉ
+số ELO chứ không dựa trên phần thưởng.
+
+\indent Toàn bộ số liệu trong chương được trích xuất trực tiếp từ tệp sự kiện
+TensorBoard của các lần chạy huấn luyện, thông qua kịch bản
+\texttt{export\_\allowbreak training\_\allowbreak data.py}. Đại lượng được chọn làm thước đo chính là phần
+thưởng tích lũy mà tác nhân nhận được từ môi trường, tương ứng với chuỗi
+\texttt{Environment/\allowbreak Cumulative Reward} trong tệp sự kiện. Mọi đường cong và
+mọi chỉ số thống kê trong chương đều lấy trực tiếp từ chuỗi thô, không qua bất kỳ bước
+làm mượt nào; nhờ vậy từng điểm trên đồ thị đều đối chiếu được với đúng một bản ghi
+trong tệp sự kiện, và bảng số liệu luôn nhất quán với đồ thị. Cần lưu ý một khác biệt
+nhỏ khi đối chiếu với ứng dụng trình diễn ở Chương~\ref{ch:app}: đường cong hiển thị
+trong ứng dụng được làm mượt bằng trung bình trượt để dễ đọc trên màn hình nhỏ, nên các
+con số ở đó lệch chút ít so với chương này. Mỗi thuật toán được biểu diễn bởi đúng một
+lần chạy hoàn chỉnh.
+
+\indent Trong mỗi môi trường, năm thuật toán được cấp cùng một ngân sách bước: hai triệu
+bước cho Cross The Road, một triệu bảy trăm nghìn bước cho Capture The Flag và một triệu
+sáu trăm nghìn bước cho Football Table. Điều kiện này khác với các thực nghiệm sơ bộ
+trước đó vốn để mỗi lần chạy một độ dài riêng, và nó là điều kiện cần để mọi so sánh
+trong chương có ý nghĩa: chênh lệch phần thưởng giữa hai thuật toán chỉ quy được cho bản
+thân thuật toán khi cả hai đã tiêu thụ cùng lượng kinh nghiệm.
+
+\indent Mỗi cảnh huấn luyện đều được nhân thành tám khu vực chạy song song. Cách làm này
+tăng lượng kinh nghiệm thu thập trên mỗi bước mô phỏng và làm giảm tương quan giữa các
+mẫu trong cùng một lô cập nhật, nhờ đó rút ngắn đáng kể thời gian thực. Đây là chi tiết
+cần lưu ý khi đối chiếu với những công bố dùng một khu vực duy nhất, bởi cùng một số bước
+môi trường ở hai cấu hình này không tương đương nhau về độ khó của bài toán học.
+
+\indent Bốn chỉ số thống kê được sử dụng xuyên suốt gồm: phần thưởng trung bình mười
+phần trăm cuối (mức năng lực ổn định mà chính sách duy trì được ở cuối quá trình), phần
+thưởng tốt nhất (giá trị lớn nhất đạt được), bước hội tụ và độ lệch chuẩn của mười phần
+trăm cuối. Bước hội tụ được xác định là bước huấn luyện mà từ đó trở đi đường cong không
+còn tụt xuống dưới chín mươi phần trăm mức ổn định cuối cùng; cách xác định này bền vững
+hơn tiêu chí ``lần đầu chạm ngưỡng'' vì không bị một đỉnh nhiễu đơn lẻ kéo về đầu chuỗi.
+Hệ quả của cách xác định đó là một lần chạy vẫn còn dao động mạnh ở cuối sẽ không có bước
+hội tụ nào, và bảng số liệu ghi rõ ``không đạt'' thay vì gán cho nó bước cuối cùng.
+
+\indent Quy ước về chữ ``cuối'' áp dụng cho mọi đại lượng trong chương, chứ không riêng
+phần thưởng: giá trị cuối của entropy, của phần thưởng tò mò, của hàm mất mát phê bình
+hay của độ dài lượt chơi đều là trung bình mười phần trăm cuối của chuỗi tương ứng.
+Lấy trung bình trên một đoạn thay vì đọc điểm cuối cùng giúp các con số không phụ thuộc
+vào một bản ghi đơn lẻ, vốn có thể lệch đáng kể so với xu hướng chung. Ngoại lệ duy nhất
+là chỉ số xếp hạng ELO: đại lượng này tích lũy theo thời gian nên giá trị tại bước cuối
+mới là giá trị có nghĩa.
+
+% ═══════════════════════════════════════════════
+\subsection{Kết quả môi trường Football Table}
+
+{\sloppy
+\indent Môi trường Football Table được đánh giá trên năm lần chạy hoàn chỉnh:
+\texttt{FB01} (PPO), \texttt{Football\_SAC\_01} (SAC), \texttt{Football\_POCA\_01}
+(MA-POCA), \texttt{Football\_MAPPO\_01} (MAPPO) và \texttt{football\_dqn\_v1} (DQN),
+tương ứng với năm mô hình ONNX cùng tên. Bốn lần chạy đầu sử dụng cơ chế tự chơi, trong
+đó tác nhân thi đấu với các phiên bản trước đó của chính mình.\par}
+
+\indent Riêng DQN không chạy được cùng cơ chế tự chơi. Thuật toán này đòi hỏi không gian
+hành động rời rạc, nên cần một bản dựng riêng của cảnh với tham số hành vi chuyển từ tám
+kênh liên tục sang tám nhánh ba mức. Khi ghép thêm cơ chế tự chơi, ML-Agents phát sinh
+lỗi tra cứu chính sách trong bộ điều phối đối kháng và dừng ngay khi khởi tạo, nên lần
+chạy DQN buộc phải tắt tự chơi. Hệ quả là DQN trên Football Table học trong điều kiện
+khác hẳn bốn thuật toán còn lại, không có chỉ số ELO, và mọi con số của nó ở môi trường
+này chỉ nên đọc như một tham chiếu rời chứ không đặt cạnh để xếp hạng.
+
+\indent Đặc điểm của cơ chế tự chơi khiến phần thưởng tuyệt đối trở thành một chỉ báo
+tiến bộ kém tin cậy: khi cả hai phía cùng mạnh lên, lợi thế của bên này bị bù trừ bởi
+sự tiến bộ của bên kia, nên đường cong phần thưởng có xu hướng dao động quanh một mức
+gần như không đổi thay vì tăng đều. Chỉ số phản ánh tiến bộ chính xác hơn trong trường
+hợp này là chỉ số xếp hạng ELO, được ML-Agents tính riêng cho từng lần chạy dựa trên
+kết quả đối đầu giữa chính sách hiện tại và kho các phiên bản cũ.
+Hình~\ref{fig:football_elo} biểu diễn tiến trình ELO thực đo của bốn thuật toán dùng
+cơ chế này.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Chỉ số xếp hạng ELO},
+        xmin=0, xmax=1.6, ymin=1180, ymax=1280,
+        legend pos=north west,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+        scaled y ticks=false, yticklabel style={/pgf/number format/fixed},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.010,1198.780)(0.080,1195.232)(0.160,1197.267)(0.230,1200.820)(0.310,1199.693)(0.380,1213.683)(0.460,1217.619)(0.540,1235.163)(0.610,1238.014)(0.690,1250.237)(0.760,1246.969)(0.840,1249.910)(0.910,1248.444)(0.990,1246.469)(1.070,1256.119)(1.140,1258.865)(1.220,1258.865)(1.290,1258.865)(1.370,1258.865)(1.440,1258.865)(1.520,1258.865)(1.600,1258.865)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.010,1197.260)(0.080,1197.248)(0.160,1197.711)(0.230,1195.503)(0.310,1201.406)(0.380,1201.414)(0.460,1201.414)(0.540,1201.414)(0.610,1201.801)(0.690,1209.178)(0.760,1201.818)(0.840,1209.075)(0.910,1209.203)(0.990,1227.995)(1.070,1235.376)(1.140,1235.376)(1.220,1237.404)(1.290,1238.872)(1.370,1247.084)(1.440,1254.030)(1.520,1254.030)(1.600,1254.030)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.010,1200.932)(0.080,1199.698)(0.160,1191.817)(0.230,1201.390)(0.310,1200.191)(0.380,1200.191)(0.460,1209.305)(0.540,1213.891)(0.610,1212.828)(0.690,1222.195)(0.760,1219.859)(0.840,1215.340)(0.910,1215.340)(0.990,1215.340)(1.070,1216.708)(1.140,1218.903)(1.220,1218.903)(1.290,1218.903)(1.370,1227.626)(1.440,1227.449)(1.520,1236.882)(1.600,1236.882)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.010,1196.246)(0.080,1199.155)(0.160,1197.732)(0.230,1206.455)(0.310,1207.410)(0.380,1211.847)(0.460,1218.986)(0.540,1214.536)(0.610,1224.402)(0.690,1224.664)(0.760,1224.664)(0.840,1230.675)(0.910,1238.902)(0.990,1235.405)(1.070,1237.941)(1.140,1244.864)(1.220,1249.876)(1.290,1243.570)(1.370,1242.426)(1.440,1250.375)(1.520,1255.297)(1.600,1260.038)};
+    \legend{PPO, SAC, MA-POCA, MAPPO}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Tiến trình chỉ số xếp hạng ELO trong cơ chế tự chơi trên Football Table}
+    \label{fig:football_elo}
+\end{figure}
+
+\indent ELO của hai lần chạy khác nhau không so sánh trực tiếp được với nhau, bởi mỗi
+lần chạy tính điểm dựa trên kho đối thủ của riêng nó; đại lượng có ý nghĩa ở đây là mức
+tăng so với giá trị khởi tạo một nghìn hai trăm. Theo tiêu chí này, cả bốn thuật toán
+đều tiến bộ so với các phiên bản trước của chính mình: MAPPO tăng khoảng sáu mươi bốn
+điểm (từ $1196$ lên $1260$), PPO tăng khoảng sáu mươi điểm (từ $1199$ lên $1259$), SAC
+tăng khoảng năm mươi bảy điểm (từ $1197$ lên $1254$) và MA-POCA tăng khoảng ba mươi sáu
+điểm (từ $1201$ lên $1237$). Không có lần chạy nào kết thúc dưới điểm xuất phát, nên kết
+luận đọc được từ hình này là cả bốn thuật toán đều học được cách đánh bại chính mình,
+chứ không phải một số thuật toán tiến bộ còn số khác thì không.
+
+\indent Diễn biến của các đường cong cũng khác nhau đáng kể dù điểm cuối gần nhau. PPO
+tăng gần như đơn điệu tới khoảng một triệu một trăm nghìn bước rồi đứng yên hoàn toàn ở
+$1258{,}9$ cho tới hết, dấu hiệu cho thấy chính sách không còn vượt được kho đối thủ của
+nó nữa. MAPPO tăng chậm hơn nhưng vẫn còn dốc lên ở đoạn cuối và đạt đỉnh $1265{,}7$
+trước khi kết thúc ở $1260{,}0$, tức chưa chạm trần trong ngân sách đã cho. SAC gần như
+đứng yên quanh mốc khởi tạo trong suốt chín trăm nghìn bước đầu rồi mới bứt lên ở nửa
+sau, phù hợp với đặc điểm của một thuật toán off-policy cần thời gian nạp đầy bộ đệm
+trước khi chính sách bắt đầu cải thiện.
+
+\indent Hình~\ref{fig:football_reward} biểu diễn đường cong phần thưởng tích lũy của cả
+năm thuật toán, còn Bảng~\ref{tab:football_results} tổng hợp các chỉ số định lượng.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=7cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Phần thưởng tích lũy},
+        xmin=0, xmax=1.6, ymin=0, ymax=3,
+        legend pos=north west,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.010,1.637)(0.080,1.401)(0.160,1.306)(0.230,1.760)(0.310,1.179)(0.380,2.696)(0.460,1.981)(0.540,2.496)(0.610,2.207)(0.690,2.374)(0.760,2.665)(0.840,1.746)(0.910,1.523)(0.990,1.920)(1.070,2.236)(1.140,2.110)(1.220,1.926)(1.290,2.114)(1.370,1.661)(1.440,1.703)(1.520,1.754)(1.600,1.980)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.010,1.390)(0.080,1.647)(0.160,1.553)(0.230,2.525)(0.310,1.991)(0.380,1.378)(0.460,1.496)(0.540,2.130)(0.610,1.869)(0.690,2.060)(0.760,1.374)(0.840,1.415)(0.910,1.710)(0.990,2.795)(1.070,1.977)(1.140,0.975)(1.220,2.171)(1.290,2.261)(1.370,2.324)(1.440,1.850)(1.520,1.327)(1.600,1.983)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.010,2.149)(0.080,1.965)(0.160,2.854)(0.230,2.264)(0.310,2.222)(0.380,1.913)(0.460,2.369)(0.540,2.479)(0.610,1.535)(0.690,2.138)(0.760,2.064)(0.840,2.499)(0.910,1.590)(0.990,2.340)(1.070,2.115)(1.140,1.480)(1.220,2.051)(1.290,2.583)(1.370,1.197)(1.440,2.236)(1.520,1.150)(1.600,1.198)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.010,1.033)(0.080,1.784)(0.160,1.499)(0.230,2.782)(0.310,2.053)(0.380,1.722)(0.460,1.402)(0.540,1.589)(0.610,1.861)(0.690,1.761)(0.760,0.739)(0.840,2.212)(0.910,2.630)(0.990,1.083)(1.070,1.464)(1.140,2.196)(1.220,1.818)(1.290,1.545)(1.370,2.249)(1.440,2.353)(1.520,1.818)(1.600,1.623)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.010,1.915)(0.080,1.722)(0.160,1.871)(0.230,1.980)(0.310,1.779)(0.380,1.810)(0.460,1.811)(0.540,1.791)(0.610,1.763)(0.690,1.921)(0.760,1.916)(0.840,1.854)(0.910,1.739)(0.990,1.775)(1.070,1.925)(1.140,1.887)(1.220,1.889)(1.290,1.842)(1.370,1.923)(1.440,1.823)(1.520,1.890)(1.600,1.748)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Đường cong phần thưởng tích lũy trên môi trường Football Table}
+    \label{fig:football_reward}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Kết quả năm thuật toán trên môi trường Football Table}
+\label{tab:football_results}
+\renewcommand{\arraystretch}{1.35}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.9cm}|}
+\hline
+\textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Độ lệch chuẩn} & \textbf{ELO cuối} \\
+\hline
+PPO & 1,60M & $1{,}691$ & $3{,}548$ & $0{,}276$ & $1259$ \\
+\hline
+SAC & 1,60M & $1{,}842$ & $3{,}237$ & $0{,}432$ & $1254$ \\
+\hline
+MA-POCA & 1,60M & $1{,}752$ & $2{,}867$ & $0{,}590$ & $1237$ \\
+\hline
+MAPPO & 1,60M & $2{,}117$ & $3{,}394$ & $0{,}486$ & $1260$ \\
+\hline
+DQN & 1,60M & $1{,}825$ & $2{,}028$ & $0{,}073$ & --- \\
+\hline
+\end{tabular}
+\end{table}
+
+\indent Trên thước đo ELO, thứ hạng đọc được là MAPPO ($1260$), PPO ($1259$), SAC
+($1254$) và MA-POCA ($1237$). Nhưng khoảng cách một điểm giữa MAPPO và PPO nhỏ hơn nhiều
+so với dao động của chính đường cong ELO trong quá trình huấn luyện - riêng MAPPO đã dao
+động trong dải gần hai mươi điểm ở đoạn cuối - nên số liệu hiện có không đủ để tách hai
+thuật toán này. Phân tách duy nhất vững ở đây là MA-POCA tụt lại so với ba thuật toán
+còn lại.
+
+\indent Điều đáng nói hơn con số xếp hạng là biên độ chung quá hẹp. Cơ chế tự chơi tạo
+ra một chương trình học tự nhiên trong đó độ khó của đối thủ tăng dần cùng năng lực của
+tác nhân; nhưng khi cả hai phía cùng mạnh lên với tốc độ xấp xỉ nhau, ELO gần như đứng
+yên dù chính sách vẫn đang cải thiện. Mức tăng sáu mươi điểm trên thang khởi tạo 1200 vì
+vậy chỉ cho biết các tác nhân có tiến bộ so với phiên bản cũ của chính mình, chứ chưa
+cho phép kết luận thuật toán nào mạnh hơn thuật toán nào.
+
+\indent Trên thước đo phần thưởng, MAPPO dẫn đầu rõ rệt ($2{,}12$), cao hơn nhóm còn lại
+khoảng mười lăm phần trăm, trong khi SAC ($1{,}84$), MA-POCA ($1{,}75$) và PPO ($1{,}69$)
+nằm sát nhau. Con số này cần đọc cùng với ELO chứ không thay thế được ELO: trong tự chơi,
+phần thưởng cao có thể phản ánh việc khai thác tốt các thành phần phần thưởng định hướng
+mà không đồng nghĩa với sức mạnh đối kháng. Trường hợp MAPPO là ví dụ hiếm hoi mà hai
+thước đo cùng chỉ về một hướng, nên đây là ứng viên đáng tin nhất cho vị trí dẫn đầu ở
+môi trường này.
+
+\indent Độ lệch chuẩn của mười phần trăm cuối cho thấy một khác biệt về tính ổn định.
+PPO dao động ít nhất trong nhóm tự chơi ($0{,}276$), MA-POCA nhiều nhất ($0{,}590$). Giá
+trị $0{,}073$ của DQN thấp hơn hẳn phần còn lại, nhưng không so sánh được: DQN không chạy
+tự chơi nên đối thủ của nó cố định, và một môi trường không đổi đương nhiên cho đường
+cong phẳng hơn một môi trường mà đối thủ liên tục mạnh lên.
+
+\indent Khác với các thực nghiệm sơ bộ, năm lần chạy ở đây dùng chung ngân sách một
+triệu sáu trăm nghìn bước, nên so sánh phần thưởng tuyệt đối giữa bốn thuật toán tự chơi
+là hợp lệ. Hạn chế còn lại nằm ở chỗ khác: mỗi thuật toán chỉ có một lần chạy, không có
+nhiều hạt giống ngẫu nhiên để ước lượng phương sai giữa các lần chạy (Mục~\ref{sub:limits}).
+
+% ═══════════════════════════════════════════════
+\subsection{Kết quả môi trường Cross The Road}
+
+{\sloppy
+\indent Cross The Road là môi trường điều hướng đơn tác nhân với không gian hành động rời
+rạc, nên cả năm thuật toán đều chạy được mà không cần điều chỉnh gì về phía Unity. Năm
+lần chạy tương ứng là \texttt{ctr01} (PPO), \texttt{CrossTheRoad\_SAC\_01} (SAC),
+\texttt{ctr\_poca\_v1} (MA-POCA), \texttt{ctr\_mappo\_v1} (MAPPO) và
+\texttt{ctr\_dqn\_v1} (DQN), tất cả cùng ngân sách hai triệu bước. Đây là môi trường cho
+phép so sánh sạch nhất trong ba môi trường của đề tài, bởi không có cơ chế tự chơi làm
+nhiễu thước đo và cũng không có tác nhân thứ hai gây phụ thuộc lẫn nhau.
+Hình~\ref{fig:ctr_reward} biểu diễn đường cong phần thưởng thực đo, còn
+Bảng~\ref{tab:ctr_results} tổng hợp các chỉ số định lượng.\par}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=7cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Phần thưởng tích lũy},
+        xmin=0, xmax=2, ymin=-0.1, ymax=1,
+        legend pos=south east,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.010,-0.002)(0.100,0.136)(0.190,0.250)(0.290,0.461)(0.380,0.497)(0.470,0.472)(0.570,0.539)(0.660,0.441)(0.760,0.612)(0.850,0.854)(0.940,0.692)(1.060,0.744)(1.150,0.488)(1.240,0.129)(1.340,0.590)(1.430,0.795)(1.530,0.439)(1.620,0.707)(1.710,0.915)(1.810,0.795)(1.900,0.829)(2.000,0.658)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.010,0.026)(0.100,0.043)(0.190,0.056)(0.290,0.045)(0.380,0.032)(0.480,0.002)(0.570,-0.025)(0.670,0.008)(0.760,0.427)(0.860,0.482)(0.950,0.539)(1.050,0.577)(1.140,0.582)(1.240,0.763)(1.330,0.787)(1.430,0.842)(1.520,0.806)(1.620,0.860)(1.710,0.837)(1.810,0.844)(1.900,0.812)(2.000,0.798)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.010,0.045)(0.100,0.136)(0.190,0.152)(0.290,0.371)(0.380,0.513)(0.480,0.523)(0.570,0.597)(0.670,0.529)(0.760,0.571)(0.860,0.507)(0.950,0.563)(1.050,0.579)(1.140,0.577)(1.240,0.566)(1.330,0.552)(1.430,0.563)(1.520,0.563)(1.620,0.575)(1.710,0.590)(1.810,0.552)(1.900,0.557)(2.000,0.568)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.010,0.025)(0.100,0.142)(0.190,0.144)(0.290,0.355)(0.380,0.626)(0.480,0.597)(0.570,0.569)(0.670,0.632)(0.760,0.583)(0.860,0.643)(0.950,0.627)(1.050,0.728)(1.140,0.698)(1.240,0.702)(1.330,0.713)(1.430,0.751)(1.520,0.796)(1.620,0.836)(1.710,0.744)(1.810,0.830)(1.900,0.837)(2.000,0.845)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.010,0.011)(0.100,0.021)(0.190,0.017)(0.290,0.050)(0.380,-0.008)(0.480,-0.021)(0.570,0.025)(0.670,0.064)(0.760,0.288)(0.860,0.350)(0.950,0.466)(1.050,0.413)(1.140,0.347)(1.240,0.526)(1.330,0.321)(1.430,0.450)(1.520,0.404)(1.620,0.415)(1.710,0.449)(1.810,0.329)(1.900,0.272)(2.000,0.277)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Đường cong phần thưởng trên môi trường Cross The Road}
+    \label{fig:ctr_reward}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Kết quả năm thuật toán trên môi trường Cross The Road}
+\label{tab:ctr_results}
+\renewcommand{\arraystretch}{1.35}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.9cm}|}
+\hline
+\textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Bước hội tụ} & \textbf{Độ dài lượt chơi} \\
+\hline
+PPO & 2,00M & $0{,}690$ & $1{,}000$ & $\sim$1,97M & $811{,}6$ \\
+\hline
+SAC & 2,00M & $0{,}846$ & $0{,}914$ & $\sim$1,79M & $61{,}8$ \\
+\hline
+MA-POCA & 2,00M & $0{,}556$ & $0{,}616$ & $\sim$450K & $42{,}2$ \\
+\hline
+MAPPO & 2,00M & $0{,}835$ & $0{,}900$ & $\sim$1,72M & $52{,}0$ \\
+\hline
+DQN & 2,00M & $0{,}336$ & $0{,}633$ & Không đạt & $124{,}7$ \\
+\hline
+\end{tabular}
+
+\vspace{0.15cm}
+{\footnotesize Ghi chú: ``không đạt'' nghĩa là đường cong vẫn còn tụt xuống dưới chín
+mươi phần trăm mức ổn định cuối cùng cho tới bước huấn luyện cuối, tức chưa hội tụ theo
+tiêu chí ở Mục~\ref{sub:evalcriteria}.}
+\end{table}
+
+\indent SAC đạt phần thưởng trung bình cuối cao nhất ($0{,}846$), nhưng MAPPO bám rất sát
+($0{,}835$). Khoảng cách $0{,}011$ giữa hai thuật toán này nhỏ hơn biên độ dao động của
+chính các đường cong ở giai đoạn cuối, nên số liệu một lần chạy chưa đủ để khẳng định
+thuật toán nào thực sự dẫn đầu. Điều nói được chắc chắn là cả hai tách hẳn khỏi nhóm còn
+lại: PPO dừng ở $0{,}690$, MA-POCA ở $0{,}556$ và DQN ở $0{,}336$.
+
+\indent Kết quả của SAC ở đây cần được đọc cùng một thay đổi quan trọng về cấu hình. Các
+thực nghiệm sơ bộ để \texttt{steps\_per\_update} bằng một, tức cập nhật mạng sau mỗi bước
+môi trường, và khi đó SAC đạt mức ổn định chỉ sau khoảng một trăm năm mươi nghìn bước.
+Cấu hình dùng trong chương này nâng tham số đó lên hai mươi để thời gian chạy thực tế
+xuống mức chấp nhận được, đổi lại SAC tiêu thụ nhiều mẫu hơn: bước hội tụ lùi về khoảng
+một triệu bảy trăm chín mươi nghìn. Ưu thế về hiệu quả mẫu mà lý thuyết off-policy hứa
+hẹn vì vậy phụ thuộc trực tiếp vào tần suất cập nhật, chứ không phải một thuộc tính cố
+hữu của thuật toán. Chi phí tính toán mỗi bước cập nhật của SAC vẫn cao hơn PPO do phải
+huấn luyện đồng thời ba mạng nơ-ron, và lần chạy này mất một trăm ba mươi chín phút so
+với bốn mươi tám phút của PPO.
+
+\indent MA-POCA hội tụ sớm nhất trong cả nhóm, khoảng bốn trăm năm mươi nghìn bước, nhưng
+hội tụ về một mức thấp và giữ nguyên ở đó tới cuối. Đây là dạng ổn định của một chính
+sách tầm thường chứ không phải dấu hiệu học nhanh. Kết quả này phù hợp với nhận định rằng
+MA-POCA suy biến gần về PPO khi áp dụng cho bài toán đơn tác nhân, nơi không có phần
+thưởng nhóm để phát huy thế mạnh phê bình tập trung, trong khi vẫn gánh thêm chi phí của
+kiến trúc phức tạp hơn.
+
+\indent Vị trí của MAPPO ở môi trường này đảo ngược so với dự đoán ban đầu của đề tài.
+Về mặt thiết kế, MAPPO nhắm tới bài toán hợp tác đa tác nhân, nên trên một môi trường đơn
+tác nhân nó được kỳ vọng suy biến thành PPO thường và không có lợi thế nào. Thực đo lại
+cho thấy MAPPO vượt PPO một khoảng đáng kể ($0{,}835$ so với $0{,}690$) dù hai thuật toán
+chỉ khác nhau ở phần phê bình tập trung, vốn lẽ ra vô hiệu khi nhóm chỉ có một thành
+viên. Đề tài chưa giải thích được cơ chế đứng sau chênh lệch này, và với một lần chạy mỗi
+thuật toán thì cũng chưa loại trừ được khả năng đây là dao động ngẫu nhiên giữa các hạt
+giống. Đây là điểm đáng ưu tiên kiểm chứng nếu thực nghiệm được mở rộng.
+
+\indent DQN xếp cuối với khoảng cách lớn ($0{,}336$, chưa bằng một nửa SAC). Theo tiêu
+chí hội tụ dùng trong chương, đường cong của DQN không đạt mốc ổn định nào trước khi hết
+ngân sách hai triệu bước, tức thuật toán vẫn đang dao động ở thời điểm dừng. Cùng với
+thời gian chạy một trăm bốn mươi tám phút, gấp ba lần PPO, DQN là lựa chọn kém hiệu quả
+nhất trên môi trường này xét theo cả hai chiều mẫu và thời gian.
+
+\indent Bên cạnh phần thưởng, độ dài trung bình của mỗi lượt chơi là một chỉ báo bổ
+sung đáng quan tâm, vì nó phản ánh cách chính sách kết thúc lượt chơi.
+Hình~\ref{fig:ctr_eplen} biểu diễn độ dài lượt chơi thực đo trong quá trình huấn luyện.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Độ dài lượt chơi (bước)},
+        xmin=0, xmax=2, ymin=0, ymax=2600,
+        legend pos=north east,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.010,53.972)(0.100,36.494)(0.190,32.570)(0.290,41.736)(0.380,43.623)(0.470,58.807)(0.570,94.337)(0.660,647.273)(0.760,285.243)(0.850,764.071)(0.940,523.350)(1.060,2547.250)(1.150,274.844)(1.240,607.850)(1.340,290.067)(1.430,774.300)(1.530,283.857)(1.620,907.286)(1.710,851.182)(1.810,739.600)(1.900,1003.583)(2.000,369.083)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.010,60.000)(0.100,57.759)(0.190,59.627)(0.290,72.527)(0.380,92.991)(0.480,65.727)(0.570,33.285)(0.670,34.842)(0.760,50.286)(0.860,48.738)(0.950,49.035)(1.050,46.412)(1.140,48.140)(1.240,53.753)(1.330,54.087)(1.430,57.805)(1.520,58.065)(1.620,60.130)(1.710,65.338)(1.810,61.599)(1.900,62.849)(2.000,60.549)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.010,55.475)(0.100,28.552)(0.190,25.954)(0.290,35.654)(0.380,39.980)(0.480,42.086)(0.570,43.567)(0.670,41.553)(0.760,43.109)(0.860,40.845)(0.950,42.199)(1.050,42.680)(1.140,42.426)(1.240,41.761)(1.330,42.164)(1.430,42.435)(1.520,42.099)(1.620,41.761)(1.710,42.384)(1.810,42.348)(1.900,42.590)(2.000,42.636)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.010,52.426)(0.100,39.627)(0.190,26.919)(0.290,34.277)(0.380,44.397)(0.480,43.698)(0.570,43.305)(0.670,44.591)(0.760,43.273)(0.860,44.231)(0.950,44.445)(1.050,47.274)(1.140,45.668)(1.240,46.164)(1.330,47.246)(1.430,48.721)(1.520,50.128)(1.620,52.302)(1.710,47.976)(1.810,52.489)(1.900,51.856)(2.000,53.076)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.010,56.786)(0.100,55.391)(0.190,57.018)(0.290,54.876)(0.380,52.876)(0.480,41.655)(0.570,52.609)(0.670,60.737)(0.760,60.771)(0.860,64.199)(0.950,67.370)(1.050,62.723)(1.140,56.747)(1.240,61.456)(1.330,64.007)(1.430,59.470)(1.520,60.975)(1.620,53.530)(1.710,65.322)(1.810,88.991)(1.900,133.763)(2.000,102.200)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Độ dài lượt chơi trên môi trường Cross The Road}
+    \label{fig:ctr_eplen}
+\end{figure}
+
+\indent Chỉ số này tách rõ các thuật toán hơn cả phần thưởng. Bốn thuật toán giữ độ dài
+lượt chơi trong khoảng bốn mươi hai đến một trăm ba mươi bước suốt quá trình, riêng PPO
+mất ổn định hoàn toàn từ khoảng sáu trăm nghìn bước trở đi: đường cong dao động giữa hai
+trăm bảy mươi và hai nghìn năm trăm bốn mươi bảy bước, và trung bình mười phần trăm cuối
+lên tới $811{,}6$. Một lượt chơi kéo dài như vậy nghĩa là tác nhân không kết thúc được
+lượt chơi, tức lang thang mà không về đích cũng không va chạm.
+
+\indent Đặt cạnh phần thưởng, độ dài lượt chơi cho phép phân biệt hai kiểu kết thúc sớm
+vốn trông giống nhau nếu chỉ nhìn một chỉ số. MAPPO giữ lượt chơi ngắn ($52{,}0$ bước)
+kèm phần thưởng cao ($0{,}835$), tương ứng với việc về đích nhanh. MA-POCA cũng giữ lượt
+chơi ngắn ($42{,}2$ bước) nhưng phần thưởng thấp ($0{,}556$), tương ứng với việc kết thúc
+do va chạm. SAC nằm giữa về độ dài ($61{,}8$ bước) và cao nhất về phần thưởng. DQN trôi
+dần lên từ khoảng sáu mươi bước ở đầu tới hơn một trăm ba mươi bước ở cuối trong khi phần
+thưởng thấp nhất, dấu hiệu của một chính sách ngày càng lưỡng lự thay vì dứt khoát hơn.
+
+\indent Để hiểu sâu hơn hành vi học, ngoài phần thưởng ta còn có thể quan sát các chỉ số
+nội tại của quá trình huấn luyện. Chỉ số đầu tiên là entropy của chính sách, tức mức độ
+ngẫu nhiên trong việc lựa chọn hành động của tác nhân. Entropy cao đồng nghĩa với việc
+tác nhân còn đang khám phá nhiều hành động khác nhau, còn entropy thấp cho thấy tác nhân
+đã hội tụ về một chính sách xác định. Hình~\ref{fig:ctr_entropy} thể hiện diễn biến
+entropy của bốn thuật toán dựa trên chính sách. DQN không xuất hiện trong hình này vì nó
+thuộc nhóm phương pháp dựa trên giá trị: DQN học hàm giá trị hành động rồi chọn hành động
+theo quy tắc tham lam có nhiễu, nên không tồn tại phân phối chính sách để tính entropy.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Entropy của chính sách},
+        xmin=0, xmax=2, ymin=0, ymax=1.5,
+        legend pos=north east,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.010,1.372)(0.100,1.209)(0.190,0.864)(0.290,0.657)(0.380,0.688)(0.480,0.828)(0.570,0.903)(0.670,0.917)(0.760,0.890)(0.860,0.890)(0.950,0.870)(1.050,0.844)(1.140,0.876)(1.240,0.816)(1.330,0.842)(1.430,0.834)(1.520,0.821)(1.620,0.815)(1.710,0.817)(1.810,0.805)(1.900,0.787)(2.000,0.780)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.010,1.370)(0.100,1.382)(0.190,1.355)(0.290,1.246)(0.380,0.939)(0.480,0.552)(0.570,0.188)(0.670,0.148)(0.760,0.236)(0.860,0.218)(0.950,0.274)(1.050,0.290)(1.140,0.247)(1.240,0.275)(1.330,0.288)(1.430,0.272)(1.520,0.282)(1.620,0.276)(1.710,0.308)(1.810,0.273)(1.900,0.282)(2.000,0.275)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.010,1.384)(0.100,0.908)(0.190,0.745)(0.290,0.643)(0.380,0.426)(0.480,0.464)(0.570,0.425)(0.670,0.385)(0.760,0.337)(0.860,0.246)(0.950,0.196)(1.050,0.179)(1.140,0.150)(1.240,0.179)(1.330,0.167)(1.430,0.158)(1.520,0.161)(1.620,0.182)(1.710,0.182)(1.810,0.212)(1.900,0.207)(2.000,0.175)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.010,1.376)(0.100,1.193)(0.190,0.755)(0.290,0.629)(0.380,0.642)(0.480,0.517)(0.570,0.599)(0.670,0.530)(0.760,0.563)(0.860,0.500)(0.950,0.541)(1.050,0.529)(1.140,0.514)(1.240,0.461)(1.330,0.453)(1.430,0.463)(1.520,0.439)(1.620,0.443)(1.710,0.454)(1.810,0.411)(1.900,0.429)(2.000,0.437)};
+    \legend{PPO, SAC, MA-POCA, MAPPO}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Diễn biến entropy của chính sách trên môi trường Cross The Road}
+    \label{fig:ctr_entropy}
+\end{figure}
+
+\indent Cả bốn thuật toán đều khởi đầu quanh mức $1{,}37$, phản ánh giai đoạn khám phá
+ngẫu nhiên ban đầu, nhưng diễn biến sau đó khác hẳn nhau. MA-POCA giảm đều và kết thúc ở
+mức thấp nhất ($0{,}204$), tức chính sách quyết đoán nhất trong nhóm; đặt cạnh phần thưởng
+chỉ $0{,}556$, đây là dấu hiệu của một chính sách đã chốt sớm vào phương án tầm thường,
+nhất quán với mốc hội tụ rất sớm ở khoảng bốn trăm năm mươi nghìn bước. SAC giảm dốc và
+ổn định quanh $0{,}280$. MAPPO dừng ở mức cao hơn ($0{,}429$), tức vẫn giữ một phần khả
+năng khám phá trong khi phần thưởng đã gần cao nhất.
+
+\indent Đường cong của PPO là trường hợp bất thường và đáng chú ý nhất trong hình. Entropy
+của nó giảm tới $0{,}657$ ở khoảng hai trăm chín mươi nghìn bước, rồi tăng ngược trở lại
+và giữ quanh $0{,}8$ cho tới hết. Entropy tăng nghĩa là chính sách trở nên kém dứt khoát
+hơn theo thời gian, điều ngược với diễn biến thông thường của một quá trình huấn luyện
+lành mạnh. Dấu hiệu này khớp với hai quan sát trước đó: độ dài lượt chơi của PPO bùng nổ
+từ khoảng cùng thời điểm, và phần thưởng của nó dừng ở mức trung bình dù ngân sách bước
+ngang bằng các thuật toán khác. Ba chỉ số cùng chỉ về một cách giải thích, rằng chính
+sách PPO đã rời khỏi vùng nghiệm tốt sau giai đoạn đầu và không quay lại được.
+
+\indent Chỉ số còn lại là hàm mất mát của mạng phê bình, phản ánh mức độ chính xác của
+việc ước lượng giá trị trạng thái. Hình~\ref{fig:ctr_vloss} cho thấy hàm mất mát của SAC
+giảm về gần không chỉ sau vài trăm nghìn bước, nhờ cơ chế off-policy tái sử dụng dữ liệu
+đã lưu. Ba thuật toán họ PPO duy trì một mức dương nhỏ và ổn định trong suốt quá trình,
+đặc trưng cho các phương pháp on-policy khi mạng phê bình liên tục phải thích ứng với dữ
+liệu mới thu thập từ chính sách đang thay đổi.
+
+\indent DQN cho một minh họa hữu ích về giới hạn của chỉ số này. Sau một đỉnh nhọn ở
+những nghìn bước đầu, hàm mất mát của DQN rơi xuống khoảng $0{,}001$ và nằm yên ở đó tới
+cuối, thấp hơn cả ba thuật toán họ PPO. Nhưng chính DQN lại là thuật toán có phần thưởng
+thấp nhất ở môi trường này. Hàm mất mát phê bình nhỏ chỉ nói rằng mạng dự đoán khớp với
+mục tiêu mà nó tự đặt ra, chứ không bảo đảm mục tiêu đó dẫn tới một chính sách tốt; đọc
+chỉ số này tách rời khỏi phần thưởng sẽ dẫn tới kết luận sai.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Hàm mất mát phê bình},
+        xmin=0, xmax=2, ymin=0, ymax=0.4,
+        legend pos=north east,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+        scaled y ticks=false, yticklabel style={/pgf/number format/fixed, /pgf/number format/precision=3},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.020,0.062)(0.110,0.023)(0.200,0.032)(0.290,0.036)(0.390,0.095)(0.480,0.037)(0.580,0.036)(0.670,0.005)(0.770,0.011)(0.860,0.007)(0.950,0.007)(1.050,0.003)(1.150,0.010)(1.240,0.004)(1.330,0.008)(1.420,0.007)(1.530,0.012)(1.620,0.005)(1.710,0.006)(1.800,0.008)(1.900,0.003)(2.000,0.012)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.010,0.018)(0.100,0.009)(0.190,0.002)(0.290,0.001)(0.380,0.000)(0.480,0.000)(0.570,0.000)(0.670,0.000)(0.760,0.000)(0.860,0.000)(0.950,0.000)(1.050,0.000)(1.140,0.000)(1.240,0.000)(1.330,0.000)(1.430,0.000)(1.520,0.000)(1.620,0.000)(1.710,0.000)(1.810,0.000)(1.900,0.000)(2.000,0.000)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.020,0.010)(0.110,0.030)(0.200,0.023)(0.290,0.032)(0.380,0.028)(0.480,0.030)(0.580,0.028)(0.670,0.026)(0.770,0.028)(0.860,0.028)(0.950,0.027)(1.050,0.026)(1.150,0.025)(1.240,0.026)(1.330,0.029)(1.420,0.027)(1.530,0.026)(1.620,0.024)(1.710,0.024)(1.800,0.023)(1.900,0.026)(2.000,0.023)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.020,0.005)(0.110,0.022)(0.200,0.026)(0.290,0.029)(0.390,0.026)(0.480,0.027)(0.580,0.027)(0.670,0.025)(0.770,0.025)(0.860,0.023)(0.950,0.024)(1.050,0.020)(1.150,0.019)(1.240,0.019)(1.330,0.018)(1.420,0.012)(1.530,0.010)(1.620,0.011)(1.710,0.012)(1.800,0.007)(1.900,0.011)(2.000,0.010)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.010,0.384)(0.100,0.002)(0.190,0.002)(0.290,0.004)(0.380,0.006)(0.480,0.006)(0.570,0.003)(0.670,0.001)(0.760,0.001)(0.860,0.001)(0.950,0.001)(1.050,0.001)(1.140,0.001)(1.240,0.001)(1.330,0.001)(1.430,0.001)(1.520,0.001)(1.620,0.001)(1.710,0.001)(1.810,0.001)(1.900,0.001)(2.000,0.000)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Hàm mất mát của mạng phê bình trên môi trường Cross The Road}
+    \label{fig:ctr_vloss}
+\end{figure}
+
+% ═══════════════════════════════════════════════
+\subsection{Kết quả môi trường Capture The Flag}
+
+{\sloppy
+\indent Môi trường Capture The Flag đòi hỏi hai tác nhân phối hợp chặt chẽ trong khi phần
+thưởng lại thưa và bị trì hoãn, đồng thời có một chương trình học hai bài đặt trên tham
+số \texttt{handoff\_required}. Cả năm thuật toán đều được huấn luyện đủ một triệu bảy
+trăm nghìn bước: \texttt{ctf\_ppo\_v1} (PPO), \texttt{ctf\_sac\_v1} (SAC),
+\texttt{ctf\_poca\_v2} (MA-POCA), \texttt{ctf\_mappo\_v2} (MAPPO) và
+\texttt{ctf\_dqn\_v1} (DQN). Hình~\ref{fig:ctf_reward} và Bảng~\ref{tab:ctf_results}
+trình bày kết quả tương ứng.\par}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=7cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Phần thưởng tích lũy},
+        xmin=0, xmax=1.7, ymin=0, ymax=0.9,
+        legend pos=south east,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.080,0.118)(0.160,0.639)(0.240,0.834)(0.320,0.768)(0.400,0.808)(0.480,0.802)(0.540,0.817)(0.620,0.804)(0.700,0.799)(0.780,0.825)(0.860,0.819)(0.920,0.819)(1.000,0.815)(1.080,0.821)(1.160,0.812)(1.240,0.835)(1.300,0.831)(1.380,0.836)(1.460,0.833)(1.540,0.831)(1.620,0.837)(1.700,0.839)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.080,0.070)(0.160,0.040)(0.240,0.122)(0.320,0.156)(0.400,0.389)(0.480,0.187)(0.560,0.217)(0.640,0.262)(0.720,0.422)(0.800,0.211)(0.880,0.232)(0.960,0.495)(1.040,0.365)(1.080,0.092)(1.140,0.172)(1.200,0.421)(1.240,0.013)(1.300,0.561)(1.340,0.757)(1.400,0.044)(1.440,0.544)(1.640,0.087)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.080,0.056)(0.200,0.701)(0.280,0.766)(0.360,0.817)(0.420,0.557)(0.500,0.755)(0.580,0.807)(0.660,0.809)(0.720,0.831)(0.800,0.815)(0.880,0.803)(0.940,0.813)(1.020,0.823)(1.100,0.834)(1.180,0.828)(1.240,0.822)(1.320,0.831)(1.400,0.839)(1.460,0.825)(1.540,0.820)(1.620,0.844)(1.700,0.832)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.080,0.065)(0.160,0.551)(0.280,0.841)(0.360,0.820)(0.420,0.852)(0.500,0.791)(0.580,0.831)(0.660,0.829)(0.720,0.824)(0.800,0.820)(0.880,0.815)(0.940,0.823)(1.020,0.835)(1.100,0.824)(1.180,0.837)(1.240,0.840)(1.320,0.846)(1.400,0.845)(1.460,0.840)(1.540,0.844)(1.620,0.844)(1.700,0.841)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.080,0.048)(0.180,0.064)(0.320,0.391)(0.480,0.573)(0.580,0.799)(0.640,0.808)(0.700,0.736)(0.780,0.631)(0.840,0.814)(0.900,0.823)(0.960,0.801)(1.040,0.785)(1.100,0.775)(1.160,0.775)(1.240,0.788)(1.300,0.791)(1.360,0.811)(1.420,0.783)(1.500,0.820)(1.560,0.826)(1.620,0.773)(1.700,0.797)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Đường cong phần thưởng trên môi trường Capture The Flag}
+    \label{fig:ctf_reward}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Kết quả năm thuật toán trên môi trường Capture The Flag}
+\label{tab:ctf_results}
+\renewcommand{\arraystretch}{1.35}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.9cm}|}
+\hline
+\textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Bước hội tụ} & \textbf{Độ dài lượt chơi} \\
+\hline
+PPO & 1,70M & $0{,}834$ & $0{,}844$ & $\sim$180K & $292{,}9$ \\
+\hline
+SAC & 1,70M & $0{,}183$ & $0{,}795$ & Không đạt & $4999{,}0$ \\
+\hline
+MA-POCA & 1,70M & $0{,}838$ & $0{,}844$ & $\sim$540K & $174{,}3$ \\
+\hline
+MAPPO & 1,70M & $0{,}840$ & $0{,}852$ & $\sim$260K & $153{,}3$ \\
+\hline
+DQN & 1,70M & $0{,}800$ & $0{,}836$ & $\sim$1,04M & $2017{,}9$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\indent Kết quả tách thành hai nhóm rất rõ. Bốn thuật toán MAPPO ($0{,}840$), MA-POCA
+($0{,}838$), PPO ($0{,}834$) và DQN ($0{,}800$) về đích trong một dải rộng $0{,}04$, còn
+SAC đứng riêng ở $0{,}183$. Khoảng cách giữa bốn thuật toán dẫn đầu nhỏ hơn dao động của
+chính các đường cong, nên môi trường này ở cấu hình hiện tại không phân biệt được chúng.
+Bằng chứng đáng tin hơn phần thưởng nằm ở độ dài lượt chơi, được trình bày trong
+Hình~\ref{fig:ctf_signals}.
+
+\indent Bốn thuật toán dẫn đầu đều rút được độ dài lượt chơi xuống mức thấp, từ một trăm
+năm mươi ba bước của MAPPO tới hai nghìn không trăm mười tám bước của DQN, tức đều học
+được cách kết thúc câu đố thay vì để hết giờ. MAPPO và MA-POCA về mức thấp nhất và sớm
+nhất, phù hợp với việc cả hai đều có phê bình tập trung nhìn được quan sát của cả nhóm.
+Điều đáng chú ý là PPO thường, vốn không có cơ chế nào dành riêng cho phối hợp, cũng đạt
+$0{,}834$ và rút lượt chơi xuống hai trăm chín mươi ba bước.
+
+\indent SAC là trường hợp thất bại duy nhất, và thất bại theo một kiểu đặc thù. Độ dài
+lượt chơi của nó nằm ở trần bốn nghìn chín trăm chín mươi chín bước gần như suốt quá
+trình, tức hai tác nhân hầu như không bao giờ hoàn thành câu đố. Nhưng đường cong phần
+thưởng lại không phẳng: nó dao động dữ dội giữa $-0{,}018$ và $0{,}795$, với mười một
+trên bốn mươi bốn điểm đo vượt $0{,}5$ và cũng mười một điểm nằm dưới $0{,}1$, độ lệch
+chuẩn toàn chuỗi lên tới $0{,}221$. Chính sách của SAC vì vậy không phải là không học
+được gì, mà là học được rồi đánh mất, lặp đi lặp lại. Mức trung bình mười phần trăm cuối
+$0{,}183$ là kết quả của việc lấy trung bình trên một chuỗi dao động như vậy, chứ không
+mô tả một năng lực ổn định nào.
+
+\indent Có một chi tiết trên đồ thị cần giải thích để tránh hiểu nhầm. Đường cong phần
+thưởng của SAC dừng lại ở khoảng một triệu sáu trăm bốn mươi nghìn bước trong khi bốn
+đường còn lại kéo tới hết một triệu bảy trăm nghìn bước, nhưng lần chạy này không hề
+ngắn hơn: các chuỗi entropy và hàm mất mát của nó đều có đủ số điểm tới bước cuối cùng.
+Nguyên nhân nằm ở chỗ ML-Agents chỉ ghi phần thưởng tích lũy khi một lượt chơi kết thúc,
+mà lượt chơi của SAC gần như luôn chạm trần thời gian, nên trong sáu mươi nghìn bước
+cuối không có lượt chơi nào kết thúc để sinh ra một bản ghi mới. Chuỗi phần thưởng thưa
+thớt của SAC, chỉ bốn mươi bốn điểm so với bảy mươi chín điểm của MA-POCA và MAPPO, tự
+nó đã là một dấu hiệu của thất bại.
+
+\indent Cơ chế đứng sau hiện tượng này chưa được đề tài xác định. Một giả thuyết phù hợp
+với dữ liệu là bộ đệm phát lại của SAC lưu lẫn lộn kinh nghiệm của hai bài học trong
+chương trình học, khiến mạng phê bình phải khớp đồng thời hai chế độ phần thưởng khác
+nhau; nhưng để kiểm chứng cần thêm thực nghiệm với bộ đệm tách riêng theo bài học, nằm
+ngoài phạm vi đã thực hiện.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Độ dài lượt chơi (bước)},
+        xmin=0, xmax=1.7, ymin=0, ymax=5100,
+        legend pos=south west,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+        scaled y ticks=false, yticklabel style={/pgf/number format/fixed},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.080,4999.000)(0.180,1635.111)(0.260,1810.500)(0.340,2162.111)(0.420,1240.889)(0.480,966.300)(0.560,1163.273)(0.640,630.533)(0.720,710.667)(0.780,1117.667)(0.860,762.231)(0.940,677.750)(1.020,614.158)(1.080,438.435)(1.160,374.240)(1.240,416.346)(1.320,307.034)(1.380,299.824)(1.460,297.371)(1.540,293.161)(1.620,286.714)(1.700,278.703)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.080,4999.000)(0.160,4999.000)(0.240,4999.000)(0.320,4999.000)(0.480,4999.000)(0.560,4999.000)(0.640,4999.000)(0.800,4999.000)(0.880,4999.000)(0.960,4999.000)(1.040,4999.000)(1.120,4999.000)(1.160,4999.000)(1.200,4999.000)(1.280,4999.000)(1.320,4999.000)(1.340,3192.000)(1.360,4999.000)(1.420,4999.000)(1.440,4999.000)(1.480,4999.000)(1.640,4999.000)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.080,4999.000)(0.220,3597.000)(0.300,2240.428)(0.380,2449.000)(0.440,4145.333)(0.520,3596.667)(0.600,1179.500)(0.660,970.857)(0.740,642.000)(0.820,462.316)(0.880,431.875)(0.960,352.857)(1.040,322.433)(1.100,286.500)(1.180,247.868)(1.260,314.444)(1.320,213.978)(1.400,201.653)(1.480,185.407)(1.540,191.527)(1.620,164.383)(1.700,173.864)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.080,4999.000)(0.220,4558.250)(0.300,1299.750)(0.380,1901.500)(0.440,3177.800)(0.520,896.000)(0.600,572.056)(0.660,454.909)(0.740,391.440)(0.820,333.710)(0.880,283.278)(0.960,306.676)(1.040,239.024)(1.100,226.289)(1.180,209.915)(1.260,194.585)(1.320,180.893)(1.400,180.698)(1.480,172.105)(1.540,189.286)(1.620,149.000)(1.700,155.062)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.080,4999.000)(0.320,4999.000)(0.520,2529.333)(0.580,3034.500)(0.640,2851.000)(0.700,2490.750)(0.760,1972.333)(0.820,2462.500)(0.880,2597.714)(0.940,2043.800)(1.000,1591.000)(1.080,2055.000)(1.140,1912.667)(1.200,1497.000)(1.260,1653.667)(1.320,1884.714)(1.380,2642.000)(1.440,2273.714)(1.500,1638.250)(1.560,1081.800)(1.620,2150.572)(1.700,1373.750)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Độ dài lượt chơi trên môi trường Capture The Flag: bốn thuật toán rút được
+    lượt chơi xuống mức thấp, riêng SAC nằm ở trần thời gian gần như suốt quá trình}
+    \label{fig:ctf_signals}
+\end{figure}
+
+\indent Các chỉ số nội tại giải thích rõ vì sao SAC tách khỏi phần còn lại.
+Hình~\ref{fig:ctf_entropy} biểu diễn diễn biến entropy của bốn thuật toán dựa trên chính
+sách; DQN vắng mặt vì lý do đã nêu ở môi trường Cross The Road. Cả năm lần
+chạy đều khởi đầu với entropy $1{,}946$, đúng mức cực đại ứng với bảy hành động chọn ngẫu
+nhiên đều nhau. Đến cuối quá trình, MAPPO giảm còn $0{,}645$, MA-POCA còn $0{,}719$ và
+PPO còn $0{,}820$, tức cả ba đã định hình được một chính sách có cấu trúc; ba đường cong
+này giảm gần như đơn điệu và song song nhau, chỉ khác nhau về độ dốc.
+
+\indent Đường cong của SAC đi theo một hình dạng hoàn toàn khác và là bằng chứng trực
+tiếp nhất cho thất bại của nó. Trong khoảng từ ba trăm nghìn tới một triệu bước, entropy
+của SAC lao xuống rất sâu, chạm đáy $0{,}013$ ở bước sáu trăm hai mươi nghìn, tức thấp
+hơn hẳn cả ba thuật toán họ PPO ở cùng thời điểm và gần với một chính sách xác định
+hoàn toàn. Nhưng ngay sau đó nó bật ngược trở lại đúng mức cực đại $1{,}946$ và nằm
+nguyên ở đó suốt đoạn từ một triệu không trăm bốn mươi nghìn tới một triệu hai trăm sáu
+mươi nghìn bước, rồi chỉ giảm chậm về $1{,}663$ ở bước cuối. Nói cách khác, SAC từng học
+được một chính sách có cấu trúc rồi đánh mất hoàn toàn, quay về trạng thái chọn hành
+động ngẫu nhiên đều nhau. Diễn biến này
+khớp chính xác với hình dạng răng cưa của đường cong phần thưởng đã mô tả ở trên, và cho
+thấy vấn đề không nằm ở chỗ SAC học quá chậm mà ở chỗ nó không giữ được thứ đã học.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Entropy của chính sách},
+        xmin=0, xmax=1.7, ymin=0, ymax=2.1,
+        legend pos=south west,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.939)(0.060,1.925)(0.080,1.895)(0.100,1.856)(0.120,1.804)(0.140,1.802)(0.160,1.808)(0.180,1.814)(0.200,1.808)(0.220,1.806)%
+        (0.240,1.824)(0.260,1.787)(0.280,1.749)(0.300,1.723)(0.320,1.706)(0.340,1.687)(0.360,1.652)(0.380,1.661)(0.400,1.631)(0.420,1.594)(0.440,1.590)%
+        (0.460,1.559)(0.480,1.528)(0.500,1.494)(0.520,1.432)(0.540,1.434)(0.560,1.431)(0.580,1.412)(0.600,1.408)(0.620,1.363)(0.640,1.359)(0.660,1.339)%
+        (0.680,1.337)(0.700,1.317)(0.720,1.291)(0.740,1.254)(0.760,1.224)(0.780,1.177)(0.800,1.175)(0.820,1.136)(0.840,1.167)(0.860,1.177)(0.880,1.178)%
+        (0.900,1.182)(0.920,1.174)(0.940,1.131)(0.960,1.124)(0.980,1.134)(1.000,1.111)(1.020,1.107)(1.040,1.124)(1.060,1.106)(1.080,1.095)(1.100,1.091)%
+        (1.120,1.076)(1.140,1.063)(1.160,1.058)(1.180,1.031)(1.200,1.034)(1.220,1.017)(1.240,1.003)(1.260,0.991)(1.280,0.977)(1.300,0.957)(1.320,0.965)%
+        (1.340,0.953)(1.360,0.936)(1.380,0.926)(1.400,0.918)(1.420,0.917)(1.440,0.915)(1.460,0.896)(1.480,0.883)(1.500,0.865)(1.520,0.846)(1.540,0.833)%
+        (1.560,0.833)(1.580,0.841)(1.600,0.836)(1.620,0.812)(1.640,0.804)(1.660,0.817)(1.680,0.806)(1.700,0.813)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.946)(0.060,1.946)(0.080,1.946)(0.100,1.946)(0.120,1.934)(0.140,1.943)(0.160,1.943)(0.180,1.942)(0.200,1.939)(0.220,1.937)%
+        (0.240,1.920)(0.260,1.909)(0.280,1.865)(0.300,0.324)(0.320,0.242)(0.340,0.188)(0.360,0.674)(0.380,0.689)(0.400,0.499)(0.420,0.993)(0.440,1.112)%
+        (0.460,0.872)(0.480,0.813)(0.500,0.714)(0.520,0.760)(0.540,0.347)(0.560,0.167)(0.580,0.185)(0.600,0.071)(0.620,0.013)(0.640,0.027)(0.660,0.336)%
+        (0.680,0.445)(0.700,0.338)(0.720,0.109)(0.740,0.351)(0.760,0.609)(0.780,0.555)(0.800,0.401)(0.820,0.503)(0.840,0.393)(0.860,0.455)(0.880,0.388)%
+        (0.900,0.280)(0.920,0.167)(0.940,0.181)(0.960,0.077)(0.980,0.454)(1.000,0.434)(1.020,1.849)(1.040,1.946)(1.060,1.946)(1.080,1.946)(1.100,1.946)%
+        (1.120,1.946)(1.140,1.946)(1.160,1.946)(1.180,1.946)(1.200,1.946)(1.220,1.946)(1.240,1.945)(1.260,1.945)(1.280,1.944)(1.300,1.943)(1.320,1.942)%
+        (1.340,1.940)(1.360,1.936)(1.380,1.931)(1.400,1.925)(1.420,1.916)(1.440,1.906)(1.460,1.894)(1.480,1.879)(1.500,1.863)(1.520,1.845)(1.540,1.828)%
+        (1.560,1.817)(1.580,1.801)(1.600,1.778)(1.620,1.752)(1.640,1.726)(1.660,1.703)(1.680,1.682)(1.700,1.663)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.940)(0.060,1.928)(0.080,1.921)(0.100,1.911)(0.120,1.902)(0.140,1.889)(0.160,1.877)(0.180,1.891)(0.200,1.862)(0.220,1.835)%
+        (0.240,1.795)(0.260,1.771)(0.280,1.758)(0.300,1.742)(0.320,1.723)(0.340,1.659)(0.360,1.686)(0.380,1.695)(0.400,1.651)(0.420,1.565)(0.440,1.517)%
+        (0.460,1.487)(0.480,1.441)(0.500,1.428)(0.520,1.386)(0.540,1.381)(0.560,1.366)(0.580,1.372)(0.600,1.397)(0.620,1.355)(0.640,1.360)(0.660,1.345)%
+        (0.680,1.329)(0.700,1.340)(0.720,1.333)(0.740,1.349)(0.760,1.306)(0.780,1.303)(0.800,1.285)(0.820,1.254)(0.840,1.257)(0.860,1.289)(0.880,1.229)%
+        (0.900,1.235)(0.920,1.187)(0.940,1.175)(0.960,1.174)(0.980,1.148)(1.000,1.147)(1.020,1.153)(1.040,1.119)(1.060,1.122)(1.080,1.107)(1.100,1.079)%
+        (1.120,1.082)(1.140,1.056)(1.160,1.036)(1.180,1.011)(1.200,0.965)(1.220,0.938)(1.240,0.940)(1.260,0.948)(1.280,0.932)(1.300,0.920)(1.320,0.895)%
+        (1.340,0.879)(1.360,0.860)(1.380,0.866)(1.400,0.849)(1.420,0.831)(1.440,0.847)(1.460,0.803)(1.480,0.772)(1.500,0.784)(1.520,0.782)(1.540,0.770)%
+        (1.560,0.732)(1.580,0.745)(1.600,0.715)(1.620,0.706)(1.640,0.730)(1.660,0.718)(1.680,0.715)(1.700,0.690)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.020,1.946)(0.040,1.941)(0.060,1.934)(0.080,1.922)(0.100,1.900)(0.120,1.881)(0.140,1.886)(0.160,1.902)(0.180,1.908)(0.200,1.906)(0.220,1.877)%
+        (0.240,1.857)(0.260,1.825)(0.280,1.814)(0.300,1.786)(0.320,1.743)(0.340,1.673)(0.360,1.655)(0.380,1.617)(0.400,1.547)(0.420,1.495)(0.440,1.470)%
+        (0.460,1.427)(0.480,1.419)(0.500,1.379)(0.520,1.374)(0.540,1.377)(0.560,1.405)(0.580,1.420)(0.600,1.412)(0.620,1.389)(0.640,1.358)(0.660,1.349)%
+        (0.680,1.334)(0.700,1.297)(0.720,1.276)(0.740,1.277)(0.760,1.252)(0.780,1.268)(0.800,1.229)(0.820,1.244)(0.840,1.189)(0.860,1.199)(0.880,1.210)%
+        (0.900,1.214)(0.920,1.198)(0.940,1.194)(0.960,1.177)(0.980,1.151)(1.000,1.131)(1.020,1.116)(1.040,1.074)(1.060,1.041)(1.080,1.037)(1.100,1.045)%
+        (1.120,1.007)(1.140,0.997)(1.160,0.956)(1.180,0.936)(1.200,0.936)(1.220,0.908)(1.240,0.899)(1.260,0.890)(1.280,0.898)(1.300,0.833)(1.320,0.816)%
+        (1.340,0.803)(1.360,0.789)(1.380,0.778)(1.400,0.781)(1.420,0.771)(1.440,0.780)(1.460,0.739)(1.480,0.736)(1.500,0.720)(1.520,0.708)(1.540,0.716)%
+        (1.560,0.693)(1.580,0.659)(1.600,0.652)(1.620,0.627)(1.640,0.616)(1.660,0.651)(1.680,0.615)(1.700,0.649)};
+    \legend{PPO, SAC, MA-POCA, MAPPO}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Diễn biến entropy của chính sách trên môi trường Capture The Flag: ba thuật
+    toán họ PPO giảm đều, riêng SAC sụp xuống rồi bật ngược về mức cực đại}
+    \label{fig:ctf_entropy}
+\end{figure}
+
+\indent Phần thưởng tò mò, vốn phản ánh mức độ ``bất ngờ'' của tác nhân trước các trạng
+thái nó gặp, cho cùng một kết luận. Hình~\ref{fig:ctf_curiosity} biểu diễn chỉ số này
+trên trục tung theo thang lô-ga-rit, vì biên độ giữa các thuật toán trải rộng hơn một
+bậc độ lớn. Chỉ số này giảm về $0{,}478$ ở MAPPO, $0{,}577$ ở
+MA-POCA và $1{,}146$ ở PPO, tức môi trường đã trở nên quen thuộc với ba thuật toán này.
+Ở SAC, chỉ số chỉ giảm từ $33{,}6$ xuống $18{,}7$ và dừng ở đó, cho thấy mô hình động lực
+của nó vẫn liên tục dự đoán sai. DQN nằm giữa hai nhóm với giá trị cuối $7{,}014$, phù
+hợp với việc nó giải được nhiệm vụ nhưng kém dứt khoát hơn ba thuật toán dẫn đầu, thể
+hiện qua độ dài lượt chơi còn cao.
+
+\indent Các đỉnh nhọn ở nửa đầu của cả năm đường cong tương ứng với thời điểm chương
+trình học chuyển bài: khi tham số \texttt{handoff\_required} được bật, môi trường đột
+ngột sinh ra những trạng thái mà mô hình động lực chưa từng gặp, nên sai số dự đoán vọt
+lên. Điều đáng đọc ở hình này nằm ở phần sau các đỉnh đó: ba thuật toán họ PPO đưa chỉ
+số về dưới một đơn vị và giữ nguyên, còn SAC giữ ở mức cao gấp hơn ba mươi lần cho tới
+hết. Sau một triệu bảy trăm nghìn bước, thế giới của SAC vẫn xa lạ như lúc bắt đầu.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=6.5cm,
+        xlabel={Số bước huấn luyện (triệu)},
+        ylabel={Phần thưởng tò mò},
+        ymode=log,
+        xmin=0, xmax=1.7, ymin=0.3, ymax=60,
+        legend pos=south west,
+        legend columns=3,
+        grid=both, grid style={gray!20},
+        tick label style={font=\small},
+        label style={font=\small},
+    ]
+    \addplot[ppocolor, thick, mark=none] coordinates {
+        (0.080,3.279)(0.100,3.401)(0.140,10.367)(0.160,7.445)(0.180,3.112)(0.200,2.486)(0.220,2.390)(0.240,3.442)(0.260,3.717)(0.280,2.946)(0.300,4.658)%
+        (0.320,6.664)(0.340,8.339)(0.360,9.200)(0.380,10.999)(0.400,25.188)(0.420,12.390)(0.440,8.876)(0.460,9.975)(0.480,7.776)(0.500,6.309)(0.520,11.170)%
+        (0.540,7.511)(0.560,8.655)(0.580,5.695)(0.600,4.879)(0.620,4.366)(0.640,4.289)(0.660,4.347)(0.680,5.254)(0.700,5.147)(0.720,4.730)(0.740,4.207)%
+        (0.760,4.428)(0.780,7.359)(0.800,5.846)(0.820,5.831)(0.840,4.685)(0.860,4.713)(0.880,4.039)(0.900,4.576)(0.920,3.944)(0.940,3.871)(0.960,2.695)%
+        (0.980,3.489)(1.000,2.741)(1.020,3.351)(1.040,2.536)(1.060,2.729)(1.080,2.412)(1.100,2.174)(1.120,2.042)(1.140,2.071)(1.160,1.826)(1.180,1.739)%
+        (1.200,1.671)(1.220,1.708)(1.240,2.110)(1.260,1.600)(1.280,1.610)(1.300,1.483)(1.320,1.370)(1.340,1.473)(1.360,1.416)(1.380,1.295)(1.400,1.277)%
+        (1.420,1.309)(1.440,1.301)(1.460,1.268)(1.480,1.299)(1.500,1.213)(1.520,1.233)(1.540,1.180)(1.560,1.139)(1.580,1.193)(1.600,1.251)(1.620,1.074)%
+        (1.640,1.135)(1.660,1.146)(1.680,1.183)(1.700,1.046)};
+    \addplot[saccolor, thick, mark=none] coordinates {
+        (0.080,33.623)(0.100,32.523)(0.160,31.860)(0.180,31.673)(0.240,30.246)(0.260,26.276)(0.320,22.653)(0.340,26.456)(0.400,40.961)(0.420,39.458)(0.480,33.429)%
+        (0.500,32.567)(0.560,26.590)(0.580,25.674)(0.640,19.916)(0.660,16.758)(0.720,23.143)(0.740,25.642)(0.800,22.581)(0.820,23.673)(0.880,20.233)(0.900,14.542)%
+        (0.960,18.256)(0.980,15.784)(1.040,17.127)(1.060,12.391)(1.080,18.085)(1.120,15.721)(1.140,15.121)(1.160,17.345)(1.200,13.736)(1.220,14.259)(1.240,17.198)%
+        (1.280,18.651)(1.300,5.139)(1.320,17.304)(1.340,12.352)(1.360,19.366)(1.400,17.431)(1.420,23.449)(1.440,22.185)(1.480,17.712)(1.560,17.683)(1.640,17.323)};
+    \addplot[pocacolor, thick, mark=none] coordinates {
+        (0.080,2.249)(0.100,2.305)(0.160,10.704)(0.200,19.253)(0.220,41.481)(0.240,42.608)(0.260,16.304)(0.280,12.569)(0.300,16.945)(0.320,10.293)(0.340,7.695)%
+        (0.360,12.459)(0.380,18.095)(0.400,23.483)(0.420,26.561)(0.440,29.769)(0.460,5.942)(0.480,27.597)(0.500,20.702)(0.520,23.971)(0.540,17.414)(0.560,12.391)%
+        (0.580,12.217)(0.600,7.360)(0.620,8.983)(0.640,7.006)(0.660,6.176)(0.680,4.660)(0.700,4.221)(0.720,3.827)(0.740,3.796)(0.760,3.942)(0.780,3.090)%
+        (0.800,2.906)(0.820,2.914)(0.840,2.577)(0.860,2.974)(0.880,2.407)(0.900,2.162)(0.920,2.131)(0.940,2.035)(0.960,1.939)(0.980,1.913)(1.000,1.823)%
+        (1.020,1.624)(1.040,1.688)(1.060,1.347)(1.080,1.440)(1.100,1.446)(1.120,1.330)(1.140,1.305)(1.160,1.037)(1.180,1.130)(1.200,1.034)(1.220,1.286)%
+        (1.240,0.999)(1.260,1.397)(1.280,0.896)(1.300,0.912)(1.320,0.945)(1.340,0.837)(1.360,0.824)(1.380,0.949)(1.400,0.803)(1.420,0.734)(1.440,0.763)%
+        (1.460,0.643)(1.480,0.693)(1.500,0.666)(1.520,0.645)(1.540,0.722)(1.560,0.626)(1.580,0.654)(1.600,0.558)(1.620,0.540)(1.640,0.586)(1.660,0.578)%
+        (1.680,0.564)(1.700,0.562)};
+    \addplot[mappocolor, thick, mark=none] coordinates {
+        (0.080,2.391)(0.100,2.475)(0.140,13.061)(0.160,10.719)(0.220,6.218)(0.240,7.143)(0.260,5.934)(0.280,10.859)(0.300,13.451)(0.320,30.028)(0.340,20.969)%
+        (0.360,11.357)(0.380,15.925)(0.400,17.831)(0.420,22.971)(0.440,24.727)(0.460,15.495)(0.480,11.925)(0.500,6.735)(0.520,5.698)(0.540,4.479)(0.560,5.296)%
+        (0.580,4.324)(0.600,3.820)(0.620,3.800)(0.640,3.257)(0.660,2.898)(0.680,2.786)(0.700,2.816)(0.720,2.503)(0.740,2.400)(0.760,2.361)(0.780,2.442)%
+        (0.800,2.000)(0.820,1.871)(0.840,1.721)(0.860,1.889)(0.880,1.548)(0.900,1.568)(0.920,1.498)(0.940,1.512)(0.960,1.649)(0.980,1.473)(1.000,1.416)%
+        (1.020,1.154)(1.040,1.190)(1.060,1.035)(1.080,0.993)(1.100,1.048)(1.120,0.996)(1.140,1.555)(1.160,0.921)(1.180,0.891)(1.200,0.812)(1.220,0.832)%
+        (1.240,0.798)(1.260,0.792)(1.280,0.931)(1.300,0.721)(1.320,0.729)(1.340,0.735)(1.360,0.675)(1.380,0.659)(1.400,0.644)(1.420,0.596)(1.440,0.635)%
+        (1.460,0.566)(1.480,0.621)(1.500,0.560)(1.520,0.533)(1.540,0.659)(1.560,0.590)(1.580,0.506)(1.600,0.477)(1.620,0.465)(1.640,0.446)(1.660,0.505)%
+        (1.680,0.461)(1.700,0.489)};
+    \addplot[dqncolor, thick, mark=none] coordinates {
+        (0.080,33.602)(0.100,33.507)(0.160,30.984)(0.180,28.409)(0.240,33.865)(0.260,37.613)(0.320,43.140)(0.340,23.956)(0.400,28.759)(0.480,25.986)(0.520,13.825)%
+        (0.540,18.827)(0.560,22.127)(0.580,15.261)(0.600,12.693)(0.620,21.050)(0.640,13.567)(0.660,8.835)(0.680,14.227)(0.700,10.808)(0.720,11.188)(0.740,12.379)%
+        (0.760,8.295)(0.780,11.929)(0.800,11.058)(0.820,11.084)(0.840,14.340)(0.860,17.890)(0.880,10.740)(0.900,8.207)(0.920,10.838)(0.940,8.998)(0.960,8.131)%
+        (0.980,10.205)(1.000,6.581)(1.020,16.483)(1.040,12.629)(1.060,15.382)(1.080,8.486)(1.100,12.218)(1.120,8.308)(1.140,7.682)(1.160,12.655)(1.180,8.667)%
+        (1.200,5.867)(1.220,7.836)(1.240,5.652)(1.260,5.943)(1.280,8.552)(1.300,8.616)(1.320,7.258)(1.340,5.609)(1.360,5.594)(1.380,9.778)(1.400,12.655)%
+        (1.420,12.323)(1.440,8.831)(1.460,5.770)(1.480,7.872)(1.500,6.330)(1.520,7.787)(1.540,4.780)(1.560,3.982)(1.580,7.808)(1.600,8.091)(1.620,7.263)%
+        (1.640,7.652)(1.660,5.309)(1.680,8.094)(1.700,4.884)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Phần thưởng tò mò trên môi trường Capture The Flag (trục tung thang
+    lô-ga-rit)}
+    \label{fig:ctf_curiosity}
+\end{figure}
+
+\indent Bốn chỉ số độc lập cùng chỉ về một hướng ở trường hợp SAC: entropy sụp xuống rồi
+bật lại mức cực đại thay vì giảm đều, phần thưởng tò mò vẫn cao gấp hàng chục lần nhóm
+còn lại, độ dài lượt chơi nằm ở trần thời gian, và phần thưởng dao động không hội tụ.
+Đây là bằng chứng đủ mạnh để kết luận SAC không hình thành được
+chính sách ổn định trên bài toán hợp tác này, dù vẫn chưa xác định được cơ chế cụ thể gây
+ra điều đó.
+
+% ═══════════════════════════════════════════════
+\subsection{Đánh giá tổng hợp}
+
+\subsubsection{So sánh tốc độ hội tụ}
+\indent Số bước hội tụ chỉ có ý nghĩa khi đọc kèm mức năng lực mà chính sách hội tụ tới,
+và môi trường Cross The Road cho thấy điều đó rõ nhất. MA-POCA đạt mốc ổn định sớm nhất
+trong cả nhóm, khoảng bốn trăm năm mươi nghìn bước, nhưng ổn định ở mức $0{,}556$; trong
+khi SAC và MAPPO chỉ ổn định sau khoảng một triệu bảy trăm nghìn bước và đạt tới $0{,}846$
+và $0{,}835$. Hội tụ sớm ở đây là dấu hiệu của việc chốt vào một phương án tầm thường chứ
+không phải học nhanh. DQN không đạt mốc ổn định nào trong toàn bộ ngân sách hai triệu
+bước.
+
+\indent Ưu thế về hiệu quả mẫu của SAC, vốn được nêu như một dự đoán trong Chương~2, chỉ
+xuất hiện có điều kiện. Ở cấu hình cập nhật mạng sau mỗi bước môi trường, SAC ổn định chỉ
+sau khoảng một trăm năm mươi nghìn bước; khi giãn tần suất cập nhật xuống một phần hai
+mươi để thời gian chạy khả thi, mốc đó lùi về một triệu bảy trăm chín mươi nghìn bước.
+Hiệu quả mẫu của thuật toán off-policy vì vậy là một đại lượng đánh đổi được với thời gian
+tính toán, chứ không phải hằng số của thuật toán. Xét theo thời gian đồng hồ, SAC chạy
+một trăm ba mươi chín phút so với bốn mươi tám phút của PPO trên cùng ngân sách bước.
+
+\subsubsection{So sánh mức năng lực đạt được}
+\indent Hình~\ref{fig:success_bar} so sánh phần thưởng trung bình mười phần trăm cuối của
+năm thuật toán trên cả ba môi trường, cũng chính là đại lượng được ứng dụng trình diễn sử
+dụng ở tab so sánh. Bức tranh hiện ra khác với giả thuyết ban đầu của đề tài: không có
+quy luật ``mỗi thuật toán thắng trên đúng loại bài toán nó được thiết kế cho''.
+
+\indent Trên Capture The Flag, môi trường hợp tác được thiết kế riêng cho các phương pháp
+đa tác nhân, bốn thuật toán về đích trong dải $0{,}04$ và PPO thường bám sát MAPPO. Cơ chế
+phê bình tập trung của MA-POCA và MAPPO không tạo được khác biệt đo lường được so với PPO
+trên bài toán này. Trên Cross The Road, môi trường đơn tác nhân nơi MAPPO lẽ ra suy biến
+thành PPO, MAPPO lại vượt PPO một khoảng lớn. Trên Football Table, biên độ ELO quá hẹp để
+phân định bốn thuật toán tự chơi.
+
+\indent Điều dữ liệu ủng hộ chắc chắn là một dạng khác của luận điểm trung tâm: sự phù
+hợp giữa thuật toán và môi trường là có thật, nhưng nó thể hiện qua thất bại rõ hơn qua
+chiến thắng. SAC dẫn đầu trên Cross The Road và sụp đổ hoàn toàn trên Capture The Flag,
+chênh lệch giữa hai môi trường lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một
+môi trường. DQN xếp cuối trên Cross The Road nhưng lại nằm trong nhóm giải được câu đố ở
+Capture The Flag. Việc chọn sai thuật toán cho một cơ chế game vì vậy gây thiệt hại lớn
+hơn nhiều so với lợi ích của việc chọn đúng thuật toán tốt nhất trong nhóm khả dụng.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=13cm, height=7cm,
+        ybar,
+        bar width=13pt,
+        enlarge x limits=0.25,
+        ymin=0, ymax=2.4,
+        ylabel={Phần thưởng TB (10\% cuối)},
+        symbolic x coords={Football, Coop, Cross},
+        xtick={Football, Coop, Cross},
+        xticklabels={Football Table, Capture The Flag, Cross The Road},
+        x tick label style={font=\small},
+        legend style={at={(0.5,1.05)}, anchor=south, legend columns=-1},
+        nodes near coords, nodes near coords style={font=\scriptsize},
+        grid=both, grid style={gray!20},
+    ]
+    \addplot[fill=ppocolor] coordinates {(Football,1.691)(Coop,0.834)(Cross,0.690)};
+    \addplot[fill=saccolor] coordinates {(Football,1.842)(Coop,0.183)(Cross,0.846)};
+    \addplot[fill=pocacolor] coordinates {(Football,1.752)(Coop,0.838)(Cross,0.556)};
+    \addplot[fill=mappocolor] coordinates {(Football,2.117)(Coop,0.840)(Cross,0.835)};
+    \addplot[fill=dqncolor] coordinates {(Football,1.825)(Coop,0.800)(Cross,0.336)};
+    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{So sánh phần thưởng trung bình mười phần trăm cuối của năm thuật toán trên
+    ba môi trường}
+    \label{fig:success_bar}
+\end{figure}
+
+\indent Chiều cao các cột chỉ so sánh được trong nội bộ từng môi trường, bởi thang phần
+thưởng của ba môi trường được thiết kế khác nhau: Football Table
+cộng dồn nhiều thành phần định hướng nên có thang lớn hơn hẳn, còn Cross The Road và
+Capture The Flag có phần thưởng chuẩn hóa quanh mức một đơn vị cho mỗi lần hoàn thành
+nhiệm vụ.
+
+\subsubsection{So sánh độ ổn định}
+\indent Độ ổn định được đo bằng độ lệch chuẩn của đường cong phần thưởng trên mười phần
+trăm cuối. Trên Cross The Road, MA-POCA cho đường cong mượt nhất ($0{,}017$), kế đến là
+MAPPO ($0{,}024$) và SAC ($0{,}025$), còn PPO dao động mạnh nhất ($0{,}116$) do giai đoạn
+mất ổn định đã mô tả ở trên. Trên Capture The Flag, ba thuật toán họ PPO đều rất mượt, từ
+$0{,}002$ của MAPPO tới $0{,}006$ của PPO, trong khi SAC lên tới $0{,}210$, tức lớn hơn
+hai bậc độ lớn.
+
+\indent Cơ chế cắt tỉ lệ đặc trưng của họ PPO, vốn giới hạn độ lớn mỗi bước cập nhật, là
+lời giải thích phù hợp cho tính mượt của nhóm này ở hai môi trường hành động rời rạc. Tuy
+nhiên quy luật đó không mở rộng sang Football Table: ở đó MA-POCA lại dao động mạnh nhất
+($0{,}590$) còn PPO mượt nhất trong nhóm tự chơi ($0{,}276$). Trong cơ chế tự chơi, độ
+lệch chuẩn phản ánh cả biến động của đối thủ chứ không riêng của chính sách đang học, nên
+chỉ số này mất phần lớn ý nghĩa so sánh ở môi trường đối kháng.
+
+\subsubsection{Bằng chứng từ chỉ số huấn luyện nội tại}
+\indent Ngoài phần thưởng, các chỉ số nội tại của quá trình huấn luyện cung cấp thêm
+bằng chứng khách quan củng cố cho những nhận định ở trên.
+Bảng~\ref{tab:diagnostics} tổng hợp các chỉ số này cho những lần chạy có hành động rời
+rạc, nơi entropy của chính sách có cùng bản chất và có thể đối chiếu tương đối với
+nhau. Trừ một ngoại lệ đã phân tích ở trên là SAC trên Capture The Flag, mức entropy đều
+giảm mạnh từ đầu đến cuối, khẳng định rằng các tác nhân chuyển dịch từ khám phá ngẫu
+nhiên sang một chính sách có định hướng. Bảng bổ sung thêm cột phần thưởng tò mò vì đây
+là chỉ số phân tách các lần chạy mạnh nhất trong ba chỉ số nội tại: biên độ của nó trải
+hơn ba bậc độ lớn, từ $0{,}007$ của MA-POCA trên Cross The Road tới $18{,}726$ của SAC
+trên Capture The Flag.
+
+\begin{table}[H]
+\centering
+\caption{Chỉ số huấn luyện nội tại (các môi trường hành động rời rạc)}
+\label{tab:diagnostics}
+\renewcommand{\arraystretch}{1.35}
+\tablefont
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|>{\centering\arraybackslash}p{2.1cm}
+                |>{\centering\arraybackslash}p{2.6cm}
+                |>{\centering\arraybackslash}p{2.6cm}
+                |>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\textbf{Lần chạy} & \textbf{Thuật toán} & \textbf{Entropy đầu $\to$ cuối} & \textbf{Mất mát phê bình cuối} & \textbf{Thưởng tò mò cuối} \\
+\hline
+Cross The Road & PPO & $1{,}37 \to 0{,}79$ & $0{,}006$ & $0{,}201$ \\
+\hline
+Cross The Road & SAC & $1{,}37 \to 0{,}28$ & $\approx 0{,}000$ & $0{,}038$ \\
+\hline
+Cross The Road & MA-POCA & $1{,}38 \to 0{,}20$ & $0{,}025$ & $0{,}007$ \\
+\hline
+Cross The Road & MAPPO & $1{,}38 \to 0{,}43$ & $0{,}010$ & $0{,}015$ \\
+\hline
+Cross The Road & DQN & --- & $0{,}001$ & $0{,}112$ \\
+\hline
+Capture The Flag & PPO & $1{,}95 \to 0{,}82$ & $0{,}051$ & $1{,}146$ \\
+\hline
+Capture The Flag & SAC & $1{,}95 \to 1{,}74$ & $\approx 0{,}000$ & $18{,}726$ \\
+\hline
+Capture The Flag & MA-POCA & $1{,}95 \to 0{,}72$ & $0{,}047$ & $0{,}577$ \\
+\hline
+Capture The Flag & MAPPO & $1{,}95 \to 0{,}65$ & $0{,}047$ & $0{,}478$ \\
+\hline
+Capture The Flag & DQN & --- & $0{,}001$ & $7{,}014$ \\
+\hline
+\end{tabular}
+
+\vspace{0.15cm}
+{\footnotesize Mọi giá trị ``cuối'' đều là trung bình mười phần trăm cuối của chuỗi
+tương ứng. DQN không có entropy vì nó chọn hành động theo quy tắc $\varepsilon$-tham lam
+chứ không theo một phân phối chính sách.}
+\end{table}
+
+\indent Mức entropy cuối phân tách các lần chạy theo đúng mức năng lực đạt được, nhưng
+theo chiều ngược với trực giác thông thường. Trên Capture The Flag, ba thuật toán giải
+được câu đố đều hạ entropy xuống dải $0{,}65$--$0{,}82$, còn SAC giữ nguyên ở $1{,}74$
+trên mức cực đại $1{,}95$; chênh lệch này là chỉ báo sớm và rõ ràng nhất cho thất bại của
+SAC, xuất hiện trước cả khi nhìn vào phần thưởng. Trên Cross The Road, entropy cuối lại
+không dự đoán được thứ hạng: MA-POCA hạ entropy thấp nhất ($0{,}20$) nhưng chỉ đạt phần
+thưởng $0{,}556$, còn PPO giữ entropy cao nhất ($0{,}79$) và cũng chỉ đạt $0{,}690$.
+Entropy thấp vì vậy cho biết chính sách đã quyết đoán, chứ không cho biết nó quyết đoán
+về một phương án tốt hay xấu.
+
+\indent Hàm mất mát phê bình cần được đọc trong ngữ cảnh của từng thuật toán. Giá trị gần
+không của SAC phản ánh mạng phê bình hội tụ nhanh nhờ tái sử dụng dữ liệu đã lưu. Giá trị
+$0{,}001$ của DQN có nguyên nhân khác hẳn: mạng dự đoán khớp với mục tiêu tự sinh của
+chính nó, điều vẫn xảy ra ngay cả khi chính sách kém, như trường hợp DQN xếp cuối trên
+Cross The Road đã cho thấy. Ba thuật toán họ PPO duy trì một mức dương nhỏ, cao hơn hẳn ở
+Capture The Flag ($0{,}047$--$0{,}051$) so với Cross The Road ($0{,}006$--$0{,}025$), phù
+hợp với việc phần thưởng nhóm thưa và trì hoãn khiến việc ước lượng giá trị khó hơn.
+
+\subsubsection{Phân tích ưu nhược điểm từng thuật toán}
+\indent Bảng~\ref{tab:overall_ranking} tổng hợp thứ hạng của năm thuật toán trên từng
+môi trường.
+
+\begin{table}[H]
+\centering
+\caption{Xếp hạng thuật toán theo từng môi trường}
+\label{tab:overall_ranking}
+\renewcommand{\arraystretch}{1.35}
+\tablefont
+\begin{tabular}{|p{2.7cm}|>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.95cm}|}
+\hline
+\textbf{Môi trường} & \textbf{Hạng 1} & \textbf{Hạng 2} & \textbf{Hạng 3} & \textbf{Hạng 4} & \textbf{Hạng 5} \\
+\hline
+Football Table & MAPPO & PPO & SAC & MA-POCA & DQN (N/A) \\
+\hline
+Cross The Road & SAC & MAPPO & PPO & MA-POCA & DQN \\
+\hline
+Capture The Flag & MAPPO & MA-POCA & PPO & DQN & SAC \\
+\hline
+\end{tabular}
+\end{table}
+
+\indent Thứ hạng trên Football Table được xếp theo ELO cuối, thứ hạng trên hai môi trường
+còn lại được xếp theo phần thưởng trung bình mười phần trăm cuối. DQN trên Football Table
+không xếp hạng được vì nó chạy không có tự chơi nên không có ELO.
+
+\indent Bảng này cần đọc kèm một cảnh báo về độ phân giải. Ở Football Table, bốn thuật
+toán tự chơi nằm trong dải ELO $1237$--$1260$; ở Capture The Flag, bốn thuật toán dẫn đầu
+nằm trong dải phần thưởng $0{,}800$--$0{,}840$. Những khoảng cách đó nhỏ hơn dao động của
+chính các đường cong, nên thứ tự trong nội bộ các nhóm này không nên được xem là kết luận.
+Ba phân tách thực sự vững là: SAC thất bại trên Capture The Flag, DQN xếp cuối trên Cross
+The Road, và nhóm dẫn đầu tách khỏi nhóm sau ở Cross The Road.
+
+\indent MAPPO là thuật toán duy nhất nằm trong nhóm dẫn đầu ở cả ba môi trường: hạng nhất
+ở Football Table và Capture The Flag, hạng nhì ở Cross The Road với khoảng cách không đáng
+kể so với SAC. Kết quả này vượt ngoài phạm vi mà thiết kế của MAPPO nhắm tới, vì thuật
+toán được đề xuất cho bài toán hợp tác đa tác nhân nhưng lại hoạt động tốt cả ở môi trường
+đơn tác nhân lẫn đối kháng. Đề tài chưa giải thích được cơ chế đứng sau, và với một lần
+chạy cho mỗi ô thì cũng chưa loại trừ được yếu tố ngẫu nhiên.
+
+\indent PPO giữ vai trò một lựa chọn mặc định hợp lý. Nó không dẫn đầu ở môi trường nào
+nhưng cũng không thất bại ở đâu, luôn nằm trong nhóm giữa hoặc nhóm đầu. Nhược điểm bộc
+lộ trên Cross The Road, nơi entropy tăng ngược và độ dài lượt chơi bùng nổ ở nửa sau, cho
+thấy PPO có thể rời khỏi vùng nghiệm tốt mà không tự quay lại được trong ngân sách đã cho.
+
+\indent SAC là thuật toán phân hóa mạnh nhất. Nó dẫn đầu Cross The Road ($0{,}846$) và
+đứng thứ ba ở Football Table, nhưng sụp đổ hoàn toàn trên Capture The Flag với entropy gần
+như không giảm và lượt chơi luôn chạm trần thời gian. Biên độ giữa thành công và thất bại
+của riêng SAC lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một môi trường, nên
+đây là lựa chọn có rủi ro cao nhất khi chưa thử nghiệm trên bài toán cụ thể.
+
+\indent MA-POCA cho kết quả trái với kỳ vọng đặt vào nó. Là thuật toán được thiết kế riêng
+cho gán công lao nhóm, nó chỉ ngang bằng MAPPO và PPO ở môi trường hợp tác, đồng thời xếp
+áp chót ở Cross The Road và cuối trong nhóm tự chơi ở Football Table. Cơ chế phê bình dựa
+trên sự chú ý của nó không tạo được lợi thế đo lường được trong ba môi trường của đề tài.
+
+\indent DQN là thuật toán yếu nhất xét toàn cục và cũng khó triển khai nhất. Nó xếp cuối
+trên Cross The Road với khoảng cách lớn, chỉ vào được nhóm giữa ở Capture The Flag, và
+trên Football Table cần một bản dựng riêng với không gian hành động rời rạc, lại không
+ghép được với tự chơi. Ưu điểm duy nhất ghi nhận được là tính ổn định của đường cong, song
+điều đó đến từ việc chính sách ít thay đổi chứ không phải từ chất lượng của chính sách.
+
+% ═══════════════════════════════════════════════
+\subsection{Thảo luận}
+
+\subsubsection{Khả năng ứng dụng trong phát triển game}
+\indent Kết quả thực nghiệm gợi mở một số hàm ý thực tiễn cho việc ứng dụng học tăng
+cường vào phát triển game. Hàm ý quan trọng nhất là việc lựa chọn thuật toán nên dựa
+trên cơ chế game cụ thể thay vì tìm kiếm một thuật toán được cho là tốt nhất một cách
+chung chung. Đối với các game đối kháng giữa người chơi với nhau hoặc với máy, chẳng
+hạn game thể thao hay game đấu trường, các thuật toán họ PPO kết hợp tự chơi là lựa
+chọn phù hợp vì chúng tạo ra được đối thủ máy có trình độ tăng dần một cách tự nhiên,
+mang lại trải nghiệm thử thách nhưng công bằng cho người chơi.
+
+\indent Đối với các game điều hướng, né tránh vật cản hay giải đố đơn tuyến, SAC đạt mức
+năng lực cao nhất trong thực nghiệm, nhưng kèm hai điều kiện. Hiệu quả sử dụng dữ liệu của
+nó phụ thuộc vào tần suất cập nhật mạng, và thời gian chạy thực tế cao gấp gần ba lần
+PPO trên cùng ngân sách bước. Nhóm phát triển có tài nguyên hạn chế nên cân nhắc điều này
+trước khi chọn SAC vì lý do ``ít mẫu hơn''.
+
+\indent Đối với các game hợp tác đòi hỏi nhiều nhân vật máy phối hợp, thực nghiệm cho một
+kết quả đáng lưu ý: PPO thường bám sát MAPPO và MA-POCA, nên chi phí tích hợp một thuật
+toán đa tác nhân chuyên biệt chưa chắc được đền đáp. Khuyến nghị thực dụng là bắt đầu bằng
+PPO để có mốc so sánh, rồi mới cân nhắc MAPPO nếu mốc đó chưa đủ. Điều cần tránh rõ ràng
+nhất là dùng thuật toán off-policy như SAC cho bài toán hợp tác có phần thưởng nhóm thưa
+và chương trình học nhiều bài, vì đó là cấu hình duy nhất trong đề tài dẫn tới thất bại
+hoàn toàn. Ngoài giá trị
+hướng dẫn lựa chọn thuật toán, ba môi trường được xây dựng trong đề tài cùng quy trình
+thiết kế quan sát, hành động và phần thưởng có thể được tái sử dụng trực tiếp làm nền
+tảng thử nghiệm trí tuệ nhân tạo trong các dự án game Unity khác, giúp tiết kiệm đáng
+kể công sức xây dựng môi trường từ đầu.

@@ -4,25 +4,30 @@
 
 \vspace{0.5cm}
 
-\indent Đồ án tập trung vào việc xây dựng các môi trường game ba chiều phù hợp với việc học tăng cường. Hiện nay, các thuật toán học tăng cường đã được đóng gói trong nhiều thư viện nên phần lớn công việc của một dự án học tăng cường trong game nằm ở việc thiết kế môi trường chứ không phải là triển khai thuật toán.
+\indent Trong một dự án học tăng cường cho game, phần việc nặng nhất hiện không còn nằm ở
+thuật toán. Các thư viện đã đóng gói sẵn những gì cần thiết. Cái còn lại, và cũng là cái
+khó, là môi trường: phải tự dựng, tự đặc tả, tự hiệu chỉnh. Đồ án này lấy chính khâu đó
+làm đối tượng nghiên cứu, cụ thể là bài toán xây dựng môi trường game ba chiều đủ chuẩn
+cho việc huấn luyện.
 
-\indent Đề tài xây dựng ba môi trường game ba chiều trên nền tảng Unity ML-Agents, mỗi
-môi trường đại diện cho một dạng bài toán: Football Table (đối kháng một-một, hành động
-liên tục, tự chơi), Capture The Flag (hợp tác hai tác nhân với phần thưởng nhóm và
-chương trình học theo bậc) và Cross The Road (điều hướng đơn tác nhân, phần thưởng
-thưa). Với từng môi trường, đồ án trình bày quá trình thiết kế quan sát - hành
-động - phần thưởng. Cả ba được đóng gói thành một gói Unity
-Package Manager kèm 15 cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn
+\indent Ba môi trường đã được dựng trên nền tảng Unity ML-Agents, mỗi cái ứng với một
+dạng bài toán khác nhau. Football Table là bài toán đối kháng một-một với không gian hành
+động liên tục và cơ chế tự chơi. Capture The Flag đòi hỏi hai tác nhân hợp tác, dùng phần
+thưởng nhóm cùng chương trình học chia theo bậc. Cross The Road thì ngược lại, chỉ một tác
+nhân điều hướng nhưng phần thưởng rất thưa. Với từng môi trường, đồ án thuật lại quá trình
+thiết kế bộ ba quan sát - hành động - phần thưởng. Sản phẩm cuối được đóng thành một gói
+Unity Package Manager, kèm 15 cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn
 cài đặt.
 
-\indent Đề tài cũng thực hiện chạy 5 thuật toán PPO, SAC, MA-POCA,
-MAPPO và DQN trên cả ba môi trường với cùng cấu hình và ngân sách bước chạy. Năm thuật toán ở đây là phép thử cho thấy một môi trường đạt yêu cầu phải cho thấy tác nhân học được, phân biệt được các
-hướng tiếp cận và không tồn tại lối tắt. Kết quả xác nhận cả ba đều đạt, với phần
-thưởng cuối trải rộng và giải thích được bằng cơ chế bài toán - chẳng hạn SAC dẫn đầu
-trên Cross The Road ($0{,}846$) nhưng sụp đổ trên Capture The Flag ($0{,}183$). Khoảng
-cách của cùng một thuật toán giữa hai môi trường luôn lớn hơn khoảng cách giữa các thuật
-toán trong cùng một môi trường: đặc tính bài toán, do thiết kế môi trường quyết định,
-chi phối kết quả mạnh hơn lựa chọn thuật toán. Đồ án cũng xây dựng một ứng dụng trình
-diễn cho phép nạp trực tiếp mười lăm mô hình ONNX đã huấn luyện và quan sát hành vi
-thật.
+\indent Để nghiệm thu, đồ án cho chạy năm thuật toán - PPO, SAC, MA-POCA, MAPPO và DQN -
+trên cả ba môi trường, giữ nguyên cấu hình lẫn ngân sách bước chạy. Năm thuật toán ở đây
+đóng vai trò phép thử: một môi trường đạt yêu cầu thì tác nhân phải học được, các hướng
+tiếp cận phải phân biệt được với nhau, và không được tồn tại lối tắt. Cả ba đều qua được
+phép thử này. Phần thưởng cuối trải rộng, và mọi khoảng cách đều truy được về cơ chế của
+bài toán; SAC chẳng hạn, dẫn đầu trên Cross The Road với $0{,}846$ nhưng sụp xuống
+$0{,}183$ ở Capture The Flag. Đáng chú ý hơn là điều này: cùng một thuật toán, khoảng cách
+giữa hai môi trường luôn lớn hơn khoảng cách giữa các thuật toán trong cùng một môi
+trường. Nói cách khác, đặc tính bài toán - thứ do thiết kế môi trường quyết định - chi
+phối kết quả mạnh hơn lựa chọn thuật toán. Kèm theo đó, đồ án xây dựng một ứng dụng trình
+diễn nạp trực tiếp mười lăm mô hình ONNX đã huấn luyện để quan sát hành vi thật.
 
