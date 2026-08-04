@@ -1,0 +1,51 @@
+16:02:41 [INFO] ──────────────────────────────────────────────────────────────────────
+16:02:41 [INFO] KIEM TRA TRUOC KHI CHAY
+16:02:41 [INFO] ──────────────────────────────────────────────────────────────────────
+16:02:41 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+16:02:41 [INFO] trainer plugins: default,a2c,dqn,mappo
+16:02:41 [WARN] [ctf_sac] CANH BAO: Chay lai sau khi them curriculum handoff_required vao ctf_sac.yaml (lan v1 thieu, nen hoc thang bai kho va ket o reward 0,183).
+16:02:41 [WARN] [ctr_dqn] CANH BAO: Chay lai voi exploration_final_eps 0,05 -> 0,01 va decay 500K -> 1M. Lan v1 dat 0,336 va khong hoi tu.
+16:02:41 [WARN] [fb_dqn] CANH BAO: Chay lai CO self-play (da sua get_policy trong plugin DQN) va voi exploration_decay_steps 2M -> 400K. Lan v1 khong co ELO va ket thuc o epsilon 0,621. | CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung build 'Football' voi PPO/SAC/POCA/MAPPO duoc.
+16:02:41 [WARN] [ctf_dqn] CANH BAO: Chay lai sau khi them curriculum handoff_required va ha exploration_final_eps ve 0,01. Lan v1 dat 0,800 nhung o dieu kien khac ba thuat toan kia nen khong dem so sanh duoc.
+16:02:41 [INFO] Ket qua kiem tra: OK
+16:02:41 [INFO] ──────────────────────────────────────────────────────────────────────
+16:02:41 [INFO] Se chay 4 job, tong 7,000,000 buoc (ngan sach: full)
+16:02:41 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] [1/4]  ctf_sac   SAC @ capture
+16:02:41 [INFO]         run-id  : ctf_sac_v2
+16:02:41 [INFO]         config  : ctf_sac.yaml
+16:02:41 [INFO]         steps   : 1,700,000
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_sac_v2_1700000.yaml --run-id ctf_sac_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] [2/4]  ctr_dqn   DQN @ crossroad
+16:02:41 [INFO]         run-id  : ctr_dqn_v2
+16:02:41 [INFO]         config  : ctr_dqn.yaml
+16:02:41 [INFO]         steps   : 2,000,000
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr_dqn_v2_2000000.yaml --run-id ctr_dqn_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] [3/4]  fb_dqn   DQN @ football
+16:02:41 [INFO]         run-id  : football_dqn_v2
+16:02:41 [INFO]         config  : football_dqn.yaml
+16:02:41 [INFO]         steps   : 1,600,000
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\football_dqn_v2_1600000.yaml --run-id football_dqn_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe --no-graphics --time-scale 20.0
+
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] [4/4]  ctf_dqn   DQN @ capture
+16:02:41 [INFO]         run-id  : ctf_dqn_v2
+16:02:41 [INFO]         config  : ctf_dqn.yaml
+16:02:41 [INFO]         steps   : 1,700,000
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_dqn_v2_1700000.yaml --run-id ctf_dqn_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+
+16:02:41 [INFO] ======================================================================
+16:02:41 [INFO] TONG KET  (0:00:00)
+16:02:41 [INFO]   Thanh cong : 4  ['ctf_sac', 'ctr_dqn', 'fb_dqn', 'ctf_dqn']
+16:02:41 [INFO]   That bai   : 0  []
+16:02:41 [INFO] ======================================================================

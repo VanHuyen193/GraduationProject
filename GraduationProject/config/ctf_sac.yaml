@@ -37,3 +37,29 @@ behaviors:
     max_steps: 5000000
     time_horizon: 128
     summary_freq: 20000
+
+# Curriculum GIONG HET ctf_ppo / ctf_poca / ctf_mappo — bai 0 mo san cua
+# (handoff_required=0), bai 1 khoa cua (=1). EnvController.cs doc tham so nay qua
+# Academy.EnvironmentParameters.
+#
+# TRUOC DAY FILE NAY THIEU HAN KHOI environment_parameters. Hau qua khong he hien
+# ra loi: EnvController.ApplyDoorCurriculum() goi GetWithDefault(HANDOFF_PARAM, 1f),
+# tuc mac dinh CUA KHOA — nen lan chay ctf_sac_v1 hoc thang bai kho tu buoc 0, trong
+# khi PPO/MA-POCA/MAPPO deu duoc hoc bai de truoc. Doi chieu configuration.yaml cua
+# hai lan chay thay ro: ctf_ppo_v1 co environment_parameters, ctf_sac_v1 ghi null va
+# log khong he co dong "Parameter 'handoff_required' is in lesson ...".
+# Do chinh la ly do reward cua SAC ket o 0,183 va do dai luot choi nam li o tran
+# 4999 buoc: hai tac nhan gan nhu khong bao gio giai xong cau do.
+environment_parameters:
+  handoff_required:
+    curriculum:
+      - name: Lesson0_DoorOpen
+        completion_criteria:
+          measure: reward
+          behavior: PuzzleBehavior
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 0.0
+      - name: Lesson1_Handoff
+        value: 1.0

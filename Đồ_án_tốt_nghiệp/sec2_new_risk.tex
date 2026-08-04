@@ -13,13 +13,10 @@
 vừa là phòng thí nghiệm, vừa là sản phẩm. Chạy hàng triệu lần thử trong một môi trường
 game gần như không tốn gì và cũng chẳng mang rủi ro nào, thứ mà một con robot thật hay
 một hệ thống giao thông thật không bao giờ cho phép. Mặt khác, ngành công nghiệp game
-lại có nhu cầu thương mại rất trực tiếp: họ cần những nhân vật máy cư xử sao cho thuyết
-phục. Quãng đường từ một kết quả nghiên cứu tới một tính năng bán được, hiếm lĩnh vực
-nào ngắn như vậy.
+lại có nhu cầu thương mại rất đặc thù: họ cần những nhân vật máy cư xử sao cho tự nhiên nhất.
 
 \indent Học tăng cường ăn khớp với bối cảnh đó hơn cả. Hướng tiếp cận này không đòi hỏi
-tập dữ liệu gán nhãn sẵn, mà với câu hỏi ``nước đi nào là đúng trong tình huống này''
-thì một tập như vậy gần như không thể có. Thay vào đó, tác nhân tự rút ra chiến lược từ
+tập dữ liệu gán nhãn sẵn, mà với câu hỏi ``nước đi nào là đúng trong tình huống này''. Tác nhân sẽ tự rút ra chiến lược từ
 hậu quả của chính những hành động nó đã thử.
 
 \indent Những gì học tăng cường làm được đã được chứng minh qua một loạt cột mốc. Có hệ
@@ -30,23 +27,22 @@ chiến thuật phức tạp \cite{openai2019dota, vinyals2019grandmaster}. Khô
 trong số đó được lập trình sẵn cả; tất cả đều nảy sinh từ quá trình thử và sai của bản
 thân tác nhân.
 
-\indent Có điều, ấn tượng mà những cột mốc ấy để lại rất dễ khiến người ta nhầm về chỗ
+\indent Tuy nhiên ấn tượng mà những cột mốc ấy để lại rất dễ khiến người ta nhầm về chỗ
 khó thật sự. Thuật toán học tăng cường ngày nay đều đã được cài đặt sẵn, kiểm chứng kỹ
-và gói gọn trong các thư viện chín muồi; gọi ra một trình huấn luyện PPO tốn đúng một
-dòng lệnh. Thứ không ai đưa sẵn cho ta, và cũng là thứ ngốn phần lớn công sức của một
-dự án học tăng cường thực tế, là \textit{môi trường huấn luyện}. Tác nhân nhìn thấy
+và gói gọn trong các thư viện. Thứ không ai đưa sẵn cho ta và cũng là thứ tốn phần lớn công sức của một
+dự án học tăng cường thực tế là môi trường huấn luyện. Tác nhân nhìn thấy
 những gì? Nó hành động ra sao? Thưởng phạt theo tiêu chí nào? Sau mỗi lượt thì tình
 huống được đặt lại thế nào? Và làm sao để cả hệ thống chạy đủ nhanh mà gom về hàng triệu
-bước kinh nghiệm? Người xây dựng phải tự trả lời từng câu một. Mỗi câu là một quyết định
-thiết kế, mà quyết định sai thì thường không báo lỗi: chương trình vẫn chạy bình thường,
-đường cong vẫn vẽ ra, chỉ có điều tác nhân không bao giờ học được thứ ta muốn.
+bước kinh nghiệm? Mỗi câu hỏi là một quyết định
+thiết kế, mà quyết định sai thì thường không báo lỗi, chương trình vẫn chạy bình thường,
+đường cong vẫn vẽ ra, nhưng tác nhân không bao giờ học được thứ ta muốn.
 
 \indent Các môi trường hai chiều đơn giản hay những bộ dữ liệu chuẩn quen thuộc trong
-nghiên cứu học thuật rất tiện, nhưng chúng lại che mất đúng phần khó vừa nói: mọi đặc tả
+nghiên cứu học thuật rất tiện, nhưng chúng lại che mất đúng phần khó vừa nói. Mọi đặc tả
 đã có người làm sẵn từ trước, người dùng chỉ việc nạp vào. Phải là một môi trường ba
-chiều - mô phỏng vật lý chân thực, quan sát chỉ một phần qua cảm biến, tình huống thay
-đổi liên tục - thì các bài toán thiết kế mới lộ ra hết, và bài toán khi đó cũng gần với
-phát triển game thương mại hơn nhiều. Những môi trường như thế, ở dạng dùng lại được,
+chiều mô phỏng vật lý chân thực, quan sát chỉ một phần qua cảm biến, tình huống thay
+đổi liên tục thì các bài toán thiết kế mới lộ ra hết, và bài toán khi đó cũng gần với
+phát triển game thương mại hơn nhiều. Những môi trường như thế ở dạng dùng lại được,
 tức là có tài liệu, có công cụ, có cấu hình huấn luyện đi kèm, hiện gần như vắng bóng.
 Đó chính là khoảng trống mà đồ án này nhắm tới.
 

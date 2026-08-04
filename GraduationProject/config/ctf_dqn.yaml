@@ -22,7 +22,10 @@ behaviors:
       save_replay_buffer: false
       exploration_schedule: linear
       exploration_initial_eps: 1.0
-      exploration_final_eps: 0.05
+      # 0,01 cho khop ctr_dqn.yaml / football_dqn.yaml — xem ly do day du trong
+      # ctr_dqn.yaml. Ba lan chay DQN phai dung cung muc epsilon san thi moi so
+      # sanh cheo giua ba moi truong duoc.
+      exploration_final_eps: 0.01
       exploration_decay_steps: 1000000
       reward_signal_steps_per_update: 20
     network_settings:
@@ -41,3 +44,22 @@ behaviors:
     max_steps: 5000000
     time_horizon: 128
     summary_freq: 20000
+
+# Curriculum GIONG HET ctf_ppo / ctf_poca / ctf_mappo — xem ghi chu day du trong
+# ctf_sac.yaml. File nay truoc day cung thieu khoi environment_parameters, nen
+# ctf_dqn_v1 hoc thang bai kho (cua khoa mac dinh 1.0) tu buoc 0 giong ctf_sac_v1.
+# Ket qua 0,800 cua no khong sai, nhung dat duoc trong dieu kien KHAC ba thuat toan
+# kia — mot bang so sanh nam thuat toan thi khong duoc phep lech nhu vay.
+environment_parameters:
+  handoff_required:
+    curriculum:
+      - name: Lesson0_DoorOpen
+        completion_criteria:
+          measure: reward
+          behavior: PuzzleBehavior
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value: 0.0
+      - name: Lesson1_Handoff
+        value: 1.0

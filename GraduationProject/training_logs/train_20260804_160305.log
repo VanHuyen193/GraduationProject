@@ -1,0 +1,74 @@
+16:03:05 [INFO] ──────────────────────────────────────────────────────────────────────
+16:03:05 [INFO] KIEM TRA TRUOC KHI CHAY
+16:03:05 [INFO] ──────────────────────────────────────────────────────────────────────
+16:03:05 [INFO] mlagents-learn : C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe
+16:03:05 [INFO] trainer plugins: default,a2c,dqn,mappo
+16:03:05 [WARN] [fb_dqn] CANH BAO: Chay lai CO self-play (da sua get_policy trong plugin DQN) va voi exploration_decay_steps 2M -> 400K. Lan v1 khong co ELO va ket thuc o epsilon 0,621. | CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung build 'Football' voi PPO/SAC/POCA/MAPPO duoc.
+16:03:05 [WARN] [ctf_sac] CANH BAO: Chay lai sau khi them curriculum handoff_required vao ctf_sac.yaml (lan v1 thieu, nen hoc thang bai kho va ket o reward 0,183).
+16:03:05 [WARN] [ctf_dqn] CANH BAO: Chay lai sau khi them curriculum handoff_required va ha exploration_final_eps ve 0,01. Lan v1 dat 0,800 nhung o dieu kien khac ba thuat toan kia nen khong dem so sanh duoc.
+16:03:05 [WARN] [ctr_dqn] CANH BAO: Chay lai voi exploration_final_eps 0,05 -> 0,01 va decay 500K -> 1M. Lan v1 dat 0,336 va khong hoi tu.
+16:03:05 [INFO] Ket qua kiem tra: OK
+16:03:05 [INFO] ──────────────────────────────────────────────────────────────────────
+16:03:05 [INFO] Se chay 4 job, tong 80,000 buoc (ngan sach: reduced)
+16:03:05 [INFO] Che do: build | num-envs 1 | time-scale 20.0
+
+16:03:05 [INFO] ======================================================================
+16:03:05 [INFO] [1/4]  fb_dqn   DQN @ football
+16:03:05 [INFO]         run-id  : football_dqn_v2
+16:03:05 [INFO]         config  : football_dqn.yaml
+16:03:05 [INFO]         steps   : 20,000
+16:03:05 [INFO] ======================================================================
+16:03:05 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\football_dqn_v2_20000.yaml --run-id football_dqn_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\FootballDiscrete\FootballDiscrete.exe --no-graphics --time-scale 20.0
+16:03:20 [INFO]          5,000 / 20,000  ( 25.0%)       0 step/s  ETA 0:00:00
+16:03:38 [INFO]         10,000 / 20,000  ( 50.0%)     152 step/s  ETA 0:01:05
+16:03:54 [INFO]         15,000 / 20,000  ( 75.0%)     202 step/s  ETA 0:00:24
+16:04:14 [INFO]         20,000 / 20,000  (100.0%)     217 step/s  ETA 0:00:00
+16:04:17 [INFO] --> XONG  (0:01:12, 20,000 steps, log: football_dqn_v2.log)
+
+16:04:17 [INFO] ======================================================================
+16:04:17 [INFO] [2/4]  ctf_sac   SAC @ capture
+16:04:17 [INFO]         run-id  : ctf_sac_v2
+16:04:17 [INFO]         config  : ctf_sac.yaml
+16:04:17 [INFO]         steps   : 20,000
+16:04:17 [INFO] ======================================================================
+16:04:17 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_sac_v2_20000.yaml --run-id ctf_sac_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+16:04:27 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+16:04:50 [INFO]          5,000 / 20,000  ( 25.0%)       0 step/s  ETA 0:00:00
+16:05:33 [INFO]         10,000 / 20,000  ( 50.0%)      66 step/s  ETA 0:02:30
+16:06:38 [INFO]         15,000 / 20,000  ( 75.0%)      71 step/s  ETA 0:01:10
+16:07:21 [INFO]         20,000 / 20,000  (100.0%)      82 step/s  ETA 0:00:00
+16:07:27 [INFO] --> XONG  (0:03:09, 20,000 steps, log: ctf_sac_v2.log)
+
+16:07:27 [INFO] ======================================================================
+16:07:27 [INFO] [3/4]  ctf_dqn   DQN @ capture
+16:07:27 [INFO]         run-id  : ctf_dqn_v2
+16:07:27 [INFO]         config  : ctf_dqn.yaml
+16:07:27 [INFO]         steps   : 20,000
+16:07:27 [INFO] ======================================================================
+16:07:27 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctf_dqn_v2_20000.yaml --run-id ctf_dqn_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CaptureTheFlag\CaptureTheFlag.exe --no-graphics --time-scale 20.0
+16:07:32 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+16:07:50 [INFO]          5,000 / 20,000  ( 25.0%)       0 step/s  ETA 0:00:00
+16:08:21 [INFO]         10,000 / 20,000  ( 50.0%)      92 step/s  ETA 0:01:49
+16:09:05 [INFO]         15,000 / 20,000  ( 75.0%)     102 step/s  ETA 0:00:49
+16:09:39 [INFO]         20,000 / 20,000  (100.0%)     113 step/s  ETA 0:00:00
+16:09:44 [INFO] --> XONG  (0:02:17, 20,000 steps, log: ctf_dqn_v2.log)
+
+16:09:44 [INFO] ======================================================================
+16:09:44 [INFO] [4/4]  ctr_dqn   DQN @ crossroad
+16:09:44 [INFO]         run-id  : ctr_dqn_v2
+16:09:44 [INFO]         config  : ctr_dqn.yaml
+16:09:44 [INFO]         steps   : 20,000
+16:09:44 [INFO] ======================================================================
+16:09:44 [INFO] cmd: C:\Users\Admin\miniconda3\envs\mlagents\Scripts\mlagents-learn.exe C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\training_logs\_config_override\ctr_dqn_v2_20000.yaml --run-id ctr_dqn_v2 --results-dir C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results --force --env C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\Builds\CrossTheRoad\CrossTheRoad.exe --no-graphics --time-scale 20.0
+16:09:53 [WARN]     C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+16:10:09 [INFO]          5,000 / 20,000  ( 25.0%)       0 step/s  ETA 0:00:00
+16:10:30 [INFO]         10,000 / 20,000  ( 50.0%)     108 step/s  ETA 0:01:32
+16:10:51 [INFO]         15,000 / 20,000  ( 75.0%)     147 step/s  ETA 0:00:33
+16:11:13 [INFO]         20,000 / 20,000  (100.0%)     169 step/s  ETA 0:00:00
+16:11:16 [INFO] --> XONG  (0:01:32, 20,000 steps, log: ctr_dqn_v2.log)
+
+16:11:16 [INFO] ======================================================================
+16:11:16 [INFO] TONG KET  (0:08:11)
+16:11:16 [INFO]   Thanh cong : 4  ['fb_dqn', 'ctf_sac', 'ctf_dqn', 'ctr_dqn']
+16:11:16 [INFO]   That bai   : 0  []
+16:11:16 [INFO] ======================================================================

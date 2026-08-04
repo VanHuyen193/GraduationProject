@@ -156,6 +156,23 @@ class DQNTrainer(OffPolicyTrainer):
         self.maybe_load_replay_buffer()
         return policy
 
+    def get_policy(self, name_behavior_id: str) -> TorchPolicy:
+        """
+        Gets policy from trainer associated with name_behavior_id.
+
+        BAT BUOC phai co de chay duoc self-play. GhostTrainer goi
+        self.trainer.get_policy(parsed_behavior_id) (ghost/trainer.py:369) va
+        truyen vao OBJECT BehaviorIdentifiers, trong khi Trainer.get_policy mac
+        dinh tra ve self.policies[name_behavior_id] — dict do chi bao gio duoc
+        gan bang KHOA CHUOI (off_policy_trainer.py:165). Khong ghi de o day thi
+        mlagents-learn chet ngay luc khoi tao voi
+        KeyError: BehaviorIdentifiers(behavior_id='Football?team=1', ...).
+        PPO/SAC/POCA deu ghi de y het the nay — DQN truoc day thieu, nen
+        football_dqn.yaml phai tat self_play va lan chay do khong co ELO.
+        :param name_behavior_id: full identifier of policy
+        """
+        return self.policy
+
     @staticmethod
     def get_settings_type():
         return DQNSettings

@@ -23,8 +23,19 @@ behaviors:
       save_replay_buffer: false
       exploration_schedule: linear
       exploration_initial_eps: 1.0
-      exploration_final_eps: 0.05
-      exploration_decay_steps: 2000000
+      exploration_final_eps: 0.01
+      # 400K, KHONG phai 2M.
+      #
+      # Doc tfevents cua football_dqn_v1: Policy/epsilon o buoc cuoi (1,60M) van
+      # con 0,621 — tuc gan hai phan ba hanh dong o cuoi qua trinh huan luyen la
+      # NGAU NHIEN. Lich giam dem theo policy.get_current_step(), ma Football co
+      # hai tac nhan nen bo dem chinh sach chi chay duoc ~800K khi moi truong bao
+      # 1,6M; dat decay 2M trong khi ngan sach that chi 1,6M thi epsilon khong bao
+      # gio ket thuc lich giam. Con so 1,825 cua lan chay do vi vay khong phan anh
+      # chinh sach da hoc.
+      # 400K policy step => epsilon cham day o khoang 800K buoc moi truong, con
+      # lai nua sau cua lan chay o muc 0,01.
+      exploration_decay_steps: 400000
       reward_signal_steps_per_update: 20
     network_settings:
       normalize: true
@@ -34,26 +45,25 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-    # TAT self-play cho DQN.
+    # BAT self-play — giong het khoi self_play cua football_ppo/sac/poca/mappo,
+    # de nam thuat toan tren Football chay cung mot dieu kien va deu co ELO.
     #
-    # Bat len thi mlagents-learn chet ngay luc khoi tao voi
+    # Truoc day khoi nay bi chu thich lai vi mlagents-learn chet ngay luc khoi tao:
     #   KeyError: BehaviorIdentifiers(behavior_id='Football?team=1', ...)
-    # tai ghost/trainer.py:369. Cho do goi self.trainer.get_policy(parsed_behavior_id)
-    # truyen vao OBJECT BehaviorIdentifiers, trong khi dict self.policies chi bao gio
-    # duoc gan bang KHOA CHUOI (off_policy_trainer.py:165, on_policy_trainer.py:133).
-    # Day la code goc cua ML-Agents, khong phai plugin DQN.
-    #
-    # LUU Y CHO BAO CAO: bon thuat toan con lai tren Football (PPO/SAC/MA-POCA/MAPPO)
-    # deu chay CO self-play, rieng DQN thi khong — hai ben khong hoan toan cung dieu
-    # kien. ML-Agents con canh bao ro: "Your environment contains multiple teams, but
-    # DQNTrainer doesn't support adversarial games." Phai neu diem nay khi so sanh.
-    # self_play:
-    #   save_steps: 50000
-    #   team_change: 100000
-    #   swap_steps: 200000
-    #   window: 10
-    #   play_against_latest_model_ratio: 0.5
-    #   initial_elo: 1200.0
+    # tai ghost/trainer.py:369. Nguyen nhan la DQNTrainer thieu ham get_policy()
+    # (PPO/SAC/POCA deu co), nen roi xuong Trainer.get_policy mac dinh — ham do tra
+    # ve self.policies[name_behavior_id] trong khi ghost truyen vao OBJECT chu khong
+    # phai chuoi. Da them get_policy() vao
+    # ml-agents-trainer-plugin/mlagents_trainer_plugin/dqn/dqn_trainer.py, khong con
+    # loi nay nua. Neu chay lai ma van gap KeyError do thi kiem tra plugin da duoc
+    # cai editable (pip install --no-build-isolation -e) va dang tro dung thu muc.
+    self_play:
+      save_steps: 50000
+      team_change: 100000
+      swap_steps: 200000
+      window: 10
+      play_against_latest_model_ratio: 0.5
+      initial_elo: 1200.0
     keep_checkpoints: 10
     max_steps: 10000000
     time_horizon: 1000

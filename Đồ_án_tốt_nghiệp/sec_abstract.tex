@@ -14,20 +14,18 @@ cho việc huấn luyện.
 dạng bài toán khác nhau. Football Table là bài toán đối kháng một-một với không gian hành
 động liên tục và cơ chế tự chơi. Capture The Flag đòi hỏi hai tác nhân hợp tác, dùng phần
 thưởng nhóm cùng chương trình học chia theo bậc. Cross The Road thì ngược lại, chỉ một tác
-nhân điều hướng nhưng phần thưởng rất thưa. Với từng môi trường, đồ án thuật lại quá trình
-thiết kế bộ ba quan sát - hành động - phần thưởng. Sản phẩm cuối được đóng thành một gói
+nhân điều hướng nhưng phần thưởng rất thưa. Sản phẩm cuối được đóng thành một gói
 Unity Package Manager, kèm 15 cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn
 cài đặt.
 
-\indent Để nghiệm thu, đồ án cho chạy năm thuật toán - PPO, SAC, MA-POCA, MAPPO và DQN -
-trên cả ba môi trường, giữ nguyên cấu hình lẫn ngân sách bước chạy. Năm thuật toán ở đây
-đóng vai trò phép thử: một môi trường đạt yêu cầu thì tác nhân phải học được, các hướng
+\indent Đồ án đã cho chạy năm thuật toán - PPO, SAC, MA-POCA, MAPPO và DQN -
+trên cả ba môi trường, giữ nguyên cấu hình lẫn ngân sách bước chạy để nghiệm thu. Một môi trường đạt yêu cầu thì tác nhân phải học được, các hướng
 tiếp cận phải phân biệt được với nhau, và không được tồn tại lối tắt. Cả ba đều qua được
-phép thử này. Phần thưởng cuối trải rộng, và mọi khoảng cách đều truy được về cơ chế của
-bài toán; SAC chẳng hạn, dẫn đầu trên Cross The Road với $0{,}846$ nhưng sụp xuống
-$0{,}183$ ở Capture The Flag. Đáng chú ý hơn là điều này: cùng một thuật toán, khoảng cách
+phép thử này. Phần thưởng cuối trải rộng và mọi khoảng cách đều truy được về cơ chế của
+bài toán. Ví dụ như SAC dẫn đầu trên Cross The Road với $0{,}846$ nhưng sụp xuống
+$0{,}183$ ở Capture The Flag. Đáng chú ý hơn là cùng một thuật toán, khoảng cách
 giữa hai môi trường luôn lớn hơn khoảng cách giữa các thuật toán trong cùng một môi
-trường. Nói cách khác, đặc tính bài toán - thứ do thiết kế môi trường quyết định - chi
+trường. Nói cách khác, đặc tính bài toán là do thiết kế môi trường quyết định, chi
 phối kết quả mạnh hơn lựa chọn thuật toán. Kèm theo đó, đồ án xây dựng một ứng dụng trình
-diễn nạp trực tiếp mười lăm mô hình ONNX đã huấn luyện để quan sát hành vi thật.
+diễn nạp trực tiếp mười lăm mô hình ONNX đã huấn luyện để quan sát hành vi của các tác nhân.
 

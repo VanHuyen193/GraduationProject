@@ -21,8 +21,21 @@ behaviors:
       save_replay_buffer: false
       exploration_schedule: linear
       exploration_initial_eps: 1.0
-      exploration_final_eps: 0.05
-      exploration_decay_steps: 500000
+      # 0,01 chu khong phai 0,05.
+      #
+      # Trong Cross The Road, cham xe la AddReward(-0.01) roi EndEpisode() ngay
+      # (AgentAvoidance.TakeAwayPoints) — MOT hanh dong sai la het luot. Mot luot
+      # dai ~50-60 buoc, nen voi epsilon 0,05 thi xac suat ca luot khong dinh hanh
+      # dong ngau nhien nao chi con 0,95^55 ~ 6%, ma hanh dong ngau nhien thi 3/4
+      # kha nang la sai. Reward trung binh o day gan bang ti le qua duong thanh
+      # cong, nen 0,05 tu no da dat mot tran rat thap.
+      # Khop voi so lieu that: ctr_dqn_v1 ket thuc o epsilon = 0,050 va reward
+      # 0,336 voi do lech chuan 0,49 (phan bo hai cuc: ~34% luot thanh cong).
+      # PPO/SAC/MAPPO khong chiu tran nay vi entropy cua chung tu giam ve gan 0
+      # khi hoi tu, con epsilon thi bi ghim cung o muc san.
+      exploration_final_eps: 0.01
+      # Keo dai 500K -> 1M cho khop ctf_dqn.yaml: giam cham hon, do dot bien.
+      exploration_decay_steps: 1000000
       reward_signal_steps_per_update: 20
     network_settings:
       normalize: false

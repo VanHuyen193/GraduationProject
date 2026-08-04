@@ -1,0 +1,84 @@
+[INFO] Connected to Unity environment with package version 4.0.2 and communication version 1.5.0
+[INFO] Connected new brain: CrossTheRoad?team=0
+
+
+	Unity Technologies
+
+ Version information:
+  ml-agents: 1.2.0.dev0,
+  ml-agents-envs: 1.2.0.dev0,
+  Communicator API: 1.5.0,
+  PyTorch: 2.2.2+cu121
+[INFO] Hyperparameters for behavior name CrossTheRoad: 
+	trainer_type:	dqn
+	hyperparameters:	
+	  learning_rate:	0.0003
+	  learning_rate_schedule:	constant
+	  batch_size:	256
+	  buffer_size:	100000
+	  buffer_init_steps:	1000
+	  gamma:	0.99
+	  exploration_schedule:	linear
+	  exploration_initial_eps:	1.0
+	  exploration_final_eps:	0.01
+	  exploration_decay_steps:	1000000
+	  target_update_interval:	10000
+	  tau:	0.005
+	  steps_per_update:	20.0
+	  save_replay_buffer:	False
+	  reward_signal_steps_per_update:	20.0
+	checkpoint_interval:	500000
+	network_settings:	
+	  normalize:	False
+	  hidden_units:	128
+	  num_layers:	2
+	  vis_encode_type:	simple
+	  memory:	None
+	  goal_conditioning_type:	hyper
+	  deterministic:	False
+	reward_signals:	
+	  extrinsic:	
+	    gamma:	0.99
+	    strength:	1.0
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	  curiosity:	
+	    gamma:	0.99
+	    strength:	0.02
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	    learning_rate:	0.0003
+	    encoding_size:	None
+	init_path:	None
+	keep_checkpoints:	5
+	even_checkpoints:	False
+	max_steps:	20000
+	time_horizon:	64
+	summary_freq:	5000
+	threaded:	False
+	self_play:	None
+	behavioral_cloning:	None
+C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\utils\_device.py:77: UserWarning: The use of `x.T` on tensors of dimension other than 2 to reverse their shape is deprecated and it will throw an error in a future release. Consider `x.mT` to transpose batches of matrices or `x.permute(*torch.arange(x.ndim - 1, -1, -1))` to reverse the dimensions of a tensor. (Triggered internally at ..\aten\src\ATen\native\TensorShape.cpp:3641.)
+  return func(*args, **kwargs)
+[INFO] CrossTheRoad. Step: 5000. Time Elapsed: 23.882 s. Mean Reward: -0.001. Std of Reward: 0.156. Training.
+[INFO] CrossTheRoad. Step: 10000. Time Elapsed: 44.323 s. Mean Reward: 0.025. Std of Reward: 0.221. Training.
+[INFO] CrossTheRoad. Step: 15000. Time Elapsed: 65.975 s. Mean Reward: 0.018. Std of Reward: 0.206. Training.
+[INFO] CrossTheRoad. Step: 20000. Time Elapsed: 87.170 s. Mean Reward: 0.024. Std of Reward: 0.220. Training.
+C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1270: UserWarning: ONNX export squeeze with negative axis -1 might cause the onnx model to be incorrect. Negative axis is not supported in ONNX. Axis is converted to 1 based on input shape at export time. Passing an tensor of different rank in execution will be incorrect.
+  warnings.warn(
+C:\Users\Admin\miniconda3\envs\mlagents\lib\site-packages\torch\onnx\symbolic_opset9.py:1301: UserWarning: This model contains a squeeze operation on dimension 1. The size of this dimension in the given input is 4. The model will be exported without the squeeze node. If the model is intended to be used with dynamic input shapes, please use opset version 11 to export the model.
+  warnings.warn(
+[INFO] Exported C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_dqn_v2\CrossTheRoad\CrossTheRoad-20026.onnx
+[INFO] Copied C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_dqn_v2\CrossTheRoad\CrossTheRoad-20026.onnx to C:\Users\Admin\Documents\GitHub\GraduationProject\GraduationProject\results\ctr_dqn_v2\CrossTheRoad.onnx.

@@ -1,0 +1,30 @@
+{
+    "Football": {
+        "elo": 1197.1888640236666,
+        "checkpoints": [
+            {
+                "steps": 20128,
+                "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\football_dqn_v2\\Football\\Football-20128.onnx",
+                "reward": -1.1036666631698608,
+                "creation_time": 1785834254.432365,
+                "auxillary_file_paths": [
+                    "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\football_dqn_v2\\Football\\Football-20128.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20128,
+            "file_path": "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\football_dqn_v2\\Football.onnx",
+            "reward": -1.1036666631698608,
+            "creation_time": 1785834254.432365,
+            "auxillary_file_paths": [
+                "C:\\Users\\Admin\\Documents\\GitHub\\GraduationProject\\GraduationProject\\results\\football_dqn_v2\\Football\\Football-20128.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.2.0.dev0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

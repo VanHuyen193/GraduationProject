@@ -10,9 +10,24 @@ Luoi day du 5 thuat toan x 3 moi truong = 15 lan chay. Run-id PHAI trung voi
 export_training_data.py, dung sua tuy tien:
 
                      PPO        SAC                  MA-POCA           MAPPO               DQN
-    Cross The Road   ctr01      CrossTheRoad_SAC_01  ctr_poca_v1       ctr_mappo_v1        ctr_dqn_v1
-    Capture The Flag ctf_ppo_v1 ctf_sac_v1           ctf_poca_v2       ctf_mappo_v2        ctf_dqn_v1
-    Football Table   FB01       Football_SAC_01      Football_POCA_01  Football_MAPPO_01   football_dqn_v1
+    Cross The Road   ctr01      CrossTheRoad_SAC_01  ctr_poca_v1       ctr_mappo_v1        ctr_dqn_v2
+    Capture The Flag ctf_ppo_v1 ctf_sac_v2           ctf_poca_v2       ctf_mappo_v2        ctf_dqn_v2
+    Football Table   FB01       Football_SAC_01      Football_POCA_01  Football_MAPPO_01   football_dqn_v2
+
+CHAY LAI NGAY 04/08/2026 — bon o trong bang tren da doi sang _v2 vi bon lan chay
+cu deu hong vi loi cau hinh, khong phai vi thuat toan:
+  ctf_sac_v1, ctf_dqn_v1  config THIEU han khoi environment_parameters, nen
+                          EnvController lay mac dinh GetWithDefault(...,1f) =
+                          cua khoa, tuc hoc thang bai kho tu buoc 0 trong khi
+                          PPO/MA-POCA/MAPPO deu duoc hoc bai de truoc. SAC ket
+                          o reward 0,183 voi luot choi ghim tran 4999 buoc.
+  football_dqn_v1         self_play bi tat (bug get_policy cua plugin DQN, da
+                          sua) nen khong co ELO; va epsilon cuoi con 0,621 vi
+                          exploration_decay_steps 2M > ngan sach 1,6M.
+  ctr_dqn_v1              epsilon san 0,05 qua cao cho moi truong ma mot hanh
+                          dong sai la het luot; reward ket o 0,336.
+Thu muc results/<run>_v1 cu KHONG bi dong den — de doi chieu truoc/sau va de
+quay ve neu lan chay moi te hon.
 
 DQN va MAPPO den tu trainer plugin ngoai (ml-agents-trainer-plugin), khong co
 san trong ML-Agents — preflight se kiem tra plugin da cai chua.
@@ -163,14 +178,18 @@ JOBS: list[Job] = [
         "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
     Job("ctr_mappo", "crossroad", "MAPPO",   "ctr_mappo.yaml", "ctr_mappo_v1",
         "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
-    Job("ctr_dqn",   "crossroad", "DQN",     "ctr_dqn.yaml",   "ctr_dqn_v1",
-        "CrossTheRoad", "CrossTheRoad", CTR_SCENE),
+    Job("ctr_dqn",   "crossroad", "DQN",     "ctr_dqn.yaml",   "ctr_dqn_v2",
+        "CrossTheRoad", "CrossTheRoad", CTR_SCENE,
+        risky="Chay lai voi exploration_final_eps 0,05 -> 0,01 va decay 500K -> "
+              "1M. Lan v1 dat 0,336 va khong hoi tu."),
 
     # ── Capture The Flag: co curriculum handoff_required ─────────────────────
     Job("ctf_ppo",   "capture", "PPO",     "ctf_ppo.yaml",   "ctf_ppo_v1",
         "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
-    Job("ctf_sac",   "capture", "SAC",     "ctf_sac.yaml",   "ctf_sac_v1",
-        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
+    Job("ctf_sac",   "capture", "SAC",     "ctf_sac.yaml",   "ctf_sac_v2",
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE,
+        risky="Chay lai sau khi them curriculum handoff_required vao ctf_sac.yaml "
+              "(lan v1 thieu, nen hoc thang bai kho va ket o reward 0,183)."),
     Job("ctf_poca",  "capture", "MA-POCA", "ctf_poca.yaml",  "ctf_poca_v2",
         "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
     Job("ctf_mappo", "capture", "MAPPO",   "ctf_mappo.yaml", "ctf_mappo_v2",
@@ -178,8 +197,11 @@ JOBS: list[Job] = [
         risky="Voi 8 area, MAPPO khong con the hien buoc ngoat ~1,28M nhu cac lan "
               "chay 1-area cu; ket qua gan nhu trung PPO va MA-POCA. Xem ghi chu "
               "o khoi STEPS."),
-    Job("ctf_dqn",   "capture", "DQN",     "ctf_dqn.yaml",   "ctf_dqn_v1",
-        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE),
+    Job("ctf_dqn",   "capture", "DQN",     "ctf_dqn.yaml",   "ctf_dqn_v2",
+        "PuzzleBehavior", "CaptureTheFlag", CTF_SCENE,
+        risky="Chay lai sau khi them curriculum handoff_required va ha "
+              "exploration_final_eps ve 0,01. Lan v1 dat 0,800 nhung o dieu kien "
+              "khac ba thuat toan kia nen khong dem so sanh duoc."),
 
     # ── Football Table: self-play, nang nhat, chay cuoi ──────────────────────
     Job("fb_ppo",    "football", "PPO",     "football_ppo.yaml",  "FB01",
@@ -193,9 +215,12 @@ JOBS: list[Job] = [
     Job("fb_mappo",  "football", "MAPPO",   "football_mappo.yaml", "Football_MAPPO_01",
         "Football", "Football", FB_SCENE),
     # Football + DQN can BAN BUILD RIENG. Xem ghi chu ACTION_SPACE_CONFLICT duoi.
-    Job("fb_dqn",    "football", "DQN",     "football_dqn.yaml",  "football_dqn_v1",
+    Job("fb_dqn",    "football", "DQN",     "football_dqn.yaml",  "football_dqn_v2",
         "Football", "FootballDiscrete", FB_SCENE,
-        risky="CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) "
+        risky="Chay lai CO self-play (da sua get_policy trong plugin DQN) va voi "
+              "exploration_decay_steps 2M -> 400K. Lan v1 khong co ELO va ket "
+              "thuc o epsilon 0,621. | "
+              "CAN BUILD RIENG 'FootballDiscrete'. Football dang la continuous(8) "
               "nhung DQN chi chay duoc action roi rac, nen phai co mot ban scene "
               "voi Behavior Parameters doi sang 8 nhanh x 3 muc. Khong dung chung "
               "build 'Football' voi PPO/SAC/POCA/MAPPO duoc."),
