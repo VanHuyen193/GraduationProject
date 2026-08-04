@@ -11,12 +11,12 @@
 
 \indent Trò chơi điện tử có một vị thế khá lạ trong nghiên cứu trí tuệ nhân tạo. Chúng
 vừa là phòng thí nghiệm, vừa là sản phẩm. Chạy hàng triệu lần thử trong một môi trường
-game gần như không tốn gì và cũng chẳng mang rủi ro nào, thứ mà một con robot thật hay
-một hệ thống giao thông thật không bao giờ cho phép. Mặt khác, ngành công nghiệp game
+game gần như không tốn gì và cũng chẳng mang rủi ro nào, thứ mà một robot hay
+một hệ thống giao thông không bao giờ cho phép. Mặt khác, ngành công nghiệp game
 lại có nhu cầu thương mại rất đặc thù: họ cần những nhân vật máy cư xử sao cho tự nhiên nhất.
 
-\indent Học tăng cường ăn khớp với bối cảnh đó hơn cả. Hướng tiếp cận này không đòi hỏi
-tập dữ liệu gán nhãn sẵn, mà với câu hỏi ``nước đi nào là đúng trong tình huống này''. Tác nhân sẽ tự rút ra chiến lược từ
+\indent Học tăng cường phù hợp với bối cảnh đó hơn cả. Hướng tiếp cận này không đòi hỏi
+tập dữ liệu gán nhãn sẵn mà sử dụng câu hỏi ``nước đi nào là đúng trong tình huống này''. Tác nhân sẽ tự rút ra chiến lược từ
 hậu quả của chính những hành động nó đã thử.
 
 \indent Những gì học tăng cường làm được đã được chứng minh qua một loạt cột mốc. Có hệ
@@ -24,7 +24,7 @@ thống chơi thành thạo hàng chục trò chơi điện tử cổ điển m�
 của màn hình \cite{mnih2015humanlevel}. Có hệ thống hạ được kỳ thủ cờ vây hàng đầu thế
 giới \cite{silver2016mastering}. Có hệ thống điều phối nhiều tác nhân để thắng những trò
 chiến thuật phức tạp \cite{openai2019dota, vinyals2019grandmaster}. Không hành vi nào
-trong số đó được lập trình sẵn cả; tất cả đều nảy sinh từ quá trình thử và sai của bản
+trong số đó được lập trình sẵn, tất cả đều nảy sinh từ quá trình thử và sai của bản
 thân tác nhân.
 
 \indent Tuy nhiên ấn tượng mà những cột mốc ấy để lại rất dễ khiến người ta nhầm về chỗ
@@ -38,88 +38,56 @@ thiết kế, mà quyết định sai thì thường không báo lỗi, chương
 đường cong vẫn vẽ ra, nhưng tác nhân không bao giờ học được thứ ta muốn.
 
 \indent Các môi trường hai chiều đơn giản hay những bộ dữ liệu chuẩn quen thuộc trong
-nghiên cứu học thuật rất tiện, nhưng chúng lại che mất đúng phần khó vừa nói. Mọi đặc tả
+nghiên cứu học thuật rất tiện nhưng chúng lại che mất đúng phần khó vừa nói. Mọi đặc tả
 đã có người làm sẵn từ trước, người dùng chỉ việc nạp vào. Phải là một môi trường ba
 chiều mô phỏng vật lý chân thực, quan sát chỉ một phần qua cảm biến, tình huống thay
 đổi liên tục thì các bài toán thiết kế mới lộ ra hết, và bài toán khi đó cũng gần với
 phát triển game thương mại hơn nhiều. Những môi trường như thế ở dạng dùng lại được,
-tức là có tài liệu, có công cụ, có cấu hình huấn luyện đi kèm, hiện gần như vắng bóng.
-Đó chính là khoảng trống mà đồ án này nhắm tới.
+tức là có tài liệu, có công cụ, có cấu hình huấn luyện đi kèm, chính là khoảng trống mà đồ án này nhắm tới.
 
 \indent Unity kết hợp với bộ công cụ ML-Agents cho một hệ sinh thái đủ mạnh để làm việc
 đó. Unity hiện thuộc nhóm công cụ phát triển game phổ biến nhất, mô phỏng vật lý và dựng
-hình ba chiều ở mức chuyên nghiệp; ML-Agents thì nối thẳng một cảnh Unity đang chạy với
+hình ba chiều ở mức chuyên nghiệp. ML-Agents thì nối thẳng một cảnh Unity đang chạy với
 các thuật toán học tăng cường bên hệ sinh thái Python. Ghép hai thứ lại, ta có một nền
 tảng rất hợp để thiết kế đủ loại môi trường huấn luyện, từ đối kháng, hợp tác cho tới
-điều hướng tránh vật cản trong không gian ba chiều.
+điều hướng trong không gian ba chiều.
 
 \indent Từ những lý do đó, tôi chọn đề tài ``Học tăng cường để tối ưu hóa khả năng tương
-tác của AI trong game''. Trọng tâm đặt vào việc \textbf{nghiên cứu và xây dựng môi trường
-huấn luyện} cho tác nhân học tăng cường trên nền tảng Unity ML-Agents: ba môi trường ba
+tác của AI trong game''. Trọng tâm là nghiên cứu và xây dựng môi trường
+huấn luyện cho tác nhân học tăng cường trên nền tảng Unity ML-Agents: ba môi trường ba
 chiều thuộc ba dạng bài toán khác nhau, kèm theo toàn bộ quá trình thiết kế quan sát -
-hành động - phần thưởng, các công cụ hỗ trợ và cách đóng gói để người khác dùng lại được.
+hành động - phần thưởng, các công cụ hỗ trợ và cách đóng gói để mọi người dùng lại được.
 
-\indent Năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN vẫn được huấn luyện đầy đủ trên
-cả ba môi trường, nhưng vai trò của chúng ở đây là \textit{kiểm chứng môi trường}, không
-phải xếp hạng thuật toán. Lý do khá đơn giản: nhìn vào mã nguồn thì không thể nghiệm thu
+\indent Năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN được huấn luyện đầy đủ trên
+cả ba môi trường với vai trò kiểm chứng môi trường. Vì khi nhìn vào mã nguồn thì không thể nghiệm thu
 một môi trường huấn luyện. Cách duy nhất để biết đặc tả của nó đúng hay sai là thả nhiều
-thuật toán khác nhau vào rồi xem chúng cư xử thế nào. Nếu mọi thuật toán đều thất bại,
+thuật toán khác nhau vào rồi xem chúng hành động thế nào. Nếu mọi thuật toán đều thất bại,
 khả năng cao lỗi nằm ở hàm phần thưởng chứ không phải ở thuật toán. Nếu thuật toán nào
 cũng đạt điểm tối đa, khả năng cao là đang có lối tắt ở đâu đó. Chỉ khi các thuật toán
 tách ra thành thứ hạng giải thích được thì môi trường mới thực sự đo đúng thứ nó định
-đo. Đích đến của đề tài, vì vậy, là để lại một bộ môi trường đã qua kiểm chứng và đã
+đo. Đích đến của đề tài là để lại một bộ môi trường đã qua kiểm chứng và đã
 đóng gói, phục vụ cho các nghiên cứu cũng như dự án phát triển game về sau.
 
 % ───────────────────────────────────────────────
 \subsection{Mục tiêu nghiên cứu}
 
-\indent Xét tổng quát, đề tài muốn nghiên cứu quy trình thiết kế, xây dựng và kiểm chứng
-môi trường huấn luyện cho tác nhân học tăng cường trong game ba chiều trên nền tảng Unity
-ML-Agents, đồng thời để lại một bộ môi trường dùng lại được. Mục tiêu tổng quát ấy được
-cụ thể hóa thành năm mục tiêu nhỏ hơn, trong đó ba mục tiêu đầu giữ vai trò trọng tâm.
+Đề tài muốn nghiên cứu quy trình thiết kế, xây dựng và kiểm chứng môi trường huấn luyện cho tác nhân học tăng cường trong game ba chiều trên nền tảng Unity ML-Agents, đồng thời để lại một bộ môi trường dùng lại được. Mục tiêu tổng quát ấy được cụ thể hóa thành năm mục tiêu nhỏ hơn, trong đó ba mục tiêu đầu giữ vai trò trọng tâm.
 
-\begin{itemize}
-    \item \textbf{Xây dựng bộ môi trường huấn luyện.} Ba môi trường game ba chiều được
-    dựng lên với tính chất khác biệt nhau, phủ ba dạng bài toán học tăng cường phổ biến.
-    Football Table mô phỏng một bàn bi lắc ba chiều, đại diện cho đối kháng một đối một
-    trong không gian hành động liên tục. Capture The Flag bắt nhiều tác nhân phối hợp để
-    cùng hoàn thành một mục tiêu chung. Cross The Road buộc tác nhân điều hướng vượt qua
-    dòng phương tiện chạy liên tục để tới đích. Sở dĩ chọn ba dạng này là vì chúng đặt ra
-    ba nhóm bài toán thiết kế khác hẳn nhau: gán công lao trong tự chơi, phần thưởng nhóm
-    trong hợp tác, và phần thưởng thưa trong điều hướng.
+Trước hết là xây dựng bộ môi trường huấn luyện. Ba môi trường game ba chiều được dựng lên với tính chất khác biệt nhau, phủ ba dạng bài toán học tăng cường phổ biến. Football Table mô phỏng một bàn bi lắc ba chiều, đại diện cho đối kháng một đối một trong không gian hành động liên tục. Capture The Flag bắt nhiều tác nhân phối hợp để cùng hoàn thành một mục tiêu chung. Cross The Road buộc tác nhân điều hướng vượt qua dòng phương tiện chạy liên tục để tới đích. Sở dĩ chọn ba dạng này là vì chúng đặt ra ba nhóm bài toán thiết kế khác hẳn nhau: gán công lao trong tự chơi, phần thưởng nhóm trong hợp tác, và phần thưởng thưa trong điều hướng.
 
-    \item \textbf{Nghiên cứu quy trình thiết kế quan sát, hành động và phần thưởng.} Đây
-    là phần lõi học thuật của đề tài. Với mỗi môi trường, đồ án không chỉ đưa ra phương án
-    cuối cùng mà thuật lại cả con đường đi tới nó: những đặc tả đã thử rồi thất bại, dấu
-    hiệu để nhận ra một hàm phần thưởng bị hỏng, và cách sửa. Cái muốn rút ra là những
-    nguyên tắc thiết kế dùng lại được, chứ không phải ba cấu hình tình cờ chạy được.
+Kế đến, đề tài nghiên cứu quy trình thiết kế quan sát, hành động và phần thưởng. Đây là phần lõi học thuật của đề tài. Với mỗi môi trường, đồ án không chỉ đưa ra phương án cuối cùng mà thuật lại cả con đường đi tới nó: những đặc tả đã thử rồi thất bại, dấu hiệu để nhận ra một hàm phần thưởng bị hỏng, và cách sửa. Cái muốn rút ra là những nguyên tắc thiết kế dùng lại được, chứ không phải ba cấu hình tình cờ chạy được.
 
-    \item \textbf{Đóng gói môi trường thành sản phẩm dùng lại được.} Một môi trường chỉ
-    có giá trị với người khác khi họ cài được nó vào dự án của mình. Cả ba môi trường vì
-    thế được gói thành một gói Unity Package Manager, kèm cấu hình huấn luyện, bộ công cụ
-    Editor (nhân khu vực huấn luyện, build headless, sinh biến thể không gian hành động)
-    và một trình hướng dẫn cài đặt biết tự kiểm tra trạng thái từng bước.
+Thứ ba, đề tài đóng gói môi trường thành sản phẩm dùng lại được. Một môi trường chỉ có giá trị với người khác khi họ cài được nó vào dự án của mình. Cả ba môi trường vì thế được gói thành một gói Unity Package Manager, kèm cấu hình huấn luyện, bộ công cụ Editor (nhân khu vực huấn luyện, build headless, sinh biến thể không gian hành động) và một trình hướng dẫn cài đặt biết tự kiểm tra trạng thái từng bước.
 
-    \item \textbf{Kiểm chứng môi trường bằng thực nghiệm đa thuật toán.} Năm thuật toán
-    PPO, SAC, MA-POCA, MAPPO và DQN được huấn luyện trên từng môi trường, cùng điều kiện
-    phần cứng và cùng ngân sách bước, tạo thành một lưới đầy đủ mười lăm lần chạy. Mục
-    đích là xác nhận ba tính chất của một môi trường đạt yêu cầu - tác nhân học được, môi
-    trường phân biệt được các hướng tiếp cận, và không tồn tại lối tắt thoái hóa - đồng
-    thời đo đặc tính của từng môi trường qua bốn tiêu chí định lượng: mức năng lực đạt
-    được, tốc độ hội tụ, độ ổn định huấn luyện và độ dài lượt chơi.
+Thứ tư, đề tài kiểm chứng môi trường bằng thực nghiệm đa thuật toán. Năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN được huấn luyện trên từng môi trường, cùng điều kiện phần cứng và cùng ngân sách bước, tạo thành một lưới đầy đủ mười lăm lần chạy. Mục đích là xác nhận ba tính chất của một môi trường đạt yêu cầu - tác nhân học được, môi trường phân biệt được các hướng tiếp cận, và không tồn tại lối tắt thoái hóa - đồng thời đo đặc tính của từng môi trường qua bốn tiêu chí định lượng: mức năng lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và độ dài lượt chơi.
 
-    \item \textbf{Xây dựng ứng dụng trình diễn để quan sát hành vi.} Biểu đồ phần thưởng
-    không nói cho ta biết tác nhân đang thực sự làm gì, trong khi rất nhiều lỗi đặc tả chỉ
-    chịu lộ ra khi nhìn hành vi thật. Đề tài do đó dựng thêm một ứng dụng cho phép nạp
-    trực tiếp các mô hình đã huấn luyện dưới định dạng ONNX, tự điều khiển hoặc chơi cùng
-    tác nhân để đối chiếu độ khó, và tra cứu số liệu huấn luyện ngay trên cùng giao diện.
-\end{itemize}
+Cuối cùng, đề tài xây dựng ứng dụng trình diễn để quan sát hành vi. Biểu đồ phần thưởng không nói cho ta biết tác nhân đang thực sự làm gì, trong khi rất nhiều lỗi đặc tả chỉ chịu lộ ra khi nhìn hành vi thật. Đề tài do đó dựng thêm một ứng dụng cho phép nạp trực tiếp các mô hình đã huấn luyện dưới định dạng ONNX, tự điều khiển hoặc chơi cùng tác nhân để đối chiếu độ khó, và tra cứu số liệu huấn luyện ngay trên cùng giao diện.
 
 % ───────────────────────────────────────────────
 \subsection{Đối tượng và phạm vi nghiên cứu}
 
-\indent Đối tượng nghiên cứu chính là \textbf{môi trường huấn luyện học tăng cường trong
-game ba chiều}: nó có cấu trúc ra sao, khi xây dựng thì phải đưa ra những quyết định
+\indent Đối tượng nghiên cứu chính là môi trường huấn luyện học tăng cường trong
+game ba chiều: nó có cấu trúc ra sao, khi xây dựng thì phải đưa ra những quyết định
 thiết kế nào, và làm thế nào để kiểm chứng xem nó đã được đặc tả đúng hay chưa. Đối tượng
 ấy được cụ thể hóa thành ba môi trường dựng trên nền tảng Unity: môi trường đối kháng
 Football Table, môi trường hợp tác Capture The Flag và môi trường điều hướng Cross The
@@ -130,10 +98,7 @@ Unity ML-Agents, cơ chế trainer mở rộng, giao diện lập trình cấp t
 những công cụ do chính đề tài viết ra để nhân khu vực huấn luyện, dựng bản build không đồ
 hoạ và đóng gói môi trường thành gói phân phối.
 
-\indent Năm thuật toán - PPO (tối ưu chính sách vùng lân cận), SAC (actor-critic cực đại
-hóa entropy), MA-POCA (gán công lao cho đa tác nhân), MAPPO (mở rộng PPO cho đa tác nhân
-với chia sẻ tham số) và DQN (dựa trên giá trị với bộ đệm phát lại) - tham gia đề tài với
-tư cách \textit{công cụ đo}. Chúng là những phép thử độc lập dùng để dò đặc tính của môi
+\indent Năm thuật toán: PPO, SAC, MA-POCA, MAPPO và DQN được chạy để làm thước đo. Chúng là những phép thử độc lập dùng để dò đặc tính của môi
 trường. Đề tài không đặt mục tiêu cải tiến hay đề xuất thuật toán mới.
 
 \indent Về nội dung, đề tài xoay quanh thiết kế môi trường ba chiều, xây dựng hệ thống
@@ -142,25 +107,25 @@ dùng lại. Những khía cạnh như tối ưu hóa đồ họa, âm thanh hay
 game thương mại đều nằm ngoài phạm vi. Đề tài cũng không nhắm tới hiệu năng cao nhất có
 thể trên từng môi trường: ngân sách bước chỉ được chọn ở mức đủ để các đường cong bộc lộ
 đặc tính của bài toán, chứ không nhằm ép mỗi thuật toán tới giới hạn của nó. Ba môi
-trường, như đã nói, được chọn để phủ ba dạng bài toán học tăng cường điển hình là đối
+trường này được chọn để phủ ba dạng bài toán học tăng cường điển hình là đối
 kháng một đối một, hợp tác đa tác nhân và điều hướng đơn tác nhân.
 
 \indent Về thuật toán, năm cái tên nói trên được chọn dựa trên ba yếu tố: mức độ phổ biến
-trong nghiên cứu, tính sẵn có trong hệ sinh thái ML-Agents, và sự đa dạng về mặt kiến
-trúc, khi chúng đại diện lần lượt cho on-policy đơn tác nhân, actor-critic off-policy, đa
+trong nghiên cứu, tính sẵn có trong hệ sinh thái ML-Agents và sự đa dạng về mặt kiến
+trúc. Chúng đại diện lần lượt cho on-policy đơn tác nhân, actor-critic off-policy, đa
 tác nhân dựa trên attention, đa tác nhân dựa trên chia sẻ tham số và phương pháp dựa trên
 giá trị. Riêng DQN đòi hỏi không gian hành động rời rạc, nên môi trường Football Table
 vốn dùng hành động liên tục phải được dựng lại thành một bản riêng có hành động rời rạc
 dành cho lần chạy này. Toàn bộ thực nghiệm chạy trên một cấu hình máy tính cố định để bảo
-đảm công bằng khi so sánh; chi tiết cấu hình nằm ở Mục~\ref{sub:hardware}.
+đảm công bằng khi so sánh, chi tiết cấu hình nằm ở Mục~\ref{sub:hardware}.
 
 % ───────────────────────────────────────────────
 \subsection{Tổng quan tài liệu và khoảng trống nghiên cứu}
 
 \indent Học tăng cường trong game đã đi qua nhiều giai đoạn phát triển. Mnih và cộng sự
 \cite{mnih2015humanlevel} đề xuất DQN, lần đầu chứng minh học tăng cường sâu có thể đạt
-trình độ con người ở các trò chơi điện tử cổ điển mà chỉ dựa vào dữ liệu điểm ảnh thô;
-công trình này mở ra hướng ứng dụng học tăng cường trực tiếp vào môi trường game, và cũng
+trình độ con người ở các trò chơi điện tử cổ điển mà chỉ dựa vào dữ liệu điểm ảnh thô.
+Công trình này mở ra hướng ứng dụng học tăng cường trực tiếp vào môi trường game, và cũng
 là lý do DQN được giữ lại trong đề tài như một mốc so sánh lịch sử cho nhóm phương pháp
 dựa trên giá trị. Nối tiếp thành tựu đó, Silver và cộng sự \cite{silver2016mastering, silver2017mastering} tạo bước đột phá với các hệ thống chơi cờ vây ở trình độ kiện tướng
 thế giới, nhờ kết hợp học tăng cường với mạng nơ-ron sâu và tìm kiếm cây.
@@ -180,34 +145,31 @@ năng cạnh tranh và thậm chí vượt trội trên nhiều bộ benchmark h
 
 \indent Về mặt công cụ, Juliani và cộng sự \cite{juliani2020unity} giới thiệu Unity
 ML-Agents, một hệ sinh thái mã nguồn mở tích hợp sẵn khả năng xây dựng môi trường ba
-chiều với mô phỏng vật lý chân thực và hỗ trợ huấn luyện tác nhân trực tiếp; công cụ này
+chiều với mô phỏng vật lý chân thực và hỗ trợ huấn luyện tác nhân trực tiếp. Công cụ này
 hiện được dùng rộng rãi trong cả nghiên cứu lẫn phát triển game.
 
-\indent Có một điểm chung giữa toàn bộ các công trình vừa kể: chúng \textit{tiêu thụ} môi
+\indent Có một điểm chung giữa toàn bộ các công trình vừa kể là chúng sử dụng môi
 trường chứ không bàn tới việc tạo ra môi trường. Bộ benchmark đã được ai đó đặc tả sẵn -
 lưới hai chiều, vector trạng thái rút gọn, động lực học đơn giản - và đóng góp khoa học
-nằm hết ở phía thuật toán. Hệ quả là tài liệu về việc \textit{thiết kế} một môi trường học
-tăng cường mỏng đến bất ngờ nếu đem so với tài liệu về thuật toán. Nên đưa đại lượng nào
+nằm hết ở phía thuật toán. Hệ quả là tài liệu về việc thiết kế một môi trường học
+tăng cường ít hơn rất nhiều so với tài liệu về thuật toán. Nên đưa đại lượng nào
 vào quan sát? Phần thưởng dày hay thưa? Phạt thời gian bao nhiêu là đủ? Làm sao biết một
 hàm phần thưởng đang vô tình trừng phạt chính hành vi ta muốn dạy? Những câu hỏi kiểu này
 hầu như chỉ được truyền lại dưới dạng kinh nghiệm rời rạc trong các diễn đàn kỹ thuật.
 
 \indent Khoảng trống mà đề tài nhắm tới nằm đúng chỗ đó, và nó có hai mặt. Mặt thứ nhất
-là \textit{tri thức thiết kế}. Quá trình đi từ một ý tưởng trò chơi tới một đặc tả mà tác
+là tri thức thiết kế. Quá trình đi từ một ý tưởng trò chơi tới một đặc tả mà tác
 nhân học được rất hiếm khi được ghi lại đầy đủ, nhất là các phương án đã thất bại, vốn
-lại là phần dạy được nhiều nhất. Mặt thứ hai là \textit{hiện vật dùng lại được}. Môi
+lại là phần dạy được nhiều nhất. Mặt thứ hai là hiện vật dùng lại được. Môi
 trường ba chiều đi kèm tài liệu, cấu hình huấn luyện và công cụ cài đặt, ở dạng một nhóm
-phát triển khác lấy về là dùng được ngay, gần như không tồn tại; thành ra mỗi dự án lại
-phải dựng lại từ con số không. Đồ án này lấp cả hai mặt: ghi lại toàn bộ quá trình thiết
+phát triển khác lấy về là dùng được ngay không nhiều, thành ra mỗi dự án lại
+phải dựng lại từ con số không. Đồ án này ghi lại toàn bộ quá trình thiết
 kế ba môi trường thuộc ba dạng bài toán khác nhau, rồi đóng gói chúng thành sản phẩm phân
-phối được. Còn việc đặt PPO, SAC, MA-POCA, MAPPO và DQN lên cùng một bàn cân - điều gần
-như không làm được nếu chỉ đối chiếu các tài liệu đã công bố - vừa là phương tiện kiểm
-chứng ba môi trường đó, vừa là một kết quả phụ có ích cho người làm game.
+phối được. Việc đặt PPO, SAC, MA-POCA, MAPPO và DQN lên cùng một bàn cân vừa là phương tiện kiểm chứng ba môi trường đó, vừa là một kết quả phụ có ích cho người làm game.
 
 % ───────────────────────────────────────────────
 \subsection{Phương pháp nghiên cứu}
-\indent Đề tài dùng ba nhóm phương pháp bổ trợ cho nhau. Nhóm thứ nhất là nghiên cứu lý
-thuyết: tổng hợp và phân tích tài liệu khoa học về học tăng cường, học tăng cường sâu và
+\indent Đề tài dùng ba nhóm phương pháp bổ trợ cho nhau. Nhóm thứ nhất là nghiên cứu lý thuyết: tổng hợp và phân tích tài liệu khoa học về học tăng cường, học tăng cường sâu và
 năm thuật toán PPO, SAC, MA-POCA, MAPPO, DQN, dựa vào các bài báo gốc cùng tài liệu kỹ
 thuật của Unity ML-Agents. Đây là cơ sở để thiết kế môi trường và chọn tham số huấn luyện.
 
@@ -218,8 +180,8 @@ bước huấn luyện. Dữ liệu huấn luyện trong quá trình này đư�
 theo thời gian thực bằng công cụ TensorBoard.
 
 \indent Nhóm cuối là so sánh và đánh giá. Hiệu năng của các thuật toán được đối chiếu qua
-bốn tiêu chí định lượng - mức năng lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và
-độ dài lượt chơi - kết hợp thêm phân tích định tính về mức độ phù hợp giữa từng thuật
+bốn tiêu chí định lượng: mức năng lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và
+độ dài lượt chơi, kết hợp thêm phân tích định tính về mức độ phù hợp giữa từng thuật
 toán và từng dạng môi trường.
 
 % ───────────────────────────────────────────────
@@ -227,11 +189,8 @@ toán và từng dạng môi trường.
 
 \indent Xét về mặt khoa học, đề tài đề xuất và hiện thực hóa một quy trình xây dựng môi
 trường game ba chiều phục vụ huấn luyện học tăng cường trên nền tảng Unity, kèm theo cách
-nghiệm thu môi trường bằng thực nghiệm đa thuật toán dựa trên ba tiêu chí học được -
-phân biệt được - không có lối tắt. Quy trình ấy áp dụng được cho bất kỳ môi trường nào
-khác, không riêng gì ba môi trường của đề tài. Phần ghi chép về những phương án đặc tả đã
-thất bại cũng mang giá trị riêng: đây là loại tri thức thường bị bỏ lại ngoài các công bố
-khoa học, dù nó chiếm phần lớn thời gian thực hiện. Bên cạnh đó, đồ án trình bày chi tiết
+nghiệm thu môi trường bằng thực nghiệm đa thuật toán dựa trên ba tiêu chí học được,
+phân biệt được và không có lối tắt. Quy trình ấy có thể áp dụng được cho bất kỳ môi trường nào không riêng gì ba môi trường của đề tài. Bên cạnh đó, đồ án trình bày chi tiết
 quy trình bổ sung thuật toán mới vào ML-Agents dưới dạng trainer mở rộng, cùng cách nối
 một thuật toán off-policy với Unity thông qua giao diện lập trình cấp thấp bằng Python.
 Đây là một hướng đi có thể tái sử dụng cho những nghiên cứu cần thuật toán nằm ngoài bộ
@@ -239,11 +198,10 @@ tích hợp sẵn của Unity.
 
 \indent Xét về mặt thực tiễn, ba môi trường ba chiều của đề tài được đóng gói ở dạng cài
 thẳng vào một dự án Unity bất kỳ, nên dùng ngay được làm nền tảng thử nghiệm trí tuệ nhân
-tạo mà khỏi phải dựng lại từ đầu - vốn là phần tốn kém nhất của một dự án học tăng cường.
+tạo mà không phải dựng lại từ đầu, vốn là phần tốn kém nhất của một dự án học tăng cường.
 Quy trình thiết kế hàm phần thưởng và không gian quan sát trong môi trường ba chiều được
 trình bày ở đây cũng có giá trị tham khảo cho các nhóm phát triển game muốn tích hợp trí
-tuệ nhân tạo. Kết quả so sánh năm thuật toán, dù trong đề tài chỉ đóng vai trò kiểm chứng,
-vẫn giúp nhà phát triển có cơ sở chọn thuật toán hợp với từng cơ chế game mà không phải
+tuệ nhân tạo. Kết quả so sánh năm thuật toán giúp nhà phát triển có cơ sở chọn thuật toán hợp với từng cơ chế game mà không phải
 làm lại toàn bộ thực nghiệm.
 
 % ───────────────────────────────────────────────
@@ -259,10 +217,12 @@ giới hạn tích hợp liên quan tới việc triển khai thuật toán tùy
 thiết kế ba môi trường game ba chiều trong Unity: không gian quan sát, không gian hành
 động và hàm phần thưởng của từng môi trường. Chương này cũng mô tả cách đưa các thuật
 toán nằm ngoài bộ huấn luyện tích hợp sẵn của ML-Agents vào thực nghiệm, cùng thiết lập
-thực nghiệm và các tiêu chí đánh giá được sử dụng. Sang Chương~\ref{ch:results}, mười lăm
+thực nghiệm và các tiêu chí đánh giá được sử dụng. 
+
+Sang Chương~\ref{ch:results}, 15
 lần huấn luyện được dùng để nghiệm thu ba môi trường đó: kết quả của từng thuật toán trên
 từng môi trường được trình bày qua biểu đồ và bảng số liệu, rồi đối chiếu với nhau để xác
-nhận môi trường học được, phân biệt được và không có lối tắt; từ đó rút ra nhận xét về
+nhận môi trường học được, phân biệt được và không có lối tắt, từ đó rút ra nhận xét về
 mức độ phù hợp giữa thuật toán và dạng bài toán.
 
 \indent Chương~\ref{ch:app} khép lại phần nội dung chính với quá trình xây dựng ứng dụng

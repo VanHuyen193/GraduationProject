@@ -3,13 +3,6 @@
 \section{CƠ SỞ LÝ THUYẾT}
 \label{ch:theory}
 
-\indent Chương này dựng nền lý thuyết cho toàn bộ đồ án. Mạch trình bày đi từ bối cảnh
-lịch sử của trí tuệ nhân tạo trong game, qua bộ khái niệm hình thức của học tăng cường,
-rồi tới năm thuật toán mà đề tài đem ra so sánh. Phần cuối chương thuộc về Unity
-ML-Agents, trong đó dung lượng lớn nhất được dành cho những giới hạn tích hợp của nền
-tảng này. Lý do là chính các giới hạn ấy - chứ không phải một lựa chọn học thuật nào -
-đã quy định cách đề tài phải bố trí thực nghiệm ở Chương~\ref{ch:design}.
-
 \subsection{Trí tuệ nhân tạo trong game}
 \indent Trí tuệ nhân tạo trong game lớn lên cùng chính ngành công nghiệp game, tính từ
 những thập niên 1970-1980. Nhưng nó khác AI trong nghiên cứu học thuật ở một điểm căn
@@ -21,21 +14,19 @@ dựa trên quy tắc, rồi tới giai đoạn của các phương pháp học 
 cải thiện.
 
 \subsubsection{AI truyền thống}
-\indent Ở giai đoạn đầu, AI game gần như hoàn toàn dựa vào các hệ thống quy tắc cứng
-(rule-based systems). Lập trình viên định nghĩa sẵn toàn bộ hành vi của NPC dưới dạng
-tập hợp điều kiện kèm phản ứng tương ứng. Ưu điểm là dễ kiểm soát, dễ dự đoán; nhược
-điểm lộ ra ngay khi NPC gặp một tình huống nằm ngoài dự kiến.
+\indent Ở giai đoạn đầu, AI game gần như hoàn toàn dựa vào các hệ thống quy tắc cứng. Lập trình viên định nghĩa sẵn toàn bộ hành vi của NPC dưới dạng
+tập hợp điều kiện kèm phản ứng tương ứng. Ưu điểm là dễ kiểm soát, dễ dự đoán nhưng nhược điểm là lộ ra ngay khi NPC gặp một tình huống nằm ngoài dự kiến.
 
 \indent Máy trạng thái hữu hạn (Finite State Machine - FSM) ra đời để khắc phục hạn chế
 đó, và được ứng dụng rộng rãi suốt những thập niên 1990-2000. FSM mô hình hóa hành vi NPC
-bằng một tập hữu hạn các trạng thái - tuần tra, truy đuổi, tấn công, rút lui - cùng các
-điều kiện chuyển giữa chúng. Đơn giản, rẻ về mặt tính toán, nên đến tận bây giờ FSM vẫn
-phổ biến trong nhiều thể loại game \cite{millington2019ai}. Vấn đề chỉ xuất hiện khi số
+bằng một tập hữu hạn các trạng thái: tuần tra, truy đuổi, tấn công, rút lui cùng các
+điều kiện chuyển giữa chúng. FSM đơn giản và rẻ về mặt tính toán nên đến tận bây giờ nó vẫn
+phổ biến trong nhiều thể loại game \cite{millington2019ai}. Vấn đề xuất hiện khi số
 trạng thái và số điều kiện chuyển tiếp phình lên: hệ thống nhanh chóng trở nên rối rắm và
 khó bảo trì, hiện tượng vẫn hay được gọi là ``state explosion''.
 
 \indent Với những bài toán lập kế hoạch hành động phức tạp hơn, Goal-Oriented Action
-Planning (GOAP) là câu trả lời tiếp theo; tựa game F.E.A.R. (2005) đã đưa kỹ thuật này
+Planning (GOAP) là câu trả lời tiếp theo. Tựa game F.E.A.R. (2005) đã đưa kỹ thuật này
 tới đông đảo người biết \cite{millington2019ai}. GOAP không định nghĩa cứng các chuyển
 trạng thái mà để NPC tự lập kế hoạch hành động dựa trên mục tiêu hiện tại và trạng thái
 thế giới, nhờ đó hành vi linh hoạt và tự nhiên hơn hẳn. Điểm yếu thì vẫn còn nguyên: toàn
@@ -44,7 +35,7 @@ chi phí xây dựng và mở rộng hệ thống càng đội lên.
 
 \subsubsection{AI học máy}
 \indent Học máy bùng nổ trong thập niên 2010 và mở ra một hướng đi hoàn toàn khác cho AI
-trong game. Không còn phải lập trình hành vi thủ công nữa; các kỹ thuật học máy để agent
+trong game. Không còn phải lập trình hành vi thủ công nữa, các kỹ thuật học máy để agent
 tự học từ dữ liệu hoặc từ chính tương tác với môi trường. Trong số đó, học tăng cường
 (Reinforcement Learning - RL) hợp với bản chất của game hơn cả: agent học cách hành động
 qua thử và sai, nhận thưởng hoặc phạt từ môi trường, rồi dần tối ưu chiến lược của mình
@@ -60,13 +51,13 @@ diễn của mạng nơ-ron sâu với khả năng học từ tương tác của
 \cite{silver2016mastering, silver2017mastering} chinh phục cờ vây ở trình độ kiện tướng
 thế giới. OpenAI Five \cite{openai2019dota} đánh bại các đội chuyên nghiệp trong Dota~2.
 AlphaStar \cite{vinyals2019grandmaster} đạt danh hiệu Grandmaster trong StarCraft~II.
-Giá trị của những kết quả này không dừng ở học thuật: chúng mở ra khả năng dùng RL ngay
+Giá trị của những kết quả này không dừng ở học thuật, chúng mở ra khả năng dùng RL ngay
 trong phát triển game thương mại, từ việc tạo NPC thông minh cho tới sinh nội dung tự
 động và hỗ trợ kiểm thử game \cite{yannakakis2018artificial}.
 
 \subsection{Nền tảng Reinforcement Learning}
 
-\indent Học tăng cường (Reinforcement Learning - RL) là nhánh học máy trong đó một tác
+\indent Học tăng cường là nhánh học máy trong đó một tác
 nhân, hay agent, học cách hành động bằng tương tác trực tiếp với môi trường. Điểm phân
 biệt nó với học có giám sát nằm ở dữ liệu: RL không cần nhãn cho trước. Agent tự khám phá
 không gian hành động, nhận phản hồi dưới dạng phần thưởng hoặc hình phạt, và dần cải
@@ -77,7 +68,7 @@ giá qua kết quả.
 \subsubsection{Các khái niệm cơ bản}
 
 \indent Vòng lặp tương tác trong RL dựng trên năm khái niệm nền tảng. Trước hết là
-agent, thực thể ra quyết định; trong bối cảnh game, nó có thể là nhân vật người chơi,
+agent, thực thể ra quyết định. Trong bối cảnh game, nó có thể là nhân vật người chơi,
 NPC hay một robot mô phỏng.
 
 \indent Environment, tức môi trường, là thế giới mà agent tương tác cùng: toàn bộ đối
@@ -92,15 +83,15 @@ của các đối tượng, khoảng cách tới mục tiêu cùng những thôn
 thể liên tục, chẳng hạn lực đẩy theo trục $x$, $y$, $z$.
 
 \indent Reward, phần thưởng $r_t \in \mathbb{R}$, là tín hiệu môi trường trả về sau mỗi
-hành động. Đây là thước đo duy nhất để agent biết quyết định của mình tốt hay dở. Thiết
-kế được một hàm phần thưởng hợp lý vì thế vừa quan trọng vừa là khâu khó nhất khi xây
+hành động. Đây là thước đo duy nhất để agent biết quyết định của mình tốt hay dở. Vì vậy, thiết
+kế được một hàm phần thưởng hợp lý vừa quan trọng vừa là khâu khó nhất khi xây
 dựng hệ thống RL: hàm phần thưởng đặt sai sẽ dẫn tới hành vi ngoài ý muốn ngay cả khi
 thuật toán hoạt động hoàn toàn đúng về mặt lý thuyết \cite{sutton2018reinforcement}.
 
 \indent Ở mỗi bước thời gian $t$, agent quan sát trạng thái $s_t$, thực hiện hành động
 $a_t$, nhận phần thưởng $r_t$ rồi chuyển sang trạng thái mới $s_{t+1}$. Chu trình ấy lặp
-đi lặp lại cho tới khi episode kết thúc - agent hoàn thành nhiệm vụ, thất bại, hoặc vượt
-quá số bước tối đa - và để lại một quỹ đạo tương tác $\tau = (s_0, a_0, r_0, s_1, a_1,
+đi lặp lại cho tới khi episode kết thúc, agent hoàn thành nhiệm vụ, thất bại, hoặc vượt
+quá số bước tối đa và để lại một quỹ đạo tương tác $\tau = (s_0, a_0, r_0, s_1, a_1,
 r_1, \ldots)$. Hình~\ref{fig:rl_loop} minh họa toàn bộ vòng lặp này. Có thể xem đây là sơ
 đồ khái quát nhất của mọi hệ thống học tăng cường: agent nhìn trạng thái hiện tại của môi
 trường, chọn một hành động theo chính sách của mình, môi trường đáp lại bằng một trạng
@@ -110,9 +101,9 @@ thái mới kèm một phần thưởng, và cứ thế agent dần cải thiệ
     \centering
     \begin{tikzpicture}[node distance=2.2cm, >=latex]
         \node[draw, rounded corners, minimum width=3cm, minimum height=1.1cm,
-              fill=ppocolor!15] (agent) at (0,1.6) {Agent (Tác nhân)};
+              fill=ppocolor!15] (agent) at (0,1.6) {Tác nhân};
         \node[draw, rounded corners, minimum width=3cm, minimum height=1.1cm,
-              fill=saccolor!15] (env) at (0,-1.6) {Environment (Môi trường)};
+              fill=saccolor!15] (env) at (0,-1.6) {Môi trường};
         \draw[->, thick] (agent.east) .. controls (4.2,1.6) and (4.2,-1.6) ..
               node[right, align=left, font=\small] {Hành động $a_t$} (env.east);
         \draw[->, thick] (env.west) .. controls (-4.2,-1.6) and (-4.2,1.6) ..
@@ -209,8 +200,8 @@ trị và policy bằng mạng nơ-ron sâu; Mục~\ref{sub:deeprl} trình bày 
 
 \subsection{Học tăng cường sâu}
 \label{sub:deeprl}
-\indent Học tăng cường sâu (Deep Reinforcement Learning) ghép học tăng cường với mạng
-nơ-ron sâu (deep neural network). Nó ra đời để gỡ đúng cái nút thắt của RL truyền thống:
+\indent Học tăng cường sâu ghép học tăng cường với mạng
+nơ-ron sâu. Nó ra đời để gỡ đúng cái nút thắt của RL truyền thống:
 những bài toán có không gian trạng thái và hành động vừa lớn vừa liên tục. Thay vì lưu
 giá trị của từng cặp trạng thái-hành động vào bảng tra cứu, Deep RL dùng mạng nơ-ron xấp
 xỉ hàm giá trị hoặc policy, nhờ đó tổng quát hóa được sang cả những trạng thái chưa từng
@@ -219,23 +210,22 @@ các môi trường game 3D phức tạp như trong đề tài này.
 
 \subsubsection{Vai trò của mạng Neural Network trong RL}
 \indent RL truyền thống biểu diễn hàm giá trị $Q(s, a)$ hoặc policy $\pi(a \mid s)$ dưới
-dạng bảng tra cứu (lookup table). Muốn ước lượng chính xác thì mỗi cặp $(s, a)$ phải được
+dạng bảng tra cứu. Muốn ước lượng chính xác thì mỗi cặp $(s, a)$ phải được
 thăm viếng đủ nhiều lần, nên cách này chỉ khả thi khi không gian trạng thái hữu hạn và
 nhỏ. Môi trường game 3D thì ngược lại: không gian trạng thái liên tục và số chiều rất
-lớn. Lấy ngay môi trường Football Table của đề tài làm ví dụ - vector quan sát của agent
+lớn. Lấy ngay môi trường Football Table của đề tài làm ví dụ, vector quan sát của agent
 chứa vị trí và vận tốc của bóng cùng các thanh gạt trong không gian ba chiều. Bảng tra
-cứu không có cửa nào ở đây.
+cứu không làm được việc này.
 
-\indent Lời giải là mạng nơ-ron sâu, đóng vai trò bộ xấp xỉ hàm tổng quát (universal
-function approximator). Mạng không lưu giá trị cho từng trạng thái mà học một ánh xạ tham
+\indent Lời giải là mạng nơ-ron sâu, đóng vai trò bộ xấp xỉ hàm tổng quát. Mạng không lưu giá trị cho từng trạng thái mà học một ánh xạ tham
 số hóa: $f_\theta: \mathcal{S} \rightarrow \mathbb{R}$ nếu là value function, hoặc
 $f_\theta: \mathcal{S} \rightarrow \Delta(\mathcal{A})$ nếu là policy, với $\theta$ là tập
 tham số được tối ưu hóa qua huấn luyện. Khả năng tổng quát hóa cho phép mạng ước lượng giá
 trị hay đưa ra hành động cho những trạng thái chưa từng gặp, dựa trên mức tương đồng với
 các trạng thái đã học \cite{sutton2018reinforcement}.
 
-\indent Kiến trúc mạng nào thì tùy dạng dữ liệu quan sát. Dữ liệu là vector số thực - vị
-trí, vận tốc, khoảng cách - thì mạng fully-connected nhiều lớp (MLP) vừa phổ biến vừa
+\indent Kiến trúc mạng nào thì tùy dạng dữ liệu quan sát. Dữ liệu là vector số thực: vị
+trí, vận tốc, khoảng cách, thì mạng fully-connected nhiều lớp (MLP) vừa phổ biến vừa
 hiệu quả. Dữ liệu dạng ảnh hoặc dữ liệu không gian thì mạng tích chập (CNN) thường được ưu
 tiên hơn. Unity ML-Agents hỗ trợ cả hai, và cho phép chỉnh số lớp ẩn lẫn số đơn vị mỗi lớp
 ngay trong tệp cấu hình YAML.
@@ -303,39 +293,38 @@ DQN      & Value-Based       & Off-policy & Hành động rời rạc \\
 rất thưa hoặc đến rất muộn; những môi trường game 3D phức tạp như Capture The Flag hay
 Cross The Road là ví dụ điển hình. Nếu chỉ trông vào phần thưởng từ môi trường, tác nhân
 rất dễ tiêu hết giai đoạn đầu vào khám phá ngẫu nhiên mà chẳng nhận về tín hiệu hữu ích
-nào, và rốt cuộc không học nổi một chính sách hiệu quả. Cơ chế phần thưởng tò mò nội tại
-(Intrinsic Curiosity) được đề xuất chính để gỡ chỗ này, bằng cách thúc tác nhân chủ động
+nào, và rốt cuộc không học nổi một chính sách hiệu quả. Cơ chế phần thưởng tò mò nội tại được đề xuất chính để gỡ chỗ này, bằng cách thúc tác nhân chủ động
 đi tìm những trạng thái mới mẻ của môi trường.
 
 \indent Đồ án tích hợp cơ chế tò mò qua mô hình Intrinsic Curiosity Module (ICM) của
 Pathak và cộng sự \cite{pathak2017curiosity}. Ý tưởng cốt lõi nằm ở việc lấy sai số dự
-đoán (prediction error) làm tín hiệu phần thưởng nội tại: tác nhân được thưởng cao khi nó
+đoán làm tín hiệu phần thưởng nội tại: tác nhân được thưởng cao khi nó
 đi tới một trạng thái mà mô hình nội tại của chính nó không dự đoán nổi.
 
-\indent ICM gồm hai mạng nơ-ron con chạy song song, mô hình ngược (Inverse Model) và mô
-hình thuận (Forward Model). Có một cạm bẫy cần tránh ở đây: tác nhân có thể bị hút vào
+\indent ICM gồm hai mạng nơ-ron con chạy song song, mô hình ngược và mô
+hình thuận. Có một cạm bẫy cần tránh ở đây là tác nhân có thể bị hút vào
 những yếu tố ngẫu nhiên vốn không thể dự đoán được trong môi trường, tức hiện tượng tivi
-nhiễu hạt (noisy TV problem). Vì vậy ICM không dự đoán trạng thái thô $s_t$ mà dự đoán
-đặc trưng ẩn $\phi(s_t)$, thứ được trích xuất qua một mạng mã hóa (Encoder).
+nhiễu hạt. Vì vậy ICM không dự đoán trạng thái thô $s_t$ mà dự đoán
+đặc trưng ẩn $\phi(s_t)$, thứ được trích xuất qua một mạng mã hóa.
 
-\indent \textbf{Mô hình ngược (Inverse Model):} Mạng này nhận vào đặc trưng của trạng thái
+\indent \textbf{Mô hình ngược:} Mạng này nhận vào đặc trưng của trạng thái
 hiện tại $\phi(s_t)$ cùng đặc trưng của trạng thái tiếp theo $\phi(s_{t+1})$, rồi dự đoán
 hành động $\hat{a}_t$ nào đã gây ra bước chuyển tiếp ấy. Hàm mất mát của nó là:
 \begin{equation}
     L_{\text{inv}} = \mathbb{E} \left[ -\log P(\hat{a}_t = a_t \mid \phi(s_t), \phi(s_{t+1})) \right]
 \end{equation}
-Huấn luyện Inverse Model có tác dụng ép mạng mã hóa $\phi$ chỉ giữ lại phần thông tin
+Huấn luyện mô hình ngược có tác dụng ép mạng mã hóa $\phi$ chỉ giữ lại phần thông tin
 trạng thái liên quan trực tiếp tới hành động của tác nhân, gạt bỏ mọi chi tiết nhiễu vô
 ích.
 
-\indent \textbf{Mô hình thuận (Forward Model):} Mạng này nhận vào đặc trưng trạng thái
+\indent \textbf{Mô hình thuận:} Mạng này nhận vào đặc trưng trạng thái
 hiện tại $\phi(s_t)$ và hành động $a_t$, rồi dự đoán đặc trưng của trạng thái tiếp theo
 $\hat{\phi}(s_{t+1})$. Hàm mất mát ở đây thường là sai số bình phương trung bình:
 \begin{equation}
     L_{\text{fwd}} = \frac{1}{2} \left\| \hat{\phi}(s_{t+1}) - \phi(s_{t+1}) \right\|^2_2
 \end{equation}
 
-\indent \textbf{Phần thưởng tò mò:} Sai số của Forward Model đo đúng mức độ ``ngạc nhiên''
+\indent \textbf{Phần thưởng tò mò:} Sai số của Forward Model đo đúng mức độ ngạc nhiên
 của tác nhân, nên phần thưởng tò mò $r_t^i$ được đặt tỷ lệ thuận với sai số ấy:
 \begin{equation}
     r_t^i = \eta \frac{1}{2} \left\| \hat{\phi}(s_{t+1}) - \phi(s_{t+1}) \right\|^2_2
@@ -346,52 +335,54 @@ r_t^i$. Các thực nghiệm của đề tài thường đặt $\beta$ ở mức
 không quên mất mục tiêu chính của trò chơi.
 
 \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[>=stealth, 
-        box/.style={rectangle, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center},
-        arrow/.style={->, thick}
-    ]
-        % State inputs
-        \node (st) at (-3,4) {$s_t$};
-        \node (st1) at (-3,0) {$s_{t+1}$};
-        
-        % Features
-        \node (phi_st) [box] at (0,4) {Đặc trưng \\ $\phi(s_t)$};
-        \node (phi_st1) [box] at (0,0) {Đặc trưng \\ $\phi(s_{t+1})$};
-        
-        % Action input
-        \node (at) at (3.5, 6) {$a_t$};
-        
-        % Models
-        \node (fwd) [box, fill=red!10] at (3.5,4) {Forward Model};
-        \node (inv) [box, fill=blue!10] at (3.5,2) {Inverse Model};
-        
-        % Outputs
-        \node (phi_hat) at (6.5,4) {$\hat{\phi}(s_{t+1})$};
-        \node (ahat) at (6.5,2) {$\hat{a}_t$};
-        \node (loss) [box, fill=green!10] at (6.5, 0) {Tính sai số \\ $r_t^i$};
-        
-        % Encoders
-        \draw[arrow] (st) -- (phi_st) node[midway, above] {Encoder};
-        \draw[arrow] (st1) -- (phi_st1) node[midway, above] {Encoder};
-        
-        % Forward model
-        \draw[arrow] (phi_st) -- (fwd);
-        \draw[arrow] (at) -- (fwd);
-        \draw[arrow] (fwd) -- (phi_hat);
-        
-        % Inverse model (routing to avoid crossing)
-        \draw[arrow, rounded corners] (phi_st.south) |- ([yshift=2mm]inv.west);
-        \draw[arrow, rounded corners] (phi_st1.north) |- ([yshift=-2mm]inv.west);
-        \draw[arrow] (inv) -- (ahat);
-        
-        % Loss calculation
-        \draw[arrow] (phi_hat) -- (loss);
-        \draw[arrow] (phi_st1) -- (loss);
-        
-    \end{tikzpicture}
-    \caption{Sơ đồ kiến trúc Intrinsic Curiosity Module (ICM)}
-    \label{fig:icm_arch}
+\centering
+\begin{tikzpicture}[>=stealth,
+    box/.style={rectangle, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick},
+    edgelabel/.style={midway, fill=white, inner sep=2pt, font=\small}
+]
+
+% State inputs
+\node (st) at (-3,4) {$s_t$};
+\node (st1) at (-3,0) {$s_{t+1}$};
+
+% Features
+\node (phi_st) [box] at (0,4) {Đặc trưng \\ $\phi(s_t)$};
+\node (phi_st1) [box] at (0,0) {Đặc trưng \\ $\phi(s_{t+1})$};
+
+% Action input
+\node (at) at (3.5, 6) {$a_t$};
+
+% Models
+\node (fwd) [box, fill=red!10] at (3.5,4) {Forward Model};
+\node (inv) [box, fill=blue!10] at (3.5,2) {Inverse Model};
+
+% Outputs
+\node (phi_hat) at (6.5,4) {$\hat{\phi}(s_{t+1})$};
+\node (ahat) at (6.5,2) {$\hat{a}_t$};
+\node (loss) [box, fill=green!10] at (6.5, 0) {Tính sai số \\ $r_t^i$};
+
+% Encoders
+\draw[arrow] (st) -- (phi_st) node[edgelabel, above] {Encoder};
+\draw[arrow] (st1) -- (phi_st1) node[edgelabel, above] {Encoder};
+
+% Forward model
+\draw[arrow] (phi_st) -- (fwd);
+\draw[arrow] (at) -- (fwd);
+\draw[arrow] (fwd) -- (phi_hat);
+
+% Inverse model (routing to avoid crossing)
+\draw[arrow, rounded corners] (phi_st.south) |- ([yshift=2mm]inv.west);
+\draw[arrow, rounded corners] (phi_st1.north) |- ([yshift=-2mm]inv.west);
+\draw[arrow] (inv) -- (ahat);
+
+% Loss calculation
+\draw[arrow] (phi_hat) -- (loss);
+\draw[arrow] (phi_st1) -- (loss);
+
+\end{tikzpicture}
+\caption{Sơ đồ kiến trúc Intrinsic Curiosity Module (ICM)}
+\label{fig:icm_arch}
 \end{figure}
 
 \subsection{Các thuật toán sử dụng trong đề tài}
@@ -436,7 +427,7 @@ mức độ một hành động tốt hơn hay kém hơn kỳ vọng trung bình
 tham số clipping, thường đặt trong khoảng $[0.1, 0.2]$. Toán tử $\text{clip}$ ép
 $r_t(\theta)$ nằm trong $[1-\varepsilon, 1+\varepsilon]$, nhờ đó policy mới không lệch quá
 xa policy cũ chỉ trong một bước cập nhật. Còn hàm $\min$ bảo đảm mục tiêu luôn là cận dưới
-thận trọng (pessimistic lower bound) của mục tiêu chưa clipped.
+thận trọng của mục tiêu chưa clipped.
 
 \indent Giá trị advantage $\hat{A}_t$ trong biểu thức trên thường được ước lượng bằng
 Generalized Advantage Estimation (GAE), phương pháp dung hòa độ lệch với phương sai của
@@ -452,7 +443,7 @@ của ước lượng advantage, $V(s_t)$ là giá trị trạng thái được 
 critic.
 
 \indent Mỗi iteration, PPO dùng policy hiện tại để gom một batch dữ liệu từ môi trường,
-rồi chạy nhiều lần cập nhật gradient trên chính batch đó - thường 3 đến 10 epochs - trước
+rồi chạy nhiều lần cập nhật gradient trên chính batch đó thường 3 đến 10 epochs trước
 khi đi lấy batch mới. Cơ chế clipping là thứ giữ cho các lần cập nhật lặp lại này không
 đẩy policy đi quá xa điểm xuất phát, tức là có được tính ổn định mà không phải trả cái
 giá tính toán đắt đỏ như TRPO.
@@ -532,29 +523,29 @@ trên môi trường đối kháng; Mục~\ref{sub:custom} phân tích kỹ.
 
 \subsubsection{MA-POCA}
 \indent MA-POCA được Cohen và cộng sự \cite{cohen2022mapoca} đề xuất năm 2021, chuyên cho
-bài toán học tăng cường đa tác nhân hợp tác (cooperative multi-agent), và hiện là thuật
+bài toán học tăng cường đa tác nhân hợp tác, và hiện là thuật
 toán đa tác nhân mặc định trong Unity ML-Agents. Nó nhắm vào hai thách thức đặc thù của
 môi trường đa tác nhân mà PPO hay SAC nguyên bản khó xử lý tốt. Thứ nhất là gán công lao
-(credit assignment): xác định từng agent đã đóng góp bao nhiêu vào phần thưởng chung của
-cả nhóm. Thứ hai là tác nhân biến động (posthumous credit): gán công lao cho đúng những
-agent đã ngừng hoạt động - bị loại hoặc đã hoàn thành nhiệm vụ - từ trước khi phần thưởng
+: xác định từng agent đã đóng góp bao nhiêu vào phần thưởng chung của
+cả nhóm. Thứ hai là tác nhân biến động: gán công lao cho đúng những
+agent đã ngừng hoạt động, bị loại hoặc đã hoàn thành nhiệm vụ từ trước khi phần thưởng
 nhóm được trao.
 
 \indent Về nguyên lý, MA-POCA kéo kiến trúc actor-critic sang mô hình huấn luyện tập
-trung, thực thi phân tán (centralized training with decentralized execution). Lúc huấn
-luyện, một mạng critic tập trung (centralized critic) được phép nhìn trạng thái và hành
+trung, thực thi phân tán. Lúc huấn
+luyện, một mạng critic tập trung được phép nhìn trạng thái và hành
 động của toàn bộ agent trong nhóm để ước lượng giá trị chung, nên đánh giá đóng góp của
 từng agent chính xác hơn. Nhưng khi triển khai thực tế, mỗi agent lại chỉ dựa vào quan sát
-cục bộ của riêng mình mà ra quyết định - đó là điều giữ cho hệ thống khả thi và mở rộng
+cục bộ của riêng mình mà ra quyết định, đó là điều giữ cho hệ thống khả thi và mở rộng
 được.
 
 \indent Cải tiến cốt lõi của MA-POCA nằm ở cơ chế attention, dùng để xử lý số lượng agent
 thay đổi động trong một episode. Các phương pháp trước đó cố định số agent
 \cite{lowe2017multiagent, foerster2018counterfactual}; MA-POCA thì cho phép agent gia nhập
 hoặc rời nhóm giữa chừng mà việc gán công lao vẫn chính xác. Đây đúng là tình huống hay
-gặp trong game hợp tác, nơi agent có thể ``chết'' hoặc hoàn thành nhiệm vụ vào những thời
-điểm rất khác nhau. Hàm giá trị nhóm được học từ tổng phần thưởng nhóm (group reward) mà
-môi trường cung cấp qua cơ chế \texttt{SimpleMultiAgentGroup} của ML-Agents.
+gặp trong game hợp tác, nơi agent có thể chết hoặc hoàn thành nhiệm vụ vào những thời
+điểm rất khác nhau. Hàm giá trị nhóm được học từ tổng phần thưởng nhóm mà
+môi trường cung cấp qua cơ chế SimpleMultiAgentGroup của ML-Agents.
 
 \indent Phần cập nhật policy thì MA-POCA kế thừa gần như nguyên vẹn từ PPO: cùng hàm mục
 tiêu clipped surrogate, cùng cách ước lượng advantage, và cả hai đều là thuật toán
@@ -565,9 +556,9 @@ hàm giá trị nhóm dựa trên baseline tập trung, để mỗi agent nhận
 \indent \textbf{Ưu điểm:} Có một câu hỏi mà PPO chạy độc lập cho từng agent không trả lời
 nổi, còn MA-POCA thì trả lời được: khi cả nhóm cùng nhận một phần thưởng, agent nào mới
 thật sự làm nên kết quả đó. Cơ chế attention giữ cho việc gán công lao vẫn đứng vững kể cả
-khi nhóm đổi quân số giữa chừng - tình huống rất thường gặp trong game hợp tác, nơi nhân
+khi nhóm đổi quân số giữa chừng, tình huống rất thường gặp trong game hợp tác, nơi nhân
 vật có thể bị loại hoặc xong phần việc của mình sớm. Thêm nữa, trong ML-Agents thuật toán
-này ăn khớp sẵn với cơ chế group reward, nên môi trường hợp tác gần như chẳng phải sửa gì.
+này ăn khớp sẵn với cơ chế group reward, nên môi trường hợp tác gần như không phải sửa gì.
 
 \indent \textbf{Nhược điểm:} Là thuật toán on-policy, MA-POCA thừa hưởng trọn vẹn vấn đề
 hiệu quả mẫu của PPO, lại còn gánh thêm chi phí của mạng phê bình tập trung khi quân số
@@ -589,7 +580,7 @@ giá trị tập trung.
 {\sloppy
 \indent \textbf{Kiến trúc CTDE trong MAPPO:} Khi thực thi, mỗi agent $i$ ra hành động theo
 policy cá nhân $\pi_{\theta_i}(a_i | o_i)$, chỉ dựa vào quan sát cục bộ $o_i$ của nó. Còn
-khi huấn luyện (centralized training), hàm giá trị tập trung $V_\phi(s)$ mới được đem ra
+khi huấn luyện, hàm giá trị tập trung $V_\phi(s)$ mới được đem ra
 để ước lượng giá trị của trạng thái toàn cục $s$; nhờ đó việc đánh giá một trạng thái
 chung chính xác hơn và phương sai khi tính policy gradient cũng giảm xuống. Hàm giá trị
 tập trung trong MAPPO có dạng:
@@ -600,15 +591,14 @@ với $o_1, \ldots, o_n$ là quan sát của các agent và $s_{\text{global}}$ 
 \begin{equation}
 L_i^{MAPPO}(\theta) = \hat{\mathbb{E}}_t\left[\min\left(r_t(\theta)\hat{A}_t^i, \text{clip}(r_t(\theta), 1-\varepsilon, 1+\varepsilon)\hat{A}_t^i\right)\right]
 \end{equation}
-trong đó $\hat{A}_t^i$ là hàm lợi thế (advantage function) cho agent $i$, được tính toán dựa trên hàm giá trị tập trung $V_\phi(s)$, và $r_t(\theta) = \frac{\pi_{\theta}(a_t^i|o_t^i)}{\pi_{\theta_{\text{old}}}(a_t^i|o_t^i)}$ là tỷ số xác suất.
+trong đó $\hat{A}_t^i$ là hàm lợi thế cho agent $i$, được tính toán dựa trên hàm giá trị tập trung $V_\phi(s)$, và $r_t(\theta) = \frac{\pi_{\theta}(a_t^i|o_t^i)}{\pi_{\theta_{\text{old}}}(a_t^i|o_t^i)}$ là tỷ số xác suất.
 
-\indent \textbf{Cơ chế chia sẻ tham số (Parameter sharing):} Về nguyên tắc mỗi agent có
-thể giữ một policy riêng, nhưng MAPPO thường cho tất cả các agent đồng nhất (homogeneous
-agents) dùng chung tham số mạng nơ-ron, tức $\theta_1 = \theta_2 = \ldots = \theta_n =
+\indent \textbf{Cơ chế chia sẻ tham số:} Về nguyên tắc mỗi agent có
+thể giữ một policy riêng, nhưng MAPPO thường cho tất cả các agent đồng nhất dùng chung tham số mạng nơ-ron, tức $\theta_1 = \theta_2 = \ldots = \theta_n =
 \theta$. Cách này vừa cắt được chi phí tính toán và bộ nhớ, vừa giúp các agent học nhanh
-hơn nhờ chia sẻ kinh nghiệm (shared experience) trong lúc huấn luyện. Nếu cần mạng phân
-biệt các agent để chúng cư xử khác nhau, danh tính (identity) của từng agent có thể mã hóa
-thành vector one-hot rồi ghép vào quan sát (observation).
+hơn nhờ chia sẻ kinh nghiệm trong lúc huấn luyện. Nếu cần mạng phân
+biệt các agent để chúng cư xử khác nhau, danh tính của từng agent có thể mã hóa
+thành vector one-hot rồi ghép vào quan sát.
 
 \begin{figure}[H]
     \centering
@@ -713,9 +703,8 @@ nhiên sau khi $\varepsilon$ đã giảm, nên rất dễ chốt sớm vào mộ
 
 \subsubsection{Tổng kết và so sánh năm thuật toán}
 \indent Năm thuật toán vừa trình bày không xếp được thành một thang bậc từ yếu tới mạnh.
-Chúng phân hóa theo bốn trục độc lập nhau: học cái gì (hàm giá trị hay chính sách), lấy dữ
-liệu ra sao (on-policy hay off-policy), xử lý nhiều tác nhân thế nào (không có, attention,
-hay chia sẻ tham số), và mỗi bước cập nhật tốn bao nhiêu tính toán. Cái quyết định thuật
+Chúng phân hóa theo bốn trục độc lập nhau: học cái gì, lấy dữ
+liệu ra sao, xử lý nhiều tác nhân thế nào, và mỗi bước cập nhật tốn bao nhiêu tính toán. Cái quyết định thuật
 toán nào hợp bài toán nào chính là bốn trục ấy, chứ không phải một thứ hạng chung.
 
 \begin{table}[H]
@@ -790,7 +779,7 @@ Python backend.
 
 \indent Bên phía Python, điểm vào chính của quá trình huấn luyện là công cụ dòng lệnh
 mlagents-learn: nó đọc tệp cấu hình YAML rồi khởi tạo trainer tương ứng cho từng behavior
-khai báo trong đó. Các lớp Trainer - tiêu biểu là PPOTrainer và POCATrainer - thực thi
+khai báo trong đó. Các lớp Trainer tiêu biểu là PPOTrainer và POCATrainer thực thi
 toàn bộ logic huấn luyện: thu thập trajectory, tính advantage, cập nhật tham số mạng và
 lưu checkpoint định kỳ. Ngoài lớp trainer, thư viện mlagents\_envs còn mở ra một Python
 API cấp thấp, cho phép tương tác thẳng với môi trường Unity mà bỏ qua trainer tích hợp
@@ -817,7 +806,7 @@ nhau ở các lần chạy khác nhau.
 \indent Cách ML-Agents xử lý là dồn toàn bộ quy trình RL vào hàm \texttt{FixedUpdate()},
 chu kỳ cập nhật vật lý có tần số cố định - mặc định $0.02$ giây mỗi bước, tức $50$
 lần/giây. Hệ thống vật lý PhysX của Unity tính động lực học, cập nhật tọa độ các
-\texttt{Rigidbody} và xử lý va chạm (\texttt{Collider}) hoàn toàn theo những bước thời
+\texttt{Rigidbody} và xử lý va chạm hoàn toàn theo những bước thời
 gian cố định này. Nhờ vậy, chỉ cần cùng một seed ngẫu nhiên ban đầu là môi trường Unity
 hành xử như một hệ thống xác định: cùng một chuỗi hành động luôn cho cùng một quỹ đạo.
 Thiếu tính chất đó thì mọi so sánh giữa hai lần chạy đều mất căn cứ.
@@ -827,14 +816,14 @@ Thiếu tính chất đó thì mọi so sánh giữa hai lần chạy đều m�
 không gian thành vector số thực cho lớp đầu vào. ML-Agents lo việc đó bằng các thành phần
 Cảm biến, gồm ba loại phổ biến:
 \begin{itemize}
-    \item \textbf{Cảm biến tia}: Bắn các tia raycast quanh Agent
+    \item Cảm biến tia: Bắn các tia raycast quanh Agent
     theo một góc quét cho trước. Tia chạm phải vật thể mang nhãn tương ứng
     thì ghi lại một vector one-hot cho loại vật thể, kèm một giá trị vô hướng chuẩn hóa
     trong $[0, 1]$ biểu diễn khoảng cách. Loại này vừa hiệu quả vừa nhẹ về tính toán với
     các bài toán điều hướng, và là cảm biến chủ đạo của đề tài.
-    \item \textbf{Grid Sensor}: Phủ một lưới 2D lên không gian rồi đếm số vật thể rơi vào
+    \item Cảm biến lưới: Phủ một lưới 2D lên không gian rồi đếm số vật thể rơi vào
     từng ô. Hợp với những bài toán cần cái nhìn toàn cảnh, chẳng hạn cờ bàn.
-    \item \textbf{Camera Sensor}: Lấy thẳng dữ liệu pixel RGB từ camera, kéo theo việc mô
+    \item Cảm biến camera: Lấy thẳng dữ liệu pixel RGB từ camera, kéo theo việc mô
     hình buộc phải dùng mạng tích chập. Thông tin thì toàn diện, nhưng chi phí tính
     toán rất lớn và tốc độ hội tụ thường chậm hơn nhiều so với cảm biến tia.
 \end{itemize}
@@ -842,7 +831,7 @@ Cảm biến, gồm ba loại phổ biến:
 \subsubsection{Cơ chế Hành vi và Gom nhóm quyết định}
 \indent Gắn trên mỗi Agent còn có một module quan trọng khác là \texttt{BehaviorParameters},
 nơi khai báo kích thước không gian quan sát và không gian hành động. Chính tại đây
-ML-Agents đưa ra cơ chế Action Masking (Mặt nạ hành động) để chặn những hành động không
+ML-Agents đưa ra cơ chế Action Masking để chặn những hành động không
 hợp lệ. Chẳng hạn khi Agent đang đứng sát tường, hệ thống ``đeo mặt nạ'' lên hành động tiến
 lên, ép xác suất chọn nó về 0. Không gian tìm kiếm nhờ thế hẹp lại và mô hình hội tụ nhanh
 hơn, thay vì phải tự học rằng đâm đầu vào tường thì bị phạt.
@@ -889,7 +878,7 @@ của môi trường.
 
 \indent Giới hạn đầu tiên lộ ra ngay từ danh sách đó: hai trong năm thuật toán mà đề tài
 cần so sánh, MAPPO và DQN, đều không có mặt. Giải pháp là bổ sung chúng vào ML-Agents dưới
-dạng trainer mở rộng - viết thêm các lớp trainer rồi đăng ký vào cơ chế tra cứu theo tên
+dạng trainer mở rộng, viết thêm các lớp trainer rồi đăng ký vào cơ chế tra cứu theo tên
 \texttt{trainer\_type}. Nhờ vậy chúng dùng chung với ba trainer có sẵn toàn bộ hạ tầng thu
 thập quỹ đạo, ghi nhật ký TensorBoard và xuất mô hình ONNX. Điểm mấu chốt của cách làm này
 là cả năm thuật toán cùng chạy trên một đường ống đo đạc, điều kiện cần để mọi so sánh ở
@@ -902,7 +891,7 @@ ELO. Riêng DQN thì không: bộ điều phối đối kháng báo lỗi tra c�
 tạo. Hệ quả là lần chạy DQN trên Football Table buộc phải tắt tự chơi, và vì thế cũng
 không có ELO để đối chiếu.
 
-\indent Giới hạn cuối cùng thuộc về phần thưởng nhóm. Cơ chế group reward vốn được tối ưu
+\indent Giới hạn cuối cùng là phần thưởng nhóm. Cơ chế group reward vốn được tối ưu
 cho POCA; đem áp cho PPO, SAC hay DQN thì phần thưởng nhóm phải phân bổ thủ công về từng
 agent, và khả năng gán công lao suy giảm theo. Thêm nữa, các trainer tích hợp sẵn không dễ
 cho người dùng can thiệp sâu vào vòng lặp huấn luyện, chẳng hạn muốn tùy biến hàm mất mát

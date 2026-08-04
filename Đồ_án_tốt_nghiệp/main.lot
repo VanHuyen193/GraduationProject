@@ -1,20 +1,20 @@
-\contentsline {table}{\numberline {2.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Phân loại các thuật toán sử dụng trong đề tài}}{16}{table.caption.3}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh các thuật toán học tăng cường}}{26}{table.caption.6}%
-\contentsline {table}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tốc độ huấn luyện thực đo trên ba môi trường, mỗi môi trường lấy một lần chạy đại diện; số bước là số bước huấn luyện của hành vi tương ứng}}{43}{table.caption.9}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Football Table}}{46}{table.caption.11}%
-\contentsline {table}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Capture The Flag}}{55}{table.caption.13}%
-\contentsline {table}{\numberline {3.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Cross The Road}}{62}{table.caption.14}%
-\contentsline {table}{\numberline {3.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tổng hợp đặc trưng ba môi trường thực nghiệm}}{64}{table.caption.15}%
-\contentsline {table}{\numberline {3.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Cấu hình phần cứng và phần mềm thực nghiệm}}{68}{table.caption.16}%
-\contentsline {table}{\numberline {3.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tóm tắt siêu tham số huấn luyện chính}}{69}{table.caption.17}%
-\contentsline {table}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả năm thuật toán trên môi trường Football Table}}{75}{table.caption.20}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả năm thuật toán trên môi trường Cross The Road}}{77}{table.caption.22}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả năm thuật toán trên môi trường Capture The Flag}}{82}{table.caption.27}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số huấn luyện nội tại (các môi trường hành động rời rạc)}}{89}{table.caption.32}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Xếp hạng thuật toán theo từng môi trường}}{90}{table.caption.33}%
-\contentsline {table}{\numberline {5.1}{\ignorespaces Các thành phần chính của ứng dụng trình diễn}}{94}{table.5.1}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Mười lăm mô hình ONNX được đóng gói sẵn trong ứng dụng}}{99}{table.caption.37}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Ánh xạ ba chế độ chơi vào ba môi trường}}{104}{table.caption.40}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Bố cục gói \texttt {com.vanhuyen.rl-game-envs}}}{109}{table.caption.45}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả kiểm thử các luồng chức năng của ứng dụng}}{116}{table.caption.47}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Phân loại các thuật toán sử dụng trong đề tài}}{15}{table.caption.3}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces So sánh các thuật toán học tăng cường}}{25}{table.caption.6}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tốc độ huấn luyện thực đo trên ba môi trường, mỗi môi trường lấy một lần chạy đại diện; số bước là số bước huấn luyện của hành vi tương ứng}}{42}{table.caption.9}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Football Table}}{45}{table.caption.11}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Capture The Flag}}{54}{table.caption.13}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Hàm phần thưởng của môi trường Cross The Road}}{61}{table.caption.14}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tổng hợp đặc trưng ba môi trường thực nghiệm}}{63}{table.caption.15}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Cấu hình phần cứng và phần mềm thực nghiệm}}{67}{table.caption.16}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Tóm tắt siêu tham số huấn luyện chính}}{68}{table.caption.17}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả năm thuật toán trên môi trường Football Table}}{74}{table.caption.20}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả năm thuật toán trên môi trường Cross The Road}}{76}{table.caption.22}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả năm thuật toán trên môi trường Capture The Flag}}{81}{table.caption.27}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Chỉ số huấn luyện nội tại (các môi trường hành động rời rạc)}}{88}{table.caption.32}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Xếp hạng thuật toán theo từng môi trường}}{89}{table.caption.33}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Các thành phần chính của ứng dụng trình diễn}}{93}{table.5.1}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Mười lăm mô hình ONNX được đóng gói sẵn trong ứng dụng}}{98}{table.caption.37}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Ánh xạ ba chế độ chơi vào ba môi trường}}{103}{table.caption.40}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Bố cục gói \texttt {com.vanhuyen.rl-game-envs}}}{108}{table.caption.45}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả kiểm thử các luồng chức năng của ứng dụng}}{115}{table.caption.47}%
 \contentsline {table}{\numberline {6.1}{\ignorespaces \xpg@aux {}{vietnamese}\ignorespaces Kết quả thực đo của 15 lần huấn luyện}}{xxiii}{table.caption.50}%

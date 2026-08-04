@@ -3,27 +3,6 @@
 \section{THIẾT KẾ MÔI TRƯỜNG VÀ PHƯƠNG PHÁP THỰC NGHIỆM}
 \label{ch:design}
 
-\indent Đây là chương trọng tâm của đồ án. Mục~\ref{ch:intro} đã lập luận rằng phần khó
-nhất của một dự án học tăng cường nằm ở khâu xây dựng môi trường; chương này chính là nơi
-trình bày cái phần khó ấy, tức quá trình biến ba ý tưởng trò chơi thành ba đặc tả mà tác
-nhân học được.
-
-\indent Điều được đặt lên hàng đầu ở đây là lý do đằng sau từng quyết định thiết
-kế, chứ không chỉ kết quả cuối cùng. Với mỗi môi trường, chương sẽ nói rõ đại lượng nào
-được đưa vào quan sát và vì sao đại lượng khác bị gạt ra, phần thưởng chia thành những
-thành phần nào và mỗi thành phần chặn lại hành vi sai lệch cụ thể nào, kèm cả những đặc tả
-đã thử rồi phải bỏ. Phần cuối này quan trọng không kém phần thành công. Một hàm phần
-thưởng hỏng chẳng làm chương trình báo lỗi; nó chỉ lặng lẽ khiến tác nhân học sai. Biết
-được dấu hiệu nhận ra nó vì thế thực dụng hơn nhiều so với việc chép lại một cấu hình đã
-chạy được.
-
-\indent Chương được bố cục như sau. Mở đầu là những gì dùng chung cho cả ba môi trường:
-kiến trúc huấn luyện, cách chọn quan sát và hành động, cùng bốn nguyên tắc thiết kế hàm
-phần thưởng - mọi con số trong các bảng về sau đều phải giải thích được bằng bốn nguyên
-tắc đó. Ba mục kế tiếp đi vào từng môi trường một. Sau đó là lối đi vòng qua Python
-Low-Level API, thứ mà đề tài buộc phải dùng vì trainer tích hợp sẵn không đáp ứng nổi.
-Khép lại chương là thiết lập thực nghiệm và các tiêu chí đánh giá, dùng để nghiệm thu ba
-môi trường ở Chương~\ref{ch:results}.
 
 % ═══════════════════════════════════════════════
 \subsection{Tổng quan thiết kế hệ thống}
@@ -79,15 +58,15 @@ nhân dùng làm căn cứ duy nhất để ra quyết định tại bước th�
 \end{dn}
 
 \indent Nếu hàm quan sát $O$ là song ánh thì mỗi quan sát ứng với đúng một trạng thái, và
-tác nhân coi như ``nhìn thấy'' trọn vẹn trạng thái; bài toán lúc đó là một quá trình quyết
-định Markov (MDP) đầy đủ, đúng như Mục~\ref{sub:mdp} đã trình bày. Còn khi $O$ không song
+tác nhân coi như nhìn thấy trọn vẹn trạng thái; bài toán lúc đó là một quá trình quyết
+định Markov đầy đủ, đúng như Mục~\ref{sub:mdp} đã trình bày. Còn khi $O$ không song
 ánh, tức nhiều trạng thái khác nhau cùng cho ra một quan sát, tác nhân mất khả năng phân
 biệt chúng và bài toán chuyển thành quá trình quyết định Markov quan sát một phần
 (Partially Observable MDP, viết tắt POMDP). Hầu hết môi trường game, ba môi trường của đề
-tài không ngoại lệ, đều là POMDP về bản chất. Tác nhân đâu thể biết chính xác vận tốc
+tài không ngoại lệ, đều là POMDP về bản chất. Tác nhân không thể biết chính xác vận tốc
 tương lai của một phương tiện, cũng chẳng nhìn xuyên tường được để biết đồng đội đang ở
 đâu. Vậy nên việc của người thiết kế không phải là cung cấp toàn bộ trạng thái, mà là chọn
-ra một tập quan sát đủ để bài toán xấp xỉ được tính chất Markov - đủ để riêng quan sát
+ra một tập quan sát đủ để bài toán xấp xỉ được tính chất Markov và đủ để riêng quan sát
 hiện tại đã chứa gần như mọi thông tin cần cho một quyết định hợp lý, không bắt tác nhân
 phải nhớ toàn bộ lịch sử.
 
@@ -114,8 +93,8 @@ cốt giữ cho mạng chính sách đơn giản và ổn định.
 \indent Quan sát ở cả ba môi trường đều là dạng vector, tức một chuỗi số thực độ dài cố
 định, mỗi phần tử mã hóa một đại lượng mang ý nghĩa vật lý hoặc logic. Thường gặp ba loại.
 Đại lượng liên tục gồm tọa độ, vận tốc, khoảng cách, góc xoay. Cờ nhị phân biểu diễn trạng
-thái logic - bàn đạp đã nhấn hay chưa chẳng hạn - mã hóa bằng không hoặc một. Và mã hóa
-một-nóng, dùng khi cần biểu diễn một biến rời rạc nhiều mức. Nguyên tắc xuyên suốt là tối
+thái logic mã hóa bằng không hoặc một. Và mã hóa
+one-hot, dùng khi cần biểu diễn một biến rời rạc nhiều mức. Nguyên tắc xuyên suốt là tối
 thiểu nhưng đủ. Mỗi phần tử thừa đều đẩy số chiều đầu vào của mạng lên và làm việc học
 chậm lại; ngược lại mỗi phần tử thiếu có thể phá vỡ tính chất Markov, khiến bài toán thành
 bất khả học.
@@ -205,7 +184,7 @@ R(s, a, s') = \underbrace{R_{\mathrm{mt}}(s')}_{\text{thưa, tại cột mốc}}
 \indent Thành phần mục tiêu $R_{\mathrm{mt}}$ chỉ khác không ở một vài trạng thái đánh dấu
 kết quả nhiệm vụ - bóng vào lưới, hoặc cả nhóm tới đích. Nó chính là thứ định nghĩa bài
 toán: giữ lại một mình nó thôi thì chính sách tối ưu vẫn đúng là chính sách người thiết kế
-mong muốn. Cái dở là tín hiệu quá thưa. Giai đoạn đầu, khi tác nhân gần như chưa bao giờ
+mong muốn. Nhưng hạn chế là tín hiệu quá thưa. Giai đoạn đầu, khi tác nhân gần như chưa bao giờ
 tình cờ chạm tới cột mốc, gradient chính sách xấp xỉ không và quá trình học đứng im
 \cite{sutton2018reinforcement}.
 
@@ -257,10 +236,10 @@ kiểu lợi dụng phần thưởng của thí nghiệm xe đạp nói trên ng
 phải bằng cách mò mẫm dò hệ số. Với các bài toán điều hướng, hàm thế năng tự nhiên nhất là
 $\Phi(s) = -d(s)$, trong đó $d(s)$ là khoảng cách từ tác nhân tới mục tiêu; khi đó $F$
 thưởng mỗi bước làm giảm khoảng cách và phạt mỗi bước làm tăng khoảng cách. Đề tài vận
-dụng thẳng nguyên tắc này trong môi trường Capture The Flag, chi tiết ở
+dụng nguyên tắc này trong môi trường Capture The Flag, chi tiết ở
 Mục~\ref{sub:env-coop}.
 
-\indent Gán công lao theo thời gian mới là một nửa câu chuyện. Môi trường hợp tác còn đặt
+\indent Môi trường hợp tác còn đặt
 thêm bài toán gán công lao giữa nhiều tác nhân: cả nhóm cùng nhận một phần thưởng chung
 thì làm sao biết từng tác nhân thực sự đóng góp bao nhiêu mà cập nhật chính sách cho đúng.
 Cơ chế phần thưởng nhóm cùng thuật toán MA-POCA \cite{cohen2022mapoca} sinh ra để giải
@@ -272,27 +251,27 @@ gán công lao sẽ rõ dần khi đi vào môi trường Capture The Flag.
 bốn nguyên tắc thiết kế dưới đây. Mọi giá trị số xuất hiện trong các bảng phần thưởng ở
 những mục tiếp theo đều phải giải thích được bằng chính bốn nguyên tắc này:
 \begin{itemize}
-    \item \textbf{Bám theo lời giải mẫu.} Trước khi đặt bất kỳ hệ số nào, người thiết
+    \item Bám theo lời giải mẫu: Trước khi đặt bất kỳ hệ số nào, người thiết
     kế phải mô tả được một quỹ đạo mẫu hoàn thành nhiệm vụ, rồi kiểm tra rằng không có
     thành phần phần thưởng nào phạt một trạng thái nằm trên quỹ đạo đó. Nguyên
     tắc này bắt nguồn từ nhận xét của Amodei và cộng sự \cite{amodei2016concrete} rằng
     phần lớn lỗi thiết kế phần thưởng đến từ việc mô tả sai mục tiêu chứ không từ việc
     chọn sai hệ số.
 
-    \item \textbf{Ưu tiên sự kiện một lần hoặc thế năng thay vì cộng dồn theo bước.}
+    \item Ưu tiên sự kiện một lần hoặc thế năng thay vì cộng dồn theo bước:
     Một khoản thưởng cộng dồn ở mỗi bước cho một trạng thái nào đó luôn tạo ra động cơ
     nấn ná tại trạng thái ấy. Khi cần thưởng cho một cột mốc, đề tài dùng phần thưởng
     sự kiện chỉ trao một lần trong mỗi lượt chơi; khi cần tín hiệu dẫn đường liên
     tục, đề tài dùng dạng thế năng ở Định nghĩa~\ref{dn:pbrs} với bảo đảm~\eqref{eq:pbrs-cycle}.
 
-    \item \textbf{Giữ trật tự độ lớn.} Ký hiệu $|R_{\mathrm{mt}}|$ là độ lớn của phần
+    \item Giữ trật tự độ lớn: Ký hiệu $|R_{\mathrm{mt}}|$ là độ lớn của phần
     thưởng mục tiêu và $\Sigma_{\mathrm{b}}$ là tổng tuyệt đối tối đa mà các khoản theo
     bước có thể tích lũy trong trọn một lượt chơi, đề tài luôn giữ
     $\Sigma_{\mathrm{b}} < |R_{\mathrm{mt}}|$. Bất đẳng thức này bảo đảm rằng một lượt
     chơi hoàn thành nhiệm vụ luôn có tổng phần thưởng cao hơn mọi lượt chơi không hoàn
     thành, bất kể tác nhân xoay xở thế nào với các khoản phụ.
 
-    \item \textbf{Sửa cơ chế môi trường trước khi tăng hệ số phần thưởng.} Khi một hành
+    \item Sửa cơ chế môi trường trước khi tăng hệ số phần thưởng: Khi một hành
     vi mục tiêu quá khó để khám phá bằng thử - sai, việc tăng hệ số thưởng cho nó không
     giúp ích, vì tác nhân chưa từng chạm tới hành vi ấy để nhận thưởng. Trong trường hợp
     đó đề tài điều chỉnh chính cơ chế môi trường hoặc dùng học theo chương trình
@@ -313,19 +292,19 @@ còn lệ thuộc vào độ dài lượt chơi. Hàm phần thưởng chi tiế
 \indent Bộ thực nghiệm của đề tài có ba môi trường ba chiều: Football Table, Capture The
 Flag và Cross The Road. Ba cái tên này được chọn để phủ ba dạng bài toán học tăng cường
 điển hình trong game - đối kháng một đối một, hợp tác đa tác nhân, điều hướng tránh vật
-cản động - và tiện thể phủ luôn cả hai dạng không gian hành động, liên tục lẫn rời rạc.
+cản động và phủ luôn cả hai dạng không gian hành động, liên tục lẫn rời rạc.
 Mục này nói về những quy ước dùng chung cho cả ba, kèm một bản tóm lược thống nhất về quan
 sát, hành động, phần thưởng và điều kiện kết thúc. Các mục sau đó mới đi sâu vào từng môi
 trường, theo cùng một bố cục.
 
-\indent Trừ những chỗ nói rõ khác đi, cả ba môi trường đều theo các quy ước sau. Mỗi môi
+\indent Cả ba môi trường đều theo các quy ước sau: Mỗi môi
 trường là một cảnh Unity riêng, bên trong có đúng một khu vực huấn luyện đóng thành prefab
 để nhân bản được khi cần tăng tốc thu thập kinh nghiệm. Mỗi môi trường gắn với đúng một
 hành vi, nhờ đó một lần huấn luyện chỉ nạp một tệp cấu hình và không đụng chạm gì sang môi
 trường khác. Tác nhân quan sát hoàn toàn bằng vector số thực, không dùng quan sát hình
 ảnh; hành động thì do một mạng nơ-ron nhiều lớp kết nối đầy đủ tính ra. Cuối cùng, mọi lần
 huấn luyện đều chạy trên cùng một cấu hình máy, hệ số tăng tốc mô phỏng gấp hai mươi lần
-thời gian thực, bước vật lý cố định $0{,}02$ giây - tức năm mươi bước vật lý mỗi giây mô
+thời gian thực, bước vật lý cố định $0{,}02$ giây tức 50 bước vật lý mỗi giây mô
 phỏng.
 
 \subsubsection{Tích hợp với Unity ML-Agents}

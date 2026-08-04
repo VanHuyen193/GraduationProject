@@ -337,16 +337,12 @@ không phải dấu hiệu học nhanh. Kết quả này khớp với nhận đ�
 PPO khi gặp bài toán đơn tác nhân: không có phần thưởng nhóm thì thế mạnh phê bình tập
 trung chẳng có chỗ phát huy, trong khi chi phí của kiến trúc phức tạp hơn vẫn phải gánh.
 
-\indent MAPPO ở môi trường này lại đảo ngược dự đoán ban đầu của đề tài. Xét thiết kế,
-MAPPO nhắm tới bài toán hợp tác đa tác nhân, nên trên một môi trường đơn tác nhân nó được
-kỳ vọng suy biến thành PPO thường, không lợi thế gì. Thực đo cho thấy điều ngược lại:
-MAPPO vượt PPO một khoảng đáng kể, $0{,}835$ so với $0{,}690$, dù hai thuật toán chỉ khác
-nhau ở phần phê bình tập trung - thứ lẽ ra vô hiệu khi nhóm chỉ có một thành viên. Đề tài
-chưa giải thích được cơ chế đằng sau chênh lệch này, và với đúng một lần chạy mỗi thuật
+\indent MAPPO vượt PPO một khoảng đáng kể, $0{,}835$ so với $0{,}690$, dù hai thuật toán chỉ khác
+nhau ở phần phê bình tập trung - thứ lẽ ra vô hiệu khi nhóm chỉ có một thành viên. Với đúng một lần chạy mỗi thuật
 toán thì cũng chưa loại trừ được khả năng đây chỉ là dao động ngẫu nhiên giữa các hạt
 giống. Nếu mở rộng thực nghiệm, đây là điểm đáng kiểm chứng trước tiên.
 
-\indent DQN xếp cuối, và cách biệt khá xa: $0{,}336$, chưa bằng một nửa SAC. Theo tiêu chí
+\indent DQN xếp cuối, và cách biệt khá xa: $0{,}336$. Theo tiêu chí
 hội tụ dùng trong chương, đường cong của nó không đạt mốc ổn định nào trước khi hết ngân
 sách hai triệu bước - tức thuật toán vẫn còn dao động lúc dừng. Cộng thêm thời gian chạy
 một trăm bốn mươi tám phút, gấp ba lần PPO, DQN là lựa chọn kém hiệu quả nhất trên môi
@@ -397,7 +393,7 @@ thang, không về đích mà cũng chẳng va chạm.
 trông y hệt nhau nếu chỉ nhìn một chỉ số. MAPPO có lượt chơi ngắn ($52{,}0$ bước) kèm phần
 thưởng cao ($0{,}835$): về đích nhanh. MA-POCA cũng ngắn ($42{,}2$ bước) nhưng phần thưởng
 thấp ($0{,}556$): kết thúc do va chạm. SAC nằm giữa về độ dài ($61{,}8$ bước) và cao nhất
-về phần thưởng. DQN thì trôi dần từ khoảng sáu mươi bước lúc đầu lên hơn một trăm ba mươi
+về phần thưởng. DQN thì trôi dần từ khoảng 60 bước lúc đầu lên hơn 130
 bước ở cuối, trong khi phần thưởng thấp nhất - dấu hiệu của một chính sách ngày càng lưỡng
 lự chứ không dứt khoát thêm.
 
@@ -582,11 +578,11 @@ nhất, hợp lý vì cả hai đều có phê bình tập trung nhìn được 
 ý là PPO thường, vốn chẳng có cơ chế nào dành riêng cho phối hợp, cũng đạt $0{,}834$ và
 rút lượt chơi xuống hai trăm chín mươi ba bước.
 
-\indent SAC là trường hợp thất bại duy nhất, mà lại thất bại theo một kiểu rất riêng. Độ
-dài lượt chơi của nó nằm lì ở trần bốn nghìn chín trăm chín mươi chín bước gần như suốt
-quá trình - hai tác nhân hầu như không bao giờ giải xong câu đố. Nhưng đường cong phần
-thưởng thì không hề phẳng: nó nhảy dữ dội giữa $-0{,}018$ và $0{,}795$, với mười một trên
-bốn mươi bốn điểm đo vượt $0{,}5$ và cũng đúng mười một điểm nằm dưới $0{,}1$, độ lệch
+\indent SAC là trường hợp thất bại duy nhất. Độ
+dài lượt chơi của nó nằm ở trần 4999 bước gần như suốt
+quá trình, hai tác nhân hầu như không bao giờ giải xong câu đố. Nhưng đường cong phần
+thưởng thì không hề phẳng: nó nhảy giữa $-0{,}018$ và $0{,}795$, với 11 trên
+44 điểm đo vượt $0{,}5$ và cũng đúng 11 điểm nằm dưới $0{,}1$, độ lệch
 chuẩn toàn chuỗi lên tới $0{,}221$. Vậy nên chính sách của SAC không phải là không học
 được gì; nó học được rồi đánh mất, lặp đi lặp lại. Con số $0{,}183$ ở mười phần trăm cuối
 chỉ là kết quả của việc lấy trung bình trên một chuỗi dao động như thế, chứ không mô tả
