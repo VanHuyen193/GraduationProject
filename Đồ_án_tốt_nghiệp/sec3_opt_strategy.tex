@@ -578,7 +578,7 @@ lối đơn giản hơn nhiều. Nó đưa PPO sang môi trường đa tác nhâ
 giá trị tập trung.
 
 {\sloppy
-\indent \textbf{Kiến trúc CTDE trong MAPPO:} Khi thực thi, mỗi agent $i$ ra hành động theo
+\indent Kiến trúc CTDE trong MAPPO: Khi thực thi, mỗi agent $i$ ra hành động theo
 policy cá nhân $\pi_{\theta_i}(a_i | o_i)$, chỉ dựa vào quan sát cục bộ $o_i$ của nó. Còn
 khi huấn luyện, hàm giá trị tập trung $V_\phi(s)$ mới được đem ra
 để ước lượng giá trị của trạng thái toàn cục $s$; nhờ đó việc đánh giá một trạng thái
@@ -593,7 +593,7 @@ L_i^{MAPPO}(\theta) = \hat{\mathbb{E}}_t\left[\min\left(r_t(\theta)\hat{A}_t^i, 
 \end{equation}
 trong đó $\hat{A}_t^i$ là hàm lợi thế cho agent $i$, được tính toán dựa trên hàm giá trị tập trung $V_\phi(s)$, và $r_t(\theta) = \frac{\pi_{\theta}(a_t^i|o_t^i)}{\pi_{\theta_{\text{old}}}(a_t^i|o_t^i)}$ là tỷ số xác suất.
 
-\indent \textbf{Cơ chế chia sẻ tham số:} Về nguyên tắc mỗi agent có
+\indent Cơ chế chia sẻ tham số: Về nguyên tắc mỗi agent có
 thể giữ một policy riêng, nhưng MAPPO thường cho tất cả các agent đồng nhất dùng chung tham số mạng nơ-ron, tức $\theta_1 = \theta_2 = \ldots = \theta_n =
 \theta$. Cách này vừa cắt được chi phí tính toán và bộ nhớ, vừa giúp các agent học nhanh
 hơn nhờ chia sẻ kinh nghiệm trong lúc huấn luyện. Nếu cần mạng phân
@@ -663,7 +663,7 @@ lớn nhất. Đề tài đưa DQN vào lưới so sánh để có một đại 
 cạnh bốn thuật toán dựa trên chính sách, qua đó xem hướng tiếp cận cổ điển này còn cạnh
 tranh nổi đến đâu trong môi trường ba chiều.
 
-\indent \textbf{Nguyên lý hoạt động:} DQN học hàm $Q$ bằng cách cực tiểu hóa sai số thời
+\indent Nguyên lý hoạt động: DQN học hàm $Q$ bằng cách cực tiểu hóa sai số thời
 gian khác biệt (temporal difference) giữa giá trị dự đoán và giá trị mục tiêu suy ra từ
 phương trình Bellman:
 

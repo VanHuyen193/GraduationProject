@@ -62,8 +62,8 @@ tác nhân coi như nhìn thấy trọn vẹn trạng thái; bài toán lúc đ�
 định Markov đầy đủ, đúng như Mục~\ref{sub:mdp} đã trình bày. Còn khi $O$ không song
 ánh, tức nhiều trạng thái khác nhau cùng cho ra một quan sát, tác nhân mất khả năng phân
 biệt chúng và bài toán chuyển thành quá trình quyết định Markov quan sát một phần
-(Partially Observable MDP, viết tắt POMDP). Hầu hết môi trường game, ba môi trường của đề
-tài không ngoại lệ, đều là POMDP về bản chất. Tác nhân không thể biết chính xác vận tốc
+(Partially Observable MDP, viết tắt POMDP). Hầu hết môi trường game bản chất đều là POMDP, ba môi trường của đề
+tài không ngoại lệ. Tác nhân không thể biết chính xác vận tốc
 tương lai của một phương tiện, cũng chẳng nhìn xuyên tường được để biết đồng đội đang ở
 đâu. Vậy nên việc của người thiết kế không phải là cung cấp toàn bộ trạng thái, mà là chọn
 ra một tập quan sát đủ để bài toán xấp xỉ được tính chất Markov và đủ để riêng quan sát
@@ -85,10 +85,10 @@ mà không phụ thuộc thêm vào bất kỳ quan sát nào trong quá khứ:
 tiêu thiết kế chỉ là tiệm cận nó với chi phí quan sát thấp nhất. Khi một quan sát tức thời
 chưa đủ Markov, có hai kỹ thuật bổ trợ hay được dùng. Thứ nhất là chồng khung: ghép vài
 quan sát liên tiếp gần nhất thành một vector duy nhất, nhờ đó thông tin về xu hướng chuyển
-động - chẳng hạn vận tốc suy từ hiệu vị trí giữa hai khung - hiện lên tường minh. Thứ hai
+động hiện lên tường minh. Thứ hai
 là dùng mạng có bộ nhớ hồi tiếp, để chính tác nhân tự tổng hợp lịch sử. Đề tài thiên về
 cách thứ nhất, kết hợp bổ sung thẳng các đại lượng động như vận tốc vào vector quan sát,
-cốt giữ cho mạng chính sách đơn giản và ổn định.
+nhằm giữ cho mạng chính sách đơn giản và ổn định.
 
 \indent Quan sát ở cả ba môi trường đều là dạng vector, tức một chuỗi số thực độ dài cố
 định, mỗi phần tử mã hóa một đại lượng mang ý nghĩa vật lý hoặc logic. Thường gặp ba loại.
@@ -339,13 +339,13 @@ tới đích. Dưới: Cross The Road, một tác nhân băng qua các làn xe �
 \label{fig:env_suite}
 \end{figure}
 
-\indent Tác nhân Football Table có tám hành động liên tục và sáu mươi quan sát. Hàm phần
-thưởng gồm ba khoản: một phần thưởng lớn khi ghi bàn, một hình phạt khi bị thủng lưới, và
+\indent Tác nhân Football Table có 8 hành động liên tục và 60 quan sát. Hàm phần
+thưởng gồm 3 khoản: một phần thưởng lớn khi ghi bàn, một hình phạt khi bị thủng lưới, và
 một hình phạt thời gian nhỏ ở mỗi bước để thúc tác nhân dứt điểm sớm. Lượt chơi kết thúc
-khi bóng vào một trong hai khung thành, hoặc khi chạm mốc ba nghìn bước - tương ứng khoảng
+khi bóng vào một trong hai khung thành, hoặc khi chạm mốc ba nghìn bước, tương ứng khoảng
 một phút mô phỏng.
 
-\indent Tác nhân Capture The Flag có bảy hành động rời rạc và sáu mươi mốt quan sát. Hàm
+\indent Tác nhân Capture The Flag có 7 hành động rời rạc và 61 quan sát. Hàm
 phần thưởng ở đây nhiều thành phần hơn: một phần thưởng nhóm khi cả hai tác nhân cùng tới
 đích, một phần thưởng nhóm trao một lần cho mỗi tác nhân khi vượt được cổng đang khóa, một
 phần thưởng cá nhân định hình theo thế năng khoảng cách tới đích, một phần thưởng nhỏ khi
@@ -353,7 +353,7 @@ phần thưởng cá nhân định hình theo thế năng khoảng cách tới �
 hai tác nhân cùng chạm đích, hoặc khi khu vực huấn luyện chạy đủ một trăm nghìn bước vật
 lý.
 
-\indent Tác nhân Cross The Road có bốn hành động rời rạc và một trăm ba mươi hai quan sát.
+\indent Tác nhân Cross The Road có 4 hành động rời rạc và 132 quan sát.
 Hàm phần thưởng đơn giản nhất trong ba môi trường: một phần thưởng khi chạm vạch đích, một
 hình phạt nhỏ khi va chạm, cộng thêm tín hiệu tò mò cường độ thấp để khuyến khích khám
 phá. Lượt chơi kết thúc ngay khi tác nhân chạm vạch đích hoặc đâm phải xe, tường, cây; số
@@ -361,19 +361,19 @@ bước thì không bị giới hạn.
 
 \indent Bảng~\ref{tab:env_speed} đặt cạnh nhau tốc độ huấn luyện thực đo của ba môi trường
 trên cùng một máy, mỗi môi trường lấy lần chạy PPO làm đại diện. Đáng chú ý là ba con số
-nằm khá sát nhau, từ năm trăm sáu mươi lăm tới bảy trăm bước mỗi giây, dù khối lượng vật
+nằm khá sát nhau, từ 565 tới 700 mỗi giây, dù khối lượng vật
 lý của ba môi trường chênh nhau rất xa. Nguyên nhân nằm ở hai yếu tố tác động ngược chiều
 và gần như triệt tiêu lẫn nhau: khối lượng vật lý phải mô phỏng trong mỗi khu vực, và số
 bước vật lý giữa hai lần ra quyết định. Cross The Road nhanh nhất vì nó chỉ mô phỏng một
-khối tác nhân trượt theo ô lưới cùng năm chiếc xe chạy thẳng, dù mỗi quyết định trải trên
-năm bước vật lý. Football Table phải giải khớp vật lý của tám thanh gạt cộng va chạm liên
+khối tác nhân trượt theo ô lưới cùng 5 chiếc xe chạy thẳng, dù mỗi quyết định trải trên
+5 bước vật lý. Football Table phải giải khớp vật lý của 8 thanh gạt cộng va chạm liên
 tục của quả bóng, nhưng bù lại chỉ cách hai bước vật lý giữa hai quyết định. Còn Capture
-The Flag, vật lý nhẹ nhất trong ba môi trường, lại hóa ra chậm nhất - vì mỗi quyết định
-của tác nhân trải tới hai mươi bước vật lý và mỗi lượt chơi kéo dài tối đa một trăm nghìn
+The Flag, vật lý nhẹ nhất trong ba môi trường nhưng lại chậm nhất vì mỗi quyết định
+của tác nhân trải tới 20 vật lý và mỗi lượt chơi kéo dài tối đa 100000
 bước.
 
 \indent Ba tốc độ sát nhau kéo theo một hệ quả thực tiễn: trên cả ba môi trường, một lần
-chạy của các thuật toán on-policy đều mất khoảng năm mươi phút. Vậy nên chênh lệch thời
+chạy của các thuật toán on-policy đều mất khoảng 50 phút. Vậy nên chênh lệch thời
 gian thực đáng kể mà Chương~\ref{ch:results} ghi nhận là do bản thân thuật toán, cụ thể là
 chi phí cập nhật mạng của nhóm off-policy, chứ không phải do môi trường.
 
@@ -455,19 +455,18 @@ của mỗi thanh gạt.
 
 \subsubsection{Không gian quan sát}
 \label{sub:football-obs}
-\indent Vector quan sát của mỗi đội có sáu mươi giá trị, chia làm ba nhóm bổ sung cho
-nhau. Mười hai giá trị đầu mô tả trạng thái quả bóng: ba giá trị vận tốc đã nén về khoảng
-$[-1,1]$ và chín giá trị mã hóa vị trí bóng. Ba mươi hai giá trị kế tiếp dành cho đội nhà
-- mỗi thanh gạt góp bốn đại lượng gồm vận tốc trượt, vận tốc xoay, vị trí trượt và góc
+\indent Vector quan sát của mỗi đội có 60 giá trị, chia làm ba nhóm bổ sung cho
+nhau. 12 giá trị đầu mô tả trạng thái quả bóng: 3 giá trị vận tốc đã nén về khoảng
+$[-1,1]$ và 9 giá trị mã hóa vị trí bóng. 32 giá trị kế tiếp dành cho đội nhà, mỗi thanh gạt góp 4 đại lượng gồm vận tốc trượt, vận tốc xoay, vị trí trượt và góc
 xoay hiện tại, đủ để tác nhân biết chính xác tư thế của toàn bộ hàng cầu thủ bên mình.
-Mười sáu giá trị cuối mô tả đội đối phương bằng bốn đại lượng tương tự cho mỗi thanh gạt,
+16 giá trị cuối mô tả đội đối phương bằng 4 đại lượng tương tự cho mỗi thanh gạt,
 giúp tác nhân đoán được ý đồ và phản ứng của đối thủ.
 
 \indent Có hai chi tiết trong cách mã hóa quan sát đáng dừng lại. Thứ nhất là kỹ thuật
 tách chữ số thập phân: thay vì đưa vào mạng một giá trị duy nhất cho vị trí bóng hay góc
 xoay thanh gạt, giá trị đó được tách thành nhiều thành phần ứng với các hàng thập phân
 liên tiếp. Nhờ vậy một thay đổi rất nhỏ ở hàng thập phân sâu vẫn tạo ra biến thiên rõ rệt
-ở một thành phần đầu vào, và mạng nhạy hơn hẳn với những sai lệch tinh vi về vị trí - thứ
+ở một thành phần đầu vào, và mạng nhạy hơn hẳn với những sai lệch tinh vi về vị trí, thứ
 quyết định thành bại của một cú chạm bóng. Thứ hai là phép đối xứng hóa quan sát: mọi vị
 trí và vận tốc được đưa về hệ tọa độ địa phương của sân rồi nhân với một hệ số dấu tùy
 theo phía của đội. Sau biến đổi này, cả hai phía đều thấy khung thành đối phương ở cùng
@@ -496,9 +495,9 @@ nhân độc lập. Hai, nó khớp thẳng với cơ chế tự chơi, bởi kh
 
 \indent Về mặt vật lý, một giá trị hành động không dịch chuyển thanh gạt tức thời. Nó
 được diễn giải thành mức thay đổi vận tốc trượt hoặc vận tốc xoay, đặt lên thân vật lý của
-thanh gạt tương ứng với hệ số lần lượt là một và hai mươi lăm; chuyển động cuối cùng, cùng
+thanh gạt tương ứng với hệ số lần lượt là 1 và 25; chuyển động cuối cùng, cùng
 va chạm giữa thanh gạt và quả bóng, do hệ thống vật lý Unity quyết định. Tác nhân ra quyết
-định sau mỗi hai bước vật lý, tức hai mươi lăm quyết định mỗi giây mô phỏng, và hành động
+định sau mỗi hai bước vật lý, tức 25 quyết định mỗi giây mô phỏng, và hành động
 giữ nguyên ở bước vật lý xen giữa. Chính tính liên tục ấy biến Football Table thành phép
 thử tiêu biểu cho các thuật toán điều khiển liên tục, khác hẳn hai môi trường rời rạc còn
 lại.
@@ -805,7 +804,7 @@ soi chiếu vào chuỗi này, với một yêu cầu bắt buộc: không thàn
 trạng thái nằm trên chuỗi. Yêu cầu tưởng như hiển nhiên ấy chính là thứ mà phiên bản phần
 thưởng đầu tiên vi phạm.
 
-\indent \textbf{Phần thưởng mục tiêu.} Khoản lớn nhất, bằng một điểm, chỉ trao khi cả hai
+\indent Phần thưởng mục tiêu: Khoản lớn nhất, bằng một điểm, chỉ trao khi cả hai
 tác nhân cùng đến được đích - và trao cho nhóm chứ không cho cá nhân. Chọn phạm vi nhóm
 là quyết định có hệ quả sâu xa: hàm giá trị mà mạng phê bình phải học trở thành giá trị
 của cả đội, nhờ đó một tác nhân đứng yên giữ bàn đạp vẫn được ghi công khi đồng đội về
@@ -816,7 +815,7 @@ nhóm này chính là điều kiện để các thuật toán gán công lao đa
 phân rã một phần thưởng chung thành đóng góp của từng tác nhân
 \cite{foerster2018counterfactual}.
 
-\indent \textbf{Phần thưởng định hình theo khoảng cách.} Thành phần dẫn đường dựng đúng
+\indent Phần thưởng định hình theo khoảng cách: Thành phần dẫn đường dựng đúng
 theo khuôn khổ ở Định nghĩa~\ref{dn:pbrs}, lấy hàm thế năng bằng đối số của khoảng cách từ
 tác nhân tới đích, tức $\Phi(s) = -d(s)$. Phần thưởng cộng thêm mỗi bước do đó có dạng
 \begin{equation}
@@ -849,7 +848,7 @@ muốn thành phần dẫn đường không lấn át phần thưởng mục ti�
 tức $d(s_0) < 100$ đơn vị - điều mà chiều dài hành lang của bố cục hiện tại thỏa mãn với
 biên độ an toàn rất rộng.
 
-\indent \textbf{Phần thưởng bàn giao.} Thành phần hợp tác then chốt được trao mỗi khi một
+\indent Phần thưởng bàn giao: Thành phần hợp tác then chốt được trao mỗi khi một
 tác nhân vừa vượt qua cổng đang khóa: cả nhóm cộng nửa điểm, và mỗi tác nhân chỉ nhận
 khoản này đúng một lần trong mỗi lượt chơi. Ba chi tiết trong định nghĩa ấy đều có lý do
 riêng. Điều kiện cổng đang khóa, ghép với kết luận định lượng ở Mục~\ref{sub:coop-handoff}
@@ -862,7 +861,7 @@ vi nhóm thì bảo đảm tác nhân đang giữ bàn đạp cũng được ghi
 lặp đi lặp lại, khác hẳn một khoản cộng dồn theo từng bước; đây chính là bài học rút ra từ
 phiên bản thiết kế đầu tiên.
 
-\indent \textbf{Các khoản theo bước.} Tác nhân đang đứng trên bàn đạp nhận một khoản
+\indent Các khoản theo bước: Tác nhân đang đứng trên bàn đạp nhận một khoản
 thưởng nhỏ, và việc đẩy khối vật cản cũng vậy. Hai khoản này cố tình đi ngược nguyên tắc
 ưu tiên sự kiện một lần, và lý do là khám phá. Giữ bàn đạp là hành vi phải duy trì theo
 thời gian nên không cách nào diễn đạt bằng một sự kiện tức thời; mà nếu chẳng có tín hiệu
@@ -1350,7 +1349,7 @@ Nền tảng học sâu & PyTorch 2.2.2 với CUDA 12.1 \\
 \hline
 Thư viện bổ sung & Stable-Baselines3 và giao diện Python của ML-Agents \\
 \hline
-Hệ số tăng tốc mô phỏng & gấp hai mươi lần thời gian thực \\
+Hệ số tăng tốc mô phỏng & gấp 20 lần thời gian thực \\
 \hline
 \end{tabular}
 \end{table}
