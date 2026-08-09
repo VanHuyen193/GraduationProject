@@ -31,8 +31,8 @@ luyện, phục vụ việc quan sát và đánh giá trực quan chất lượn
 phiên, đóng vai đồng đội hay đối thủ tùy bản chất từng môi trường.
 
 \indent Nhóm thứ ba là lựa chọn mô hình. Ở mọi chế độ có tác nhân máy tham gia, người dùng
-phải chọn được mô hình cụ thể - tương ứng PPO, SAC, MA-POCA, MAPPO, DQN, hoặc các phiên
-bản huấn luyện khác nhau - cho tác nhân dùng. Yêu cầu này biến ứng dụng thành một công cụ
+phải chọn được mô hình cụ thể (tương ứng PPO, SAC, MA-POCA, MAPPO, DQN, hoặc các phiên bản
+huấn luyện khác nhau) cho tác nhân dùng. Yêu cầu này biến ứng dụng thành một công cụ
 so sánh trực quan: có thể chạy lần lượt cùng một môi trường với các mô hình khác nhau để
 xem hành vi khác ra sao, hoặc cho hai mô hình đối đầu trực tiếp trong Football Table.
 
@@ -40,8 +40,8 @@ xem hành vi khác ra sao, hoặc cho hai mô hình đối đầu trực tiếp 
 mở TensorBoard hay lật lại báo cáo, menu có thêm hai tab chuyên biệt: một tab hiển thị
 đường cong phần thưởng và bảng thống kê của cả năm thuật toán trên môi trường đang chọn,
 một tab tổng hợp và xếp hạng các thuật toán trên cả ba môi trường. Hai tab này phải phủ
-đúng phạm vi thực nghiệm của Chương~\ref{ch:results} - mười lăm lần chạy, không thiếu
-thuật toán nào. Người dùng nhờ vậy xem số liệu trước rồi chuyển sang tab chơi để đối chiếu
+đúng phạm vi thực nghiệm của Chương~\ref{ch:results}: $15$ lần chạy, không thiếu thuật toán
+nào. Người dùng nhờ vậy xem số liệu trước rồi chuyển sang tab chơi để đối chiếu
 với hành vi quan sát được.
 
 \indent Ngoài chức năng, còn một ràng buộc kỹ thuật rất quan trọng: ứng dụng không được
@@ -55,8 +55,8 @@ mọi thứ phải y nguyên như cũ.
 \label{sub:app-arch}
 
 \indent Mã nguồn của ứng dụng trình diễn nằm gọn trong thư mục riêng
-\texttt{Assets/GameHub}, tách hẳn khỏi mã nguồn ba môi trường - phần này thuộc một gói
-riêng (Mục~\ref{sub:app-package}) và được ứng dụng tiêu thụ qua ranh giới assembly.
+\texttt{Assets/GameHub}, tách hẳn khỏi mã nguồn ba môi trường; phần này thuộc một gói riêng
+(Mục~\ref{sub:app-package}) và được ứng dụng tiêu thụ qua ranh giới assembly.
 Bảng~\ref{tab:app_modules} tóm tắt các thành phần chính của hệ thống.
 
 % Bảng dài mười hai dòng mô tả nên không thể nằm gọn trong một trang. Dùng longtable
@@ -120,37 +120,132 @@ tương ứng được nạp. Thành phần \texttt{GameModeApplier} đã đăng
 \texttt{[Runtime\allowbreak Initialize\allowbreak On\allowbreak Load\allowbreak Method]},
 nên nó luôn sẵn sàng trước mọi lần chuyển scene. Scene môi trường nạp xong, thành phần này
 kiểm tra xem người dùng có đi vào từ menu hay không. Có, thì nó tìm các tác nhân trong
-scene và cấu hình lại từng tác nhân theo chế độ đã chọn. Không - tức là ai đó mở scene
-trực tiếp để huấn luyện - thì nó đứng ngoài, scene giữ nguyên cấu hình gốc. Chính cách
+scene và cấu hình lại từng tác nhân theo chế độ đã chọn. Không, tức là ai đó mở scene trực
+tiếp để huấn luyện, thì nó đứng ngoài, scene giữ nguyên cấu hình gốc. Chính cách
 tiếp cận dựa trên sự kiện này cho phép thêm đầy đủ chức năng chơi game mà không phải sửa
 bất kỳ scene môi trường nào.
 
 \begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-    node distance=1.0cm and 2.0cm,
-    box/.style={draw, rounded corners=2pt, align=center, minimum height=1.1cm,
-                inner sep=5pt, font=\fontsize{11pt}{14pt}\selectfont},
-    lbl/.style={font=\fontsize{10pt}{12pt}\selectfont, fill=white, inner sep=2pt},
-    arr/.style={->, thick}
-]
-\node[box, fill=blue!10, text width=4.2cm] (menu) {Scene \texttt{MainMenu}\\ \texttt{MainMenuUI}};
-\node[box, fill=orange!15, right=of menu, text width=5.6cm] (sel) {\texttt{GameModeSelection}\\ (môi trường, chế độ, mô hình)};
-\node[box, fill=blue!10, below=of sel, text width=5.6cm] (scene) {Nạp scene môi trường\\ (CrossTheRoad / CaptureTheFlag\\ / Football)};
-\node[box, fill=orange!15, below=of menu, text width=4.2cm] (applier) {\texttt{GameModeApplier}\\ (sự kiện \texttt{sceneLoaded})};
-\node[box, fill=green!12, below=of applier, text width=4.6cm] (agent) {Cấu hình tác nhân\\ Heuristic / Inference\\ + mô hình ONNX};
-\node[box, fill=green!12, below=of scene, text width=4.6cm] (hud) {\texttt{InGameHUD}\\ + điều khiển người chơi};
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}[
+        >=Stealth,
+        box/.style={
+            draw,
+            rounded corners=2pt,
+            thick,
+            align=center,
+            minimum height=0.85cm,
+            inner sep=4pt,
+            font=\fontsize{9pt}{11pt}\selectfont
+        },
+        main/.style={
+            box,
+            fill=blue!10,
+            text width=3.8cm
+        },
+        select/.style={
+            box,
+            fill=orange!15,
+            text width=4.5cm
+        },
+        process/.style={
+            box,
+            fill=green!12,
+            text width=4.1cm
+        },
+        arr/.style={
+            ->,
+            thick
+        },
+        lbl/.style={
+            font=\fontsize{8pt}{10pt}\selectfont,
+            fill=white,
+            inner sep=2pt
+        }
+    ]
 
-\draw[arr] (menu) -- node[lbl, above]{ghi lựa chọn} (sel);
-\draw[arr] (sel) -- (scene);
-\draw[arr] (scene) -- node[lbl, above]{thông báo} (applier);
-\draw[arr] (applier) -- (agent);
-\draw[arr] (applier) -- (hud);
-\end{tikzpicture}
-\caption{Luồng hoạt động của ứng dụng trình diễn}
-\label{fig:app_flow}
+    %================================================
+    % MAIN MENU
+    %================================================
+
+    \node[main] (menu)
+        {Scene \texttt{MainMenu}\\
+         \texttt{MainMenuUI}};
+
+    %================================================
+    % GAME MODE SELECTION
+    %================================================
+
+    \node[select, below=0.9cm of menu] (sel)
+        {\texttt{GameModeSelection}\\
+         môi trường, chế độ, mô hình};
+
+    %================================================
+    % LOAD SCENE
+    %================================================
+
+    \node[main, below=0.9cm of sel] (scene)
+        {Nạp scene môi trường\\
+         \texttt{CrossTheRoad} / \texttt{CaptureTheFlag}\\
+         / \texttt{Football}};
+
+    %================================================
+    % GAME MODE APPLIER
+    %================================================
+
+    \node[select, below=0.9cm of scene] (applier)
+        {\texttt{GameModeApplier}\\
+         sự kiện \texttt{sceneLoaded}};
+
+    %================================================
+    % FINAL BRANCHES
+    %================================================
+
+    \node[process, below left=1.1cm and 1.0cm of applier] (agent)
+        {Cấu hình tác nhân\\
+         Heuristic / Inference\\
+         + mô hình ONNX};
+
+    \node[process, below right=1.1cm and 1.0cm of applier] (hud)
+        {\texttt{InGameHUD}\\
+         + điều khiển người chơi};
+
+    %================================================
+    % MAIN FLOW
+    %================================================
+
+    \draw[arr]
+        (menu) -- node[lbl, right]{ghi lựa chọn} (sel);
+
+    \draw[arr]
+        (sel) -- (scene);
+
+    \draw[arr]
+        (scene) -- node[lbl, right]{thông báo} (applier);
+
+    %================================================
+    % BRANCH
+    %================================================
+
+    \coordinate (branch)
+        at ($(applier.south)+(0,-0.35cm)$);
+
+    \draw[thick]
+        (applier.south) -- (branch);
+
+    \draw[arr]
+        (branch) -| (agent.north);
+
+    \draw[arr]
+        (branch) -| (hud.north);
+
+    \end{tikzpicture}%
+    }
+
+    \caption{Luồng hoạt động của ứng dụng trình diễn}
+    \label{fig:app_flow}
 \end{figure}
-
 \indent Mấu chốt của khâu cấu hình tác nhân nằm ở việc chuyển đổi giữa các loại hành vi
 của ML-Agents. Mỗi tác nhân mang một thành phần \texttt{BehaviorParameters} quy định nguồn
 ra quyết định của nó. Phe do người chơi điều khiển thì loại hành vi đặt thành
@@ -170,8 +265,8 @@ dựng bằng mã lệnh, không dùng prefab giao diện, và chia thành ba ta
 \textit{THÔNG SỐ}, \textit{SO SÁNH}. Tab \textit{CHƠI} (Hình~\ref{fig:app_menu}) chia màn
 hình làm hai cột. Cột trái là khung xem trước môi trường ở dạng ba chiều, kèm tên, khẩu
 hiệu phân loại bài toán và mô tả ngắn. Cột phải gồm lưới nút chọn chế độ chơi, khu vực
-chọn mô hình, khối mô tả và nút bắt đầu. Khối mô tả đổi động theo tổ hợp môi trường - chế
-độ đang chọn, hiển thị tóm tắt luật chơi cùng sơ đồ phím điều khiển, để người dùng nắm
+chọn mô hình, khối mô tả và nút bắt đầu. Khối mô tả đổi động theo tổ hợp môi trường và chế độ
+đang chọn, hiển thị tóm tắt luật chơi cùng sơ đồ phím điều khiển, để người dùng nắm
 được cách chơi trước khi vào game.\par}
 
 \begin{figure}[H]
@@ -185,7 +280,7 @@ chọn chế độ chơi (phải)}
 {\sloppy
 \indent Khung xem trước ba chiều là việc của thành phần \texttt{Preview3D}. Nó không dùng
 ảnh tĩnh, mà nạp prefab môi trường từ thư mục \texttt{Resources/\allowbreak EnvPrefabs}
-rồi chỉ sao chép các cặp lưới - vật liệu (\texttt{MeshFilter} và \texttt{MeshRenderer})
+rồi chỉ sao chép các cặp lưới và vật liệu (\texttt{MeshFilter} và \texttt{MeshRenderer})
 sang một ``sân khấu'' đặt xa khu vực menu. Giữ lại mỗi phần hình học nghĩa là bản xem
 trước không mang theo mã điều khiển hay thành phần vật lý nào; chẳng có mô phỏng nào chạy
 ngầm, cũng không ảnh hưởng chéo tới scene menu. Một camera riêng render sân khấu ấy ra
@@ -199,12 +294,12 @@ chuyền.\par}
 ô chọn cũng đổi theo ngữ cảnh: tổ hợp nào chỉ cần một mô hình thì hiện một ô duy nhất,
 riêng Football Table ở chế độ \textit{Agent tự chơi} hiện hai ô riêng cho đội Xanh và đội
 Đỏ (Hình~\ref{fig:app_menu_models}) để hai mô hình khác nhau đối đầu trực tiếp. Nhãn từng
-ô cũng sinh theo ngữ cảnh - ``Model cho cả 2 agent'', ``Model đội Xanh'', ``Model agent
-đồng đội''\dots{} - nên người dùng biết chính xác mô hình mình chọn sẽ điều khiển ai. Danh
+ô cũng sinh theo ngữ cảnh: ``Model cho cả 2 agent'', ``Model đội Xanh'', ``Model agent đồng
+đội''\dots{}, nên người dùng biết chính xác mô hình mình chọn sẽ điều khiển ai. Danh
 sách mô hình trong mỗi ô liệt kê tự động từ thư mục tài nguyên, thành ra thêm một mô hình
 mới chỉ là chuyện sao chép tệp ONNX vào đúng chỗ, không phải sửa dòng mã nào. Mỗi ô hiển
-thị tên thuật toán ghép mã lần chạy - chẳng hạn ``MA-POCA \textperiodcentered{}
-ctf\_poca\_v2'' - và tô đúng màu quy ước của thuật toán đó. Duyệt lần lượt năm mô hình của
+thị tên thuật toán ghép mã lần chạy, chẳng hạn ``MA-POCA \textperiodcentered{}
+ctf\_poca\_v2'', và tô đúng màu quy ước của thuật toán đó. Duyệt lần lượt năm mô hình của
 một môi trường, người dùng biết ngay đang xem chính sách của thuật toán nào, khỏi phải
 thuộc lòng quy ước đặt tên các lần chạy.
 
@@ -240,8 +335,8 @@ Football\}/}
 \end{center}
 
 {\sloppy
-\noindent Tên tệp giữ đúng bằng mã của lần chạy huấn luyện - \texttt{ctr01},
-\texttt{ctf\_mappo\_v2} chẳng hạn - và cũng chính tên đó là nhãn hiển thị trong menu. Mô
+\noindent Tên tệp giữ đúng bằng mã của lần chạy huấn luyện, \texttt{ctr01} hay
+\texttt{ctf\_mappo\_v2} chẳng hạn, và cũng chính tên đó là nhãn hiển thị trong menu. Mô
 hình trong ứng dụng vì vậy luôn truy vết ngược được về đúng thư mục kết quả và đúng biểu
 đồ đã phân tích ở Chương~\ref{ch:results}. Unity nhập mỗi tệp ONNX thành một tài sản
 \texttt{ModelAsset} của gói suy luận tích hợp; ứng dụng nhờ đó liệt kê được danh sách mô
@@ -261,14 +356,14 @@ menu phản ánh trực tiếp nội dung thư mục tài nguyên, nên thêm m�
 sao chép tệp. Mà thao tác sao chép ấy giờ do chính kịch bản xuất dữ liệu huấn luyện lo
 (Mục~\ref{sub:app-stats}): sau mỗi đợt huấn luyện, kịch bản lấy tệp ONNX cuối cùng của
 từng lần chạy, đặt tên theo mã lần chạy, ghi vào đúng thư mục con của môi trường. Ứng dụng
-nhờ đó luôn đóng gói \textbf{toàn bộ mười lăm mô hình} ứng với mười lăm lần chạy của
+nhờ đó luôn đóng gói \textbf{toàn bộ $15$ mô hình} ứng với $15$ lần chạy của
 Chương~\ref{ch:results}, liệt kê ở Bảng~\ref{tab:app_models}. Mỗi môi trường có đủ năm
 chính sách của năm thuật toán đặt cạnh nhau, so sánh hành vi bằng mắt ngay trên cùng một
 nhiệm vụ.
 
 \begin{table}[H]
 \centering
-\caption{Mười lăm mô hình ONNX được đóng gói sẵn trong ứng dụng}
+\caption{$15$ mô hình ONNX được đóng gói sẵn trong ứng dụng}
 \label{tab:app_models}
 \renewcommand{\arraystretch}{1.3}
 \tablefont
@@ -312,7 +407,7 @@ nhiệm vụ.
 \end{tabular}
 \end{table}
 
-\indent Một chi tiết kỹ thuật phải xử lý riêng khi đóng gói đủ mười lăm mô hình là
+\indent Một chi tiết kỹ thuật phải xử lý riêng khi đóng gói đủ $15$ mô hình là
 \textit{không gian hành động}. Trên Cross The Road và Capture The Flag, cả năm thuật
 toán đều dùng hành động rời rạc nên mọi tệp ONNX đều nạp được vào scene gốc. Riêng
 Football Table, bốn thuật toán PPO, SAC, MA-POCA và MAPPO sinh chính sách hành động
@@ -347,9 +442,9 @@ mới.
 tệp này bằng \texttt{EventAccumulator} của TensorBoard rồi chạy bốn bước xử lý nối tiếp.
 Bước một, gộp chuỗi \texttt{Environment/Cumulative Reward} của mọi tệp nhật ký thuộc cùng
 một lần chạy và sắp theo số bước. Bước hai, làm mượt chuỗi bằng trung bình trượt để bớt
-nhiễu giữa các tập. Bước ba, rút gọn chuỗi đã làm mượt xuống tối đa một trăm hai mươi điểm
-cách đều, giữ kích thước tệp đủ nhỏ để nạp trong game. Bước bốn, tính các thống kê tóm tắt
-- phần thưởng cuối, phần thưởng tốt nhất, trung bình mười phần trăm cuối, bước hội tụ ước
+nhiễu giữa các tập. Bước ba, rút gọn chuỗi đã làm mượt xuống tối đa $120$ điểm cách đều, giữ
+kích thước tệp đủ nhỏ để nạp trong game. Bước bốn, tính các thống kê tóm tắt: phần thưởng
+cuối, phần thưởng tốt nhất, trung bình mười phần trăm cuối, bước hội tụ ước
 lượng, tổng số bước.
 
 \indent Cũng trong lượt chạy đó, kịch bản làm thêm hai việc để dữ liệu và mô hình không
@@ -366,10 +461,10 @@ là đủ để biểu đồ, bảng thống kê và danh mục mô hình trong 
 nó phân cấp: danh sách môi trường, mỗi môi trường một danh sách thuật toán, mỗi thuật toán
 gồm mã lần chạy, tên tệp mô hình, không gian hành động, các thống kê tóm tắt, cùng hai
 mảng song song \texttt{cs} (số bước) và \texttt{cv} (giá trị phần thưởng đã làm mượt). Tệp
-hiện hành chứa đủ mười lăm lần chạy của Chương~\ref{ch:results}. Bên phía Unity, lớp
+hiện hành chứa đủ $15$ lần chạy của Chương~\ref{ch:results}. Bên phía Unity, lớp
 \texttt{TrainingDataStore} nạp tệp một lần duy nhất bằng \texttt{JsonUtility} rồi lưu đệm.
-Năm thuật toán đều có màu cố định - PPO xanh dương, SAC xanh lá, MA-POCA cam, MAPPO tím,
-DQN đỏ - dùng thống nhất cho biểu đồ, chú giải lẫn bảng, và trùng với bảng màu của các đồ
+Năm thuật toán đều có màu cố định (PPO xanh dương, SAC xanh lá, MA-POCA cam, MAPPO tím, DQN
+đỏ), dùng thống nhất cho biểu đồ, chú giải lẫn bảng, và trùng với bảng màu của các đồ
 thị ở Chương~\ref{ch:results} để người xem đối chiếu giữa hai nơi mà khỏi phải đọc lại chú
 giải. Mã lần chạy được lưu kèm, nên mọi con số hiển thị trong ứng dụng đều truy ngược được
 về đúng thư mục kết quả đã dùng phân tích ở Chương~\ref{ch:results}. Mã đó cũng chính là
@@ -399,7 +494,7 @@ năm thuật toán trên môi trường Cross The Road}
 cuối, phần thưởng tốt nhất, trung bình mười phần trăm cuối, bước hội tụ ước lượng, tổng số
 bước. Cột đầu ghi tên thuật toán kèm mã lần chạy ở cỡ chữ nhỏ, để mỗi dòng chỉ đích danh
 mô hình đã sinh ra con số đó. Thuật toán nào chưa huấn luyện trên môi trường đang xem thì
-hiện ``N/A'' chứ không bị ẩn đi - người xem nhờ vậy thấy rõ phạm vi thực nghiệm của đề tài
+hiện ``N/A'' chứ không bị ẩn đi, để người xem thấy rõ phạm vi thực nghiệm của đề tài
 tới đâu. Đại lượng vẽ ở đây là phần thưởng tích lũy môi trường
 (\texttt{Environment/Cumulative Reward}) lấy nguyên từ nhật ký huấn luyện, nên thang giá
 trị có thể lệch so với các đường cong phần thưởng ngoại sinh ở Chương~\ref{ch:results}.
@@ -417,8 +512,8 @@ chiều cao cột được chuẩn hóa theo giá trị lớn nhất trong từn
 dùng chung một trục; nhờ vậy việc so sánh luôn diễn ra trong nội bộ một môi trường,
 đúng với kết luận xuyên suốt của đề tài rằng thứ hạng thuật toán chỉ có ý nghĩa khi
 gắn với một dạng bài toán cụ thể. Bảng xếp hạng phía dưới liệt kê đủ cả năm vị trí của
-từng môi trường chứ không cắt ở ba vị trí đầu, cho phép đọc ngay kết luận so sánh - kể
-cả thuật toán xếp cuối - mà không cần nhìn biểu đồ.
+từng môi trường chứ không cắt ở ba vị trí đầu, cho phép đọc ngay kết luận so sánh, kể cả thuật
+toán xếp cuối, mà không cần nhìn biểu đồ.
 Có một chỗ vênh cần nói rõ: bảng xếp hạng trong ứng dụng sắp thứ tự thuần theo phần
 thưởng, nên với Football Table nó không trùng với thứ hạng ở
 Bảng~\ref{tab:overall_ranking}, nơi môi trường đối kháng được xếp theo mức tăng chỉ số
@@ -436,8 +531,8 @@ thuật toán}
 \subsection{Ba chế độ chơi trong từng môi trường}
 \label{sub:app-modes}
 
-\indent Ba môi trường khác nhau về bản chất - đơn tác nhân, hợp tác, đối kháng - nên ba
-chế độ chơi phải ánh xạ vào mỗi nơi theo một cách riêng. Bảng~\ref{tab:app_mode_matrix}
+\indent Ba môi trường khác nhau về bản chất (đơn tác nhân, hợp tác, đối kháng) nên ba chế độ
+chơi phải ánh xạ vào mỗi nơi theo một cách riêng. Bảng~\ref{tab:app_mode_matrix}
 tổng hợp lại.
 
 \begin{table}[H]
@@ -471,7 +566,7 @@ Mục~\ref{sub:app-model}.} \\
 \indent Chế độ \textit{Người chơi} cho người dùng điều khiển nhân vật bằng phím mũi tên
 (hoặc A/D/W), đúng theo bốn hành động rời rạc mà tác nhân được phép dùng khi huấn luyện:
 đứng yên, sang trái, sang phải, tiến lên. Ràng buộc người chơi vào đúng không gian hành
-động của tác nhân là chủ ý - có thế người dùng mới đánh giá đúng độ khó của bài toán, chứ
+động của tác nhân là chủ ý, có thế người dùng mới đánh giá đúng độ khó của bài toán, chứ
 được điều khiển tự do hơn tác nhân thì rất dễ đi tới kết luận sai lệch.
 
 \indent Chế độ \textit{Agent tự chơi} chuyển mọi tác nhân trong scene sang suy luận bằng
@@ -481,7 +576,7 @@ chỉ số dựng sẵn trong môi trường hiện phần thưởng tích lũy,
 bước của tập hiện tại. Người xem nhờ vậy đối chiếu được ngay hành vi quan sát được với chỉ
 số mà mô hình đạt. Đây cũng là cách trực quan nhất để thấy khác biệt giữa các thuật toán:
 mô hình SAC băng qua đường với ít va chạm hơn, còn mô hình MAPPO hay dừng lâu hơn ở những
-làn mật độ phương tiện cao - khớp với thứ hạng phần thưởng đã trình bày ở
+làn mật độ phương tiện cao, khớp với thứ hạng phần thưởng đã trình bày ở
 Chương~\ref{ch:results}.
 
 \begin{figure}[H]
@@ -499,13 +594,13 @@ nằm gọn trong màn hình. Scene Cross The Road hiện có tám khu vực hu�
 dùng được thoải mái; số khu vực dư chẳng ảnh hưởng gì vì chúng bị tắt ngay khi scene nạp
 xong.
 
-\subsubsection{Capture The Flag: phối hợp người - máy}
+\subsubsection{Capture The Flag: phối hợp người và máy}
 
 \indent Môi trường hợp tác mở ra một kịch bản khá thú vị: con người phối hợp với tác nhân
 máy trong cùng một đội. Ở chế độ \textit{Chơi với Agent}, người chơi cầm một nhân vật bằng
 phím W A S D (kèm Q/E để đi ngang), nhân vật thứ hai do mô hình đã chọn điều khiển
 (Hình~\ref{fig:app_ctf_pva}). Nhiệm vụ đòi hỏi đúng chuỗi phối hợp đã phân tích ở
-Mục~\ref{sub:env-coop} - một bên đứng lên bàn đạp giữ cửa, bên kia đi qua, rồi đổi vai.
+Mục~\ref{sub:env-coop}: một bên đứng lên bàn đạp giữ cửa, bên kia đi qua, rồi đổi vai.
 Người chơi vì thế phải đoán được ý định của đồng đội máy và hành động sao cho ăn khớp,
 minh họa trực tiếp cho khái niệm phối hợp đa tác nhân.
 
@@ -520,20 +615,20 @@ cùng tác nhân đồng đội dùng mô hình \texttt{ctf\_mappo\_v2}}
 \indent Chế độ \textit{Người chơi} thì cả hai nhân vật đều do con người cầm, kiểu hai
 người chơi chung một bàn phím: một người dùng cụm W A S D (Q/E đi ngang), người kia dùng
 cụm phím mũi tên (dấu ngoặc vuông để đi ngang). Còn chế độ \textit{Agent tự chơi} giao cả
-hai nhân vật cho cùng một mô hình - tái hiện đúng cấu hình lúc huấn luyện, vì hai tác nhân
+hai nhân vật cho cùng một mô hình, tái hiện đúng cấu hình lúc huấn luyện, vì hai tác nhân
 vốn dùng chung một chính sách.
 
-\subsubsection{Football Table: đối đầu người - máy và máy - máy}
+\subsubsection{Football Table: đối đầu người với máy và máy với máy}
 
 \indent Ở môi trường đối kháng, chế độ \textit{Chơi với Agent} cho người chơi cầm đội Xanh
 đấu trực tiếp với mô hình bên đội Đỏ. Mỗi đội có bốn thanh gạt với tám kênh điều khiển
 liên tục, nên sơ đồ phím phải theo nguyên tắc ``một thanh tại một thời điểm'': phím Q/E
 hoặc các phím số 1-4 chọn thanh đang điều khiển, W/S trượt thanh, A/D xoay thanh để sút
-(Hình~\ref{fig:app_fb_player}). Tên thanh đang chọn - thủ môn, hậu vệ, tiền vệ, tiền đạo -
-hiện ở góc trên trái màn hình. Giá trị hành động do người chơi sinh ra còn được nhân với
+(Hình~\ref{fig:app_fb_player}). Tên thanh đang chọn (thủ môn, hậu vệ, tiền vệ, tiền đạo) hiện
+ở góc trên trái màn hình. Giá trị hành động do người chơi sinh ra còn được nhân với
 dấu của đội, y như cách chuẩn hóa hệ tọa độ khi huấn luyện, nên cùng một sơ đồ phím dùng
 được cho cả hai phía sân. Sang chế độ \textit{Người chơi}, đối thủ là bot luật cố định bám
-theo vị trí bóng - đúng đối thủ mốc đã dùng khi huấn luyện ở Mục~\ref{sub:env-football}.
+theo vị trí bóng, đúng đối thủ mốc đã dùng khi huấn luyện ở Mục~\ref{sub:env-football}.
 Độ khó vừa phải, hợp để người dùng làm quen sơ đồ điều khiển trước khi đối đầu các mô hình
 đã huấn luyện.
 
@@ -551,8 +646,8 @@ cho hai bản sao của cùng một mô hình gặp nhau; thanh thông tin phía
 của cả hai đội cùng lúc. Riêng DQN chỉ đấu được với chính nó, vì đây là chính sách rời rạc
 duy nhất trên môi trường này, và trận đấu ấy chạy trên bản scene rời rạc
 (Hình~\ref{fig:app_fb_dqn}). Về bản chất, đây là một công cụ đánh giá đối kháng trực tiếp
-thu nhỏ, bổ sung kênh so sánh định tính cho các kết quả định lượng ở
-Chương~\ref{ch:results} - bởi hai mô hình có phần thưởng trung bình sát nhau vẫn có thể
+thu nhỏ, bổ sung kênh so sánh định tính cho các kết quả định lượng ở Chương~\ref{ch:results},
+bởi hai mô hình có phần thưởng trung bình sát nhau vẫn có thể
 cho ra thế trận rất khác khi gặp trực tiếp.
 
 \begin{figure}[H]
@@ -601,7 +696,7 @@ phần thưởng, sinh vật cản, trọng tài) cùng giao diện
 \texttt{Editor/} & Trình hướng dẫn cài đặt và bốn công cụ: nhân khu vực huấn luyện,
 build headless, sinh bản scene hành động rời rạc, cài cấu hình huấn luyện. \\
 \hline
-\texttt{Configs/} & Mười lăm tệp YAML cho năm thuật toán trên ba môi trường. \\
+\texttt{Configs/} & $15$ tệp YAML cho năm thuật toán trên ba môi trường. \\
 \hline
 \texttt{Samples\textasciitilde/} & Bốn mẫu import được từ Package Manager: ba môi
 trường (scene, prefab, vật liệu, thiết lập vật lý) và bộ cấu hình huấn luyện. \\
@@ -633,8 +728,8 @@ public interface IManualActionSource
 \indent Hàm \texttt{Heuristic} của môi trường giờ chỉ hỏi đúng một câu: ``trên GameObject
 này có thành phần nào hiện thực giao diện đó không?''. Có thì giao quyền quyết định, không
 thì quay về sơ đồ phím mặc định. Ứng dụng trình diễn trở thành một bên hiện thực giao diện
-như mọi bên khác. Còn người dùng gói, muốn thêm cách điều khiển mới - gamepad, kịch bản
-kiểm thử tự động, hay chính một mô hình ngôn ngữ lớn - chỉ việc viết một
+như mọi bên khác. Còn người dùng gói, muốn thêm cách điều khiển mới (gamepad, kịch bản kiểm
+thử tự động, hay chính một mô hình ngôn ngữ lớn) chỉ việc viết một
 \texttt{MonoBehaviour} rồi gắn vào, khỏi động tới dòng nào trong mã môi trường.
 
 \indent Kèm theo đó còn một chi tiết phải xử lý: hai không gian hành động của Football
@@ -663,16 +758,16 @@ và chỉ bật nút khi thực sự còn thiếu}
 của Package Manager; kiểm tra các gói art bên thứ ba; chép cấu hình huấn luyện ra thư mục
 \texttt{config/}; nhân khu vực huấn luyện; build môi trường headless; và cuối cùng là lệnh
 mẫu để chạy huấn luyện, kèm nút chép sang clipboard. Ba bước giữa gọi lại đúng những công
-cụ mà đề tài đã dùng cho phần thực nghiệm của chính mình - nghĩa là người dùng gói đi theo
+cụ mà đề tài đã dùng cho phần thực nghiệm của chính mình, nghĩa là người dùng gói đi theo
 một quy trình đã được kiểm chứng, chứ không phải quy trình viết riêng cho tài liệu.
 
 \indent Bước kiểm tra art bên thứ ba tồn tại vì một ràng buộc pháp lý. Môi trường Cross
 The Road hiển thị bằng vài gói art miễn phí trên Unity Asset Store. Giấy phép Asset Store
 cho phép dùng trong dự án của người đã tải, nhưng cấm đóng gói lại để phát hành cho người
-khác - kể cả khi gói art đó miễn phí. Gói của đề tài vì vậy không kèm chúng. Đây là hạn
+khác, kể cả khi gói art đó miễn phí. Gói của đề tài vì vậy không kèm chúng. Đây là hạn
 chế thật chứ chẳng phải chi tiết thủ tục, nên trình hướng dẫn xử lý rất rõ ràng: quét dự
 án xem thiếu gói nào, nêu đích danh, mở thẳng trang tải, và nói luôn rằng thiếu art thì
-môi trường vẫn huấn luyện bình thường - chỉ là xe với nhân vật không có hình. Riêng phần
+môi trường vẫn huấn luyện bình thường, chỉ là xe với nhân vật không có hình. Riêng phần
 mã nguồn và cấu hình do đề tài viết thì phát hành theo giấy phép MIT.
 
 \subsubsection{Dự án tự dùng chính gói của mình}
@@ -682,7 +777,7 @@ trình diễn ở các mục trước tiêu thụ nó đúng theo cách một d�
 giới assembly, qua giao diện công khai, không đường tắt nào. Cách bố trí ấy biến toàn bộ
 phần thực nghiệm lẫn phần trình diễn của đồ án thành một phép kiểm thử thường trực cho
 gói. Mỗi lần chạy lại các luồng ở Bảng~\ref{tab:app_test} là một lần xác nhận gói còn dùng
-được - thay vì phải đặt niềm tin vào một bản đóng gói chỉ được thử đúng một lần lúc phát
+được, thay vì phải đặt niềm tin vào một bản đóng gói chỉ được thử đúng một lần lúc phát
 hành.
 
 % ───────────────────────────────────────────────
@@ -697,8 +792,8 @@ cách giải quyết.
 chỉ yêu cầu quyết định sau mỗi vài bước vật lý (thành phần
 \texttt{DecisionRequester}) nhằm giảm chi phí tính toán. Tần suất này khiến nhân vật
 phản hồi phím rất chậm ở chế độ người chơi. Giải pháp là khi cấu hình tác nhân cho
-người điều khiển, chu kỳ quyết định được hạ xuống 1 - tác nhân yêu cầu
-quyết định ở mọi bước vật lý - trong khi các tác nhân máy giữ nguyên chu kỳ gốc để tái
+người điều khiển, chu kỳ quyết định được hạ xuống $1$, tức tác nhân yêu cầu quyết định ở mọi
+bước vật lý, trong khi các tác nhân máy giữ nguyên chu kỳ gốc để tái
 hiện đúng điều kiện huấn luyện.
 
 \indent \textbf{Mất phím bấm giữa hai lần quyết định:} Hàm \texttt{Heuristic} của Cross
@@ -712,14 +807,14 @@ nữa.
 một máy quay trực giao bao quát toàn bộ khu vực huấn luyện; khi số khu vực còn hoạt
 động thay đổi theo chế độ chơi, khung hình gốc không còn phù hợp. Ứng dụng tính
 hộp bao của các khu vực còn hoạt động, dời máy quay về trục nhìn đi qua tâm hộp và
-đặt lại kích thước trực giao bằng cách chiếu tám đỉnh hộp lên hai trục ngang - dọc
-của máy quay. Phép đóng khung này được hoãn đến cuối khung hình đầu tiên, vì tại thời
+đặt lại kích thước trực giao bằng cách chiếu tám đỉnh hộp lên hai trục ngang và dọc của máy
+quay. Phép đóng khung này được hoãn đến cuối khung hình đầu tiên, vì tại thời
 điểm scene vừa nạp xong, các phương tiện chưa được đặt về đúng vị trí xuất phát nên
 hộp bao tính sớm sẽ bị sai lệch.
 
 \indent \textbf{Xung đột thứ tự khởi tạo trong Football Table:} Thành phần \texttt{Agent}
-của ML-Agents có thể gọi \texttt{OnEpisodeBegin} - kéo theo việc đặt lại bàn và bóng -
-ngay trong pha \texttt{OnEnable}, tức trước khi bộ khởi tạo của scene kịp xong. Kết quả là
+của ML-Agents có thể gọi \texttt{OnEpisodeBegin} (kéo theo việc đặt lại bàn và bóng) ngay
+trong pha \texttt{OnEnable}, tức trước khi bộ khởi tạo của scene kịp xong. Kết quả là
 lỗi tham chiếu rỗng xuất hiện ngắt quãng. Cách sửa là làm cho hai lớp \texttt{Team} và
 \texttt{Ball} tự khởi tạo an toàn: thao tác đặt lại sẽ tự gọi khởi tạo nếu phát hiện chưa
 khởi tạo, còn khởi tạo lặp thì chặn bằng cờ trạng thái.
@@ -734,20 +829,20 @@ bình thường.
 \indent \textbf{Nhiều khu vực huấn luyện trong một scene:} Để thu kinh nghiệm nhanh hơn,
 ba scene môi trường đã nhân khu vực huấn luyện lên tám bản chạy song song, các bản sao nằm
 gọn trong một đối tượng chứa chung. Nhưng ứng dụng ban đầu viết cho scene một khu vực, nên
-nó xác định khu vực bằng đối tượng gốc của tác nhân - mà sau khi nhân bản thì mọi bản sao
+nó xác định khu vực bằng đối tượng gốc của tác nhân, mà sau khi nhân bản thì mọi bản sao
 chung một đối tượng gốc, và cách xác định đó sụp đổ. Football Table lãnh hậu quả nặng
 nhất: quy tắc ``đội Đỏ là tác nhân đầu tiên không phải đội Xanh'' chọn trúng một tác nhân
-Xanh của bàn khác, nên trận đấu chẳng bao giờ hình thành còn mười bốn tác nhân kia vẫn
-chạy ở cấu hình huấn luyện. Cách sửa là xác định khu vực theo cấu trúc cây: đi ngược lên
+Xanh của bàn khác, nên trận đấu chẳng bao giờ hình thành còn $14$ tác nhân kia vẫn chạy ở cấu
+hình huấn luyện. Cách sửa là xác định khu vực theo cấu trúc cây: đi ngược lên
 cha cho tới ngay dưới đối tượng chứa chung, nhờ đó cả bản gốc lẫn bản sao đều trả về đúng
-khu vực của mình. Trên nền đó, mỗi chế độ chơi giữ lại đúng số khu vực cần - một bàn cho
-Football Table và Capture The Flag, hai khu vực cho chế độ đua song song của Cross The
-Road - tắt phần còn lại, rồi mới chọn tác nhân trong phạm vi khu vực đã giữ.
+khu vực của mình. Trên nền đó, mỗi chế độ chơi giữ lại đúng số khu vực cần (một bàn cho
+Football Table và Capture The Flag, hai khu vực cho chế độ đua song song của Cross The Road),
+tắt phần còn lại, rồi mới chọn tác nhân trong phạm vi khu vực đã giữ.
 
 \indent \textbf{Đóng khung camera cho vùng chơi dài và dẹt:} Việc chỉ giữ lại một khu
-vực khiến khung nhìn gốc của scene không còn phù hợp, nhưng cách đóng khung ban đầu -
-đặt camera cách tâm một khoảng tỉ lệ với bán kính hình cầu bao vùng chơi - lại đẩy
-camera ra quá xa với những vùng chơi dài và dẹt như bàn bi lắc, khiến bàn chỉ chiếm
+vực khiến khung nhìn gốc của scene không còn phù hợp, nhưng cách đóng khung ban đầu, đặt
+camera cách tâm một khoảng tỉ lệ với bán kính hình cầu bao vùng chơi, lại đẩy camera ra quá xa
+với những vùng chơi dài và dẹt như bàn bi lắc, khiến bàn chỉ chiếm
 một phần nhỏ màn hình. Đề tài thay bằng phép chiếu tám đỉnh hộp bao lên ba trục của
 camera: với máy quay trực giao thì tính kích thước trực giao vừa khít, còn với máy quay
 phối cảnh thì tính khoảng cách nhỏ nhất để nửa chiều cao và nửa chiều rộng vẫn nằm
@@ -760,14 +855,14 @@ của nó: ML-Agents dựng bộ truyền động từ \texttt{BehaviorParameter
 lại chính sách sau đó vẫn dùng đặc tả hành động đã dựng. Hệ quả là mô hình DQN rời rạc
 của Football Table không thể chạy trên scene liên tục dù lớp tác nhân đã hỗ trợ cả hai
 kiểu. Giải pháp là sinh sẵn một bản sao rời rạc của scene bằng kịch bản trong trình
-soạn thảo và để menu chọn bản scene phù hợp với mô hình người dùng vừa chọn - đổi scene
+soạn thảo và để menu chọn bản scene phù hợp với mô hình người dùng vừa chọn, tức đổi scene
 thay vì đổi đặc tả hành động, nhờ đó không phải đụng tới scene gốc dùng cho huấn luyện.
 
 \indent \textbf{Phạt thời gian chia cho không:} Trớ trêu là chính việc đặt giới hạn bước
 về không ở trên lại làm lộ một lỗi tiềm ẩn trong hàm phần thưởng của Football Table. Thành
 phần phạt thời gian tính bằng nghịch đảo của giới hạn bước; giới hạn bằng không thì giá
 trị phần thưởng hóa vô cực và ML-Agents ném ngoại lệ ở mỗi bước. Sửa bằng cách chỉ áp dụng
-phạt thời gian khi giới hạn bước lớn hơn không - đúng ngữ nghĩa ``tập không giới hạn bước
+phạt thời gian khi giới hạn bước lớn hơn không, đúng ngữ nghĩa ``tập không giới hạn bước
 thì không có áp lực thời gian''. Đây là ví dụ điển hình cho chuyện chuyển một môi trường
 từ chế độ huấn luyện sang chế độ chơi có thể đánh thức những nhánh mã chưa từng chạy trong
 suốt quá trình huấn luyện.
@@ -776,8 +871,8 @@ suốt quá trình huấn luyện.
 \subsection{Kiểm thử ứng dụng và hạn chế}
 \label{sub:app-testing}
 
-\indent Ứng dụng được kiểm thử ngay trong Unity Editor, theo từng luồng chức năng. Với mỗi
-tổ hợp môi trường - chế độ, quá trình kiểm thử xác nhận bốn điểm. Một, scene nạp đúng và
+\indent Ứng dụng được kiểm thử ngay trong Unity Editor, theo từng luồng chức năng. Với mỗi tổ
+hợp môi trường và chế độ, quá trình kiểm thử xác nhận bốn điểm. Một, scene nạp đúng và
 từng tác nhân được cấu hình đúng vai trò: loại hành vi, mô hình, chu kỳ quyết định. Hai,
 mô hình ONNX nạp thành công và tác nhân hành xử đúng như kết quả huấn luyện cho phép kỳ
 vọng. Ba, giao diện phủ hiện đúng thông tin và nút quay về menu chạy được. Bốn, bảng điều
@@ -837,16 +932,16 @@ các nút gọi đúng công cụ & Đạt \\
 \indent Về hiệu năng, việc suy luận mạng nơ-ron cho các tác nhân đồng thời, cộng thêm giao
 diện, không làm tốc độ khung hình sụt đáng kể trên cấu hình thực nghiệm ở
 Mục~\ref{sub:hardware}. Điều đó khẳng định việc nhúng thẳng mô hình đã huấn luyện vào một
-sản phẩm game là khả thi. Cả mười lăm mô hình ONNX đi kèm ứng dụng đều nạp và vận hành
-chính xác, đúng phổ quan sát - hành động đã khai báo khi huấn luyện.
+sản phẩm game là khả thi. Cả $15$ mô hình ONNX đi kèm ứng dụng đều nạp và vận hành
+chính xác, đúng phổ quan sát và hành động đã khai báo khi huấn luyện.
 
-\indent Ứng dụng vẫn còn hai hạn chế đã biết. Thứ nhất là dung lượng: đóng gói đủ mười lăm
-mô hình khiến thư mục tài nguyên phình mạnh, riêng năm mô hình của Capture The Flag đã
-chiếm khoảng 325 MB - gấp nhiều lần tổng dung lượng hai môi trường còn lại. Thủ phạm không
+\indent Ứng dụng vẫn còn hai hạn chế đã biết. Thứ nhất là dung lượng: đóng gói đủ $15$ mô hình
+khiến thư mục tài nguyên phình mạnh, riêng năm mô hình của Capture The Flag đã
+chiếm khoảng $325$ MB, gấp nhiều lần tổng dung lượng hai môi trường còn lại. Thủ phạm không
 phải số lượng mô hình mà là kiến trúc mạng. Quan sát tín hiệu mục tiêu của môi trường này
 khiến ML-Agents dựng bộ mã hóa theo kiểu siêu mạng (\textit{hypernetwork}), trong đó một
 nhánh phụ sinh trọng số cho lớp ẩn chính, đẩy số tham số của một chính sách nhỏ lên gần
-mười bảy triệu. Muốn giảm dung lượng bản phát hành thì phải huấn luyện lại Capture The
+$17.000.000$. Muốn giảm dung lượng bản phát hành thì phải huấn luyện lại Capture The
 Flag với kiểu điều kiện hóa mục tiêu khác, chứ bớt mô hình đi không giải quyết được gì.
 Thứ hai, hai tab số liệu phản ánh nội dung tệp \texttt{training\_data.json} tại thời điểm
 xuất, nên sau mỗi đợt huấn luyện mới phải chạy lại kịch bản xuất dữ liệu thì ứng dụng mới

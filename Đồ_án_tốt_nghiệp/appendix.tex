@@ -59,8 +59,8 @@ behaviors:
 \addcontentsline{toc}{subsection}{Phụ lục B. Cấu hình huấn luyện SAC}
 
 Tệp cấu hình YAML của SAC cho môi trường Cross The Road, đúng như đã dùng cho lần chạy
-\texttt{CrossTheRoad\_SAC\_01}. Tham số \texttt{steps\_per\_update} bằng hai mươi là
-điểm cần chú ý nhất: nó quyết định tốc độ hội tụ đo được của SAC, như phân tích ở
+\texttt{CrossTheRoad\_SAC\_01}. Tham số \texttt{steps\_per\_update} bằng $20$ là điểm cần chú
+ý nhất: nó quyết định tốc độ hội tụ đo được của SAC, như phân tích ở
 Chương~\ref{ch:results}.
 
 \begin{lstlisting}[basicstyle=\ttfamily\scriptsize,caption={ctr\_sac.yaml},captionpos=b]
@@ -296,7 +296,7 @@ cuối cùng thực đo được của những lần chạy đã huấn luyện 
 
 \begin{table}[H]
 \centering
-\caption{Kết quả thực đo của 15 lần huấn luyện}
+\caption{Kết quả thực đo của $15$ lần huấn luyện}
 \label{tab:tb_summary}
 \renewcommand{\arraystretch}{1.4}
 \tablefont
@@ -354,7 +354,8 @@ $^{\dagger}$ Thời gian của \texttt{ctf\_sac\_v1} chỉ tính đoạn $1{,}0$
 $^{\ddagger}$ Riêng DQN trên Football phải tắt self-play, do ML-Agents phát sinh lỗi khi kết hợp trainer off-policy với ghost trainer. Vì vậy lần chạy này không có chỉ số ELO và \textbf{không so sánh trực tiếp được} với bốn thuật toán còn lại trên cùng môi trường.
 
 \smallskip
-Ghi chú chung: mọi lần chạy đều dùng 8 training area song song trong mỗi scene. Reward là phần thưởng trung bình mười phần trăm cuối, cùng định nghĩa dùng trong Chương 4.}
+Ghi chú chung: mọi lần chạy đều dùng $8$ training area song song trong mỗi scene. Reward là
+phần thưởng trung bình mười phần trăm cuối, cùng định nghĩa dùng trong Chương 4.}
 \end{table}
 
 \vspace{0.5cm}

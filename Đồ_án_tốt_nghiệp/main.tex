@@ -15,6 +15,19 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{groupplots}
+% Chú giải đặt thành một hàng ngang phía trên khung vẽ, nằm ngoài vùng dữ liệu
+% nên không bao giờ đè lên đường cong. Dùng chung cho mọi biểu đồ ở Chương 4.
+\pgfplotsset{
+    legendabove/.style={
+        legend style={
+            at={(0.5,1.02)}, anchor=south,
+            legend columns=-1,
+            font=\small,
+            draw=gray!40,
+            /tikz/every even column/.append style={column sep=10pt},
+        },
+    },
+}
 \usepackage{changepage}
 \usepackage{longtable}
 \usepackage{array}

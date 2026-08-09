@@ -10,9 +10,9 @@ thường im lặng, chỉ lặng lẽ dạy tác nhân điều khác. Chương 
 nghiệm thu ba môi trường đã xây, xoay quanh ba câu hỏi:
 
 \begin{itemize}
-    \item \textbf{Môi trường có học được không?} Không thuật toán nào tiến bộ thì khả năng
-    cao lỗi nằm ở đặc tả - quan sát thiếu thông tin, hoặc phần thưởng không dẫn đường -
-    chứ không phải ở thuật toán.
+    \item \textbf{Môi trường có học được không?} Không thuật toán nào tiến bộ thì khả năng cao
+    lỗi nằm ở đặc tả (quan sát thiếu thông tin, hoặc phần thưởng không dẫn đường), chứ không phải ở
+    thuật toán.
     \item \textbf{Môi trường có phân biệt được không?} Mọi thuật toán cùng về đích ngang
     nhau ở mức tối đa thì hoặc môi trường quá dễ, hoặc đang có một lối tắt cho phép gom
     phần thưởng mà khỏi giải nhiệm vụ. Một môi trường dùng được phải tách các hướng tiếp
@@ -22,11 +22,11 @@ nghiệm thu ba môi trường đã xây, xoay quanh ba câu hỏi:
     nhau.
 \end{itemize}
 
-\indent Công cụ trả lời ba câu hỏi ấy là mười lăm lần huấn luyện, tức lưới đầy đủ năm
+\indent Công cụ trả lời ba câu hỏi ấy là $15$ lần huấn luyện, tức lưới đầy đủ năm
 thuật toán trên ba môi trường. Vai trò của năm thuật toán ở đây cần được nhấn mạnh: chúng
-là \textit{phép thử}, không phải \textit{đối tượng} đánh giá. Chọn năm thuật toán khác
-hẳn nhau về nguyên lý - on-policy, off-policy, phê bình tập trung, dựa trên giá trị - là
-chủ đích, bởi một môi trường chỉ được kiểm chứng chắc chắn khi nó phản ứng nhất quán trước
+là \textit{phép thử}, không phải \textit{đối tượng} đánh giá. Chọn năm thuật toán khác hẳn
+nhau về nguyên lý (on-policy, off-policy, phê bình tập trung, dựa trên giá trị) là chủ đích,
+bởi một môi trường chỉ được kiểm chứng chắc chắn khi nó phản ứng nhất quán trước
 nhiều hướng tiếp cận độc lập, chứ không phải khi nó được chỉnh vừa khít cho đúng một thuật
 toán. Kết quả sẽ đọc lần lượt theo từng môi trường, rồi mới đặt cạnh nhau theo bốn tiêu
 chí ở Mục~\ref{sub:evalcriteria}. Một điều phải nói trước vì nó chi phối cách đọc cả
@@ -44,9 +44,9 @@ Chương~\ref{ch:app}: đường cong hiển thị trong ứng dụng được l
 trượt cho dễ đọc trên màn hình nhỏ, nên con số ở đó lệch chút ít so với chương này. Mỗi
 thuật toán ở đây tương ứng đúng một lần chạy hoàn chỉnh.
 
-\indent Trong mỗi môi trường, năm thuật toán nhận cùng một ngân sách bước: hai triệu bước
-cho Cross The Road, một triệu bảy trăm nghìn bước cho Capture The Flag, một triệu sáu trăm
-nghìn bước cho Football Table. Đây là chỗ khác với các thực nghiệm sơ bộ trước đó, vốn để
+\indent Trong mỗi môi trường, năm thuật toán nhận cùng một ngân sách bước: $2.000.000$ bước cho
+Cross The Road, $1.700.000$ bước cho Capture The Flag, $1.600.000$ bước cho Football Table. Đây là
+chỗ khác với các thực nghiệm sơ bộ trước đó, vốn để
 mỗi lần chạy một độ dài riêng. Và nó là điều kiện cần để mọi so sánh trong chương có
 nghĩa: chênh lệch phần thưởng giữa hai thuật toán chỉ quy được cho bản thân thuật toán khi
 cả hai đã tiêu thụ cùng lượng kinh nghiệm.
@@ -57,12 +57,12 @@ một lô cập nhật, nên thời gian thực rút ngắn đáng kể. Đây l
 chiếu với những công bố dùng một khu vực duy nhất: cùng một số bước môi trường ở hai cấu
 hình này không tương đương nhau về độ khó của bài toán học.
 
-\indent Bốn chỉ số thống kê được dùng xuyên suốt chương. Thứ nhất, phần thưởng trung bình
-mười phần trăm cuối - mức năng lực ổn định mà chính sách giữ được ở cuối quá trình. Thứ
+\indent Bốn chỉ số thống kê được dùng xuyên suốt chương. Thứ nhất, phần thưởng trung bình mười
+phần trăm cuối, tức mức năng lực ổn định mà chính sách giữ được ở cuối quá trình. Thứ
 hai, phần thưởng tốt nhất, tức giá trị lớn nhất đạt được. Thứ ba là bước hội tụ, và thứ tư
 là độ lệch chuẩn của mười phần trăm cuối. Bước hội tụ ở đây được định nghĩa là bước huấn
-luyện mà từ đó trở đi đường cong không còn tụt xuống dưới chín mươi phần trăm mức ổn định
-cuối cùng; định nghĩa này bền hơn tiêu chí ``lần đầu chạm ngưỡng'' vì không bị một đỉnh
+luyện mà từ đó trở đi đường cong không còn tụt xuống dưới $90$ phần trăm mức ổn định cuối
+cùng; định nghĩa này bền hơn tiêu chí ``lần đầu chạm ngưỡng'' vì không bị một đỉnh
 nhiễu đơn lẻ kéo về đầu chuỗi. Kéo theo đó, một lần chạy còn dao động mạnh ở cuối sẽ không
 có bước hội tụ nào, và bảng số liệu ghi rõ ``không đạt'' chứ không gán bừa cho nó bước cuối
 cùng.
@@ -109,7 +109,7 @@ cơ chế này.
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Chỉ số xếp hạng ELO},
         xmin=0, xmax=1.6, ymin=1180, ymax=1280,
-        legend pos=north west,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -132,20 +132,20 @@ cơ chế này.
 
 \indent Cần nói ngay rằng ELO của hai lần chạy khác nhau không đem so trực tiếp với nhau
 được, bởi mỗi lần chạy tính điểm dựa trên kho đối thủ của riêng nó. Đại lượng có nghĩa ở
-đây là mức tăng so với giá trị khởi tạo một nghìn hai trăm. Chiếu theo tiêu chí đó, cả bốn
-thuật toán đều tiến bộ so với các phiên bản trước của chính mình. MAPPO tăng khoảng sáu
-mươi bốn điểm, từ $1196$ lên $1260$. PPO tăng khoảng sáu mươi điểm, từ $1199$ lên $1259$.
-SAC tăng khoảng năm mươi bảy điểm, từ $1197$ lên $1254$. MA-POCA tăng khoảng ba mươi sáu
-điểm, từ $1201$ lên $1237$. Không lần chạy nào kết thúc dưới điểm xuất phát, nên kết luận
-rút từ hình này là cả bốn thuật toán đều học được cách đánh bại chính mình - chứ không
-phải chuyện vài thuật toán tiến bộ còn số khác thì không.
+đây là mức tăng so với giá trị khởi tạo $1200$. Chiếu theo tiêu chí đó, cả bốn
+thuật toán đều tiến bộ so với các phiên bản trước của chính mình. MAPPO tăng khoảng $64$ điểm,
+từ $1196$ lên $1260$. PPO tăng khoảng $60$ điểm, từ $1199$ lên $1259$. SAC tăng khoảng $57$
+điểm, từ $1197$ lên $1254$. MA-POCA tăng khoảng $36$ điểm, từ $1201$ lên $1237$. Không lần chạy
+nào kết thúc dưới điểm xuất phát, nên kết luận
+rút từ hình này là cả bốn thuật toán đều học được cách đánh bại chính mình, chứ không phải
+chuyện vài thuật toán tiến bộ còn số khác thì không.
 
 \indent Điểm cuối gần nhau, nhưng diễn biến các đường cong lại khác nhau khá nhiều. PPO
-tăng gần như đơn điệu tới khoảng một triệu một trăm nghìn bước rồi đứng im hẳn ở
+tăng gần như đơn điệu tới khoảng $1.100.000$ bước rồi đứng im hẳn ở
 $1258{,}9$ cho tới hết, dấu hiệu cho thấy chính sách của nó không còn vượt nổi kho đối thủ
-nữa. MAPPO tăng chậm hơn nhưng vẫn dốc lên ở đoạn cuối, đạt đỉnh $1265{,}7$ trước khi khép
-lại ở $1260{,}0$ - nghĩa là chưa chạm trần trong ngân sách đã cho. SAC thì gần như bất
-động quanh mốc khởi tạo suốt chín trăm nghìn bước đầu rồi mới bứt lên ở nửa sau, đúng đặc
+nữa. MAPPO tăng chậm hơn nhưng vẫn dốc lên ở đoạn cuối, đạt đỉnh $1265{,}7$ trước khi khép lại
+ở $1260{,}0$, nghĩa là chưa chạm trần trong ngân sách đã cho. SAC thì gần như bất động quanh
+mốc khởi tạo suốt $900.000$ bước đầu rồi mới bứt lên ở nửa sau, đúng đặc
 điểm của một thuật toán off-policy cần thời gian nạp đầy bộ đệm trước khi chính sách bắt
 đầu cải thiện.
 
@@ -160,7 +160,7 @@ năm thuật toán, còn Bảng~\ref{tab:football_results} tổng hợp các ch�
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Phần thưởng tích lũy},
         xmin=0, xmax=1.6, ymin=0, ymax=3,
-        legend pos=north west,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -211,19 +211,19 @@ DQN & 1,60M & $1{,}825$ & $2{,}028$ & $0{,}073$ & --- \\
 
 \indent Xét theo ELO, thứ hạng đọc được là MAPPO ($1260$), PPO ($1259$), SAC ($1254$) rồi
 MA-POCA ($1237$). Có điều khoảng cách một điểm giữa MAPPO và PPO nhỏ hơn nhiều so với biên
-độ dao động của chính đường cong ELO trong quá trình huấn luyện - riêng MAPPO đã dao động
-trong dải gần hai mươi điểm ở đoạn cuối - nên số liệu hiện có không đủ để tách hai thuật
-toán này. Phân tách duy nhất đứng vững là MA-POCA tụt lại sau ba thuật toán còn lại.
+độ dao động của chính đường cong ELO trong quá trình huấn luyện, bởi riêng MAPPO đã dao động
+trong dải gần $20$ điểm ở đoạn cuối, nên số liệu hiện có không đủ để tách hai thuật toán này.
+Phân tách duy nhất đứng vững là MA-POCA tụt lại sau ba thuật toán còn lại.
 
 \indent Đáng nói hơn cả thứ hạng là chuyện biên độ chung quá hẹp. Cơ chế tự chơi tạo ra
 một chương trình học tự nhiên, độ khó của đối thủ tăng dần theo năng lực của tác nhân.
 Nhưng khi cả hai phía cùng mạnh lên với tốc độ xấp xỉ nhau, ELO gần như đứng yên dù chính
-sách vẫn đang cải thiện. Mức tăng sáu mươi điểm trên thang khởi tạo 1200 vì vậy chỉ nói
+sách vẫn đang cải thiện. Mức tăng $60$ điểm trên thang khởi tạo $1200$ vì vậy chỉ nói
 được rằng các tác nhân có tiến bộ so với phiên bản cũ của chính mình, chưa cho phép kết
 luận thuật toán nào mạnh hơn thuật toán nào.
 
-\indent Xét theo phần thưởng thì MAPPO dẫn đầu khá rõ ($2{,}12$), hơn nhóm còn lại chừng
-mười lăm phần trăm, trong khi SAC ($1{,}84$), MA-POCA ($1{,}75$) và PPO ($1{,}69$) chen
+\indent Xét theo phần thưởng thì MAPPO dẫn đầu khá rõ ($2{,}12$), hơn nhóm còn lại chừng $15$
+phần trăm, trong khi SAC ($1{,}84$), MA-POCA ($1{,}75$) và PPO ($1{,}69$) chen
 nhau rất sát. Con số này phải đọc kèm ELO chứ không thay được ELO: trong tự chơi, phần
 thưởng cao có thể chỉ phản ánh việc khai thác tốt các thành phần phần thưởng định hướng,
 chẳng đồng nghĩa với sức mạnh đối kháng. MAPPO là trường hợp hiếm hoi mà hai thước đo cùng
@@ -235,8 +235,8 @@ Giá trị $0{,}073$ của DQN tuy thấp hơn hẳn phần còn lại nhưng kh
 chạy tự chơi nên đối thủ của nó cố định, mà một môi trường không đổi thì đương nhiên cho
 đường cong phẳng hơn môi trường có đối thủ liên tục mạnh lên.
 
-\indent Khác các thực nghiệm sơ bộ, năm lần chạy ở đây dùng chung ngân sách một triệu sáu
-trăm nghìn bước, nên so sánh phần thưởng tuyệt đối giữa bốn thuật toán tự chơi là hợp lệ.
+\indent Khác các thực nghiệm sơ bộ, năm lần chạy ở đây dùng chung ngân sách $1.600.000$ bước,
+nên so sánh phần thưởng tuyệt đối giữa bốn thuật toán tự chơi là hợp lệ.
 Hạn chế nằm ở chỗ khác: mỗi thuật toán chỉ có một lần chạy, không đủ nhiều hạt giống ngẫu
 nhiên để ước lượng phương sai giữa các lần chạy (Mục~\ref{sub:limits}).
 
@@ -248,7 +248,7 @@ nhiên để ước lượng phương sai giữa các lần chạy (Mục~\ref{s
 rạc, nên cả năm thuật toán chạy được mà chẳng phải chỉnh gì bên phía Unity. Năm lần chạy
 tương ứng là \texttt{ctr01} (PPO), \texttt{CrossTheRoad\_SAC\_01} (SAC),
 \texttt{ctr\_poca\_v1} (MA-POCA), \texttt{ctr\_mappo\_v1} (MAPPO) và \texttt{ctr\_dqn\_v1}
-(DQN), tất cả cùng ngân sách hai triệu bước. Trong ba môi trường của đề tài, đây là nơi
+(DQN), tất cả cùng ngân sách $2.000.000$ bước. Trong ba môi trường của đề tài, đây là nơi
 cho phép so sánh sạch nhất: không có cơ chế tự chơi làm nhiễu thước đo, cũng không có tác
 nhân thứ hai gây phụ thuộc lẫn nhau. Hình~\ref{fig:ctr_reward} vẽ đường cong phần thưởng
 thực đo, còn Bảng~\ref{tab:ctr_results} tổng hợp các chỉ số định lượng.\par}
@@ -261,7 +261,7 @@ thực đo, còn Bảng~\ref{tab:ctr_results} tổng hợp các chỉ số đị
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Phần thưởng tích lũy},
         xmin=0, xmax=2, ymin=-0.1, ymax=1,
-        legend pos=south east,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -310,8 +310,8 @@ DQN & 2,00M & $0{,}336$ & $0{,}633$ & Không đạt & $124{,}7$ \\
 \end{tabular}
 
 \vspace{0.15cm}
-{\footnotesize Ghi chú: ``không đạt'' nghĩa là đường cong vẫn còn tụt xuống dưới chín
-mươi phần trăm mức ổn định cuối cùng cho tới bước huấn luyện cuối, tức chưa hội tụ theo
+{\footnotesize Ghi chú: ``không đạt'' nghĩa là đường cong vẫn còn tụt xuống dưới $90$ phần
+trăm mức ổn định cuối cùng cho tới bước huấn luyện cuối, tức chưa hội tụ theo
 tiêu chí ở Mục~\ref{sub:evalcriteria}.}
 \end{table}
 
@@ -323,29 +323,30 @@ $0{,}556$, DQN ở $0{,}336$.
 
 \indent Kết quả của SAC phải đọc kèm một thay đổi quan trọng về cấu hình. Các thực nghiệm
 sơ bộ để \texttt{steps\_per\_update} bằng một, tức cập nhật mạng sau mỗi bước môi trường,
-và khi ấy SAC chạm mức ổn định chỉ sau chừng một trăm năm mươi nghìn bước. Cấu hình dùng
-trong chương này nâng tham số đó lên hai mươi để thời gian chạy thực tế còn chấp nhận
-được; cái giá là SAC ngốn nhiều mẫu hơn, bước hội tụ lùi tới khoảng một triệu bảy trăm
-chín mươi nghìn. Nói cách khác, ưu thế hiệu quả mẫu mà lý thuyết off-policy hứa hẹn phụ
+và khi ấy SAC chạm mức ổn định chỉ sau chừng $150.000$ bước. Cấu hình dùng trong chương này
+nâng tham số đó lên $20$ để thời gian chạy thực tế còn chấp nhận
+được; cái giá là SAC ngốn nhiều mẫu hơn, bước hội tụ lùi tới khoảng $1.790.000$. Nói cách khác,
+ưu thế hiệu quả mẫu mà lý thuyết off-policy hứa hẹn phụ
 thuộc thẳng vào tần suất cập nhật, chứ không phải một thuộc tính cố hữu của thuật toán.
 Chi phí tính toán mỗi bước cập nhật của SAC vẫn cao hơn PPO vì phải nuôi ba mạng nơ-ron
-cùng lúc: lần chạy này mất một trăm ba mươi chín phút, so với bốn mươi tám phút của PPO.
+cùng lúc: lần chạy này mất $139$ phút, so với $48$ phút của PPO.
 
-\indent MA-POCA hội tụ sớm nhất nhóm, khoảng bốn trăm năm mươi nghìn bước - nhưng hội tụ
-về một mức thấp rồi nằm im ở đó tới cuối. Đó là sự ổn định của một chính sách tầm thường,
+\indent MA-POCA hội tụ sớm nhất nhóm, khoảng $450.000$ bước, nhưng hội tụ về một mức thấp rồi
+nằm im ở đó tới cuối. Đó là sự ổn định của một chính sách tầm thường,
 không phải dấu hiệu học nhanh. Kết quả này khớp với nhận định rằng MA-POCA suy biến gần về
 PPO khi gặp bài toán đơn tác nhân: không có phần thưởng nhóm thì thế mạnh phê bình tập
 trung chẳng có chỗ phát huy, trong khi chi phí của kiến trúc phức tạp hơn vẫn phải gánh.
 
-\indent MAPPO vượt PPO một khoảng đáng kể, $0{,}835$ so với $0{,}690$, dù hai thuật toán chỉ khác
-nhau ở phần phê bình tập trung - thứ lẽ ra vô hiệu khi nhóm chỉ có một thành viên. Với đúng một lần chạy mỗi thuật
+\indent MAPPO vượt PPO một khoảng đáng kể, $0{,}835$ so với $0{,}690$, dù hai thuật toán chỉ
+khác nhau ở phần phê bình tập trung, thứ lẽ ra vô hiệu khi nhóm chỉ có một thành viên. Với đúng
+một lần chạy mỗi thuật
 toán thì cũng chưa loại trừ được khả năng đây chỉ là dao động ngẫu nhiên giữa các hạt
 giống. Nếu mở rộng thực nghiệm, đây là điểm đáng kiểm chứng trước tiên.
 
 \indent DQN xếp cuối, và cách biệt khá xa: $0{,}336$. Theo tiêu chí
-hội tụ dùng trong chương, đường cong của nó không đạt mốc ổn định nào trước khi hết ngân
-sách hai triệu bước - tức thuật toán vẫn còn dao động lúc dừng. Cộng thêm thời gian chạy
-một trăm bốn mươi tám phút, gấp ba lần PPO, DQN là lựa chọn kém hiệu quả nhất trên môi
+hội tụ dùng trong chương, đường cong của nó không đạt mốc ổn định nào trước khi hết ngân sách
+$2.000.000$ bước, tức thuật toán vẫn còn dao động lúc dừng. Cộng thêm thời gian chạy $148$ phút,
+gấp ba lần PPO, DQN là lựa chọn kém hiệu quả nhất trên môi
 trường này xét cả về mẫu lẫn thời gian.
 
 \indent Ngoài phần thưởng, còn một chỉ báo bổ sung rất đáng quan tâm là độ dài trung bình
@@ -360,7 +361,7 @@ Hình~\ref{fig:ctr_eplen} vẽ độ dài lượt chơi thực đo trong quá tr
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Độ dài lượt chơi (bước)},
         xmin=0, xmax=2, ymin=0, ymax=2600,
-        legend pos=north east,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -383,19 +384,19 @@ Hình~\ref{fig:ctr_eplen} vẽ độ dài lượt chơi thực đo trong quá tr
 \end{figure}
 
 \indent Chỉ số này tách các thuật toán rõ hơn cả phần thưởng. Bốn trong năm thuật toán giữ
-độ dài lượt chơi trong khoảng bốn mươi hai tới một trăm ba mươi bước suốt quá trình. Riêng
-PPO mất ổn định hoàn toàn từ khoảng sáu trăm nghìn bước trở đi: đường cong nhảy giữa hai
-trăm bảy mươi và hai nghìn năm trăm bốn mươi bảy bước, trung bình mười phần trăm cuối lên
-tới $811{,}6$. Lượt chơi kéo dài như thế nghĩa là tác nhân không kết thúc nổi - nó lang
-thang, không về đích mà cũng chẳng va chạm.
+độ dài lượt chơi trong khoảng $42$ tới $130$ bước suốt quá trình. Riêng PPO mất ổn định hoàn
+toàn từ khoảng $600.000$ bước trở đi: đường cong nhảy giữa $270$ và $2547$ bước, trung bình mười
+phần trăm cuối lên
+tới $811{,}6$. Lượt chơi kéo dài như thế nghĩa là tác nhân không kết thúc nổi: nó lang thang,
+không về đích mà cũng chẳng va chạm.
 
 \indent Ghép với phần thưởng, độ dài lượt chơi phân biệt được hai kiểu kết thúc sớm vốn
 trông y hệt nhau nếu chỉ nhìn một chỉ số. MAPPO có lượt chơi ngắn ($52{,}0$ bước) kèm phần
 thưởng cao ($0{,}835$): về đích nhanh. MA-POCA cũng ngắn ($42{,}2$ bước) nhưng phần thưởng
 thấp ($0{,}556$): kết thúc do va chạm. SAC nằm giữa về độ dài ($61{,}8$ bước) và cao nhất
-về phần thưởng. DQN thì trôi dần từ khoảng 60 bước lúc đầu lên hơn 130
-bước ở cuối, trong khi phần thưởng thấp nhất - dấu hiệu của một chính sách ngày càng lưỡng
-lự chứ không dứt khoát thêm.
+về phần thưởng. DQN thì trôi dần từ khoảng $60$ bước lúc đầu lên hơn $130$ bước ở cuối, trong
+khi phần thưởng thấp nhất, dấu hiệu của một chính sách ngày càng lưỡng lự
+chứ không dứt khoát thêm.
 
 \indent Muốn hiểu sâu hơn hành vi học thì ngoài phần thưởng còn có thể nhìn vào các chỉ số
 nội tại của quá trình huấn luyện. Đầu tiên là entropy của chính sách, tức mức ngẫu nhiên
@@ -414,7 +415,7 @@ theo quy tắc tham lam có nhiễu, nên không tồn tại phân phối chính
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Entropy của chính sách},
         xmin=0, xmax=2, ymin=0, ymax=1.5,
-        legend pos=north east,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -437,13 +438,13 @@ theo quy tắc tham lam có nhiễu, nên không tồn tại phân phối chính
 \indent Cả bốn thuật toán đều xuất phát quanh mức $1{,}37$, đúng với giai đoạn khám phá
 ngẫu nhiên ban đầu, rồi rẽ theo những hướng khác hẳn nhau. MA-POCA giảm đều và kết thúc
 thấp nhất ($0{,}204$), tức chính sách quyết đoán nhất nhóm. Nhưng đặt cạnh phần thưởng chỉ
-$0{,}556$ thì đó lại là dấu hiệu của một chính sách chốt sớm vào phương án tầm thường -
-khớp với mốc hội tụ rất sớm ở khoảng bốn trăm năm mươi nghìn bước. SAC giảm dốc rồi ổn
+$0{,}556$ thì đó lại là dấu hiệu của một chính sách chốt sớm vào phương án tầm thường, khớp
+với mốc hội tụ rất sớm ở khoảng $450.000$ bước. SAC giảm dốc rồi ổn
 định quanh $0{,}280$. MAPPO dừng ở mức cao hơn ($0{,}429$), nghĩa là vẫn giữ được một phần
 khả năng khám phá trong khi phần thưởng đã gần chạm mức cao nhất.
 
 \indent Bất thường và đáng chú ý nhất trong hình là đường cong của PPO. Entropy của nó
-giảm xuống $0{,}657$ ở khoảng hai trăm chín mươi nghìn bước, rồi quay đầu tăng ngược và
+giảm xuống $0{,}657$ ở khoảng $290.000$ bước, rồi quay đầu tăng ngược và
 giữ quanh $0{,}8$ cho tới hết. Entropy tăng nghĩa là chính sách ngày càng kém dứt khoát
 theo thời gian, ngược hẳn diễn biến của một quá trình huấn luyện lành mạnh. Dấu hiệu này
 ăn khớp với hai quan sát trước đó: độ dài lượt chơi của PPO bùng nổ từ khoảng cùng thời
@@ -454,7 +455,7 @@ nghiệm tốt sau giai đoạn đầu và không tìm được đường quay l
 \indent Chỉ số cuối là hàm mất mát của mạng phê bình, cho biết việc ước lượng giá trị
 trạng thái chính xác đến đâu. Hình~\ref{fig:ctr_vloss} cho thấy hàm mất mát của SAC rơi về
 gần không chỉ sau vài trăm nghìn bước, nhờ cơ chế off-policy tái dùng dữ liệu đã lưu. Ba
-thuật toán họ PPO thì giữ một mức dương nhỏ và ổn định suốt quá trình - đặc trưng của các
+thuật toán họ PPO thì giữ một mức dương nhỏ và ổn định suốt quá trình, đặc trưng của các
 phương pháp on-policy, nơi mạng phê bình phải liên tục thích ứng với dữ liệu mới đến từ
 chính sách đang thay đổi.
 
@@ -473,7 +474,7 @@ phần thưởng là con đường ngắn nhất tới kết luận sai.
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Hàm mất mát phê bình},
         xmin=0, xmax=2, ymin=0, ymax=0.4,
-        legend pos=north east,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -502,7 +503,7 @@ phần thưởng là con đường ngắn nhất tới kết luận sai.
 {\sloppy
 \indent Capture The Flag bắt hai tác nhân phối hợp chặt chẽ trong khi phần thưởng vừa thưa
 vừa đến muộn, lại thêm một chương trình học hai bài đặt trên tham số
-\texttt{handoff\_required}. Cả năm thuật toán đều chạy đủ một triệu bảy trăm nghìn bước:
+\texttt{handoff\_required}. Cả năm thuật toán đều chạy đủ $1.700.000$ bước:
 \texttt{ctf\_ppo\_v1} (PPO), \texttt{ctf\_sac\_v1} (SAC), \texttt{ctf\_poca\_v2} (MA-POCA),
 \texttt{ctf\_mappo\_v2} (MAPPO) và \texttt{ctf\_dqn\_v1} (DQN). Kết quả nằm ở
 Hình~\ref{fig:ctf_reward} và Bảng~\ref{tab:ctf_results}.\par}
@@ -515,7 +516,7 @@ Hình~\ref{fig:ctf_reward} và Bảng~\ref{tab:ctf_results}.\par}
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Phần thưởng tích lũy},
         xmin=0, xmax=1.7, ymin=0, ymax=0.9,
-        legend pos=south east,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -571,31 +572,31 @@ DQN & 1,70M & $0{,}800$ & $0{,}836$ & $\sim$1,04M & $2017{,}9$ \\
 đáng tin hơn phần thưởng nằm ở độ dài lượt chơi, trình bày trong
 Hình~\ref{fig:ctf_signals}.
 
-\indent Bốn thuật toán dẫn đầu đều kéo được độ dài lượt chơi xuống thấp - từ một trăm năm
-mươi ba bước của MAPPO tới hai nghìn không trăm mười tám bước của DQN - nghĩa là chúng đều
-học được cách kết thúc câu đố thay vì để hết giờ. MAPPO và MA-POCA xuống thấp nhất và sớm
+\indent Bốn thuật toán dẫn đầu đều kéo được độ dài lượt chơi xuống thấp, từ $153$ bước của
+MAPPO tới $2018$ bước của DQN, nghĩa là chúng đều học được cách kết thúc câu đố thay vì để hết
+giờ. MAPPO và MA-POCA xuống thấp nhất và sớm
 nhất, hợp lý vì cả hai đều có phê bình tập trung nhìn được quan sát của cả nhóm. Đáng chú
 ý là PPO thường, vốn chẳng có cơ chế nào dành riêng cho phối hợp, cũng đạt $0{,}834$ và
-rút lượt chơi xuống hai trăm chín mươi ba bước.
+rút lượt chơi xuống $293$ bước.
 
 \indent SAC là trường hợp thất bại duy nhất. Độ
-dài lượt chơi của nó nằm ở trần 4999 bước gần như suốt
+dài lượt chơi của nó nằm ở trần $4999$ bước gần như suốt
 quá trình, hai tác nhân hầu như không bao giờ giải xong câu đố. Nhưng đường cong phần
-thưởng thì không hề phẳng: nó nhảy giữa $-0{,}018$ và $0{,}795$, với 11 trên
-44 điểm đo vượt $0{,}5$ và cũng đúng 11 điểm nằm dưới $0{,}1$, độ lệch
+thưởng thì không hề phẳng: nó nhảy giữa $-0{,}018$ và $0{,}795$, với $11$ trên $44$ điểm đo
+vượt $0{,}5$ và cũng đúng $11$ điểm nằm dưới $0{,}1$, độ lệch
 chuẩn toàn chuỗi lên tới $0{,}221$. Vậy nên chính sách của SAC không phải là không học
 được gì; nó học được rồi đánh mất, lặp đi lặp lại. Con số $0{,}183$ ở mười phần trăm cuối
 chỉ là kết quả của việc lấy trung bình trên một chuỗi dao động như thế, chứ không mô tả
 năng lực ổn định nào cả.
 
 \indent Trên đồ thị có một chi tiết cần giải thích để khỏi hiểu nhầm. Đường cong phần
-thưởng của SAC dừng ở khoảng một triệu sáu trăm bốn mươi nghìn bước, trong khi bốn đường
-kia kéo tới hết một triệu bảy trăm nghìn bước. Nhưng lần chạy này không hề ngắn hơn: các
+thưởng của SAC dừng ở khoảng $1.640.000$ bước, trong khi bốn đường kia kéo tới hết $1.700.000$
+bước. Nhưng lần chạy này không hề ngắn hơn: các
 chuỗi entropy và hàm mất mát của nó đều đủ điểm tới bước cuối cùng. Nguyên do là ML-Agents
 chỉ ghi phần thưởng tích lũy khi một lượt chơi kết thúc, mà lượt chơi của SAC gần như luôn
-chạm trần thời gian, nên sáu mươi nghìn bước cuối chẳng có lượt nào kết thúc để sinh bản
-ghi mới. Bản thân chuỗi phần thưởng thưa thớt của SAC - vỏn vẹn bốn mươi bốn điểm so với
-bảy mươi chín điểm của MA-POCA và MAPPO - đã là một dấu hiệu thất bại.
+chạm trần thời gian, nên $60.000$ bước cuối chẳng có lượt nào kết thúc để sinh bản
+ghi mới. Bản thân chuỗi phần thưởng thưa thớt của SAC, vỏn vẹn $44$ điểm so với $79$ điểm của
+MA-POCA và MAPPO, đã là một dấu hiệu thất bại.
 
 \indent Cơ chế đằng sau hiện tượng này thì đề tài chưa xác định được. Có một giả thuyết
 khớp với dữ liệu: bộ đệm phát lại của SAC lưu lẫn lộn kinh nghiệm của hai bài học trong
@@ -611,7 +612,7 @@ học, nằm ngoài phạm vi đã làm.
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Độ dài lượt chơi (bước)},
         xmin=0, xmax=1.7, ymin=0, ymax=5100,
-        legend pos=south west,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -639,16 +640,16 @@ học, nằm ngoài phạm vi đã làm.
 Hình~\ref{fig:ctf_entropy} vẽ diễn biến entropy của bốn thuật toán dựa trên chính sách;
 DQN vắng mặt vì lý do đã nêu ở môi trường Cross The Road. Cả năm lần chạy đều xuất phát từ
 entropy $1{,}946$, đúng mức cực đại ứng với bảy hành động chọn ngẫu nhiên đều nhau. Tới
-cuối quá trình, MAPPO còn $0{,}645$, MA-POCA còn $0{,}719$, PPO còn $0{,}820$ - cả ba đều
-đã định hình được một chính sách có cấu trúc. Ba đường cong ấy giảm gần như đơn điệu và
+cuối quá trình, MAPPO còn $0{,}645$, MA-POCA còn $0{,}719$, PPO còn $0{,}820$, cả ba đều đã
+định hình được một chính sách có cấu trúc. Ba đường cong ấy giảm gần như đơn điệu và
 song song nhau, chỉ khác độ dốc.
 
 \indent Đường cong của SAC thì mang một hình dạng hoàn toàn khác, và đó là bằng chứng
-trực tiếp nhất cho thất bại của nó. Từ ba trăm nghìn tới một triệu bước, entropy của SAC
-lao xuống rất sâu, chạm đáy $0{,}013$ tại bước sáu trăm hai mươi nghìn - thấp hơn hẳn cả
+trực tiếp nhất cho thất bại của nó. Từ $300.000$ tới $1.000.000$ bước, entropy của SAC lao xuống
+rất sâu, chạm đáy $0{,}013$ tại bước $620.000$, thấp hơn hẳn cả
 ba thuật toán họ PPO ở cùng thời điểm, gần như một chính sách xác định hoàn toàn. Rồi ngay
-sau đó nó bật ngược lên đúng mức cực đại $1{,}946$, nằm lì ở đó suốt đoạn từ một triệu
-không trăm bốn mươi nghìn tới một triệu hai trăm sáu mươi nghìn bước, và chỉ giảm chậm về
+sau đó nó bật ngược lên đúng mức cực đại $1{,}946$, nằm lì ở đó suốt đoạn từ $1.040.000$ tới
+$1.260.000$ bước, và chỉ giảm chậm về
 $1{,}663$ ở bước cuối. Nói cách khác, SAC từng học được một chính sách có cấu trúc rồi
 đánh mất sạch, quay về trạng thái chọn hành động ngẫu nhiên đều nhau. Diễn biến này khớp
 chính xác với hình răng cưa của đường cong phần thưởng mô tả ở trên, và nó chỉ ra rằng vấn
@@ -662,7 +663,7 @@ chính xác với hình răng cưa của đường cong phần thưởng mô t�
         xlabel={Số bước huấn luyện (triệu)},
         ylabel={Entropy của chính sách},
         xmin=0, xmax=1.7, ymin=0, ymax=2.1,
-        legend pos=south west,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -711,21 +712,21 @@ chính xác với hình răng cưa của đường cong phần thưởng mô t�
     \label{fig:ctf_entropy}
 \end{figure}
 
-\indent Phần thưởng tò mò - thứ đo mức ``bất ngờ'' của tác nhân trước những trạng thái nó
-gặp - dẫn tới cùng một kết luận. Hình~\ref{fig:ctf_curiosity} vẽ chỉ số này với trục tung
+\indent Phần thưởng tò mò, thứ đo mức ``bất ngờ'' của tác nhân trước những trạng thái nó gặp,
+dẫn tới cùng một kết luận. Hình~\ref{fig:ctf_curiosity} vẽ chỉ số này với trục tung
 theo thang lô-ga-rit, vì biên độ giữa các thuật toán trải rộng hơn một bậc độ lớn. MAPPO
 kéo chỉ số xuống $0{,}478$, MA-POCA xuống $0{,}577$, PPO xuống $1{,}146$: môi trường đã
 thành quen thuộc với cả ba. Riêng SAC chỉ giảm từ $33{,}6$ xuống $18{,}7$ rồi dừng, dấu
 hiệu mô hình động lực của nó vẫn liên tục dự đoán sai. DQN nằm giữa hai nhóm với giá trị
-cuối $7{,}014$, hợp với chuyện nó giải được nhiệm vụ nhưng kém dứt khoát hơn ba thuật toán
-dẫn đầu - điều đã thấy qua độ dài lượt chơi còn cao.
+cuối $7{,}014$, hợp với chuyện nó giải được nhiệm vụ nhưng kém dứt khoát hơn ba thuật toán dẫn
+đầu, điều đã thấy qua độ dài lượt chơi còn cao.
 
 \indent Những đỉnh nhọn ở nửa đầu của cả năm đường cong ứng với thời điểm chương trình học
 chuyển bài. Tham số \texttt{handoff\_required} vừa bật lên là môi trường đột ngột sinh ra
 những trạng thái mà mô hình động lực chưa từng gặp, nên sai số dự đoán vọt lên. Phần đáng
 đọc nhất của hình nằm sau các đỉnh đó: ba thuật toán họ PPO đưa chỉ số về dưới một đơn vị
-rồi giữ nguyên, còn SAC vẫn ở mức cao gấp hơn ba mươi lần cho tới hết. Sau một triệu bảy
-trăm nghìn bước, thế giới của SAC vẫn xa lạ y như lúc bắt đầu.
+rồi giữ nguyên, còn SAC vẫn ở mức cao gấp hơn $30$ lần cho tới hết. Sau $1.700.000$ bước, thế
+giới của SAC vẫn xa lạ y như lúc bắt đầu.
 
 \begin{figure}[H]
     \centering
@@ -736,8 +737,7 @@ trăm nghìn bước, thế giới của SAC vẫn xa lạ y như lúc bắt đ�
         ylabel={Phần thưởng tò mò},
         ymode=log,
         xmin=0, xmax=1.7, ymin=0.3, ymax=60,
-        legend pos=south west,
-        legend columns=3,
+        legendabove,
         grid=both, grid style={gray!20},
         tick label style={font=\small},
         label style={font=\small},
@@ -793,8 +793,8 @@ trăm nghìn bước, thế giới của SAC vẫn xa lạ y như lúc bắt đ�
 \indent Ở trường hợp SAC, bốn chỉ số độc lập cùng chỉ về một hướng. Entropy sụp xuống rồi
 bật ngược lên mức cực đại thay vì giảm đều. Phần thưởng tò mò vẫn cao gấp hàng chục lần
 nhóm còn lại. Độ dài lượt chơi nằm ở trần thời gian. Và phần thưởng thì dao động, không
-hội tụ. Chừng đó đủ mạnh để kết luận SAC không hình thành nổi một chính sách ổn định trên
-bài toán hợp tác này - dù cơ chế cụ thể gây ra điều đó thì vẫn chưa xác định được.
+hội tụ. Chừng đó đủ mạnh để kết luận SAC không hình thành nổi một chính sách ổn định trên bài
+toán hợp tác này, dù cơ chế cụ thể gây ra điều đó thì vẫn chưa xác định được.
 
 % ═══════════════════════════════════════════════
 \subsection{Đánh giá tổng hợp}
@@ -802,28 +802,27 @@ bài toán hợp tác này - dù cơ chế cụ thể gây ra điều đó thì 
 \subsubsection{So sánh tốc độ hội tụ}
 \indent Số bước hội tụ chỉ có nghĩa khi đọc kèm mức năng lực mà chính sách hội tụ tới, và
 Cross The Road minh họa điều đó rõ nhất. MA-POCA chạm mốc ổn định sớm nhất nhóm, khoảng
-bốn trăm năm mươi nghìn bước, nhưng ổn định ở mức $0{,}556$. Trong khi đó SAC và MAPPO
-phải tới khoảng một triệu bảy trăm nghìn bước mới ổn định, nhưng đạt $0{,}846$ và
+$450.000$ bước, nhưng ổn định ở mức $0{,}556$. Trong khi đó SAC và MAPPO phải tới khoảng
+$1.700.000$ bước mới ổn định, nhưng đạt $0{,}846$ và
 $0{,}835$. Hội tụ sớm ở đây là dấu hiệu của việc chốt vào phương án tầm thường, không phải
-của việc học nhanh. Còn DQN thì chẳng đạt mốc ổn định nào trong suốt ngân sách hai triệu
-bước.
+của việc học nhanh. Còn DQN thì chẳng đạt mốc ổn định nào trong suốt ngân sách $2.000.000$ bước.
 
 \indent Ưu thế hiệu quả mẫu của SAC, thứ được nêu như một dự đoán ở Chương~2, hóa ra chỉ
-xuất hiện có điều kiện. Với cấu hình cập nhật mạng sau mỗi bước môi trường, SAC ổn định
-chỉ sau chừng một trăm năm mươi nghìn bước. Giãn tần suất cập nhật xuống một phần hai mươi
-để thời gian chạy khả thi, mốc đó lùi tận một triệu bảy trăm chín mươi nghìn bước. Vậy nên
+xuất hiện có điều kiện. Với cấu hình cập nhật mạng sau mỗi bước môi trường, SAC ổn định chỉ
+sau chừng $150.000$ bước. Giãn tần suất cập nhật xuống $1/20$ để thời gian chạy khả thi, mốc đó
+lùi tận $1.790.000$ bước. Vậy nên
 hiệu quả mẫu của thuật toán off-policy là một đại lượng đánh đổi được với thời gian tính
 toán, chứ không phải hằng số của thuật toán. Còn xét theo thời gian đồng hồ, trên cùng
-ngân sách bước, SAC chạy một trăm ba mươi chín phút so với bốn mươi tám phút của PPO.
+ngân sách bước, SAC chạy $139$ phút so với $48$ phút của PPO.
 
 \subsubsection{So sánh mức năng lực đạt được}
 \indent Hình~\ref{fig:success_bar} đặt cạnh nhau phần thưởng trung bình mười phần trăm
-cuối của năm thuật toán trên cả ba môi trường - cũng chính là đại lượng mà ứng dụng trình
-diễn dùng ở tab so sánh. Bức tranh hiện ra không giống giả thuyết ban đầu của đề tài: chẳng
+cuối của năm thuật toán trên cả ba môi trường, cũng chính là đại lượng mà ứng dụng trình diễn
+dùng ở tab so sánh. Bức tranh hiện ra không giống giả thuyết ban đầu của đề tài: chẳng
 có quy luật ``mỗi thuật toán thắng trên đúng loại bài toán nó được thiết kế cho''.
 
-\indent Trên Capture The Flag - môi trường hợp tác, đúng sân của các phương pháp đa tác
-nhân - bốn thuật toán về đích trong dải $0{,}04$, và PPO thường bám sát MAPPO. Cơ chế phê
+\indent Trên Capture The Flag, môi trường hợp tác vốn là đúng sân của các phương pháp đa tác
+nhân, bốn thuật toán về đích trong dải $0{,}04$, và PPO thường bám sát MAPPO. Cơ chế phê
 bình tập trung của MA-POCA và MAPPO không tạo nổi khác biệt đo được so với PPO ở bài toán
 này. Trên Cross The Road, môi trường đơn tác nhân nơi MAPPO lẽ ra suy biến thành PPO, thì
 MAPPO lại vượt PPO một khoảng lớn. Còn trên Football Table, biên độ ELO hẹp tới mức không
@@ -851,7 +850,7 @@ lợi của việc chọn đúng thuật toán tốt nhất trong nhóm khả d�
         xtick={Football, Coop, Cross},
         xticklabels={Football Table, Capture The Flag, Cross The Road},
         x tick label style={font=\small},
-        legend style={at={(0.5,1.05)}, anchor=south, legend columns=-1},
+        legendabove,
         nodes near coords, nodes near coords style={font=\scriptsize},
         grid=both, grid style={gray!20},
     ]
@@ -878,8 +877,7 @@ thưởng của ba môi trường vốn thiết kế khác nhau. Football Table 
 phần trăm cuối. Trên Cross The Road, MA-POCA cho đường cong mượt nhất ($0{,}017$), rồi tới
 MAPPO ($0{,}024$) và SAC ($0{,}025$); PPO dao động mạnh nhất ($0{,}116$) do giai đoạn mất
 ổn định đã mô tả ở trên. Trên Capture The Flag, cả ba thuật toán họ PPO đều rất mượt, từ
-$0{,}002$ của MAPPO tới $0{,}006$ của PPO, trong khi SAC vọt lên $0{,}210$ - lớn hơn hai
-bậc độ lớn.
+$0{,}002$ của MAPPO tới $0{,}006$ của PPO, trong khi SAC vọt lên $0{,}210$, lớn hơn hai bậc độ lớn.
 
 \indent Tính mượt của nhóm họ PPO ở hai môi trường hành động rời rạc giải thích được bằng
 cơ chế cắt tỉ lệ đặc trưng của họ này, vốn giới hạn độ lớn mỗi bước cập nhật. Nhưng quy
@@ -891,7 +889,7 @@ học, nên ở môi trường đối kháng chỉ số này mất gần hết �
 \subsubsection{Bằng chứng từ chỉ số huấn luyện nội tại}
 \indent Bên cạnh phần thưởng, các chỉ số nội tại của quá trình huấn luyện đưa thêm bằng
 chứng khách quan củng cố những nhận định trên. Bảng~\ref{tab:diagnostics} tổng hợp chúng
-cho các lần chạy có hành động rời rạc - nơi entropy của chính sách cùng bản chất nên đối
+cho các lần chạy có hành động rời rạc, nơi entropy của chính sách cùng bản chất nên đối
 chiếu tương đối được với nhau. Trừ đúng ngoại lệ SAC trên Capture The Flag đã phân tích ở
 trên, entropy đều giảm mạnh từ đầu tới cuối, xác nhận rằng các tác nhân đã chuyển từ khám
 phá ngẫu nhiên sang một chính sách có định hướng. Bảng còn thêm cột phần thưởng tò mò, bởi
@@ -944,7 +942,7 @@ chứ không theo một phân phối chính sách.}
 \indent Entropy cuối phân tách các lần chạy đúng theo mức năng lực đạt được, nhưng theo
 chiều ngược với trực giác thông thường. Trên Capture The Flag, ba thuật toán giải được câu
 đố đều hạ entropy xuống dải $0{,}65$--$0{,}82$, còn SAC giữ nguyên $1{,}74$ trên mức cực
-đại $1{,}95$. Chênh lệch đó là chỉ báo sớm nhất và rõ nhất cho thất bại của SAC - nó xuất
+đại $1{,}95$. Chênh lệch đó là chỉ báo sớm nhất và rõ nhất cho thất bại của SAC, bởi nó xuất
 hiện trước cả khi ta nhìn vào phần thưởng. Nhưng sang Cross The Road, entropy cuối lại
 chẳng dự đoán được thứ hạng: MA-POCA hạ entropy thấp nhất ($0{,}20$) mà phần thưởng chỉ
 $0{,}556$, còn PPO giữ entropy cao nhất ($0{,}79$) và cũng chỉ được $0{,}690$. Vậy entropy
@@ -953,11 +951,11 @@ tốt hay xấu.
 
 \indent Hàm mất mát phê bình thì phải đọc trong ngữ cảnh riêng của từng thuật toán. Giá
 trị gần không của SAC cho thấy mạng phê bình hội tụ nhanh nhờ tái dùng dữ liệu đã lưu. Giá
-trị $0{,}001$ của DQN lại có nguyên nhân khác hẳn: mạng dự đoán khớp với mục tiêu do chính
-nó sinh ra - chuyện vẫn xảy ra ngay cả khi chính sách kém, đúng như trường hợp DQN xếp
+trị $0{,}001$ của DQN lại có nguyên nhân khác hẳn: mạng dự đoán khớp với mục tiêu do chính nó
+sinh ra, chuyện vẫn xảy ra ngay cả khi chính sách kém, đúng như trường hợp DQN xếp
 cuối Cross The Road. Ba thuật toán họ PPO giữ một mức dương nhỏ, và cao hơn hẳn ở Capture
-The Flag ($0{,}047$--$0{,}051$) so với Cross The Road ($0{,}006$--$0{,}025$) - hợp lý, vì
-phần thưởng nhóm vừa thưa vừa trì hoãn khiến việc ước lượng giá trị khó hơn nhiều.
+The Flag ($0{,}047$--$0{,}051$) so với Cross The Road ($0{,}006$--$0{,}025$), hợp lý vì phần
+thưởng nhóm vừa thưa vừa trì hoãn khiến việc ước lượng giá trị khó hơn nhiều.
 
 \subsubsection{Phân tích ưu nhược điểm từng thuật toán}
 \indent Bảng~\ref{tab:overall_ranking} tổng hợp thứ hạng của năm thuật toán trên từng
@@ -997,7 +995,7 @@ hơn dao động của chính các đường cong, nên thứ tự trong nội b
 luận. Chỉ ba phân tách là thực sự vững: SAC thất bại trên Capture The Flag, DQN xếp cuối
 trên Cross The Road, và nhóm dẫn đầu tách khỏi nhóm sau ở Cross The Road.
 
-\indent MAPPO là thuật toán duy nhất góp mặt ở nhóm dẫn đầu cả ba môi trường - hạng nhất ở
+\indent MAPPO là thuật toán duy nhất góp mặt ở nhóm dẫn đầu cả ba môi trường: hạng nhất ở
 Football Table lẫn Capture The Flag, hạng nhì ở Cross The Road với khoảng cách không đáng
 kể so với SAC. Kết quả này vượt xa phạm vi mà thiết kế của MAPPO nhắm tới: thuật toán vốn
 được đề xuất cho bài toán hợp tác đa tác nhân, vậy mà chạy tốt cả ở môi trường đơn tác
@@ -1010,8 +1008,8 @@ The Road, nơi entropy tăng ngược và độ dài lượt chơi bùng nổ �
 khỏi vùng nghiệm tốt rồi không tự quay lại được trong ngân sách đã cho.
 
 \indent SAC là thuật toán phân hóa mạnh nhất. Nó dẫn đầu Cross The Road ($0{,}846$), đứng
-thứ ba ở Football Table, rồi sụp đổ hoàn toàn trên Capture The Flag - entropy gần như
-không giảm, lượt chơi luôn chạm trần thời gian. Biên độ giữa thành công và thất bại của
+thứ ba ở Football Table, rồi sụp đổ hoàn toàn trên Capture The Flag, nơi entropy gần như không
+giảm, lượt chơi luôn chạm trần thời gian. Biên độ giữa thành công và thất bại của
 riêng SAC còn lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một môi trường, nên
 khi chưa thử nghiệm trên bài toán cụ thể thì đây là lựa chọn rủi ro nhất.
 
@@ -1023,8 +1021,8 @@ The Road và cuối cùng trong nhóm tự chơi ở Football Table. Cơ chế p
 \indent DQN vừa yếu nhất xét toàn cục vừa khó triển khai nhất. Nó xếp cuối Cross The Road
 với khoảng cách lớn, chỉ chen được vào nhóm giữa ở Capture The Flag, còn trên Football
 Table thì cần một bản dựng riêng có không gian hành động rời rạc mà vẫn không ghép nổi với
-tự chơi. Ưu điểm duy nhất ghi nhận được là đường cong ổn định - nhưng sự ổn định đó đến từ
-việc chính sách ít thay đổi, chứ không từ chất lượng của chính sách.
+tự chơi. Ưu điểm duy nhất ghi nhận được là đường cong ổn định, nhưng sự ổn định đó đến từ việc
+chính sách ít thay đổi, chứ không từ chất lượng của chính sách.
 
 % ═══════════════════════════════════════════════
 \subsection{Thảo luận}
@@ -1032,16 +1030,16 @@ việc chính sách ít thay đổi, chứ không từ chất lượng của ch�
 \subsubsection{Khả năng ứng dụng trong phát triển game}
 \indent Từ kết quả thực nghiệm rút ra được vài hàm ý thực tiễn cho việc đưa học tăng cường
 vào phát triển game. Quan trọng nhất: chọn thuật toán nên dựa trên cơ chế game cụ thể, chứ
-đừng đi tìm một thuật toán ``tốt nhất'' chung chung. Với game đối kháng - người chơi đấu
-người chơi, hoặc đấu máy, kiểu game thể thao hay game đấu trường - thì các thuật toán họ
-PPO kết hợp tự chơi là lựa chọn hợp lý. Chúng tự sinh ra đối thủ máy có trình độ tăng dần
+đừng đi tìm một thuật toán ``tốt nhất'' chung chung. Với game đối kháng (người chơi đấu người
+chơi, hoặc đấu máy, kiểu game thể thao hay game đấu trường) thì các thuật toán họ PPO kết hợp
+tự chơi là lựa chọn hợp lý. Chúng tự sinh ra đối thủ máy có trình độ tăng dần
 một cách tự nhiên, cho người chơi trải nghiệm vừa thử thách vừa công bằng.
 
-\indent Với game điều hướng, né vật cản hay giải đố đơn tuyến, SAC đạt mức năng lực cao
-nhất trong thực nghiệm - nhưng kèm hai điều kiện. Một, hiệu quả sử dụng dữ liệu của nó phụ
+\indent Với game điều hướng, né vật cản hay giải đố đơn tuyến, SAC đạt mức năng lực cao nhất
+trong thực nghiệm, nhưng kèm hai điều kiện. Một, hiệu quả sử dụng dữ liệu của nó phụ
 thuộc vào tần suất cập nhật mạng. Hai, thời gian chạy thực tế cao gấp gần ba lần PPO trên
 cùng ngân sách bước. Nhóm phát triển ít tài nguyên nên cân nhắc kỹ hai điều đó trước khi
-chọn SAC chỉ vì lý do ``ít mẫu hơn''.
+chọn SAC.
 
 \indent Với game hợp tác cần nhiều nhân vật máy phối hợp, thực nghiệm cho một kết quả đáng
 lưu ý: PPO thường bám sát MAPPO lẫn MA-POCA, nên công sức tích hợp một thuật toán đa tác
@@ -1050,6 +1048,6 @@ mốc so sánh, rồi mới tính tới MAPPO nếu mốc đó chưa đủ. Còn
 nhất: đừng dùng thuật toán off-policy như SAC cho bài toán hợp tác có phần thưởng nhóm
 thưa kèm chương trình học nhiều bài, bởi đó là cấu hình duy nhất trong đề tài dẫn tới thất
 bại hoàn toàn. Ngoài phần hướng dẫn chọn thuật toán, bản thân ba môi trường của đề tài
-cùng quy trình thiết kế quan sát - hành động - phần thưởng cũng dùng lại được ngay, làm
+cùng quy trình thiết kế quan sát, hành động và phần thưởng cũng dùng lại được ngay, làm
 nền thử nghiệm trí tuệ nhân tạo cho các dự án game Unity khác và tiết kiệm kha khá công
 dựng môi trường từ đầu.

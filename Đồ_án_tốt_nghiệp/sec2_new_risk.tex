@@ -28,9 +28,12 @@ trong số đó được lập trình sẵn, tất cả đều nảy sinh từ q
 thân tác nhân.
 
 \indent Tuy nhiên ấn tượng mà những cột mốc ấy để lại rất dễ khiến người ta nhầm về chỗ
-khó thật sự. Thuật toán học tăng cường ngày nay đều đã được cài đặt sẵn, kiểm chứng kỹ
-và gói gọn trong các thư viện. Thứ không ai đưa sẵn cho ta và cũng là thứ tốn phần lớn công sức của một
-dự án học tăng cường thực tế là môi trường huấn luyện. Tác nhân nhìn thấy
+khó thật sự. Phần lớn thuật toán học tăng cường ngày nay đã được cài đặt sẵn, kiểm chứng
+kỹ và gói gọn trong các thư viện, nên đổi bài toán vẫn dùng lại được gần như nguyên vẹn.
+Môi trường huấn luyện thì ngược lại. Môi trường mẫu tuy sẵn có, nhưng mỗi cái được đặc tả
+cho đúng bài toán của người viết ra nó, nên chuyển sang một cơ chế trò chơi khác thì gần
+như không kế thừa được gì. Đây cũng là thứ tốn phần lớn công sức của một dự án học tăng
+cường thực tế. Tác nhân nhìn thấy
 những gì? Nó hành động ra sao? Thưởng phạt theo tiêu chí nào? Sau mỗi lượt thì tình
 huống được đặt lại thế nào? Và làm sao để cả hệ thống chạy đủ nhanh mà gom về hàng triệu
 bước kinh nghiệm? Mỗi câu hỏi là một quyết định
@@ -55,8 +58,8 @@ tảng rất hợp để thiết kế đủ loại môi trường huấn luyện
 \indent Từ những lý do đó, tôi chọn đề tài ``Học tăng cường để tối ưu hóa khả năng tương
 tác của AI trong game''. Trọng tâm là nghiên cứu và xây dựng môi trường
 huấn luyện cho tác nhân học tăng cường trên nền tảng Unity ML-Agents: ba môi trường ba
-chiều thuộc ba dạng bài toán khác nhau, kèm theo toàn bộ quá trình thiết kế quan sát -
-hành động - phần thưởng, các công cụ hỗ trợ và cách đóng gói để mọi người dùng lại được.
+chiều thuộc ba dạng bài toán khác nhau, kèm theo toàn bộ quá trình thiết kế quan sát, hành
+động và phần thưởng, các công cụ hỗ trợ và cách đóng gói để mọi người dùng lại được.
 
 \indent Năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN được huấn luyện đầy đủ trên
 cả ba môi trường với vai trò kiểm chứng môi trường. Vì khi nhìn vào mã nguồn thì không thể nghiệm thu
@@ -79,7 +82,13 @@ Kế đến, đề tài nghiên cứu quy trình thiết kế quan sát, hành �
 
 Thứ ba, đề tài đóng gói môi trường thành sản phẩm dùng lại được. Một môi trường chỉ có giá trị với người khác khi họ cài được nó vào dự án của mình. Cả ba môi trường vì thế được gói thành một gói Unity Package Manager, kèm cấu hình huấn luyện, bộ công cụ Editor (nhân khu vực huấn luyện, build headless, sinh biến thể không gian hành động) và một trình hướng dẫn cài đặt biết tự kiểm tra trạng thái từng bước.
 
-Thứ tư, đề tài kiểm chứng môi trường bằng thực nghiệm đa thuật toán. Năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN được huấn luyện trên từng môi trường, cùng điều kiện phần cứng và cùng ngân sách bước, tạo thành một lưới đầy đủ mười lăm lần chạy. Mục đích là xác nhận ba tính chất của một môi trường đạt yêu cầu - tác nhân học được, môi trường phân biệt được các hướng tiếp cận, và không tồn tại lối tắt thoái hóa - đồng thời đo đặc tính của từng môi trường qua bốn tiêu chí định lượng: mức năng lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và độ dài lượt chơi.
+Thứ tư, đề tài kiểm chứng môi trường bằng thực nghiệm đa thuật toán. Năm thuật toán PPO, SAC,
+MA-POCA, MAPPO và DQN được huấn luyện trên từng môi trường, cùng điều kiện phần cứng và cùng
+ngân sách bước, tạo thành một lưới đầy đủ $15$ lần chạy. Mục đích là xác nhận ba tính chất
+của một môi trường đạt yêu cầu (tác nhân học được, môi trường phân biệt được các hướng tiếp
+cận, và không tồn tại lối tắt thoái hóa), đồng thời đo đặc tính của từng môi trường qua bốn
+tiêu chí định lượng: mức năng lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và độ dài lượt
+chơi.
 
 Cuối cùng, đề tài xây dựng ứng dụng trình diễn để quan sát hành vi. Biểu đồ phần thưởng không nói cho ta biết tác nhân đang thực sự làm gì, trong khi rất nhiều lỗi đặc tả chỉ chịu lộ ra khi nhìn hành vi thật. Đề tài do đó dựng thêm một ứng dụng cho phép nạp trực tiếp các mô hình đã huấn luyện dưới định dạng ONNX, tự điều khiển hoặc chơi cùng tác nhân để đối chiếu độ khó, và tra cứu số liệu huấn luyện ngay trên cùng giao diện.
 
@@ -148,9 +157,9 @@ ML-Agents, một hệ sinh thái mã nguồn mở tích hợp sẵn khả năng 
 chiều với mô phỏng vật lý chân thực và hỗ trợ huấn luyện tác nhân trực tiếp. Công cụ này
 hiện được dùng rộng rãi trong cả nghiên cứu lẫn phát triển game.
 
-\indent Có một điểm chung giữa toàn bộ các công trình vừa kể là chúng sử dụng môi
-trường chứ không bàn tới việc tạo ra môi trường. Bộ benchmark đã được ai đó đặc tả sẵn -
-lưới hai chiều, vector trạng thái rút gọn, động lực học đơn giản - và đóng góp khoa học
+\indent Trong phạm vi các công trình vừa khảo sát, có một điểm chung: chúng sử dụng môi
+trường chứ không bàn tới việc tạo ra môi trường. Bộ benchmark đã được ai đó đặc tả sẵn (lưới
+hai chiều, vector trạng thái rút gọn, động lực học đơn giản), và đóng góp khoa học
 nằm hết ở phía thuật toán. Hệ quả là tài liệu về việc thiết kế một môi trường học
 tăng cường ít hơn rất nhiều so với tài liệu về thuật toán. Nên đưa đại lượng nào
 vào quan sát? Phần thưởng dày hay thưa? Phạt thời gian bao nhiêu là đủ? Làm sao biết một
@@ -219,8 +228,8 @@ thiết kế ba môi trường game ba chiều trong Unity: không gian quan sá
 toán nằm ngoài bộ huấn luyện tích hợp sẵn của ML-Agents vào thực nghiệm, cùng thiết lập
 thực nghiệm và các tiêu chí đánh giá được sử dụng. 
 
-Sang Chương~\ref{ch:results}, 15
-lần huấn luyện được dùng để nghiệm thu ba môi trường đó: kết quả của từng thuật toán trên
+Sang Chương~\ref{ch:results}, $15$ lần huấn luyện được dùng để nghiệm thu ba môi trường đó:
+kết quả của từng thuật toán trên
 từng môi trường được trình bày qua biểu đồ và bảng số liệu, rồi đối chiếu với nhau để xác
 nhận môi trường học được, phân biệt được và không có lối tắt, từ đó rút ra nhận xét về
 mức độ phù hợp giữa thuật toán và dạng bài toán.

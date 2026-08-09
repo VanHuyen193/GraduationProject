@@ -17,7 +17,7 @@ cải thiện.
 \indent Ở giai đoạn đầu, AI game gần như hoàn toàn dựa vào các hệ thống quy tắc cứng. Lập trình viên định nghĩa sẵn toàn bộ hành vi của NPC dưới dạng
 tập hợp điều kiện kèm phản ứng tương ứng. Ưu điểm là dễ kiểm soát, dễ dự đoán nhưng nhược điểm là lộ ra ngay khi NPC gặp một tình huống nằm ngoài dự kiến.
 
-\indent Máy trạng thái hữu hạn (Finite State Machine - FSM) ra đời để khắc phục hạn chế
+\indent Máy trạng thái hữu hạn (Finite State Machine, FSM) ra đời để khắc phục hạn chế
 đó, và được ứng dụng rộng rãi suốt những thập niên 1990-2000. FSM mô hình hóa hành vi NPC
 bằng một tập hữu hạn các trạng thái: tuần tra, truy đuổi, tấn công, rút lui cùng các
 điều kiện chuyển giữa chúng. FSM đơn giản và rẻ về mặt tính toán nên đến tận bây giờ nó vẫn
@@ -37,12 +37,12 @@ chi phí xây dựng và mở rộng hệ thống càng đội lên.
 \indent Học máy bùng nổ trong thập niên 2010 và mở ra một hướng đi hoàn toàn khác cho AI
 trong game. Không còn phải lập trình hành vi thủ công nữa, các kỹ thuật học máy để agent
 tự học từ dữ liệu hoặc từ chính tương tác với môi trường. Trong số đó, học tăng cường
-(Reinforcement Learning - RL) hợp với bản chất của game hơn cả: agent học cách hành động
+(Reinforcement Learning, RL) hợp với bản chất của game hơn cả: agent học cách hành động
 qua thử và sai, nhận thưởng hoặc phạt từ môi trường, rồi dần tối ưu chiến lược của mình
 để đạt điểm số cao nhất \cite{sutton2018reinforcement}.
 
 \indent Bước ngoặt đến vào năm 2013, khi DeepMind công bố thuật toán DQN (Deep Q-Network)
-\cite{mnih2015humanlevel}. Đây là lần đầu tiên một agent RL học chơi thành thạo 49 trò
+\cite{mnih2015humanlevel}. Đây là lần đầu tiên một agent RL học chơi thành thạo $49$ trò
 chơi Atari khác nhau chỉ từ dữ liệu pixel thô, không hề có tri thức nào được lập trình
 sẵn. Thành tựu này khai sinh Deep Reinforcement Learning, tức là kết hợp sức mạnh biểu
 diễn của mạng nơ-ron sâu với khả năng học từ tương tác của RL.
@@ -78,8 +78,8 @@ các scene 3D dựng trong Unity.
 \indent State, tức trạng thái $s \in \mathcal{S}$, là biểu diễn của môi trường tại một
 thời điểm mà agent quan sát được. Với môi trường 3D, state thường gồm vị trí và vận tốc
 của các đối tượng, khoảng cách tới mục tiêu cùng những thông tin không gian liên quan.
-Đi kèm là action, hành động $a \in \mathcal{A}$ - tập lựa chọn mà agent có thể thực hiện
-ở mỗi bước. Hành động có thể rời rạc, chẳng hạn di chuyển lên, xuống, trái, phải; cũng có
+Đi kèm là action, hành động $a \in \mathcal{A}$, tức tập lựa chọn mà agent có thể thực hiện ở
+mỗi bước. Hành động có thể rời rạc, chẳng hạn di chuyển lên, xuống, trái, phải; cũng có
 thể liên tục, chẳng hạn lực đẩy theo trục $x$, $y$, $z$.
 
 \indent Reward, phần thưởng $r_t \in \mathbb{R}$, là tín hiệu môi trường trả về sau mỗi
@@ -118,7 +118,7 @@ thái mới kèm một phần thưởng, và cứ thế agent dần cải thiệ
 \label{sub:mdp}
 
 \indent Phần lớn bài toán RL được hình thức hóa thành Quá trình Quyết định Markov (Markov
-Decision Process - MDP). Đây là khung toán học cho phép mô hình hóa chặt chẽ những bài
+Decision Process, MDP). Đây là khung toán học cho phép mô hình hóa chặt chẽ những bài
 toán ra quyết định tuần tự trong môi trường ngẫu nhiên \cite{puterman1994markov}. Một MDP
 được định nghĩa bởi bộ năm thành phần
 $\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma)$, trong
@@ -142,7 +142,7 @@ lịch sử tương tác. Trên thực tế, khá nhiều môi trường game th
 này, miễn là state được thiết kế đủ phong phú để mang hết thông tin cần thiết.
 
 \indent Hệ số chiết khấu $\gamma$ nói lên agent coi trọng phần thưởng tương lai đến mức
-nào so với phần thưởng hiện tại. $\gamma$ càng gần 1, agent càng thiên về kế hoạch dài
+nào so với phần thưởng hiện tại. $\gamma$ càng gần $1$, agent càng thiên về kế hoạch dài
 hạn; $\gamma$ nhỏ thì agent chỉ chăm chăm vào phần thưởng tức thời. Tổng phần thưởng tích
 lũy có chiết khấu mà agent muốn tối đa hóa được định nghĩa như sau:
 
@@ -422,8 +422,8 @@ policy gradient đơn giản.
 \end{equation}
 
 \noindent trong đó $r_t(\theta) = \dfrac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_\text{old}}(a_t \mid s_t)}$
-là tỷ lệ xác suất giữa policy mới và policy cũ, $\hat{A}_t$ là ước lượng advantage - tức
-mức độ một hành động tốt hơn hay kém hơn kỳ vọng trung bình - còn $\varepsilon$ là siêu
+là tỷ lệ xác suất giữa policy mới và policy cũ, $\hat{A}_t$ là ước lượng advantage, tức mức độ
+một hành động tốt hơn hay kém hơn kỳ vọng trung bình, còn $\varepsilon$ là siêu
 tham số clipping, thường đặt trong khoảng $[0.1, 0.2]$. Toán tử $\text{clip}$ ép
 $r_t(\theta)$ nằm trong $[1-\varepsilon, 1+\varepsilon]$, nhờ đó policy mới không lệch quá
 xa policy cũ chỉ trong một bước cập nhật. Còn hàm $\min$ bảo đảm mục tiêu luôn là cận dưới
@@ -443,7 +443,7 @@ của ước lượng advantage, $V(s_t)$ là giá trị trạng thái được 
 critic.
 
 \indent Mỗi iteration, PPO dùng policy hiện tại để gom một batch dữ liệu từ môi trường,
-rồi chạy nhiều lần cập nhật gradient trên chính batch đó thường 3 đến 10 epochs trước
+rồi chạy nhiều lần cập nhật gradient trên chính batch đó thường $3$ đến $10$ epochs trước
 khi đi lấy batch mới. Cơ chế clipping là thứ giữ cho các lần cập nhật lặp lại này không
 đẩy policy đi quá xa điểm xuất phát, tức là có được tính ổn định mà không phải trả cái
 giá tính toán đắt đỏ như TRPO.
@@ -488,7 +488,7 @@ vào một lựa chọn tham lam.
 \indent SAC nuôi ba mạng nơ-ron cùng lúc. Mạng actor $\pi_\theta(a \mid s)$ sinh phân phối
 xác suất trên không gian hành động; hai mạng critic $Q_{\phi_1}(s,a)$ và $Q_{\phi_2}(s,a)$
 được huấn luyện độc lập để ước lượng hàm giá trị hành động. Chạy hai critic song song rồi
-lấy giá trị nhỏ hơn - kỹ thuật clipped double-Q - là cách SAC hạn chế hiện tượng
+lấy giá trị nhỏ hơn (kỹ thuật clipped double-Q) là cách SAC hạn chế hiện tượng
 overestimation vốn rất phổ biến ở các thuật toán Q-learning:
 
 \begin{equation}
@@ -695,7 +695,7 @@ hành động rời rạc lại nhỏ, chọn hành động bằng $\max_a Q(s,a
 thêm chi phí tối ưu nào.
 
 \indent \textbf{Nhược điểm:} Cũng chính phép lấy $\max_a Q(s,a)$ khiến DQN không dùng
-thẳng được cho không gian hành động liên tục - đây là rào cản mà đề tài gặp phải trên môi
+thẳng được cho không gian hành động liên tục; đây là rào cản mà đề tài gặp phải trên môi
 trường Football Table. Toán tử cực đại còn gây thiên lệch ước lượng vượt mức
 (overestimation bias), bởi nhiễu trong ước lượng $Q$ luôn bị khuếch đại về phía trên. Cuối
 cùng, do học một chính sách xác định, DQN chẳng có cơ chế nội tại nào giữ lại tính ngẫu
@@ -804,7 +804,7 @@ quyết định hay tính va chạm theo cái tần số trồi sụt ấy, môi
 nhau ở các lần chạy khác nhau.
 
 \indent Cách ML-Agents xử lý là dồn toàn bộ quy trình RL vào hàm \texttt{FixedUpdate()},
-chu kỳ cập nhật vật lý có tần số cố định - mặc định $0.02$ giây mỗi bước, tức $50$
+chu kỳ cập nhật vật lý có tần số cố định, mặc định $0.02$ giây mỗi bước, tức $50$
 lần/giây. Hệ thống vật lý PhysX của Unity tính động lực học, cập nhật tọa độ các
 \texttt{Rigidbody} và xử lý va chạm hoàn toàn theo những bước thời
 gian cố định này. Nhờ vậy, chỉ cần cùng một seed ngẫu nhiên ban đầu là môi trường Unity
@@ -833,7 +833,7 @@ Cảm biến, gồm ba loại phổ biến:
 nơi khai báo kích thước không gian quan sát và không gian hành động. Chính tại đây
 ML-Agents đưa ra cơ chế Action Masking để chặn những hành động không
 hợp lệ. Chẳng hạn khi Agent đang đứng sát tường, hệ thống ``đeo mặt nạ'' lên hành động tiến
-lên, ép xác suất chọn nó về 0. Không gian tìm kiếm nhờ thế hẹp lại và mô hình hội tụ nhanh
+lên, ép xác suất chọn nó về $0$. Không gian tìm kiếm nhờ thế hẹp lại và mô hình hội tụ nhanh
 hơn, thay vì phải tự học rằng đâm đầu vào tường thì bị phạt.
 
 \indent Bên cạnh đó, thành phần \texttt{DecisionRequester} cho phép gom nhóm các bước mô

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.16)  4 AUG 2026 23:26
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.7.16)  8 AUG 2026 21:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1260,7 +1260,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip121
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 59.
+Package hyperref Info: Option `colorlinks' set `true' on input line 72.
 \c@currtcctr=\count471
 \c@endtcctr=\count472
 \c@tc=\count473
@@ -1297,26 +1297,26 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 59.
  (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 237.
-LaTeX Font Info:    ... okay on input line 237.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 250.
+LaTeX Font Info:    ... okay on input line 250.
 
 Package fontspec Info: 
 (fontspec)             Adjusting the maths setup (use [no-math] to avoid
@@ -1324,64 +1324,64 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup9
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 237.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 237.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 237.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 237.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 237.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 237.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 237.
-LaTeX Font Info:    Redeclaring math accent \check on input line 237.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 237.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 237.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 237.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 237.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 237.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 250.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 250.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 250.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 250.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 250.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 250.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 250.
+LaTeX Font Info:    Redeclaring math accent \check on input line 250.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 250.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 250.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 250.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 250.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 250.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 237.
+(Font)              `operators' in the math version `normal' on input line 250.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 2
-37.
+50.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 237.
+(Font)              `operators' in the math version `bold' on input line 250.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 
-237.
+250.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on 
-input line 237.
+input line 250.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line
- 237.
+ 250.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
 (Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 
-237.
+250.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 237.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 250.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 237.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 250.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on 
-input line 237.
+input line 250.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input lin
-e 237.
+e 250.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 237.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 250.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 237.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 250.
 
 Package pgfplots notification 'compat/show suggested version=true': you might b
 enefit from \pgfplotsset{compat=1.18} (current compat level: 1.17).
@@ -1426,7 +1426,7 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count504
-Package hyperref Info: Link coloring ON on input line 237.
+Package hyperref Info: Link coloring ON on input line 250.
 (main.out) (main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -1562,69 +1562,65 @@ ignored error: Infinite glue shrinkage found in box being split [12]) [13]
 \c@romanpage=\count505
 
 (sec2_new_risk.tex [1] [2] [3] [4] [5] [6] [7]) (sec3_opt_strategy.tex [8]
-[9] [10] [11] [12] [13] [14] [15]
-Overfull \hbox (46.83392pt too wide) in paragraph at lines 397--398
- [][] 
- []
-
-[16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26]
+[9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23]
+[24] [25]
 File: image/learning_environment_full.png Graphic file (type bmp)
 <image/learning_environment_full.png>
- [27] [28]
-Underfull \hbox (badness 1708) in paragraph at lines 878--885
+ [26] [27] [28]
+Underfull \hbox (badness 1708) in paragraph at lines 862--869
 []\TU/TimesNewRoman(0)/m/n/13 Thứ điều khiển toàn bộ quá trình huấn luyện là tệ
 p cấu hình YAML.
  []
 
 
-Underfull \hbox (badness 1845) in paragraph at lines 878--885
+Underfull \hbox (badness 1845) in paragraph at lines 862--869
 \TU/TimesNewRoman(0)/m/n/13 Trong đó khai báo loại trainer (\TU/lmtt/m/n/13 tra
 iner_type\TU/TimesNewRoman(0)/m/n/13 ), siêu tham số huấn luyện
  []
 
-[29]) (sec5.tex [30] [31]
+[29]) (sec5.tex [30]
 Package hyperref Info: bookmark level for unknown dn defaults to 0 on input lin
-e 73.
- [32] [33] [34] [35] [36] [37] [38] [39]
+e 52.
+ [31] [32] [33] [34] [35] [36] [37] [38]
 File: image/app/env_football.png Graphic file (type bmp)
 <image/app/env_football.png>
 File: image/app/env_puzzle.png Graphic file (type bmp)
 <image/app/env_puzzle.png>
 File: image/app/env_crossroad.png Graphic file (type bmp)
 <image/app/env_crossroad.png>
- [40] [41]
+ [39] [40] [41]
 [42] [43] [44]
-Underfull \hbox (badness 7099) in paragraph at lines 581--581
+Underfull \hbox (badness 7099) in paragraph at lines 558--558
 []|\TU/TimesNewRoman(0)/m/n/12 Ghi bàn vào khung thành đối
  []
 
 [45] [46] [47] [48] [49] [50] [51] [52] [53] [54] [55] [56] [57] [58] [59]
 [60] [61]
-Underfull \hbox (badness 2189) in paragraph at lines 1232--1232
+Underfull \hbox (badness 2189) in paragraph at lines 1207--1207
 []|\TU/TimesNewRoman(0)/m/n/12 Không gian quan
  []
 
 
-Underfull \hbox (badness 2189) in paragraph at lines 1234--1234
+Underfull \hbox (badness 2189) in paragraph at lines 1209--1209
 []|\TU/TimesNewRoman(0)/m/n/12 Không gian hành
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1246--1246
+Underfull \hbox (badness 10000) in paragraph at lines 1221--1221
 []|\TU/TimesNewRoman(0)/m/n/12 Ngân sách bước
  []
 
-[62] [63] [64] [65]
-Underfull \hbox (badness 2635) in paragraph at lines 1372--1373
+[62] [63] [64]
+Underfull \hbox (badness 2635) in paragraph at lines 1347--1348
 []|\TU/TimesNewRoman(0)/m/n/12 Stable-Baselines3 và giao diện Python của ML-
  []
 
-[66]
-Underfull \hbox (badness 10000) in paragraph at lines 1409--1409
+[65]
+Underfull \hbox (badness 10000) in paragraph at lines 1384--1384
 []|\TU/TimesNewRoman(0)/m/n/12 Hệ số chiết
  []
 
-[67] [68]) (sec6.tex [69] [70] [71]
+[66] [67]) (sec6.tex [68] [69] [70]
 Underfull \hbox (badness 1953) in paragraph at lines 81--85
 \TU/TimesNewRoman(0)/m/n/13 Môi trường Football Table được đánh giá qua năm lần
  chạy hoàn chỉnh:
@@ -1637,50 +1633,63 @@ l_SAC_01 \TU/TimesNewRoman(0)/m/n/13 (SAC), \TU/lmtt/m/n/13 Football_POCA_01 \T
 U/TimesNewRoman(0)/m/n/13 (MA-POCA),
  []
 
-[72] [73] [74] [75] [76] [77] [78] [79]
-Underfull \hbox (badness 1708) in paragraph at lines 507--512
+[71] [72] [73] [74] [75] [76] [77] [78]
+Underfull \hbox (badness 1694) in paragraph at lines 504--509
+\TU/TimesNewRoman(0)/m/n/13 vừa thưa vừa đến muộn, lại thêm một chương trình họ
+c hai bài đặt trên
+ []
+
+
+Underfull \hbox (badness 3503) in paragraph at lines 504--509
+\TU/TimesNewRoman(0)/m/n/13 tham số \TU/lmtt/m/n/13 handoff_required\TU/TimesNe
+wRoman(0)/m/n/13 . Cả năm thuật toán đều chạy đủ $\OT1/cmr/m/n/12 1\OML/cmm/m/i
+t/12 :\OT1/cmr/m/n/12 700\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 000$
+ []
+
+
+Underfull \hbox (badness 1708) in paragraph at lines 504--509
 \TU/TimesNewRoman(0)/m/n/13 bước: \TU/lmtt/m/n/13 ctf_ppo_v1 \TU/TimesNewRoman(
 0)/m/n/13 (PPO), \TU/lmtt/m/n/13 ctf_sac_v1 \TU/TimesNewRoman(0)/m/n/13 (SAC), 
 \TU/lmtt/m/n/13 ctf_poca_v2 \TU/TimesNewRoman(0)/m/n/13 (MA-POCA),
  []
 
-[80] [81] [82] [83]
-Package pgfplots info on input line 748: Using 'lua backend=false' for axis: ym
+[79] [80] [81] [82]
+Package pgfplots info on input line 744: Using 'lua backend=false' for axis: ym
 ode=log unsupported (yet).
- [84] [85]
-Package pgfplots info on input line 861: Using 'lua backend=false' for axis: x 
+ [83] [84]
+Package pgfplots info on input line 856: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
- [86] [87] [88]
-Underfull \hbox (badness 10000) in paragraph at lines 988--988
+ [85] [86] [87]
+Underfull \hbox (badness 10000) in paragraph at lines 982--982
 []|\TU/TimesNewRoman(0)/m/n/12 Capture The
  []
 
 
-Overfull \hbox (2.24481pt too wide) in paragraph at lines 976--991
+Overfull \hbox (2.24481pt too wide) in paragraph at lines 970--985
  [][] 
  []
 
-[89] [90]) (sec6_5_app.tex [91] [92]
-ignored error: Infinite glue shrinkage found in box being split [93]
+[88] [89]) (sec6_5_app.tex [90] [91]
+ignored error: Infinite glue shrinkage found in box being split [92]
 Underfull \hbox (badness 1253) in paragraph at lines 116--127
 \TU/lmtt/m/n/13 [RuntimeInitializeOnLoadMethod]\TU/TimesNewRoman(0)/m/n/13 , nê
 n nó luôn sẵn sàng trước mọi lần
  []
 
-[94]
+[93]
 File: image/app/app_menu_main.png Graphic file (type bmp)
 <image/app/app_menu_main.png>
- [95]
+ [94]
 File: image/app/app_menu_models.png Graphic file (type bmp)
 <image/app/app_menu_models.png>
- [96]
+ [95]
 (C:\Users\vanhu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 251.
 
-[97] [98] [99]
+[96] [97] [98]
 Underfull \hbox (badness 1158) in paragraph at lines 364--377
 []\TU/TimesNewRoman(0)/m/n/13 Kết quả cuối cùng gom vào đúng một tệp, \TU/lmtt/
 m/n/13 Resources/TrainingData/
@@ -1688,26 +1697,26 @@ m/n/13 Resources/TrainingData/
 
 File: image/app/app_menu_stats.png Graphic file (type bmp)
 <image/app/app_menu_stats.png>
-[100] [101]
+[99] [100]
 File: image/app/app_menu_compare.png Graphic file (type bmp)
 <image/app/app_menu_compare.png>
- [102]
+ [101]
 File: image/app/app_ctr_agent.png Graphic file (type bmp)
 <image/app/app_ctr_agent.png>
- [103]
+ [102]
 File: image/app/app_ctf_pva.png Graphic file (type bmp)
 <image/app/app_ctf_pva.png>
- [104]
+ [103]
 File: image/app/app_fb_player.png Graphic file (type bmp)
 <image/app/app_fb_player.png>
- [105]
+ [104]
 File: image/app/app_fb_agent.png Graphic file (type bmp)
 <image/app/app_fb_agent.png>
- [106] [107] [108]
+ [105] [106] [107]
 File: image/app/app_pkg_wizard.png Graphic file (type bmp)
 <image/app/app_pkg_wizard.png>
- [109] [110] [111]
-[112] [113]
+ [108] [109] [110] [111]
+[112]
 Underfull \hbox (badness 10000) in paragraph at lines 799--799
 []|\TU/TimesNewRoman(0)/m/n/12 Menu: xem trước 3D, tab
  []
@@ -1747,7 +1756,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 828--829
 []|\TU/TimesNewRoman(0)/m/n/12 Package Manager nhận gói
  []
 
-[114] [115]) (sec7.tex [116] [117] [118] [119] [120]) [121] (main.bbl
+[113] [114]) (sec7.tex [115] [116] [117] [118] [119]) [120] (main.bbl
 Underfull \hbox (badness 2753) in paragraph at lines 4--8
 \TU/TimesNewRoman(0)/m/n/13 and Dan Mané.  Concrete problems in AI safety.  \TU
 /TimesNewRoman(0)/m/it/13 arXiv preprint
@@ -1815,16 +1824,22 @@ L3 programming layer <2025-12-24>
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: AC31A15FC49CD179D83AFB286DCAE61D;27527.
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: AC31A15FC49CD179D83AFB286DCAE61D;27527
+(rerunfilecheck)             After:  7DF9D5866B0B159284241563CDDC69D0;27561.
  ) 
 Here is how much of TeX's memory you used:
- 41789 strings out of 402987
- 958770 string characters out of 5448524
- 1868477 words of memory out of 5000000
- 69819 multiletter control sequences out of 15000+600000
+ 41788 strings out of 402987
+ 958789 string characters out of 5448524
+ 1868550 words of memory out of 5000000
+ 69818 multiletter control sequences out of 15000+600000
  644113 words of font info for 151 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,17n,104p,867b,2397s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,17n,104p,867b,2404s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (147 pages).
+Output written on main.pdf (146 pages).
