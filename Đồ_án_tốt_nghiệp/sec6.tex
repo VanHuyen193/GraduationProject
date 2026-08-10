@@ -3,103 +3,108 @@
 \section{KIỂM CHỨNG MÔI TRƯỜNG QUA THỰC NGHIỆM}
 \label{ch:results}
 
-\indent Chương~\ref{ch:design} đã đưa ra đặc tả của ba môi trường. Nhưng đặc tả chỉ nằm
-trên giấy chừng nào chưa có thứ gì học được trong nó. Mã nguồn biên dịch trót lọt chẳng
-chứng minh được rằng hàm phần thưởng dẫn tới hành vi ta muốn; còn một môi trường hỏng thì
-thường im lặng, chỉ lặng lẽ dạy tác nhân điều khác. Chương này vì thế dùng thực nghiệm để
-nghiệm thu ba môi trường đã xây, xoay quanh ba câu hỏi:
+\indent Chương~\ref{ch:design} đã trình bày đặc tả của ba môi trường. Tuy nhiên, một đặc
+tả chỉ dừng ở mức lý thuyết chừng nào chưa có tác nhân nào học được trong đó. Việc mã
+nguồn biên dịch thành công không chứng minh được rằng hàm phần thưởng sẽ dẫn tới hành vi
+mong muốn; trong khi đó, một môi trường có sai sót thường không báo lỗi mà chỉ lặng lẽ dạy
+tác nhân một hành vi khác. Chương này vì vậy sử dụng thực nghiệm để nghiệm thu ba môi
+trường đã xây dựng, xoay quanh ba câu hỏi sau:
 
 \begin{itemize}
-    \item \textbf{Môi trường có học được không?} Không thuật toán nào tiến bộ thì khả năng cao
-    lỗi nằm ở đặc tả (quan sát thiếu thông tin, hoặc phần thưởng không dẫn đường), chứ không phải ở
-    thuật toán.
-    \item \textbf{Môi trường có phân biệt được không?} Mọi thuật toán cùng về đích ngang
-    nhau ở mức tối đa thì hoặc môi trường quá dễ, hoặc đang có một lối tắt cho phép gom
-    phần thưởng mà khỏi giải nhiệm vụ. Một môi trường dùng được phải tách các hướng tiếp
-    cận thành thứ hạng \textit{giải thích được} bằng chính cơ chế của bài toán.
-    \item \textbf{Kết quả có ổn định và tái lập được không?} Đường cong phải hội tụ chứ
-    không dao động mãi, và mọi lần chạy trên cùng một môi trường phải so sánh được với
-    nhau.
+    \item Môi trường có học được không? Nếu không thuật toán nào tiến bộ, nguyên
+    nhân nhiều khả năng nằm ở đặc tả, cụ thể là không gian quan sát thiếu thông tin hoặc
+    hàm phần thưởng không dẫn đường, chứ không nằm ở thuật toán.
+    \item Môi trường có phân biệt được không? Nếu mọi thuật toán cùng về đích
+    ngang nhau ở mức tối đa thì hoặc môi trường quá dễ, hoặc tồn tại một lối tắt cho phép
+    thu phần thưởng mà không cần giải nhiệm vụ. Một môi trường dùng được phải tách các
+    hướng tiếp cận thành thứ hạng giải thích được bằng chính cơ chế của bài toán.
+    \item Kết quả có ổn định và tái lập được không? Đường cong huấn luyện phải hội
+    tụ thay vì dao động kéo dài, và mọi lần chạy trên cùng một môi trường phải so sánh được
+    với nhau.
 \end{itemize}
 
-\indent Công cụ trả lời ba câu hỏi ấy là $15$ lần huấn luyện, tức lưới đầy đủ năm
-thuật toán trên ba môi trường. Vai trò của năm thuật toán ở đây cần được nhấn mạnh: chúng
-là \textit{phép thử}, không phải \textit{đối tượng} đánh giá. Chọn năm thuật toán khác hẳn
-nhau về nguyên lý (on-policy, off-policy, phê bình tập trung, dựa trên giá trị) là chủ đích,
-bởi một môi trường chỉ được kiểm chứng chắc chắn khi nó phản ứng nhất quán trước
-nhiều hướng tiếp cận độc lập, chứ không phải khi nó được chỉnh vừa khít cho đúng một thuật
-toán. Kết quả sẽ đọc lần lượt theo từng môi trường, rồi mới đặt cạnh nhau theo bốn tiêu
-chí ở Mục~\ref{sub:evalcriteria}. Một điều phải nói trước vì nó chi phối cách đọc cả
-chương: trong cơ chế tự chơi, phần thưởng tuyệt đối là chỉ báo gây hiểu nhầm, nên mọi kết
-luận về Football Table đều dựa trên chỉ số ELO chứ không dựa trên phần thưởng.
+\indent Công cụ để trả lời ba câu hỏi trên là mười lăm lần huấn luyện, tức lưới đầy đủ gồm
+năm thuật toán trên ba môi trường. Vai trò của năm thuật toán ở đây cần được nhấn mạnh:
+chúng đóng vai trò phép thử, không phải đối tượng đánh giá. Việc lựa
+chọn năm thuật toán khác biệt về nguyên lý, bao gồm on policy, off policy, phê bình tập
+trung và dựa trên giá trị, là một chủ đích thiết kế, bởi một môi trường chỉ được kiểm
+chứng chắc chắn khi nó phản ứng nhất quán trước nhiều hướng tiếp cận độc lập, thay vì khi
+nó được điều chỉnh vừa khít cho đúng một thuật toán. Kết quả được trình bày lần lượt theo
+từng môi trường, sau đó mới đặt cạnh nhau theo bốn tiêu chí ở
+Mục~\ref{sub:evalcriteria}. Có một điểm cần nêu trước vì nó chi phối cách đọc toàn chương:
+trong cơ chế tự chơi, phần thưởng tuyệt đối là chỉ báo dễ gây hiểu nhầm, nên mọi kết luận
+về Football Table đều dựa trên chỉ số ELO thay vì dựa trên phần thưởng.
 
-\indent Số liệu trong chương đều trích thẳng từ tệp sự kiện TensorBoard của các lần chạy
-huấn luyện, qua kịch bản \texttt{export\_\allowbreak training\_\allowbreak data.py}. Thước
-đo chính là phần thưởng tích lũy mà tác nhân nhận từ môi trường, ứng với chuỗi
-\texttt{Environment/\allowbreak Cumulative Reward} trong tệp sự kiện. Mọi đường cong và
-mọi chỉ số thống kê đều lấy từ chuỗi thô, không qua bước làm mượt nào. Nhờ vậy từng điểm
-trên đồ thị đối chiếu được với đúng một bản ghi trong tệp sự kiện, và bảng số liệu luôn
-khớp đồ thị. Có một khác biệt nhỏ cần lưu ý khi đối chiếu với ứng dụng trình diễn ở
-Chương~\ref{ch:app}: đường cong hiển thị trong ứng dụng được làm mượt bằng trung bình
-trượt cho dễ đọc trên màn hình nhỏ, nên con số ở đó lệch chút ít so với chương này. Mỗi
-thuật toán ở đây tương ứng đúng một lần chạy hoàn chỉnh.
+\indent Số liệu trong chương được trích trực tiếp từ tệp sự kiện TensorBoard của các lần
+chạy huấn luyện, thông qua kịch bản \texttt{export\_\allowbreak training\_\allowbreak
+data.py}. Thước đo chính là phần thưởng tích lũy mà tác nhân nhận được từ môi trường, ứng
+với chuỗi \texttt{Environment/\allowbreak Cumulative Reward} trong tệp sự kiện. Toàn bộ
+đường cong và các chỉ số thống kê đều lấy từ chuỗi dữ liệu thô, không qua bất kỳ bước làm
+mượt nào. Nhờ vậy, từng điểm trên đồ thị đều đối chiếu được với đúng một bản ghi trong tệp
+sự kiện, và bảng số liệu luôn khớp với đồ thị. Cần lưu ý một khác biệt nhỏ khi đối chiếu
+với ứng dụng trình diễn ở Chương~\ref{ch:app}: đường cong hiển thị trong ứng dụng được làm
+mượt bằng trung bình trượt nhằm dễ đọc trên màn hình nhỏ, nên các con số ở đó lệch đôi
+chút so với chương này. Mỗi thuật toán trong chương tương ứng với đúng một lần chạy hoàn
+chỉnh.
 
-\indent Trong mỗi môi trường, năm thuật toán nhận cùng một ngân sách bước: $2.000.000$ bước cho
-Cross The Road, $1.700.000$ bước cho Capture The Flag, $1.600.000$ bước cho Football Table. Đây là
-chỗ khác với các thực nghiệm sơ bộ trước đó, vốn để
-mỗi lần chạy một độ dài riêng. Và nó là điều kiện cần để mọi so sánh trong chương có
-nghĩa: chênh lệch phần thưởng giữa hai thuật toán chỉ quy được cho bản thân thuật toán khi
-cả hai đã tiêu thụ cùng lượng kinh nghiệm.
+\indent Trong mỗi môi trường, năm thuật toán nhận cùng một ngân sách bước: $2.000.000$
+bước cho Cross The Road, $1.700.000$ bước cho Capture The Flag và $1.600.000$ bước cho
+Football Table. Đây là điểm khác biệt so với các thực nghiệm sơ bộ trước đó, vốn để mỗi
+lần chạy có độ dài riêng. Việc thống nhất ngân sách bước là điều kiện cần để mọi so sánh
+trong chương có ý nghĩa, bởi chênh lệch phần thưởng giữa hai thuật toán chỉ có thể quy cho
+bản thân thuật toán khi cả hai đã tiêu thụ cùng một lượng kinh nghiệm.
 
-\indent Mỗi cảnh huấn luyện được nhân thành tám khu vực chạy song song. Cách này vừa tăng
-lượng kinh nghiệm thu trên mỗi bước mô phỏng, vừa giảm tương quan giữa các mẫu trong cùng
-một lô cập nhật, nên thời gian thực rút ngắn đáng kể. Đây là chi tiết phải nhớ khi đối
-chiếu với những công bố dùng một khu vực duy nhất: cùng một số bước môi trường ở hai cấu
-hình này không tương đương nhau về độ khó của bài toán học.
+\indent Mỗi cảnh huấn luyện được nhân bản thành tám khu vực chạy song song. Cách làm này
+vừa tăng lượng kinh nghiệm thu được trên mỗi bước mô phỏng, vừa giảm tương quan giữa các
+mẫu trong cùng một lô cập nhật, nhờ đó rút ngắn đáng kể thời gian chạy thực tế. Đây là chi
+tiết cần ghi nhớ khi đối chiếu với những công bố sử dụng một khu vực huấn luyện duy nhất,
+vì cùng một số bước môi trường ở hai cấu hình này không tương đương nhau về độ khó của bài
+toán học.
 
-\indent Bốn chỉ số thống kê được dùng xuyên suốt chương. Thứ nhất, phần thưởng trung bình mười
-phần trăm cuối, tức mức năng lực ổn định mà chính sách giữ được ở cuối quá trình. Thứ
-hai, phần thưởng tốt nhất, tức giá trị lớn nhất đạt được. Thứ ba là bước hội tụ, và thứ tư
-là độ lệch chuẩn của mười phần trăm cuối. Bước hội tụ ở đây được định nghĩa là bước huấn
-luyện mà từ đó trở đi đường cong không còn tụt xuống dưới $90$ phần trăm mức ổn định cuối
-cùng; định nghĩa này bền hơn tiêu chí ``lần đầu chạm ngưỡng'' vì không bị một đỉnh
-nhiễu đơn lẻ kéo về đầu chuỗi. Kéo theo đó, một lần chạy còn dao động mạnh ở cuối sẽ không
-có bước hội tụ nào, và bảng số liệu ghi rõ ``không đạt'' chứ không gán bừa cho nó bước cuối
-cùng.
+\indent Bốn chỉ số thống kê được sử dụng xuyên suốt chương. Thứ nhất là phần thưởng trung
+bình của mười phần trăm cuối, phản ánh mức năng lực ổn định mà chính sách duy trì được ở
+cuối quá trình huấn luyện. Thứ hai là phần thưởng tốt nhất, tức giá trị lớn nhất đạt được.
+Thứ ba là bước hội tụ và thứ tư là độ lệch chuẩn của mười phần trăm cuối. Bước hội tụ được
+định nghĩa là bước huấn luyện mà từ đó trở đi, đường cong không còn tụt xuống dưới $90$
+phần trăm mức ổn định cuối cùng. Định nghĩa này bền vững hơn tiêu chí lần đầu chạm ngưỡng,
+vì không bị một đỉnh nhiễu đơn lẻ kéo về đầu chuỗi. Theo đó, một lần chạy còn dao động
+mạnh ở giai đoạn cuối sẽ không có bước hội tụ, và bảng số liệu ghi rõ là không đạt thay vì
+gán cho nó bước cuối cùng.
 
-\indent Chữ ``cuối'' được hiểu thống nhất cho mọi đại lượng trong chương, không riêng phần
-thưởng. Giá trị cuối của entropy, của phần thưởng tò mò, của hàm mất mát phê bình hay của
-độ dài lượt chơi đều là trung bình mười phần trăm cuối chuỗi tương ứng. Lấy trung bình
-trên một đoạn thay vì đọc đúng điểm cuối giúp các con số không lệ thuộc vào một bản ghi
-đơn lẻ, thứ có khi chệch khá xa xu hướng chung. Ngoại lệ duy nhất là chỉ số xếp hạng ELO:
-đại lượng này tích lũy theo thời gian nên chỉ giá trị tại bước cuối mới có nghĩa.
+\indent Khái niệm giá trị cuối được hiểu thống nhất cho mọi đại lượng trong chương, không
+riêng phần thưởng. Giá trị cuối của entropy, của phần thưởng tò mò, của hàm mất mát phê
+bình hay của độ dài lượt chơi đều là trung bình mười phần trăm cuối của chuỗi tương ứng.
+Việc lấy trung bình trên một đoạn thay vì đọc đúng điểm cuối giúp các con số không phụ
+thuộc vào một bản ghi đơn lẻ, vốn đôi khi lệch khá xa so với xu hướng chung. Ngoại lệ duy
+nhất là chỉ số xếp hạng ELO, bởi đại lượng này tích lũy theo thời gian nên chỉ giá trị tại
+bước cuối mới mang ý nghĩa.
 
 % ═══════════════════════════════════════════════
 \subsection{Kết quả môi trường Football Table}
 
 {\sloppy
 \indent Môi trường Football Table được đánh giá qua năm lần chạy hoàn chỉnh: \texttt{FB01}
-(PPO), \texttt{Football\_SAC\_01} (SAC), \texttt{Football\_POCA\_01} (MA-POCA),
-\texttt{Football\_MAPPO\_01} (MAPPO) và \texttt{football\_dqn\_v1} (DQN), ứng với năm mô
-hình ONNX cùng tên. Bốn lần chạy đầu đều dùng cơ chế tự chơi, trong đó tác nhân thi đấu
-với các phiên bản trước đó của chính nó.\par}
+với PPO, \texttt{Football\_SAC\_01} với SAC, \texttt{Football\_POCA\_01} với MA POCA,
+\texttt{Football\_MAPPO\_01} với MAPPO và \texttt{football\_dqn\_v1} với DQN, tương ứng
+với năm mô hình ONNX cùng tên. Bốn lần chạy đầu tiên đều sử dụng cơ chế tự chơi, trong đó
+tác nhân thi đấu với các phiên bản trước đó của chính mình.\par}
 
-\indent Riêng DQN thì không chạy nổi cùng cơ chế tự chơi. Thuật toán này đòi hỏi không
-gian hành động rời rạc nên cần một bản dựng riêng của cảnh, với tham số hành vi chuyển từ
-tám kênh liên tục sang tám nhánh ba mức. Ghép thêm tự chơi vào, ML-Agents báo lỗi tra cứu
-chính sách trong bộ điều phối đối kháng rồi dừng ngay lúc khởi tạo, nên lần chạy DQN đành
-tắt tự chơi. Hệ quả là DQN trên Football Table học trong điều kiện khác hẳn bốn thuật toán
-kia, không có chỉ số ELO; mọi con số của nó ở môi trường này chỉ nên đọc như một tham
-chiếu rời, không đặt cạnh để xếp hạng.
+\indent Riêng DQN không thể vận hành cùng cơ chế tự chơi. Thuật toán này đòi hỏi không
+gian hành động rời rạc nên cần một bản dựng riêng của cảnh, với tham số hành vi được
+chuyển từ tám kênh liên tục sang tám nhánh ba mức. Khi bổ sung thêm cơ chế tự chơi,
+ML~Agents báo lỗi tra cứu chính sách trong bộ điều phối đối kháng và dừng ngay ở giai đoạn
+khởi tạo, do đó lần chạy DQN buộc phải tắt tự chơi. Hệ quả là DQN trên Football Table được
+huấn luyện trong điều kiện khác biệt hoàn toàn so với bốn thuật toán còn lại và không có
+chỉ số ELO tương ứng; toàn bộ số liệu của nó ở môi trường này chỉ nên được xem như một
+tham chiếu độc lập, không đặt cạnh các thuật toán khác để xếp hạng.
 
-\indent Bản chất của cơ chế tự chơi khiến phần thưởng tuyệt đối thành chỉ báo tiến bộ kém
-tin cậy. Cả hai phía cùng mạnh lên thì lợi thế bên này bị bù trừ bởi tiến bộ bên kia, nên
-đường cong phần thưởng có xu hướng dao động quanh một mức gần như đứng yên thay vì tăng
-đều. Chỉ báo phản ánh tiến bộ chính xác hơn trong trường hợp này là chỉ số xếp hạng ELO,
-thứ mà ML-Agents tính riêng cho từng lần chạy dựa trên kết quả đối đầu giữa chính sách
-hiện tại và kho các phiên bản cũ.
-Hình~\ref{fig:football_elo} biểu diễn tiến trình ELO thực đo của bốn thuật toán dùng
-cơ chế này.
+\indent Bản chất của cơ chế tự chơi khiến phần thưởng tuyệt đối trở thành chỉ báo tiến bộ
+kém tin cậy. Khi cả hai phía cùng mạnh lên, lợi thế của bên này bị bù trừ bởi tiến bộ của
+bên kia, nên đường cong phần thưởng có xu hướng dao động quanh một mức gần như không đổi
+thay vì tăng đều. Chỉ báo phản ánh tiến bộ chính xác hơn trong trường hợp này là chỉ số
+xếp hạng ELO, được ML~Agents tính riêng cho từng lần chạy dựa trên kết quả đối đầu giữa
+chính sách hiện tại và kho các phiên bản trước đó. Hình~\ref{fig:football_elo} biểu diễn
+tiến trình ELO thực đo của bốn thuật toán sử dụng cơ chế này.
 
 \begin{figure}[H]
     \centering
@@ -1028,26 +1033,30 @@ chính sách ít thay đổi, chứ không từ chất lượng của chính sá
 \subsection{Thảo luận}
 
 \subsubsection{Khả năng ứng dụng trong phát triển game}
-\indent Từ kết quả thực nghiệm rút ra được vài hàm ý thực tiễn cho việc đưa học tăng cường
-vào phát triển game. Quan trọng nhất: chọn thuật toán nên dựa trên cơ chế game cụ thể, chứ
-đừng đi tìm một thuật toán ``tốt nhất'' chung chung. Với game đối kháng (người chơi đấu người
-chơi, hoặc đấu máy, kiểu game thể thao hay game đấu trường) thì các thuật toán họ PPO kết hợp
-tự chơi là lựa chọn hợp lý. Chúng tự sinh ra đối thủ máy có trình độ tăng dần
-một cách tự nhiên, cho người chơi trải nghiệm vừa thử thách vừa công bằng.
+\indent Từ kết quả thực nghiệm có thể rút ra một số hàm ý thực tiễn cho việc đưa học tăng
+cường vào phát triển game. Trước hết, việc lựa chọn thuật toán cần xuất phát từ cơ chế
+game cụ thể, thay vì tìm kiếm một thuật toán tốt nhất theo nghĩa chung. Đối với các thể
+loại đối kháng, bao gồm cả đối kháng giữa người chơi với nhau lẫn giữa người chơi với máy,
+chẳng hạn game thể thao hay game đấu trường, nhóm thuật toán họ PPO kết hợp cơ chế tự chơi
+là lựa chọn hợp lý. Cơ chế này tự sinh ra đối thủ máy có trình độ tăng dần theo quá trình
+huấn luyện, nhờ đó người chơi nhận được trải nghiệm vừa đủ thử thách vừa cân bằng.
 
-\indent Với game điều hướng, né vật cản hay giải đố đơn tuyến, SAC đạt mức năng lực cao nhất
-trong thực nghiệm, nhưng kèm hai điều kiện. Một, hiệu quả sử dụng dữ liệu của nó phụ
-thuộc vào tần suất cập nhật mạng. Hai, thời gian chạy thực tế cao gấp gần ba lần PPO trên
-cùng ngân sách bước. Nhóm phát triển ít tài nguyên nên cân nhắc kỹ hai điều đó trước khi
-chọn SAC.
+\indent Đối với game điều hướng, né vật cản hoặc giải đố đơn tuyến, SAC đạt mức năng lực
+cao nhất trong phạm vi thực nghiệm, song đi kèm hai điều kiện. Thứ nhất, hiệu quả sử dụng
+dữ liệu của thuật toán này phụ thuộc vào tần suất cập nhật mạng. Thứ hai, thời gian chạy
+thực tế của nó cao gấp gần ba lần PPO trên cùng một ngân sách bước. Các nhóm phát triển có
+tài nguyên tính toán hạn chế cần cân nhắc kỹ hai yếu tố này trước khi lựa chọn SAC.
 
-\indent Với game hợp tác cần nhiều nhân vật máy phối hợp, thực nghiệm cho một kết quả đáng
-lưu ý: PPO thường bám sát MAPPO lẫn MA-POCA, nên công sức tích hợp một thuật toán đa tác
-nhân chuyên biệt chưa chắc được đền đáp. Khuyến nghị thực dụng là khởi đầu bằng PPO để có
-mốc so sánh, rồi mới tính tới MAPPO nếu mốc đó chưa đủ. Còn điều cần tránh thì rõ ràng
-nhất: đừng dùng thuật toán off-policy như SAC cho bài toán hợp tác có phần thưởng nhóm
-thưa kèm chương trình học nhiều bài, bởi đó là cấu hình duy nhất trong đề tài dẫn tới thất
-bại hoàn toàn. Ngoài phần hướng dẫn chọn thuật toán, bản thân ba môi trường của đề tài
-cùng quy trình thiết kế quan sát, hành động và phần thưởng cũng dùng lại được ngay, làm
-nền thử nghiệm trí tuệ nhân tạo cho các dự án game Unity khác và tiết kiệm kha khá công
-dựng môi trường từ đầu.
+\indent Đối với game hợp tác đòi hỏi nhiều nhân vật máy phối hợp với nhau, thực nghiệm cho
+một kết quả cần được lưu ý: PPO thường bám sát cả MAPPO lẫn MA POCA, do đó công sức bỏ ra
+để tích hợp một thuật toán đa tác nhân chuyên biệt chưa chắc tương xứng với lợi ích thu
+được. Khuyến nghị mang tính thực dụng ở đây là khởi đầu bằng PPO nhằm thiết lập mốc so
+sánh, sau đó mới cân nhắc chuyển sang MAPPO nếu mốc này chưa đáp ứng yêu cầu. Ở chiều
+ngược lại, điều cần tránh thể hiện rõ hơn cả: không nên dùng thuật toán off policy như SAC
+cho bài toán hợp tác có phần thưởng nhóm thưa kết hợp chương trình huấn luyện nhiều bậc,
+bởi đây là cấu hình duy nhất trong toàn bộ đề tài dẫn tới thất bại hoàn toàn.
+
+\indent Ngoài phần hướng dẫn lựa chọn thuật toán, bản thân ba môi trường của đề tài cùng
+quy trình thiết kế không gian quan sát, không gian hành động và hàm phần thưởng cũng có
+thể được tái sử dụng ngay. Chúng đóng vai trò nền thử nghiệm trí tuệ nhân tạo cho các dự
+án game Unity khác, qua đó tiết kiệm phần lớn công sức xây dựng môi trường từ đầu.

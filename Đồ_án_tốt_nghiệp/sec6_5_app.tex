@@ -4,57 +4,60 @@
 \section{XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}
 \label{ch:app}
 
-\indent Các chương trước đã thuật lại quá trình huấn luyện và so sánh năm thuật toán học
-tăng cường trên ba môi trường game ba chiều. Có điều biểu đồ và bảng số liệu chẳng nói
-được gì trực tiếp về chất lượng hành vi của tác nhân trong game. Để khép kín quy trình từ
-huấn luyện tới triển khai, đề tài dựng thêm một ứng dụng trình diễn tương tác. Người dùng
-ở đó chọn môi trường, chọn chế độ chơi, chọn mô hình đã huấn luyện cho tác nhân ngay trong
-game, và tra cứu lại chính những số liệu huấn luyện đã phân tích ở Chương~\ref{ch:results}
-mà khỏi phải rời ứng dụng. Ứng dụng vừa minh họa trực quan cho các kết quả so sánh, vừa
-chứng minh rằng việc đưa mô hình ONNX đã huấn luyện vào một sản phẩm game hoàn chỉnh là
-khả thi.
+\indent Các chương trước đã trình bày quá trình huấn luyện và so sánh năm thuật toán học
+tăng cường trên ba môi trường game ba chiều. Tuy nhiên, biểu đồ và bảng số liệu tự chúng
+không phản ánh trực tiếp chất lượng hành vi của tác nhân trong game. Nhằm khép kín quy
+trình từ huấn luyện đến triển khai, đề tài xây dựng thêm một ứng dụng trình diễn tương
+tác. Trong ứng dụng này, người dùng có thể chọn môi trường, chọn chế độ chơi, chọn mô hình
+đã huấn luyện cho tác nhân ngay trong game, đồng thời tra cứu lại chính những số liệu
+huấn luyện đã được phân tích ở Chương~\ref{ch:results} mà không cần rời khỏi ứng dụng. Ứng
+dụng vừa minh họa trực quan cho các kết quả so sánh, vừa cho thấy tính khả thi của việc
+đưa mô hình ONNX đã huấn luyện vào một sản phẩm game hoàn chỉnh.
 
 % ───────────────────────────────────────────────
 \subsection{Mục tiêu và yêu cầu chức năng}
 \label{sub:app-goal}
 
-\indent Ứng dụng trình diễn được đặt ra bốn nhóm yêu cầu chức năng. Nhóm thứ nhất là lựa
-chọn nội dung chơi: phải có một màn hình menu để người dùng chọn một trong ba môi trường
-(Cross The Road, Capture The Flag, Football Table) cùng một trong ba chế độ chơi ứng với
-các cách phân vai giữa người và máy.
+\indent Ứng dụng trình diễn được xác định bốn nhóm yêu cầu chức năng. Nhóm thứ nhất liên
+quan đến việc lựa chọn nội dung chơi: ứng dụng cần có một màn hình menu cho phép người
+dùng chọn một trong ba môi trường, gồm Cross The Road, Capture The Flag và Football Table,
+đồng thời chọn một trong ba chế độ chơi tương ứng với các cách phân vai giữa người và máy.
 
-\indent Nhóm thứ hai quy định chính ba cách phân vai đó. Chế độ \textit{Người chơi} để
-người dùng tự điều khiển tác nhân bằng bàn phím, qua đó nếm thử độ khó của nhiệm vụ mà tác
-nhân phải học. Chế độ \textit{Agent tự chơi} giao toàn bộ tác nhân cho mô hình đã huấn
-luyện, phục vụ việc quan sát và đánh giá trực quan chất lượng chính sách. Chế độ
-\textit{Chơi với Agent} trộn cả hai: người chơi và tác nhân máy cùng có mặt trong một
-phiên, đóng vai đồng đội hay đối thủ tùy bản chất từng môi trường.
+\indent Nhóm thứ hai quy định cụ thể ba cách phân vai nói trên. Chế độ \textit{Người chơi}
+cho phép người dùng tự điều khiển tác nhân bằng bàn phím, qua đó trực tiếp trải nghiệm độ
+khó của nhiệm vụ mà tác nhân phải học. Chế độ \textit{Agent tự chơi} giao toàn bộ tác nhân
+cho mô hình đã huấn luyện điều khiển, phục vụ việc quan sát và đánh giá trực quan chất
+lượng của chính sách. Chế độ \textit{Chơi với Agent} kết hợp cả hai hình thức trên, trong
+đó người chơi và tác nhân máy cùng tham gia một phiên chơi, đóng vai đồng đội hoặc đối thủ
+tùy theo bản chất của từng môi trường.
 
-\indent Nhóm thứ ba là lựa chọn mô hình. Ở mọi chế độ có tác nhân máy tham gia, người dùng
-phải chọn được mô hình cụ thể (tương ứng PPO, SAC, MA-POCA, MAPPO, DQN, hoặc các phiên bản
-huấn luyện khác nhau) cho tác nhân dùng. Yêu cầu này biến ứng dụng thành một công cụ
-so sánh trực quan: có thể chạy lần lượt cùng một môi trường với các mô hình khác nhau để
-xem hành vi khác ra sao, hoặc cho hai mô hình đối đầu trực tiếp trong Football Table.
+\indent Nhóm thứ ba là chức năng lựa chọn mô hình. Ở mọi chế độ có tác nhân máy tham gia,
+người dùng phải chọn được mô hình cụ thể cho tác nhân sử dụng, tương ứng với PPO, SAC,
+MA POCA, MAPPO, DQN hoặc các phiên bản huấn luyện khác nhau. Yêu cầu này biến ứng dụng
+thành một công cụ so sánh trực quan, cho phép chạy lần lượt cùng một môi trường với các mô
+hình khác nhau nhằm quan sát sự khác biệt về hành vi, hoặc cho hai mô hình đối đầu trực
+tiếp trong Football Table.
 
-\indent Nhóm cuối là tra cứu kết quả huấn luyện ngay trong ứng dụng. Thay vì bắt người xem
-mở TensorBoard hay lật lại báo cáo, menu có thêm hai tab chuyên biệt: một tab hiển thị
-đường cong phần thưởng và bảng thống kê của cả năm thuật toán trên môi trường đang chọn,
-một tab tổng hợp và xếp hạng các thuật toán trên cả ba môi trường. Hai tab này phải phủ
-đúng phạm vi thực nghiệm của Chương~\ref{ch:results}: $15$ lần chạy, không thiếu thuật toán
-nào. Người dùng nhờ vậy xem số liệu trước rồi chuyển sang tab chơi để đối chiếu
-với hành vi quan sát được.
+\indent Nhóm cuối cùng là chức năng tra cứu kết quả huấn luyện ngay trong ứng dụng. Thay
+vì buộc người xem mở TensorBoard hoặc tra cứu lại báo cáo, menu được bổ sung hai tab
+chuyên biệt: một tab hiển thị đường cong phần thưởng cùng bảng thống kê của cả năm thuật
+toán trên môi trường đang được chọn, và một tab tổng hợp, xếp hạng các thuật toán trên cả
+ba môi trường. Hai tab này cần phủ đúng phạm vi thực nghiệm của Chương~\ref{ch:results},
+tức mười lăm lần chạy và không bỏ sót thuật toán nào. Nhờ đó, người dùng có thể xem số
+liệu trước, sau đó chuyển sang tab chơi để đối chiếu với hành vi quan sát được.
 
-\indent Ngoài chức năng, còn một ràng buộc kỹ thuật rất quan trọng: ứng dụng không được
-phá cấu hình huấn luyện hiện có của các scene. Ba scene môi trường vẫn dùng hằng ngày để
-huấn luyện, nên mọi thay đổi phục vụ chế độ chơi chỉ được phép xảy ra tại thời gian chạy,
-khi người dùng đi vào từ menu. Còn mở scene trực tiếp trong Unity Editor để huấn luyện thì
-mọi thứ phải y nguyên như cũ.
+\indent Bên cạnh các yêu cầu chức năng, ứng dụng còn chịu một ràng buộc kỹ thuật quan
+trọng: không được làm thay đổi cấu hình huấn luyện hiện có của các scene. Ba scene môi
+trường vẫn được sử dụng thường xuyên cho công việc huấn luyện, do đó mọi thay đổi phục vụ
+chế độ chơi chỉ được phép diễn ra tại thời điểm chạy, khi người dùng truy cập từ menu. Khi
+scene được mở trực tiếp trong Unity Editor để huấn luyện, toàn bộ cấu hình phải giữ nguyên
+như ban đầu.
 
 % ───────────────────────────────────────────────
 \subsection{Kiến trúc hệ thống}
 \label{sub:app-arch}
 
-\indent Mã nguồn của ứng dụng trình diễn nằm gọn trong thư mục riêng
+\indent Mã nguồn của ứng dụng trình diễn nằm trong thư mục riêng
 \texttt{Assets/GameHub}, tách hẳn khỏi mã nguồn ba môi trường; phần này thuộc một gói riêng
 (Mục~\ref{sub:app-package}) và được ứng dụng tiêu thụ qua ranh giới assembly.
 Bảng~\ref{tab:app_modules} tóm tắt các thành phần chính của hệ thống.
@@ -90,8 +93,8 @@ chơi, tên mô hình); tồn tại xuyên suốt giữa các scene và quyết 
 \texttt{UIBuilder} & Thư viện dựng thành phần giao diện (canvas, panel bo góc, nút,
 văn bản) dùng chung cho menu và HUD. \\
 \hline
-\texttt{Preview3D} & Dựng bản sao ``chỉ có hình khối'' của prefab môi trường và render
-bằng camera riêng ra \texttt{RenderTexture} để xem trước xoay được. \\
+\texttt{Preview3D} & Dựng bản sao của prefab môi trường và render
+bằng camera riêng để xem trước được. \\
 \hline
 \texttt{TrainingDataStore} & Nạp tệp \texttt{training\_data.json} chứa đường cong và
 thống kê huấn luyện thật đã xuất từ TensorBoard. \\
@@ -113,17 +116,18 @@ Các thành phần điều khiển & \texttt{CrossRoadHumanInput}, \texttt{Puzzl
 \end{longtable}
 \endgroup
 
-\indent Hình~\ref{fig:app_flow} minh họa luồng hoạt động của hệ thống. Người dùng bấm nút
-bắt đầu ở menu, các lựa chọn được ghi vào \texttt{GameModeSelection}, rồi scene môi trường
-tương ứng được nạp. Thành phần \texttt{GameModeApplier} đã đăng ký với sự kiện
-\texttt{sceneLoaded} của Unity ngay từ lúc ứng dụng khởi động, nhờ thuộc tính
+\indent Hình~\ref{fig:app_flow} minh họa luồng hoạt động của hệ thống. Khi người dùng bấm
+nút bắt đầu ở menu, các lựa chọn được ghi vào \texttt{GameModeSelection}, sau đó scene môi
+trường tương ứng được nạp. Thành phần \texttt{GameModeApplier} đã đăng ký với sự kiện
+\texttt{sceneLoaded} của Unity ngay từ thời điểm ứng dụng khởi động, nhờ thuộc tính
 \texttt{[Runtime\allowbreak Initialize\allowbreak On\allowbreak Load\allowbreak Method]},
-nên nó luôn sẵn sàng trước mọi lần chuyển scene. Scene môi trường nạp xong, thành phần này
-kiểm tra xem người dùng có đi vào từ menu hay không. Có, thì nó tìm các tác nhân trong
-scene và cấu hình lại từng tác nhân theo chế độ đã chọn. Không, tức là ai đó mở scene trực
-tiếp để huấn luyện, thì nó đứng ngoài, scene giữ nguyên cấu hình gốc. Chính cách
-tiếp cận dựa trên sự kiện này cho phép thêm đầy đủ chức năng chơi game mà không phải sửa
-bất kỳ scene môi trường nào.
+do đó luôn ở trạng thái sẵn sàng trước mọi lần chuyển scene. Sau khi scene môi trường được
+nạp xong, thành phần này kiểm tra xem người dùng có truy cập từ menu hay không. Trong
+trường hợp có, nó tìm các tác nhân trong scene và cấu hình lại từng tác nhân theo chế độ
+đã chọn. Trong trường hợp không, tức khi scene được mở trực tiếp để huấn luyện, thành phần
+này không can thiệp và scene giữ nguyên cấu hình gốc. Cách tiếp cận dựa trên sự kiện này
+cho phép bổ sung đầy đủ chức năng chơi game mà không cần chỉnh sửa bất kỳ scene môi trường
+nào.
 
 \begin{figure}[H]
     \centering
@@ -247,13 +251,13 @@ bất kỳ scene môi trường nào.
     \label{fig:app_flow}
 \end{figure}
 \indent Mấu chốt của khâu cấu hình tác nhân nằm ở việc chuyển đổi giữa các loại hành vi
-của ML-Agents. Mỗi tác nhân mang một thành phần \texttt{BehaviorParameters} quy định nguồn
-ra quyết định của nó. Phe do người chơi điều khiển thì loại hành vi đặt thành
-\texttt{HeuristicOnly}, để hành động lấy từ hàm \texttt{Heuristic}. Chế độ tác nhân máy
-thì đặt thành \texttt{InferenceOnly}, và mô hình ONNX được nạp vào cho mạng nơ-ron suy
-luận thẳng trong engine. Hạ tầng suy luận tích hợp sẵn của Unity lo phần còn lại: mọi thứ
-chạy cục bộ trên máy người chơi với chi phí tính toán không đáng kể, chẳng cần tiến trình
-Python nào như hồi huấn luyện.
+của ML~Agents. Mỗi tác nhân mang một thành phần \texttt{BehaviorParameters} quy định nguồn
+ra quyết định của nó. Đối với phe do người chơi điều khiển, loại hành vi được đặt thành
+\texttt{HeuristicOnly} để hành động được lấy từ hàm \texttt{Heuristic}. Đối với chế độ tác
+nhân máy, loại hành vi được đặt thành \texttt{InferenceOnly}, đồng thời mô hình ONNX được
+nạp vào để mạng nơ ron suy luận trực tiếp trong engine. Hạ tầng suy luận tích hợp sẵn của
+Unity đảm nhận phần còn lại: toàn bộ quá trình chạy cục bộ trên máy người chơi với chi phí
+tính toán không đáng kể và không cần tiến trình Python như trong giai đoạn huấn luyện.
 
 % ───────────────────────────────────────────────
 \subsection{Giao diện menu và luồng sử dụng}
@@ -356,7 +360,7 @@ menu phản ánh trực tiếp nội dung thư mục tài nguyên, nên thêm m�
 sao chép tệp. Mà thao tác sao chép ấy giờ do chính kịch bản xuất dữ liệu huấn luyện lo
 (Mục~\ref{sub:app-stats}): sau mỗi đợt huấn luyện, kịch bản lấy tệp ONNX cuối cùng của
 từng lần chạy, đặt tên theo mã lần chạy, ghi vào đúng thư mục con của môi trường. Ứng dụng
-nhờ đó luôn đóng gói \textbf{toàn bộ $15$ mô hình} ứng với $15$ lần chạy của
+nhờ đó luôn đóng gói toàn bộ $15$ mô hình ứng với $15$ lần chạy của
 Chương~\ref{ch:results}, liệt kê ở Bảng~\ref{tab:app_models}. Mỗi môi trường có đủ năm
 chính sách của năm thuật toán đặt cạnh nhau, so sánh hành vi bằng mắt ngay trên cùng một
 nhiệm vụ.
@@ -408,7 +412,7 @@ nhiệm vụ.
 \end{table}
 
 \indent Một chi tiết kỹ thuật phải xử lý riêng khi đóng gói đủ $15$ mô hình là
-\textit{không gian hành động}. Trên Cross The Road và Capture The Flag, cả năm thuật
+không gian hành động. Trên Cross The Road và Capture The Flag, cả năm thuật
 toán đều dùng hành động rời rạc nên mọi tệp ONNX đều nạp được vào scene gốc. Riêng
 Football Table, bốn thuật toán PPO, SAC, MA-POCA và MAPPO sinh chính sách hành động
 liên tục tám kênh, còn DQN chỉ định nghĩa được trên hành động rời rạc nên lần chạy
@@ -422,7 +426,7 @@ kia và bản rời rạc \texttt{FootballDiscrete} sinh tự động từ bản
 trong trình soạn thảo. Khi người dùng chọn mô hình DQN, menu nạp bản rời rạc thay cho
 bản gốc; phần còn lại của ứng dụng không thay đổi vì lớp tác nhân của Football vốn đã
 chấp nhận cả hai kiểu hành động và tự quy đổi ba mức $\{0,1,2\}$ về $\{-1,0,+1\}$. Hệ
-quả duy nhất người dùng nhìn thấy là ở chế độ \textit{Agent tự chơi} của Football Table,
+quả duy nhất người dùng nhìn thấy là ở chế độ Agent tự chơi của Football Table,
 hai ô chọn mô hình phải cùng loại hành động: menu khóa nút bắt đầu kèm dòng cảnh báo
 nếu ghép DQN với một thuật toán liên tục, vì một trận đấu chỉ nạp được một scene.
 
@@ -614,7 +618,7 @@ cùng tác nhân đồng đội dùng mô hình \texttt{ctf\_mappo\_v2}}
 
 \indent Chế độ \textit{Người chơi} thì cả hai nhân vật đều do con người cầm, kiểu hai
 người chơi chung một bàn phím: một người dùng cụm W A S D (Q/E đi ngang), người kia dùng
-cụm phím mũi tên (dấu ngoặc vuông để đi ngang). Còn chế độ \textit{Agent tự chơi} giao cả
+cụm phím mũi tên (dấu ngoặc vuông để đi ngang). Còn chế độ Agent tự chơi giao cả
 hai nhân vật cho cùng một mô hình, tái hiện đúng cấu hình lúc huấn luyện, vì hai tác nhân
 vốn dùng chung một chính sách.
 
