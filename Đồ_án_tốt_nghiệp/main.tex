@@ -251,89 +251,97 @@
 
 \begin{titlepage}
 \thispagestyle{empty}
+\null
 
-% Bìa theo mẫu Phenikaa: khung bao quanh trang + vạch dọc chia vùng bên trái
-% (họ tên ở nửa trên, ngành ở nửa dưới của vùng bên trái)
-\begin{tikzpicture}[remember picture, overlay]
-    \draw[line width=1pt]
-        ($(current page.north west)+(1.2cm,-1.2cm)$) rectangle
-        ($(current page.south east)+(-1.2cm,1.2cm)$);
-    \draw[line width=1pt]
-        ($(current page.north west)+(3.0cm,-1.2cm)$) -- ($(current page.south west)+(3.0cm,1.2cm)$);
-    \node[rotate=90] at ($(current page.north west)+(2.1cm,-9.5cm)$)
-        {\bfseries\fontsize{14pt}{16pt}\selectfont VĂN THỊ MINH HUYỀN};
-    \node[rotate=90] at ($(current page.north west)+(2.1cm,-20cm)$)
-        {\bfseries\fontsize{14pt}{16pt}\selectfont KHOA HỌC MÁY TÍNH};
+% ==================== BÌA (dựng lại đúng theo mẫu BM.ĐT.19.06 – Bìa.docx) ====================
+% Mẫu Word dựng bìa bằng một bảng hai cột (cột trái hẹp đựng chữ dọc) nên khung, vạch
+% dọc và mọi dòng chữ đều nằm ở toạ độ cố định so với mép giấy A4, không phụ thuộc lề
+% thân bài. Vì vậy toàn bộ bìa được vẽ bằng một tikzpicture đặt theo toạ độ tuyệt đối
+% tính từ góc trên–trái của trang giấy: trục x hướng sang phải, trục y hướng xuống.
+% Mọi con số dưới đây đo trực tiếp trên bản PDF do Word xuất ra từ Bìa.docx.
+%
+%   Khung (nét 0,5pt): mép trái 1,952cm – mép phải 20,337cm
+%   Vạch dọc chia cột: x = 3,891cm (cột trái rộng 1,94cm)
+%   Trục căn giữa của cột nội dung: x = 12,114cm
+%
+% Riêng chiều cao khung KHÔNG lấy theo Bìa.docx: bảng trong mẫu Word chỉ cao tới
+% 25,408cm nên chừa một khoảng trắng lớn ở đáy trang. Khung dưới đây được kéo dài
+% ra sát mép giấy (cách mép trên và mép dưới 1,5cm) cho giống bìa mẫu in thực tế;
+% muốn đổi độ dài khung chỉ cần sửa \biaTop và \biaBottom, nội dung bên trong
+% không bị ảnh hưởng vì mỗi dòng đều có toạ độ riêng.
+%   Chữ dọc cột trái: chân chữ tại x = 2,554cm, xoay 90 độ theo chiều kim đồng hồ
+%                     (đọc từ trên xuống), cỡ 13pt và KHÔNG in đậm
+%   Cỡ chữ: 13pt cho tên bộ/tên trường, khối thông tin sinh viên và dòng địa danh –
+%           20pt cho "ĐỒ ÁN TỐT NGHIỆP" – 16pt cho tên đề tài
+%   Logo: ảnh vuông 6,251 x 6,251cm, mép trên cách đầu trang 5,309cm
+%
+% Các số -y bên dưới là khoảng cách từ mép trên trang giấy tới ĐƯỜNG CHÂN CHỮ của dòng.
+\def\biaLeft{1.952}      % mép trái khung (cm, tính từ mép trái trang giấy)
+\def\biaRight{20.337}    % mép phải khung
+\def\biaDivider{3.891}   % vạch dọc chia cột trái
+\def\biaTop{1.5}         % mép trên khung (cm, tính từ mép trên trang giấy)
+\def\biaBottom{28.2}     % mép dưới khung
+\begin{tikzpicture}[remember picture, overlay,
+      every node/.style={inner sep=0pt, outer sep=0pt}]
+
+  \coordinate (bia) at (current page.north west);
+
+  % --- Khung bao và vạch dọc chia cột, nét 0,5pt ---
+  \draw[line width=0.5pt]
+      ($(bia)+(\biaLeft cm,-\biaTop cm)$) rectangle ($(bia)+(\biaRight cm,-\biaBottom cm)$);
+  \draw[line width=0.5pt]
+      ($(bia)+(\biaDivider cm,-\biaTop cm)$) -- ($(bia)+(\biaDivider cm,-\biaBottom cm)$);
+
+  % --- Cột trái: họ tên ở phần trên, ngành ở phần dưới (13pt, không in đậm) ---
+  \node[rotate=-90, anchor=base west] at ($(bia)+(2.554cm,-3.552cm)$)
+      {\fontsize{13pt}{15pt}\selectfont VĂN THỊ MINH HUYỀN};
+  \node[rotate=-90, anchor=base west] at ($(bia)+(2.554cm,-16.644cm)$)
+      {\fontsize{13pt}{15pt}\selectfont KHOA HỌC MÁY TÍNH};
+
+  % --- Tên bộ và tên trường (13pt in đậm), tên trường có gạch chân 0,5pt ---
+  \node[anchor=base] at ($(bia)+(12.114cm,-3.870cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries BỘ GIÁO DỤC VÀ ĐÀO TẠO};
+  \node[anchor=base] (truong) at ($(bia)+(12.114cm,-4.485cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries ĐẠI HỌC PHENIKAA};
+  \draw[line width=0.5pt]
+      ([yshift=-0.125cm]truong.base west) -- ([yshift=-0.125cm]truong.base east);
+
+  % --- Logo trường ---
+  \node[anchor=north] at ($(bia)+(12.114cm,-5.309cm)$)
+      {\includegraphics[width=6.251cm]{image/Logo_1.jpg}};
+
+  % --- Tên loại đồ án (20pt in đậm) ---
+  \node[anchor=base] at ($(bia)+(12.114cm,-12.308cm)$)
+      {\fontsize{20pt}{23pt}\selectfont\bfseries ĐỒ ÁN TỐT NGHIỆP};
+
+  % --- Tên đề tài (16pt in đậm, hai dòng) ---
+  \node[anchor=base] at ($(bia)+(12.114cm,-13.718cm)$)
+      {\fontsize{16pt}{18pt}\selectfont\bfseries HỌC TĂNG CƯỜNG ĐỂ TỐI ƯU HÓA};
+  \node[anchor=base] at ($(bia)+(12.114cm,-14.450cm)$)
+      {\fontsize{16pt}{18pt}\selectfont\bfseries KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME};
+
+  % --- Khối thông tin sinh viên: nhãn in đậm, giá trị in đậm nghiêng, cỡ 13pt.
+  % Nhãn cột trái bắt đầu ở x = 6,029cm. Cột phải trong mẫu Word được đẩy bằng dấu
+  % cách nên "Khóa" (13,926cm) và "Hệ" (13,837cm) lệch nhau 0,9mm; muốn cho thẳng
+  % hàng chỉ cần sửa hai con số này về cùng một giá trị.
+  \node[anchor=base west] at ($(bia)+(6.029cm,-16.963cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Sinh viên:\hspace{6.5pt}\itshape Văn Thị Minh Huyền};
+  \node[anchor=base west] at ($(bia)+(6.029cm,-17.856cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Mã số sinh viên: \itshape 22010329};
+  \node[anchor=base west] at ($(bia)+(13.926cm,-17.856cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Khóa: \itshape 16};
+  \node[anchor=base west] at ($(bia)+(6.029cm,-18.758cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Ngành: \itshape Khoa học máy tính};
+  \node[anchor=base west] at ($(bia)+(13.837cm,-18.758cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Hệ: \itshape Chính quy};
+  \node[anchor=base west] at ($(bia)+(6.029cm,-19.660cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Giảng viên hướng dẫn: \itshape ThS. Nguyễn Văn Sơn};
+
+% --- Địa danh và năm bảo vệ (13pt in đậm) ---
+  \node[anchor=base] at ($(bia)+(12.114cm,-26.800cm)$)
+      {\fontsize{13pt}{15pt}\selectfont\bfseries Hà Nội – 2026};
+
 \end{tikzpicture}
-
-% Đẩy toàn bộ nội dung bìa sang phải 0,8cm cho cân với vạch dọc bên trái
-% (lề trái 3,5cm chỉ cách vạch dọc 0,5cm nên nội dung bị lệch về bên trái).
-\begin{adjustwidth}{0cm}{-0.8cm}
-
-\begin{center}
-
-{\bfseries\fontsize{14pt}{16pt}\selectfont
-BỘ GIÁO DỤC VÀ ĐÀO TẠO
-}
-
-\vspace{0.2cm}
-
-{\bfseries\fontsize{14pt}{16pt}\selectfont
-ĐẠI HỌC PHENIKAA
-}
-
-\vspace{2cm}
-
-\includegraphics[width=8cm]{image/Logo_1.jpg}
-
-
-{\bfseries\fontsize{22pt}{26pt}\selectfont
-ĐỒ ÁN TỐT NGHIỆP
-}
-
-\vspace{1.2cm}
-
-{\bfseries\fontsize{16pt}{20pt}\selectfont
-HỌC TĂNG CƯỜNG ĐỂ TỐI ƯU HÓA\\[0.2cm]
-KHẢ NĂNG TƯƠNG TÁC CỦA AI TRONG GAME
-}
-
-\end{center}
-
-\begin{adjustwidth}{0cm}{1.5cm}
-\vspace{1.5cm}
-
-\noindent\fontsize{14pt}{20pt}\selectfont{\bfseries Sinh viên:} Văn Thị Minh Huyền
-
-\vspace{0.5cm}
-
-\noindent{\bfseries Mã số sinh viên:} 22010329
-\hfill
-{\bfseries Khóa:} 16
-
-\vspace{0.5cm}
-
-\noindent{\bfseries Ngành:} Khoa học máy tính (Tài năng)
-\hfill
-{\bfseries Hệ:} Đại học chính quy
-
-\vspace{0.5cm}
-
-\noindent{\bfseries Giảng viên hướng dẫn:} Th.S Nguyễn Văn Sơn
-
-\end{adjustwidth}
-
-\end{adjustwidth}
-
-\vfill
-
-\begin{adjustwidth}{0.8cm}{-0.8cm}
-\begin{center}
-{\bfseries\fontsize{14pt}{16pt}\selectfont
-HÀ NỘI, THÁNG 8 NĂM 2026
-}
-\end{center}
-\end{adjustwidth}
 \end{titlepage}
  
 
