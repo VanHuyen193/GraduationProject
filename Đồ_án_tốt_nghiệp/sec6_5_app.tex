@@ -747,8 +747,8 @@ $[-1,1]$, còn brain nào đang chạy là việc của gói.
 \indent Rào cản lớn nhất với người mới không phải thiếu tài liệu, mà là không biết mình
 đang đứng ở đâu trong tài liệu đó. Đề tài vì thế viết một cửa sổ Editor
 (Hình~\ref{fig:pkg_wizard}) chia toàn bộ quy trình thành bảy bước. Mấu chốt nằm ở chỗ mỗi
-bước \textit{tự kiểm tra trạng thái hiện tại} rồi hiện dấu tích hoặc nút hành động tương
-ứng, chứ không chỉ liệt kê việc cần làm.
+bước tự kiểm tra trạng thái hiện tại rồi hiện dấu tích hoặc nút hành động tương
+ứng chứ không chỉ liệt kê việc cần làm.
 
 \begin{figure}[H]
 \centering
@@ -853,7 +853,7 @@ phối cảnh thì tính khoảng cách nhỏ nhất để nửa chiều cao và
 trong góc nhìn. Cách này dùng chung cho cả ba môi trường mà không cần tham số riêng.
 
 \indent \textbf{Không gian hành động cố định từ lúc nạp scene:} Ứng dụng đổi được mô
-hình của một tác nhân tại thời gian chạy, nhưng không đổi được \textit{kiểu} hành động
+hình của một tác nhân tại thời gian chạy, nhưng không đổi được kiểu hành động
 của nó: ML-Agents dựng bộ truyền động từ \texttt{BehaviorParameters} ngay trong pha
 \texttt{OnEnable}, tức trước khi sự kiện nạp scene kịp báo về cho ứng dụng, và việc nạp
 lại chính sách sau đó vẫn dùng đặc tả hành động đã dựng. Hệ quả là mô hình DQN rời rạc
@@ -862,14 +862,7 @@ kiểu. Giải pháp là sinh sẵn một bản sao rời rạc của scene bằ
 soạn thảo và để menu chọn bản scene phù hợp với mô hình người dùng vừa chọn, tức đổi scene
 thay vì đổi đặc tả hành động, nhờ đó không phải đụng tới scene gốc dùng cho huấn luyện.
 
-\indent \textbf{Phạt thời gian chia cho không:} Trớ trêu là chính việc đặt giới hạn bước
-về không ở trên lại làm lộ một lỗi tiềm ẩn trong hàm phần thưởng của Football Table. Thành
-phần phạt thời gian tính bằng nghịch đảo của giới hạn bước; giới hạn bằng không thì giá
-trị phần thưởng hóa vô cực và ML-Agents ném ngoại lệ ở mỗi bước. Sửa bằng cách chỉ áp dụng
-phạt thời gian khi giới hạn bước lớn hơn không, đúng ngữ nghĩa ``tập không giới hạn bước
-thì không có áp lực thời gian''. Đây là ví dụ điển hình cho chuyện chuyển một môi trường
-từ chế độ huấn luyện sang chế độ chơi có thể đánh thức những nhánh mã chưa từng chạy trong
-suốt quá trình huấn luyện.
+\indent \textbf{Phạt thời gian và phép chia cho không:} Việc đặt giới hạn bước về không, vốn nhằm loại bỏ áp lực thời gian, lại phơi bày một lỗi ẩn trong hàm phần thưởng của Football Table. Thành phần phạt thời gian trong hàm này được tính bằng nghịch đảo của giới hạn bước; khi giới hạn bằng không, phép tính cho ra giá trị vô cực, khiến ML-Agents báo lỗi ngoại lệ ở từng bước mô phỏng. Cách khắc phục là chỉ áp dụng phạt thời gian khi giới hạn bước lớn hơn không, đúng với ngữ nghĩa rằng một tập không giới hạn bước thì không tồn tại áp lực thời gian. Trường hợp này minh họa một hiện tượng thường gặp trong thực hành: khi một môi trường được chuyển từ chế độ huấn luyện sang chế độ chơi, những nhánh mã chưa từng được thực thi trong suốt quá trình huấn luyện có thể bất ngờ bị kích hoạt.
 
 % ───────────────────────────────────────────────
 \subsection{Kiểm thử ứng dụng và hạn chế}
@@ -921,7 +914,7 @@ khi ghép DQN với mô hình liên tục & Đạt \\
 Quay về menu (nút và phím Esc) & Trở về menu, đổi lựa chọn, vào lại bình
 thường & Đạt \\
 \hline
-Mở scene trực tiếp (không qua menu) & Cấu hình huấn luyện gốc được giữ
+Mở scene trực tiếp & Cấu hình huấn luyện gốc được giữ
 nguyên & Đạt \\
 \hline
 Gói môi trường: nhận diện và biên dịch & Package Manager nhận gói nhúng; assembly
@@ -933,17 +926,17 @@ các nút gọi đúng công cụ & Đạt \\
 \end{tabular}
 \end{table}
 
-\indent Về hiệu năng, việc suy luận mạng nơ-ron cho các tác nhân đồng thời, cộng thêm giao
-diện, không làm tốc độ khung hình sụt đáng kể trên cấu hình thực nghiệm ở
+\indent Về hiệu năng, việc suy luận mạng nơ-ron cho các tác nhân đồng thời cộng thêm giao
+diện không làm tốc độ khung hình sụt đáng kể trên cấu hình thực nghiệm ở
 Mục~\ref{sub:hardware}. Điều đó khẳng định việc nhúng thẳng mô hình đã huấn luyện vào một
 sản phẩm game là khả thi. Cả $15$ mô hình ONNX đi kèm ứng dụng đều nạp và vận hành
 chính xác, đúng phổ quan sát và hành động đã khai báo khi huấn luyện.
 
 \indent Ứng dụng vẫn còn hai hạn chế đã biết. Thứ nhất là dung lượng: đóng gói đủ $15$ mô hình
 khiến thư mục tài nguyên phình mạnh, riêng năm mô hình của Capture The Flag đã
-chiếm khoảng $325$ MB, gấp nhiều lần tổng dung lượng hai môi trường còn lại. Thủ phạm không
+chiếm khoảng $325$ MB, gấp nhiều lần tổng dung lượng hai môi trường còn lại. Nguyên nhân không
 phải số lượng mô hình mà là kiến trúc mạng. Quan sát tín hiệu mục tiêu của môi trường này
-khiến ML-Agents dựng bộ mã hóa theo kiểu siêu mạng (\textit{hypernetwork}), trong đó một
+khiến ML-Agents dựng bộ mã hóa theo kiểu siêu mạng, trong đó một
 nhánh phụ sinh trọng số cho lớp ẩn chính, đẩy số tham số của một chính sách nhỏ lên gần
 $17.000.000$. Muốn giảm dung lượng bản phát hành thì phải huấn luyện lại Capture The
 Flag với kiểu điều kiện hóa mục tiêu khác, chứ bớt mô hình đi không giải quyết được gì.

@@ -38,7 +38,7 @@
 \contentsline {subsection}{\numberline {3.1}Tổng quan thiết kế hệ thống}{30}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Kiến trúc huấn luyện tổng thể}{30}{subsubsection.3.1.1}%
 \contentsline {subsubsection}{\numberline {3.1.2}Không gian quan sát}{31}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Không gian hành động}{34}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.3}Không gian hành động}{33}{subsubsection.3.1.3}%
 \contentsline {subsubsection}{\numberline {3.1.4}Nguyên tắc thiết kế hàm phần thưởng}{35}{subsubsection.3.1.4}%
 \contentsline {subsection}{\numberline {3.2}Bộ môi trường thực nghiệm}{38}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Tích hợp với Unity ML-Agents}{39}{subsubsection.3.2.1}%
@@ -78,45 +78,46 @@
 \contentsline {subsubsection}{\numberline {3.8.3}Tiêu chí đánh giá}{67}{subsubsection.3.8.3}%
 \contentsline {section}{\numberline {4}KIỂM CHỨNG MÔI TRƯỜNG QUA THỰC NGHIỆM}{68}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Kết quả môi trường Football Table}{71}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Kết quả môi trường Cross The Road}{74}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Kết quả môi trường Capture The Flag}{79}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Đánh giá tổng hợp}{84}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}So sánh tốc độ hội tụ}{84}{subsubsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.2}So sánh mức năng lực đạt được}{85}{subsubsection.4.4.2}%
-\contentsline {subsubsection}{\numberline {4.4.3}So sánh độ ổn định}{86}{subsubsection.4.4.3}%
-\contentsline {subsubsection}{\numberline {4.4.4}Bằng chứng từ chỉ số huấn luyện nội tại}{87}{subsubsection.4.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.5}Phân tích ưu nhược điểm từng thuật toán}{88}{subsubsection.4.4.5}%
-\contentsline {subsection}{\numberline {4.5}Thảo luận}{90}{subsection.4.5}%
-\contentsline {subsubsection}{\numberline {4.5.1}Khả năng ứng dụng trong phát triển game}{90}{subsubsection.4.5.1}%
-\contentsline {section}{\numberline {5}XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{91}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Mục tiêu và yêu cầu chức năng}{91}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Kiến trúc hệ thống}{92}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Giao diện menu và luồng sử dụng}{94}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Nạp mô hình ONNX tại thời gian chạy}{97}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Trực quan hóa kết quả huấn luyện trong ứng dụng}{99}{subsection.5.5}%
-\contentsline {subsubsection}{\numberline {5.5.1}Đường ống dữ liệu từ TensorBoard vào game}{99}{subsubsection.5.5.1}%
-\contentsline {subsubsection}{\numberline {5.5.2}Tab THÔNG SỐ}{100}{subsubsection.5.5.2}%
-\contentsline {subsubsection}{\numberline {5.5.3}Tab SO SÁNH}{101}{subsubsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.6}Ba chế độ chơi trong từng môi trường}{102}{subsection.5.6}%
-\contentsline {subsubsection}{\numberline {5.6.1}Cross The Road: trải nghiệm và quan sát chính sách}{103}{subsubsection.5.6.1}%
-\contentsline {subsubsection}{\numberline {5.6.2}Capture The Flag: phối hợp người và máy}{104}{subsubsection.5.6.2}%
-\contentsline {subsubsection}{\numberline {5.6.3}Football Table: đối đầu người với máy và máy với máy}{105}{subsubsection.5.6.3}%
-\contentsline {subsection}{\numberline {5.7}Đóng gói ba môi trường thành gói dùng lại được}{107}{subsection.5.7}%
-\contentsline {subsubsection}{\numberline {5.7.1}Cấu trúc gói}{107}{subsubsection.5.7.1}%
-\contentsline {subsubsection}{\numberline {5.7.2}Gỡ phụ thuộc ngược từ môi trường vào ứng dụng}{108}{subsubsection.5.7.2}%
-\contentsline {subsubsection}{\numberline {5.7.3}Trình hướng dẫn cài đặt}{109}{subsubsection.5.7.3}%
-\contentsline {subsubsection}{\numberline {5.7.4}Dự án tự dùng chính gói của mình}{111}{subsubsection.5.7.4}%
-\contentsline {subsection}{\numberline {5.8}Các vấn đề kỹ thuật và giải pháp}{111}{subsection.5.8}%
-\contentsline {subsection}{\numberline {5.9}Kiểm thử ứng dụng và hạn chế}{114}{subsection.5.9}%
-\contentsline {section}{\numberline {6}KẾT LUẬN}{116}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Kết quả đạt được}{116}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Đóng góp của đề tài}{118}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Hạn chế}{120}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Hướng phát triển}{121}{subsection.6.4}%
-\contentsline {section}{PHỤ LỤC}{xviii}{section*.48}%
-\contentsline {subsection}{Phụ lục A. Cấu hình huấn luyện PPO}{xviii}{section*.49}%
-\contentsline {subsection}{Phụ lục B. Cấu hình huấn luyện SAC}{xviii}{lstnumber.3.31}%
-\contentsline {subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}{xx}{lstnumber.5.24}%
-\contentsline {subsection}{Phụ lục D. Cấu hình huấn luyện DQN}{xx}{lstnumber.6.29}%
-\contentsline {subsection}{Phụ lục E. Mã nguồn minh họa}{xxi}{lstnumber.7.33}%
-\contentsline {subsection}{Phụ lục F. Kết quả TensorBoard}{xxii}{lstnumber.11.10}%
+\contentsline {subsection}{\numberline {4.2}Kết quả môi trường Cross The Road}{78}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Kết quả môi trường Capture The Flag}{83}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Đánh giá tổng hợp}{88}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}So sánh tốc độ hội tụ}{88}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}So sánh mức năng lực đạt được}{89}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}So sánh độ ổn định}{90}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Độ phân giải thống kê của ba môi trường}{91}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}Bằng chứng từ chỉ số huấn luyện nội tại}{93}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.6}Phân tích ưu nhược điểm từng thuật toán}{95}{subsubsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.5}Thảo luận}{96}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}Khả năng ứng dụng trong phát triển game}{96}{subsubsection.4.5.1}%
+\contentsline {section}{\numberline {5}XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{97}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Mục tiêu và yêu cầu chức năng}{98}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Kiến trúc hệ thống}{99}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Giao diện menu và luồng sử dụng}{101}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Nạp mô hình ONNX tại thời gian chạy}{103}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Trực quan hóa kết quả huấn luyện trong ứng dụng}{105}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Đường ống dữ liệu từ TensorBoard vào game}{105}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}Tab THÔNG SỐ}{106}{subsubsection.5.5.2}%
+\contentsline {subsubsection}{\numberline {5.5.3}Tab SO SÁNH}{107}{subsubsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.6}Ba chế độ chơi trong từng môi trường}{108}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Cross The Road: trải nghiệm và quan sát chính sách}{109}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Capture The Flag: phối hợp người và máy}{110}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Football Table: đối đầu người với máy và máy với máy}{111}{subsubsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.7}Đóng gói ba môi trường thành gói dùng lại được}{113}{subsection.5.7}%
+\contentsline {subsubsection}{\numberline {5.7.1}Cấu trúc gói}{113}{subsubsection.5.7.1}%
+\contentsline {subsubsection}{\numberline {5.7.2}Gỡ phụ thuộc ngược từ môi trường vào ứng dụng}{114}{subsubsection.5.7.2}%
+\contentsline {subsubsection}{\numberline {5.7.3}Trình hướng dẫn cài đặt}{115}{subsubsection.5.7.3}%
+\contentsline {subsubsection}{\numberline {5.7.4}Dự án tự dùng chính gói của mình}{117}{subsubsection.5.7.4}%
+\contentsline {subsection}{\numberline {5.8}Các vấn đề kỹ thuật và giải pháp}{117}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Kiểm thử ứng dụng và hạn chế}{120}{subsection.5.9}%
+\contentsline {section}{\numberline {6}KẾT LUẬN}{122}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Kết quả đạt được}{122}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Đóng góp của đề tài}{124}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Hạn chế}{126}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Hướng phát triển}{127}{subsection.6.4}%
+\contentsline {section}{PHỤ LỤC}{xix}{section*.50}%
+\contentsline {subsection}{Phụ lục A. Cấu hình huấn luyện PPO}{xix}{section*.51}%
+\contentsline {subsection}{Phụ lục B. Cấu hình huấn luyện SAC}{xix}{lstnumber.3.31}%
+\contentsline {subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}{xxi}{lstnumber.5.24}%
+\contentsline {subsection}{Phụ lục D. Cấu hình huấn luyện DQN}{xxi}{lstnumber.6.29}%
+\contentsline {subsection}{Phụ lục E. Mã nguồn minh họa}{xxii}{lstnumber.7.33}%
+\contentsline {subsection}{Phụ lục F. Kết quả TensorBoard}{xxiii}{lstnumber.11.10}%

@@ -15,6 +15,12 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{groupplots}
+% BẮT BUỘC cho các dải ±1 độ lệch chuẩn ở Chương 4. Thiếu dòng này thì mọi lệnh
+% \addplot ... fill between[...] bị bỏ qua trong IM LẶNG: tài liệu vẫn biên dịch
+% thành công, không một cảnh báo nào, chỉ có điều toàn bộ dải mờ biến mất khỏi
+% hình vẽ. Kiểm tra nhanh: trong main.log phải có dòng "fill between: activating
+% layered graphics"; nếu đếm được 0 dòng như vậy thì các dải đã không được vẽ.
+\usepgfplotslibrary{fillbetween}
 % Chú giải đặt thành một hàng ngang phía trên khung vẽ, nằm ngoài vùng dữ liệu
 % nên không bao giờ đè lên đường cong. Dùng chung cho mọi biểu đồ ở Chương 4.
 \pgfplotsset{
@@ -46,6 +52,24 @@
 % headheight khai báo ngay tại đây để geometry tính đúng vị trí thân bài; nếu đặt
 % \setlength{\headheight} sau khi nạp geometry thì thân bài bị đẩy xuống 3pt.
 \usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2.5cm, headheight=15pt]{geometry}
+
+% 2c. Đáy trang KHÔNG căn đều — nguyên nhân gốc của lỗi "khoảng cách lúc lớn lúc bé".
+% article.cls chỉ gọi \raggedbottom khi in một mặt; với tuỳ chọn "twoside" nó để nguyên
+% \flushbottom mặc định của LaTeX. \flushbottom buộc MỌI trang phải kết thúc đúng ở lề
+% dưới, và để làm được vậy TeX kéo giãn tất cả khoảng trắng dọc co giãn được có trên
+% trang: khoảng giữa các đoạn (\parskip), khoảng trên/dưới công thức, khoảng quanh môi
+% trường định lý, khoảng quanh hình vẽ và cả khoảng trước tiêu đề. Mỗi trang cần kéo
+% giãn một lượng khác nhau nên cùng một loại khoảng cách lại to nhỏ khác nhau tuỳ trang.
+% Dấu vết trong main.log: 56 dòng "Underfull \vbox ... while \output is active" — đó là
+% những trang TeX không kéo giãn đủ. \raggedbottom cho phép trang kết thúc sớm hơn lề
+% dưới (đúng như cách Microsoft Word xuống trang), nhờ đó mọi khoảng cách giữ đúng giá
+% trị danh nghĩa và giống hệt nhau ở mọi trang.
+\raggedbottom
+% Khoảng giữa hai đoạn văn: cứng bằng 0, không co giãn. Mặc định của lớp tài liệu là
+% "0pt plus 1pt" — phần "plus 1pt" chính là chỗ \flushbottom bấu vào để nới từng chỗ
+% ngắt đoạn một ít, nên phải khử luôn để hai đoạn liền nhau bao giờ cũng cách nhau
+% đúng một dòng. Các đoạn vẫn phân biệt được với nhau nhờ thụt đầu dòng (\parindent).
+\setlength{\parskip}{0pt}
 \usepackage{amsmath,latexsym,amscd,amsfonts,amssymb,mathrsfs,enumerate}
 \usepackage{upgreek}
 % Không dùng tuỳ chọn "thref" vì cả đồ án không có lệnh \thref nào; tuỳ chọn này
@@ -101,6 +125,12 @@
 \titlespacing*{\section}{0pt}{14pt}{10pt}
 \titleformat{\subsection}
   {\normalfont\fontsize{13pt}{21pt}\selectfont\bfseries}{\thesubsection}{1em}{}
+% Thiếu đúng dòng \titlespacing này là lý do các tiêu đề cấp hai bị hở một khoảng lớn
+% hơn cả tiêu đề cấp một: không khai báo thì titlesec giữ nguyên giá trị mặc định của
+% lớp article, tức "3.25ex plus 1ex" ≈ 17pt phía trên (so với 14pt của \section) và
+% phần "plus 1ex" còn co giãn được nên mỗi trang lại hở một kiểu. Đặt cứng 13pt/8pt để
+% ba cấp tiêu đề giảm dần đều: 14/10 – 13/8 – 12/6.
+\titlespacing*{\subsection}{0pt}{13pt}{8pt}
 \titleformat{\subsubsection}
   {\normalfont\fontsize{13pt}{21pt}\selectfont\bfseries\itshape}{\thesubsubsection}{1em}{}
 \titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
@@ -166,6 +196,16 @@
 \lstset{style=mystyle} % Áp dụng style đã định nghĩa
 
 % 8. Thiết lập môi trường Định lý, Mệnh đề, v.v. (ntheorem)
+% Khoảng trắng trên/dưới mọi khối định lý – định nghĩa – nhận xét. Không khai báo thì
+% ntheorem lấy \topsep, mà \topsep ở đây là 10pt PLUS 4pt MINUS 6pt thừa hưởng từ bộ
+% tham số danh sách cỡ 12pt: vừa quá rộng so với thân bài, vừa co giãn được nên khối
+% Định nghĩa 3.1 và Định nghĩa 3.2 hở ra hai mức khác nhau. 6pt cứng cho cả trên lẫn
+% dưới là đủ tách khối định nghĩa khỏi văn xuôi mà không tạo lỗ hổng giữa trang.
+% HAI DÒNG NÀY PHẢI ĐỨNG TRƯỚC MỌI LỆNH \newtheorem: ntheorem nướng giá trị skip vào
+% định nghĩa của từng môi trường ngay tại thời điểm \newtheorem, đặt sau sẽ không có
+% tác dụng với các môi trường đã khai báo.
+\theorempreskip{6pt}
+\theorempostskip{6pt}
 \newtheorem{tc}{Tính chất}[section]
 \newtheorem{md}{Mệnh đề}[section]
 \newtheorem{bd}{Bổ đề}[section]
@@ -354,7 +394,7 @@
 \hypersetup{linkcolor=black}
 
 % Chèn mục lục
-\pagenumbering{roman}  
+\pagenumbering{roman}
 \fancyhead[C]{\thepage} 
 \renewcommand{\headrulewidth}{0pt}  
 

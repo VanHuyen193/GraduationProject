@@ -220,7 +220,7 @@ behaviors:
 \end{lstlisting}
 
 Trên môi trường Football Table, tệp cấu hình của DQN giữ nguyên cấu trúc trên nhưng
-\textbf{không có} khối \texttt{self\_play}: khi khai báo khối này, ML-Agents phát sinh
+không có khối \texttt{self\_play}: khi khai báo khối này, ML-Agents phát sinh
 lỗi tra cứu chính sách trong bộ điều phối đối kháng và dừng ngay khi khởi tạo. Lần chạy
 \texttt{football\_dqn\_v1} vì vậy dùng bản dựng \texttt{FootballDiscrete} với tham số
 hành vi chuyển từ tám kênh liên tục sang tám nhánh ba mức, và không sinh ra chỉ số ELO.
@@ -351,7 +351,7 @@ football\_dqn\_v1$^{\ddagger}$ & DQN & 1{,}60M & $1{,}825$ \newline (không có 
 $^{\dagger}$ Thời gian của \texttt{ctf\_sac\_v1} chỉ tính đoạn $1{,}0$M--$1{,}7$M sau khi khôi phục từ checkpoint; đoạn $0$--$1{,}0$M chạy trong một phiên trước đó bị ngắt nên không đo được liền mạch.
 
 \smallskip
-$^{\ddagger}$ Riêng DQN trên Football phải tắt self-play, do ML-Agents phát sinh lỗi khi kết hợp trainer off-policy với ghost trainer. Vì vậy lần chạy này không có chỉ số ELO và \textbf{không so sánh trực tiếp được} với bốn thuật toán còn lại trên cùng môi trường.
+$^{\ddagger}$ Riêng DQN trên Football phải tắt self-play, do ML-Agents phát sinh lỗi khi kết hợp trainer off-policy với ghost trainer. Vì vậy lần chạy này không có chỉ số ELO và không so sánh trực tiếp được với bốn thuật toán còn lại trên cùng môi trường.
 
 \smallskip
 Ghi chú chung: mọi lần chạy đều dùng $8$ training area song song trong mỗi scene. Reward là
@@ -361,4 +361,4 @@ phần thưởng trung bình mười phần trăm cuối, cùng định nghĩa d
 \vspace{0.5cm}
 \noindent\textbf{Mã nguồn và mô hình:} Toàn bộ mã nguồn dự án Unity, các tệp cấu hình,
 script huấn luyện và các mô hình đã huấn luyện (định dạng \texttt{.onnx}) được lưu trữ
-tại kho mã nguồn của đề tài.
+tại kho mã nguồn của đề tài: \url{https://github.com/VanHuyen193/GraduationProject.git}

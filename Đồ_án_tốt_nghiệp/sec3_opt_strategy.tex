@@ -481,7 +481,7 @@ entropy của policy:
 
 \noindent trong đó $\mathcal{H}(\pi(\cdot \mid s_t)) = -\mathbb{E}_{a \sim \pi}
 [\log \pi(a \mid s_t)]$ là entropy của policy tại trạng thái $s_t$, còn $\alpha > 0$ là hệ
-số nhiệt độ (temperature) dùng để cân giữa phần thưởng và entropy. Entropy càng cao thì
+số nhiệt độ dùng để cân giữa phần thưởng và entropy. Entropy càng cao thì
 policy càng ngẫu nhiên, và agent càng chịu thử nhiều hành động khác nhau thay vì chốt sớm
 vào một lựa chọn tham lam.
 
@@ -860,10 +860,8 @@ luyện như cumulative reward, episode length và policy loss được ghi lạ
 được theo thời gian thực qua TensorBoard.
 
 \indent Thứ điều khiển toàn bộ quá trình huấn luyện là tệp cấu hình YAML. Trong đó khai
-báo loại trainer (\texttt{trainer\_type}), siêu tham số huấn luyện
-(\texttt{hyperparameters}), kiến trúc mạng nơ-ron (\texttt{network\_settings}), cấu hình
-tín hiệu phần thưởng (\texttt{reward\_signals}) và số bước huấn luyện tối đa
-(\texttt{max\_steps}). Mỗi behavior trong scene có một khối cấu hình riêng, nên hoàn toàn
+báo loại trainer, siêu tham số huấn luyện, kiến trúc mạng nơ-ron, cấu hình
+tín hiệu phần thưởng và số bước huấn luyện tối đa. Mỗi behavior trong scene có một khối cấu hình riêng, nên hoàn toàn
 có thể huấn luyện đồng thời nhiều loại agent với thiết lập khác nhau trong cùng một
 session. Cấu hình chi tiết cho từng thuật toán nằm ở các Phụ lục A đến D.
 
