@@ -1,0 +1,32 @@
+Trước khi nói về đồ án, em xin phác lại cách AI trong game đang được làm hiện nay.
+
+Trong phần lớn dự án game, hành vi của NPC được lập trình bằng tay. Người phát triển viết máy trạng
+thái, cây hành vi, hoặc đơn giản là một chuỗi luật if – else: thấy người chơi trong bán kính này thì
+đuổi, máu xuống dưới ngưỡng kia thì bỏ chạy, tới điểm tuần tra thì quay đầu. Học tăng cường gần như
+chưa xuất hiện trong quy trình sản xuất thông thường.
+
+Cách làm đó có lý do chính đáng. Logic viết tay chạy nhẹ, kết quả lặp lại được nên kiểm thử được, và
+khi có lỗi thì người phát triển biết chính xác dòng nào gây ra. Với phần lớn NPC trong game thương
+mại, chừng đó là đủ.
+
+Nhưng nó có một cái giá. Hành vi của NPC chỉ phong phú đúng bằng số tình huống mà người viết đã
+lường trước, nên nhân vật thường hành động cứng nhắc: lặp đi lặp lại một kịch bản, phản ứng giống
+hệt nhau trong những tình huống giống nhau. Người chơi chỉ cần vài lượt là đoán được quy luật, rồi
+khai thác chính quy luật đó. Muốn phong phú hơn thì phải viết thêm nhánh, và bộ luật phình ra rất
+nhanh cho tới lúc không ai còn kiểm soát nổi.
+
+Học tăng cường đi theo hướng ngược lại. Người phát triển không liệt kê tình huống nữa, mà định nghĩa
+mục tiêu bằng một tín hiệu phần thưởng; hành vi nảy sinh từ quá trình tác nhân tự tương tác với môi
+trường. Sơ đồ bên phải là vòng lặp đó: tác nhân chọn hành động, môi trường trả về trạng thái mới và
+phần thưởng, rồi lặp lại hàng triệu lần.
+
+Điều em muốn hội đồng lưu ý là cái khó không biến mất, nó chuyển chỗ. Thay vì viết luật, người phát
+triển phải đặc tả đúng ba ô trong sơ đồ: tác nhân quan sát được gì, làm được gì, và được thưởng bao
+nhiêu. Riêng ô phần thưởng là tín hiệu duy nhất định nghĩa mục tiêu — thuật toán không có cách nào
+biết ta thật sự muốn gì ngoài con số đó. Và một đặc tả sai thì không hề báo lỗi: chương trình vẫn
+chạy, TensorBoard vẫn vẽ đường cong, tác nhân chỉ đơn giản là học một hành vi khác với hành vi ta
+muốn.
+
+Hai con số bên trái là tỉ lệ công sức đo trên chính đồ án này: phần đặc tả ba môi trường chiếm hơn
+ba mươi trang thuyết minh, còn cấu hình cho cả năm thuật toán gói gọn trong ba trang YAML. Đó cũng
+là lý do đồ án của em đặt trọng tâm vào khâu xây dựng và kiểm chứng môi trường.

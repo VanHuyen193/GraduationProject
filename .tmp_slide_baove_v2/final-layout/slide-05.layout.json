@@ -1,0 +1,837 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/i107q5of",
+    "id": "i107q5of",
+    "slide": 5,
+    "layoutId": "/ppt/slideLayouts/slideLayout3.xml",
+    "layoutName": "Section Header",
+    "layoutType": "secHead",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Aptos Display"
+      },
+      "minorFont": {
+        "latinTypeface": "Aptos"
+      }
+    },
+    "typefaces": [
+      "Aptos",
+      "Aptos Display"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout3.xml",
+      "name": "Section Header",
+      "type": "secHead",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout3.xml/2",
+          "id": "2",
+          "name": "Title 1",
+          "bbox": [
+            87.33,
+            179.5,
+            1104,
+            299.5
+          ],
+          "text": "Click to edit Master title style",
+          "textPreview": "Click to edit Master title style",
+          "resolvedTextStyle": {
+            "anchor": 3,
+            "verticalAlignment": "bottom"
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master title style",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master title style"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout3.xml/3",
+          "id": "3",
+          "name": "Text Placeholder 2",
+          "bbox": [
+            87.33,
+            481.83,
+            1104,
+            157.5
+          ],
+          "text": "Click to edit Master text styles",
+          "textPreview": "Click to edit Master text styles",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master text styles",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master text styles"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout3.xml/4",
+          "id": "4",
+          "name": "Date Placeholder 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "8/14/2026",
+          "textPreview": "8/14/2026",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "8/14/2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "8/14/2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout3.xml/5",
+          "id": "5",
+          "name": "Footer Placeholder 4",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout3.xml/6",
+          "id": "6",
+          "name": "Slide Number Placeholder 5",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Title Placeholder 1",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "Click to edit Master title style",
+          "textPreview": "Click to edit Master title style",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master title style",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master title style"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Text Placeholder 2",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "Click to edit Master text styles\nSecond level\nThird level\nFourth level\nFifth level",
+          "textPreview": "Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master text styles",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master text styles"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Second level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Second level"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Third level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Third level"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Fourth level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fourth level"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Fifth level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fifth level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Date Placeholder 3",
+          "bbox": [
+            88,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "8/14/2026",
+          "textPreview": "8/14/2026",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "8/14/2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "8/14/2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Footer Placeholder 4",
+          "bbox": [
+            424,
+            667.33,
+            432,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Slide Number Placeholder 5",
+          "bbox": [
+            904,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dgbulwnm",
+      "id": "2",
+      "name": "Title 1",
+      "bbox": [
+        87.33,
+        179.5,
+        1104,
+        299.5
+      ],
+      "text": "Bốn nguyên tắc thiết kế",
+      "textPreview": "Bốn nguyên tắc thiết kế",
+      "resolvedFontSize": 80,
+      "resolvedTextStyle": {
+        "anchor": 3,
+        "vertical": 1,
+        "fontSize": 80,
+        "typeface": "Aptos Display",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "bottom",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Bốn nguyên tắc thiết kế"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Bốn nguyên tắc thiết kế",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Bốn nguyên tắc thiết kế"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 90000
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cf2tcr61",
+      "id": "3",
+      "name": "Subtitle 2",
+      "bbox": [
+        87.33,
+        481.83,
+        1104,
+        157.5
+      ],
+      "resolvedFontSize": 32,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 32,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "left",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/z2tcnm5s",
+      "id": "4",
+      "name": "Text Placeholder 2",
+      "bbox": [
+        87.33,
+        481.83,
+        1104,
+        157.5
+      ],
+      "text": "1. Bám theo quỹ đạo lời giải mẫu.\n2. Ưu tiên reward sự kiện hoặc thế năng; tránh cộng dồn vô kiểm soát.\n3. Giữ tổng reward phụ nhỏ hơn reward mục tiêu.\n4. Sửa cơ chế hoặc curriculum trước khi tăng hệ số reward.",
+      "textPreview": "1. Bám theo quỹ đạo lời giải mẫu. | 2. Ưu tiên reward sự kiện hoặc thế năng; tránh cộng dồn vô kiểm soát. | 3. Giữ tổng reward phụ nhỏ hơ...",
+      "resolvedFontSize": 32,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 32,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "left",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 7,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1. Bám theo quỹ đạo lời giải mẫu."
+          },
+          {
+            "index": 2,
+            "text": ""
+          },
+          {
+            "index": 3,
+            "text": "2. Ưu tiên reward sự kiện hoặc thế năng; tránh cộng dồn vô kiểm soát."
+          },
+          {
+            "index": 4,
+            "text": ""
+          },
+          {
+            "index": 5,
+            "text": "3. Giữ tổng reward phụ nhỏ hơn reward mục tiêu."
+          },
+          {
+            "index": 6,
+            "text": ""
+          },
+          {
+            "index": 7,
+            "text": "4. Sửa cơ chế hoặc curriculum trước khi tăng hệ số reward."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1. Bám theo quỹ đạo lời giải mẫu.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "1. Bám theo quỹ đạo lời giải mẫu."
+            }
+          ],
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 90000
+        },
+        {
+          "index": 2,
+          "text": "2. Ưu tiên reward sự kiện hoặc thế năng; tránh cộng dồn vô kiểm soát.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2. Ưu tiên reward sự kiện hoặc thế năng; tránh cộng dồn vô kiểm soát."
+            }
+          ],
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 90000
+        },
+        {
+          "index": 3,
+          "text": "3. Giữ tổng reward phụ nhỏ hơn reward mục tiêu.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "3. Giữ tổng reward phụ nhỏ hơn reward mục tiêu."
+            }
+          ],
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 90000
+        },
+        {
+          "index": 4,
+          "text": "4. Sửa cơ chế hoặc curriculum trước khi tăng hệ số reward.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "4. Sửa cơ chế hoặc curriculum trước khi tăng hệ số reward."
+            }
+          ],
+          "marginLeft": 0,
+          "indent": 0,
+          "lineSpacingPercent": 90000
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yhkbe1o7",
+      "id": "5",
+      "name": "Date Placeholder 3",
+      "bbox": [
+        88,
+        667.33,
+        288,
+        38.33
+      ],
+      "text": "2026",
+      "textPreview": "2026",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2026",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2026"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l4bupwny",
+      "id": "6",
+      "name": "Footer Placeholder 4",
+      "bbox": [
+        424,
+        667.33,
+        432,
+        38.33
+      ],
+      "text": "Đồ án tốt nghiệp",
+      "textPreview": "Đồ án tốt nghiệp",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Đồ án tốt nghiệp"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Đồ án tốt nghiệp",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Đồ án tốt nghiệp"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/032tgr6d",
+      "id": "7",
+      "name": "Slide Number Placeholder 5",
+      "bbox": [
+        904,
+        667.33,
+        288,
+        38.33
+      ],
+      "text": "5",
+      "textPreview": "5",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5",
+          "runs": [
+            {
+              "index": 1,
+              "text": "5"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

@@ -1,0 +1,1 @@
+Slides 2-15 switch from the duplicated source Title Slide layout to an existing stock layout in the supplied template so that the inherited title/body placeholders can carry the requested content without added overlays. Slide 1 and slide 16 retain the Title Slide layout. No source branding, media, master elements, or footers are removed.

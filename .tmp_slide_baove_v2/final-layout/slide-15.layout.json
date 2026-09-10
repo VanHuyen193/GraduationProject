@@ -1,0 +1,877 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/vaxsvy10",
+    "id": "vaxsvy10",
+    "slide": 15,
+    "layoutId": "/ppt/slideLayouts/slideLayout2.xml",
+    "layoutName": "Title and Content",
+    "layoutType": "obj",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Aptos Display"
+      },
+      "minorFont": {
+        "latinTypeface": "Aptos"
+      }
+    },
+    "typefaces": [
+      "Aptos",
+      "Aptos Display"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout2.xml",
+      "name": "Title and Content",
+      "type": "obj",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout2.xml/2",
+          "id": "2",
+          "name": "Title 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "Click to edit Master title style",
+          "textPreview": "Click to edit Master title style",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master title style",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master title style"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout2.xml/3",
+          "id": "3",
+          "name": "Content Placeholder 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "Click to edit Master text styles\nSecond level\nThird level\nFourth level\nFifth level",
+          "textPreview": "Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master text styles",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master text styles"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Second level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Second level"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Third level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Third level"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Fourth level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fourth level"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Fifth level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fifth level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout2.xml/4",
+          "id": "4",
+          "name": "Date Placeholder 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "8/14/2026",
+          "textPreview": "8/14/2026",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "8/14/2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "8/14/2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout2.xml/5",
+          "id": "5",
+          "name": "Footer Placeholder 4",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout2.xml/6",
+          "id": "6",
+          "name": "Slide Number Placeholder 5",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Title Placeholder 1",
+          "bbox": [
+            88,
+            38.33,
+            1104,
+            139.17
+          ],
+          "geometry": "rect",
+          "text": "Click to edit Master title style",
+          "textPreview": "Click to edit Master title style",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master title style",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master title style"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Text Placeholder 2",
+          "bbox": [
+            88,
+            191.67,
+            1104,
+            456.83
+          ],
+          "geometry": "rect",
+          "text": "Click to edit Master text styles\nSecond level\nThird level\nFourth level\nFifth level",
+          "textPreview": "Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Click to edit Master text styles",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Click to edit Master text styles"
+                }
+              ]
+            },
+            {
+              "index": 2,
+              "text": "Second level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Second level"
+                }
+              ]
+            },
+            {
+              "index": 3,
+              "text": "Third level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Third level"
+                }
+              ]
+            },
+            {
+              "index": 4,
+              "text": "Fourth level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fourth level"
+                }
+              ]
+            },
+            {
+              "index": 5,
+              "text": "Fifth level",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Fifth level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Date Placeholder 3",
+          "bbox": [
+            88,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "8/14/2026",
+          "textPreview": "8/14/2026",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "8/14/2026",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "8/14/2026"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Footer Placeholder 4",
+          "bbox": [
+            424,
+            667.33,
+            432,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Slide Number Placeholder 5",
+          "bbox": [
+            904,
+            667.33,
+            288,
+            38.33
+          ],
+          "geometry": "rect",
+          "text": "‹#›",
+          "textPreview": "‹#›",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          },
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "‹#›",
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "‹#›"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/547mhg3m",
+      "id": "2",
+      "name": "Title 1",
+      "bbox": [
+        88,
+        38.33,
+        1104,
+        139.17
+      ],
+      "text": "Hạn chế và hướng phát triển",
+      "textPreview": "Hạn chế và hướng phát triển",
+      "resolvedFontSize": 58.67,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 58.67,
+        "typeface": "Aptos Display",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Hạn chế và hướng phát triển"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Hạn chế và hướng phát triển",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Hạn chế và hướng phát triển"
+            }
+          ],
+          "bulletCharacter": "",
+          "lineSpacingPercent": 90000
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k3y5ov21",
+      "id": "3",
+      "name": "Subtitle 2",
+      "bbox": [
+        88,
+        191.67,
+        1104,
+        456.83
+      ],
+      "resolvedFontSize": 37.33,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 37.33,
+        "typeface": "Aptos",
+        "color": "tx1",
+        "alignment": "left",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/76p4jqls",
+      "id": "4",
+      "name": "Content Placeholder 2",
+      "bbox": [
+        88,
+        191.67,
+        1104,
+        456.83
+      ],
+      "text": "• Mỗi tổ hợp hiện có một seed → chưa đủ cơ sở thống kê cho chênh lệch nhỏ.\n• Football Table và Capture The Flag cần tăng độ khó để tăng độ phân giải.\n• Kiểm chứng giả thuyết SAC–CTF bằng replay buffer tách theo bài học.\n• Lặp lại 15 thí nghiệm trên nhiều seed; mở rộng DreamerV3 hoặc QMIX.",
+      "textPreview": "• Mỗi tổ hợp hiện có một seed → chưa đủ cơ sở thống kê cho chênh lệch nhỏ. | • Football Table và Capture The Flag cần tăng độ khó để tăng...",
+      "resolvedFontSize": 37.33,
+      "resolvedTextStyle": {
+        "vertical": 1,
+        "fontSize": 37.33,
+        "typeface": "Aptos",
+        "color": "tx1",
+        "alignment": "left",
+        "autoFit": "shrinkText",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 11,
+        "lines": [
+          {
+            "index": 1,
+            "text": "• Mỗi tổ hợp hiện có một seed → chưa đủ cơ sở thống kê cho chênh"
+          },
+          {
+            "index": 2,
+            "text": "lệch nhỏ."
+          },
+          {
+            "index": 3,
+            "text": ""
+          },
+          {
+            "index": 4,
+            "text": "• Football Table và Capture The Flag cần tăng độ khó để tăng độ"
+          },
+          {
+            "index": 5,
+            "text": "phân giải."
+          },
+          {
+            "index": 6,
+            "text": ""
+          },
+          {
+            "index": 7,
+            "text": "• Kiểm chứng giả thuyết SAC–CTF bằng replay buffer tách theo bài"
+          },
+          {
+            "index": 8,
+            "text": "học."
+          },
+          {
+            "index": 9,
+            "text": ""
+          },
+          {
+            "index": 10,
+            "text": "• Lặp lại 15 thí nghiệm trên nhiều seed; mở rộng DreamerV3 hoặc"
+          },
+          {
+            "index": 11,
+            "text": "QMIX."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "• Mỗi tổ hợp hiện có một seed → chưa đủ cơ sở thống kê cho chênh lệch nhỏ.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Mỗi tổ hợp hiện có một seed → chưa đủ cơ sở thống kê cho chênh lệch nhỏ."
+            }
+          ],
+          "marginLeft": 228600,
+          "indent": -228600,
+          "lineSpacingPercent": 90000
+        },
+        {
+          "index": 2,
+          "text": "• Football Table và Capture The Flag cần tăng độ khó để tăng độ phân giải.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Football Table và Capture The Flag cần tăng độ khó để tăng độ phân giải."
+            }
+          ],
+          "marginLeft": 228600,
+          "indent": -228600,
+          "lineSpacingPercent": 90000
+        },
+        {
+          "index": 3,
+          "text": "• Kiểm chứng giả thuyết SAC–CTF bằng replay buffer tách theo bài học.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Kiểm chứng giả thuyết SAC–CTF bằng replay buffer tách theo bài học."
+            }
+          ],
+          "marginLeft": 228600,
+          "indent": -228600,
+          "lineSpacingPercent": 90000
+        },
+        {
+          "index": 4,
+          "text": "• Lặp lại 15 thí nghiệm trên nhiều seed; mở rộng DreamerV3 hoặc QMIX.",
+          "bulletCharacter": "",
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Lặp lại 15 thí nghiệm trên nhiều seed; mở rộng DreamerV3 hoặc QMIX."
+            }
+          ],
+          "marginLeft": 228600,
+          "indent": -228600,
+          "lineSpacingPercent": 90000
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/65gnqlk7",
+      "id": "5",
+      "name": "Date Placeholder 3",
+      "bbox": [
+        88,
+        667.33,
+        288,
+        38.33
+      ],
+      "text": "2026",
+      "textPreview": "2026",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2026"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2026",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2026"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t87ml0ji",
+      "id": "6",
+      "name": "Footer Placeholder 4",
+      "bbox": [
+        424,
+        667.33,
+        432,
+        38.33
+      ],
+      "text": "Đồ án tốt nghiệp",
+      "textPreview": "Đồ án tốt nghiệp",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "center",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Đồ án tốt nghiệp"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Đồ án tốt nghiệp",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Đồ án tốt nghiệp"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/s7y5sv2x",
+      "id": "7",
+      "name": "Slide Number Placeholder 5",
+      "bbox": [
+        904,
+        667.33,
+        288,
+        38.33
+      ],
+      "text": "15",
+      "textPreview": "15",
+      "resolvedFontSize": 16,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "vertical": 1,
+        "fontSize": 16,
+        "typeface": "Aptos",
+        "color": {
+          "type": "theme",
+          "value": "tx1",
+          "transform": {
+            "lighten": 0.18
+          }
+        },
+        "alignment": "right",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "15"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "15",
+          "runs": [
+            {
+              "index": 1,
+              "text": "15"
+            }
+          ],
+          "bulletCharacter": "",
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

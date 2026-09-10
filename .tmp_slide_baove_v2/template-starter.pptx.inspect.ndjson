@@ -1,0 +1,77 @@
+{"kind":"deck","id":"pr/vlekau","name":"Deck"}
+{"kind":"layout","layoutId":"/ppt/slideMasters/slideMaster1.xml","name":"","type":"master","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout1.xml","name":"Title Slide","type":"title","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"subtitle","type":"subtitle","textPreview":"Click to edit Master subtitle style"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout2.xml","name":"Title and Content","type":"obj","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"content placeholder 2","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout3.xml","name":"Section Header","type":"secHead","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout4.xml","name":"Two Content","type":"twoObj","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"content placeholder 2","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"content placeholder 3","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout5.xml","name":"Comparison","type":"twoTxTwoObj","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"content placeholder 3","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"content placeholder 5","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout6.xml","name":"Title Only","type":"titleOnly","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout7.xml","name":"Blank","type":"blank","placeholders":[{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout8.xml","name":"Content with Caption","type":"objTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"content placeholder 2","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout9.xml","name":"Picture with Caption","type":"picTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"picture","type":"picture"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout10.xml","name":"Title and Vertical Text","type":"vertTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"layout","layoutId":"/ppt/slideLayouts/slideLayout11.xml","name":"Vertical Title and Text","type":"vertTitleAndTx","placeholders":[{"name":"title","type":"title","textPreview":"Click to edit Master title style"},{"name":"body","type":"body","textPreview":"Click to edit Master text styles | Second level | Third level | Fourth level | Fifth level"},{"name":"dateTime","type":"dateTime","textPreview":"8/14/2026"},{"name":"footer","type":"footer"},{"name":"slideNumber","type":"slideNumber","textPreview":"‹#›"}]}
+{"kind":"slide","id":"sl/erva75","slide":1,"title":"Slide 1","textShapes":0}
+{"kind":"shape","id":"sh/fa50j65k","slide":1,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/e9wzqloz","slide":1,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/erva75","slide":1,"text":""}
+{"kind":"slide","id":"sl/3ejbog","slide":2,"title":"Slide 2","textShapes":0}
+{"kind":"shape","id":"sh/fu9sbuxo","slide":2,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/et0r2pg3","slide":2,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/3ejbog","slide":2,"text":""}
+{"kind":"slide","id":"sl/qb98j0","slide":3,"title":"Slide 3","textShapes":0}
+{"kind":"shape","id":"sh/1gryxgf2","slide":3,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/0fix4byh","slide":3,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/qb98j0","slide":3,"text":""}
+{"kind":"slide","id":"sl/ec1yx8","slide":4,"title":"Slide 4","textShapes":0}
+{"kind":"shape","id":"sh/3m1cb6x8","slide":4,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/2lsbi1wn","slide":4,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/ec1yx8","slide":4,"text":""}
+{"kind":"slide","id":"sl/9q57jf","slide":5,"title":"Slide 5","textShapes":0}
+{"kind":"shape","id":"sh/nq14fixw","slide":5,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/mpsnmdgb","slide":5,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/9q57jf","slide":5,"text":""}
+{"kind":"slide","id":"sl/7gfzjh","slide":6,"title":"Slide 6","textShapes":0}
+{"kind":"shape","id":"sh/hova94zm","slide":6,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/gnm90zi1","slide":6,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/7gfzjh","slide":6,"text":""}
+{"kind":"slide","id":"sl/swvv1n","slide":7,"title":"Slide 7","textShapes":0}
+{"kind":"shape","id":"sh/uxcni14j","slide":7,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/vyl4r654","slide":7,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/swvv1n","slide":7,"text":""}
+{"kind":"slide","id":"sl/bjyqcw","slide":8,"title":"Slide 8","textShapes":0}
+{"kind":"shape","id":"sh/tsbitw36","slide":8,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/sr2hkrm1","slide":8,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/bjyqcw","slide":8,"text":""}
+{"kind":"slide","id":"sl/wknnab","slide":9,"title":"Slide 9","textShapes":0}
+{"kind":"shape","id":"sh/udknyh43","slide":9,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/vedormlo","slide":9,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/wknnab","slide":9,"text":""}
+{"kind":"slide","id":"sl/rludif","slide":10,"title":"Slide 10","textShapes":0}
+{"kind":"shape","id":"sh/pgzq9c7m","slide":10,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/ofqpg7q1","slide":10,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/rludif","slide":10,"text":""}
+{"kind":"slide","id":"sl/udhy67","slide":11,"title":"Slide 11","textShapes":0}
+{"kind":"shape","id":"sh/a9ofyx4v","slide":11,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/baxg725g","slide":11,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/udhy67","slide":11,"text":""}
+{"kind":"slide","id":"sl/qpcxn0","slide":12,"title":"Slide 12","textShapes":0}
+{"kind":"shape","id":"sh/50fytg3u","slide":12,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/kz6hkbm9","slide":12,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/qpcxn0","slide":12,"text":""}
+{"kind":"slide","id":"sl/0e559i","slide":13,"title":"Slide 13","textShapes":0}
+{"kind":"shape","id":"sh/kjedor2d","slide":13,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/lknuhc3i","slide":13,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/0e559i","slide":13,"text":""}
+{"kind":"slide","id":"sl/62kqrm","slide":14,"title":"Slide 14","textShapes":0}
+{"kind":"shape","id":"sh/up0nmpoz","slide":14,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/vq94vu5k","slide":14,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/62kqrm","slide":14,"text":""}
+{"kind":"slide","id":"sl/t3ean0","slide":15,"title":"Slide 15","textShapes":0}
+{"kind":"shape","id":"sh/mlo7qx0v","slide":15,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/7mxoz21g","slide":15,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/t3ean0","slide":15,"text":""}
+{"kind":"slide","id":"sl/y0u4lh","slide":16,"title":"Slide 16","textShapes":0}
+{"kind":"shape","id":"sh/lof61wvi","slide":16,"name":"Title 1","placeholder":"title","bbox":[0,0,0,0]}
+{"kind":"shape","id":"sh/0nmpsrex","slide":16,"name":"Subtitle 2","placeholder":"subtitle","bbox":[0,0,0,0]}
+{"kind":"notes","id":"nt/y0u4lh","slide":16,"text":""}

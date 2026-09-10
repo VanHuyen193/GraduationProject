@@ -1,0 +1,1 @@
+All non-trivial claims and numerical values are drawn from the supplied project report: Đồ_án_tốt_nghiệp/sec5.tex, sec6.tex, sec6_5_app.tex, and sec7.tex. Visuals are local project screenshots in Đồ_án_tốt_nghiệp/image and image/app. No external web assets are used.

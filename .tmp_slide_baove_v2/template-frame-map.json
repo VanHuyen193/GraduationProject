@@ -1,0 +1,21 @@
+{
+  "outputSlides": [
+    {"outputSlide":1,"sourceSlide":1,"narrativeRole":"opening thesis","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":2,"sourceSlide":1,"narrativeRole":"problem context","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":3,"sourceSlide":1,"narrativeRole":"objectives and contributions","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":4,"sourceSlide":1,"narrativeRole":"system architecture","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":5,"sourceSlide":1,"narrativeRole":"design principles","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":6,"sourceSlide":1,"narrativeRole":"Football Table design","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":7,"sourceSlide":1,"narrativeRole":"Capture The Flag design","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":8,"sourceSlide":1,"narrativeRole":"Cross The Road design","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":9,"sourceSlide":1,"narrativeRole":"experimental design","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":10,"sourceSlide":1,"narrativeRole":"Football Table results","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":11,"sourceSlide":1,"narrativeRole":"Capture The Flag results","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":12,"sourceSlide":1,"narrativeRole":"Cross The Road results","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":13,"sourceSlide":1,"narrativeRole":"cross-environment insight","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":14,"sourceSlide":1,"narrativeRole":"interactive application","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":15,"sourceSlide":1,"narrativeRole":"limitations and next steps","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]},
+    {"outputSlide":16,"sourceSlide":1,"narrativeRole":"closing synthesis","reuseMode":"duplicate-slide","editTargets":[{"action":"rewrite","shapeId":"sh/547294r6"},{"action":"rewrite","shapeId":"sh/k3yl0zql"}]}
+  ],
+  "omittedSourceSlides": []
+}

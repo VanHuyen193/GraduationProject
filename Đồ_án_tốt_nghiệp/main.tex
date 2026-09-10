@@ -119,10 +119,17 @@
 \renewcommand{\tablename}{Bảng}
 
 % 5. Cấu hình tiêu đề (Titlesec)
-% Các đề mục cấp một (Mở đầu, Cơ sở lý thuyết...) đánh số liên tục từ 1, căn trái.
+% Các đề mục cấp một hiển thị ở đầu trang theo dạng "CHƯƠNG N: TÊN CHƯƠNG".
 \titleformat{\section}
-  {\normalfont\fontsize{13pt}{22.5pt}\selectfont\bfseries}{\thesection.}{0.6em}{}
+  {\normalfont\fontsize{13pt}{22.5pt}\selectfont\bfseries\centering}
+  {\MakeUppercase{Chương \thesection:}}{0.6em}{\MakeUppercase}
 \titlespacing*{\section}{0pt}{14pt}{10pt}
+
+% Đồng bộ nhãn chương trong Mục lục với tiêu đề chương.
+\renewcommand{\cftsecpresnum}{CHƯƠNG~}
+\renewcommand{\cftsecaftersnum}{\space}
+\addtolength{\cftsecnumwidth}{5em}
+\renewcommand{\cftsecfont}{\bfseries}
 \titleformat{\subsection}
   {\normalfont\fontsize{13pt}{21pt}\selectfont\bfseries}{\thesubsection}{1em}{}
 % Thiếu đúng dòng \titlespacing này là lý do các tiêu đề cấp hai bị hở một khoảng lớn
@@ -153,12 +160,12 @@
 % \headheight đã được đặt 15pt qua tùy chọn của gói geometry ở mục 2.
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[C]{\thepage}
+\fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 
 \fancypagestyle{plain}{%
   \fancyhf{}
-  \fancyhead[C]{\thepage}%
+  \fancyfoot[C]{\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
 }
 
@@ -395,7 +402,7 @@
 
 % Chèn mục lục
 \pagenumbering{roman}
-\fancyhead[C]{\thepage} 
+\fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}  
 
 \input{sec1_intro}
@@ -405,13 +412,13 @@
 \input{sec_abstract}
 \newpage
 
-\fancyhead[C]{\thepage}
+\fancyfoot[C]{\thepage}
 \renewcommand{\contentsname}{MỤC LỤC}
 \tableofcontents
 
 \newpage
 \pagestyle{fancy}
-\fancyhead[C]{\thepage}
+\fancyfoot[C]{\thepage}
 \renewcommand{\listfigurename}{DANH SÁCH HÌNH VẼ}
 \listoffigures
 
@@ -432,10 +439,10 @@
 % Cài lại fancy cho phần nội dung
 \pagestyle{fancy}
 \lhead{}
-\chead{\thepage}
+\chead{}
 \rhead{}
 \lfoot{}
-\cfoot{}
+\cfoot{\thepage}
 \rfoot{}
 \renewcommand{\headrulewidth}{0pt}  
 
