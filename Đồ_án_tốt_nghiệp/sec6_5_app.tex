@@ -34,7 +34,7 @@ tùy theo bản chất của từng môi trường.
 
 \indent Nhóm thứ ba là chức năng lựa chọn mô hình. Ở mọi chế độ có tác nhân máy tham gia,
 người dùng phải chọn được mô hình cụ thể cho tác nhân sử dụng, tương ứng với PPO, SAC,
-MA POCA, MAPPO, DQN hoặc các phiên bản huấn luyện khác nhau. Yêu cầu này biến ứng dụng
+MA-POCA, MAPPO, DQN hoặc các phiên bản huấn luyện khác nhau. Yêu cầu này biến ứng dụng
 thành một công cụ so sánh trực quan, cho phép chạy lần lượt cùng một môi trường với các mô
 hình khác nhau nhằm quan sát sự khác biệt về hành vi, hoặc cho hai mô hình đối đầu trực
 tiếp trong Football Table.
@@ -422,10 +422,10 @@ liên tục tám kênh, còn DQN chỉ định nghĩa được trên hành độ
 \texttt{BehaviorParameters} của scene và ML-Agents dựng bộ truyền động của tác nhân
 ngay trong pha \texttt{OnEnable}, tức trước khi ứng dụng kịp can thiệp sau khi scene
 nạp xong; vì thế không thể đổi kiểu hành động tại thời gian chạy như cách đổi mô hình.
-Giải pháp là giữ song song hai bản scene Football: bản liên tục dùng cho bốn thuật toán
+Giải pháp là giữ song song hai bản scene \texttt{Football}: bản liên tục dùng cho bốn thuật toán
 kia và bản rời rạc \texttt{FootballDiscrete} sinh tự động từ bản gốc bằng một kịch bản
 trong trình soạn thảo. Khi người dùng chọn mô hình DQN, menu nạp bản rời rạc thay cho
-bản gốc; phần còn lại của ứng dụng không thay đổi vì lớp tác nhân của Football vốn đã
+bản gốc; phần còn lại của ứng dụng không thay đổi vì lớp tác nhân của Football Table vốn đã
 chấp nhận cả hai kiểu hành động và tự quy đổi ba mức $\{0,1,2\}$ về $\{-1,0,+1\}$. Hệ
 quả duy nhất người dùng nhìn thấy là ở chế độ Agent tự chơi của Football Table,
 hai ô chọn mô hình phải cùng loại hành động: menu khóa nút bắt đầu kèm dòng cảnh báo

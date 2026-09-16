@@ -891,7 +891,7 @@ tạo. Hệ quả là lần chạy DQN trên Football Table buộc phải tắt 
 không có ELO để đối chiếu.
 
 \indent Giới hạn cuối cùng là phần thưởng nhóm. Cơ chế group reward vốn được tối ưu
-cho POCA; đem áp cho PPO, SAC hay DQN thì phần thưởng nhóm phải phân bổ thủ công về từng
+cho MA-POCA; đem áp cho PPO, SAC hay DQN thì phần thưởng nhóm phải phân bổ thủ công về từng
 agent, và khả năng gán công lao suy giảm theo. Thêm nữa, các trainer tích hợp sẵn không dễ
 cho người dùng can thiệp sâu vào vòng lặp huấn luyện, chẳng hạn muốn tùy biến hàm mất mát
 hay lịch trình cập nhật. Khi cần tới mức kiểm soát đó, thư viện \texttt{mlagents\_envs}

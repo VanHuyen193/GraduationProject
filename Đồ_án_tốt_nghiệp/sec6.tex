@@ -95,7 +95,7 @@ bước cuối mới mang ý nghĩa.
 
 {\sloppy
 \indent Môi trường Football Table được đánh giá qua năm lần chạy hoàn chỉnh: \texttt{FB01}
-với PPO, \texttt{Football\_SAC\_01} với SAC, \texttt{Football\_POCA\_01} với MA POCA,
+với PPO, \texttt{Football\_SAC\_01} với SAC, \texttt{Football\_POCA\_01} với MA-POCA,
 \texttt{Football\_MAPPO\_01} với MAPPO và \texttt{football\_dqn\_v1} với DQN, tương ứng
 với năm mô hình ONNX cùng tên. Bốn lần chạy đầu tiên đều sử dụng cơ chế tự chơi, trong đó
 tác nhân thi đấu với các phiên bản trước đó của chính mình.\par}
@@ -1014,7 +1014,8 @@ lợi của việc chọn đúng thuật toán tốt nhất trong nhóm khả d�
         % nhau thành "0,840,84"), nên xoay đứng: mỗi nhãn khi đó chỉ chiếm đúng bề
         % rộng một cột.
         nodes near coords,
-        nodes near coords style={font=\tiny, rotate=90, anchor=west},
+        nodes near coords style={font=\tiny, rotate=90, anchor=west,
+            /pgf/number format/.cd, fixed, fixed zerofill, precision=3},
         grid=both, grid style={gray!20},
     ]
     \addplot[fill=ppocolor] coordinates {(Football,1.691)(Coop,0.834)(Cross,0.690)};
@@ -1307,7 +1308,7 @@ thực tế của nó cao gấp gần ba lần PPO trên cùng một ngân sách
 tài nguyên tính toán hạn chế cần cân nhắc kỹ hai yếu tố này trước khi lựa chọn SAC.
 
 \indent Đối với game hợp tác đòi hỏi nhiều nhân vật máy phối hợp với nhau, thực nghiệm cho
-một kết quả cần được lưu ý: PPO thường bám sát cả MAPPO lẫn MA POCA, do đó công sức bỏ ra
+một kết quả cần được lưu ý: PPO thường bám sát cả MAPPO lẫn MA-POCA, do đó công sức bỏ ra
 để tích hợp một thuật toán đa tác nhân chuyên biệt chưa chắc tương xứng với lợi ích thu
 được. Khuyến nghị mang tính thực dụng ở đây là khởi đầu bằng PPO nhằm thiết lập mốc so
 sánh, sau đó mới cân nhắc chuyển sang MAPPO nếu mốc này chưa đáp ứng yêu cầu. Ở chiều

@@ -14,6 +14,13 @@
 \usetikzlibrary{calc,positioning,arrows.meta}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
+% Số có 4 chữ số không phân nhóm: 1000; từ 5 chữ số: 10.000.
+% Quy ước số hiển thị: 1.025.845,26. Dữ liệu đầu vào vẫn dùng cú pháp PGF.
+\pgfkeys{/pgf/number format/.cd,
+    use comma,
+    1000 sep={.},
+    min exponent for 1000 sep=4
+}
 \usepgfplotslibrary{groupplots}
 % BẮT BUỘC cho các dải ±1 độ lệch chuẩn ở Chương 4. Thiếu dòng này thì mọi lệnh
 % \addplot ... fill between[...] bị bỏ qua trong IM LẶNG: tài liệu vẫn biên dịch

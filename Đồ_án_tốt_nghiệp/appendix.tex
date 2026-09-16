@@ -351,7 +351,7 @@ football\_dqn\_v1$^{\ddagger}$ & DQN & 1{,}60M & $1{,}825$ \newline (không có 
 $^{\dagger}$ Thời gian của \texttt{ctf\_sac\_v1} chỉ tính đoạn $1{,}0$M--$1{,}7$M sau khi khôi phục từ checkpoint; đoạn $0$--$1{,}0$M chạy trong một phiên trước đó bị ngắt nên không đo được liền mạch.
 
 \smallskip
-$^{\ddagger}$ Riêng DQN trên Football phải tắt self-play, do ML-Agents phát sinh lỗi khi kết hợp trainer off-policy với ghost trainer. Vì vậy lần chạy này không có chỉ số ELO và không so sánh trực tiếp được với bốn thuật toán còn lại trên cùng môi trường.
+$^{\ddagger}$ Riêng DQN trên Football Table phải tắt self-play, do ML-Agents phát sinh lỗi khi kết hợp trainer off-policy với ghost trainer. Vì vậy lần chạy này không có chỉ số ELO và không so sánh trực tiếp được với bốn thuật toán còn lại trên cùng môi trường.
 
 \smallskip
 Ghi chú chung: mọi lần chạy đều dùng $8$ training area song song trong mỗi scene. Reward là
