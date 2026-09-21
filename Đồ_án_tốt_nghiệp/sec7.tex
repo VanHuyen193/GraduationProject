@@ -30,14 +30,14 @@ toán vốn không có sẵn là MAPPO và DQN dưới dạng trainer mở rộn
 quy trình kết nối môi trường Unity với một thư viện học tăng cường bên ngoài thông qua
 Python Low Level API.
 
-\indent Toàn bộ mười lăm lần huấn luyện đã xác nhận cả ba môi trường đạt yêu cầu theo ba
-tiêu chí đặt ra ở Chương~\ref{ch:results}. Thứ nhất, các môi trường học được: ở
+\indent Mười lăm lần huấn luyện cung cấp bằng chứng ban đầu rằng cả ba môi trường có thể
+dùng để học hành vi mục tiêu. Ở
 cả ba môi trường đều có ít nhất bốn trong năm thuật toán cho thấy tiến bộ rõ rệt so với
-lúc khởi tạo. Thứ hai, các môi trường phân biệt được: trên Cross The Road, phần
+lúc khởi tạo. Trên Cross The Road, phần
 thưởng cuối cùng trải rộng từ $0{,}846$ của SAC đến $0{,}336$ của DQN; còn trên Capture The
 Flag, bốn thuật toán về đích trong khoảng $0{,}800$ đến $0{,}840$, trong khi SAC sụp đổ ở
-mức $0{,}183$. Thứ hạng ghi nhận ở cả hai môi trường đều có thể giải thích được bằng cơ
-chế của bài toán. Thứ ba, các môi trường không tạo lối tắt: không lần chạy nào
+mức $0{,}183$. Đây là các quan sát trên một seed, chưa phải thứ hạng có ý nghĩa thống kê.
+Cuối cùng, các môi trường không bộc lộ lối tắt trong các ca đã quan sát: không lần chạy nào
 đạt phần thưởng gần mức tối đa mà lại không hoàn thành nhiệm vụ khi được quan sát trực
 tiếp trong ứng dụng trình diễn.
 
@@ -47,16 +47,14 @@ với phiên bản trước đó của chính mình, cho thấy cơ chế tự c
 kế. Tuy nhiên, biên độ cải thiện này quá hẹp để môi trường có thể phân định rõ ràng giữa
 các thuật toán. Ở cấu hình hiện tại, Football Table chỉ đạt được hai trong ba tiêu chí đề
 ra. Để môi trường này trở thành một thước đo so sánh đáng tin cậy, cần tăng ngân sách bước
-huấn luyện hoặc thay thế cơ chế tự chơi thuần túy bằng một đối thủ mốc cố định.
+huấn luyện và đánh giá đối đầu trước cùng một tập đối thủ mốc cố định hoặc một giải vòng
+tròn giữa các snapshot; không so trực tiếp ELO lấy từ các kho đối thủ khác nhau.
 
-\indent Một quan sát xuyên suốt cả ba môi trường củng cố thêm cho luận điểm trung tâm của
-đề tài: chênh lệch kết quả của cùng một thuật toán giữa hai môi trường khác nhau luôn lớn
-hơn chênh lệch giữa các thuật toán trong cùng một môi trường. Khoảng cách giữa mức độ
-thành công của SAC trên Cross The Road và sự sụp đổ của chính thuật toán này trên Capture
-The Flag lớn hơn bất kỳ khoảng cách nội bộ nào khác. Nói cách khác, đặc tính của bài toán,
-vốn do thiết kế môi trường quyết định, chi phối kết quả huấn luyện mạnh hơn so với lựa
-chọn thuật toán. Đây cũng chính là lý do khâu xây dựng môi trường xứng đáng được đầu tư
-nhiều hơn mức thường thấy trong các nghiên cứu tương tự.
+\indent Một quan sát xuyên suốt ba lần chạy theo từng thuật toán gợi ý rằng tương tác giữa
+thuật toán và môi trường có thể rất lớn. Trường hợp rõ nhất là SAC: lần chạy Cross The Road
+đạt $0{,}846$, còn lần chạy Capture The Flag không hội tụ. Kết quả này ủng hộ việc đầu tư
+nghiêm túc cho khâu thiết kế môi trường, nhưng chưa đủ để kết luận yếu tố môi trường luôn
+chi phối mạnh hơn lựa chọn thuật toán nếu chưa tái lập trên nhiều seed.
 
 \indent Bên cạnh phần thực nghiệm so sánh, đề tài còn xây dựng hoàn chỉnh một ứng dụng
 trình diễn tương tác, trong đó toàn bộ mười lăm mô hình đã huấn luyện được triển khai trực
@@ -65,10 +63,9 @@ chế độ chơi gồm tự điều khiển, tác nhân tự chơi và chơi c�
 cho tác nhân, đồng thời tra cứu ngay đường cong huấn luyện của cả năm thuật toán trên giao
 diện menu. Danh mục mô hình cùng dữ liệu biểu đồ đều được sinh ra từ một kịch bản duy nhất
 chạy trên thư mục kết quả, nên phần trình diễn và phần số liệu ở Chương~\ref{ch:results}
-luôn thống nhất với nhau. Các luồng chức năng đã được kiểm thử trong Unity Editor và đều
-hoạt động đúng như mô tả ở Mục~\ref{sub:app-testing}. Kết quả này chứng minh tính khả thi
-của việc nhúng mô hình học tăng cường vào một sản phẩm game hoàn chỉnh, với chi phí suy
-luận không đáng kể.
+luôn thống nhất với nhau. Các luồng chức năng đã được kiểm thử thủ công trong Unity Editor
+và hoạt động đúng như mô tả ở Mục~\ref{sub:app-testing}. Kết quả chứng minh tính khả thi ở
+mức nguyên mẫu; chưa thay thế kiểm thử bản build và kiểm thử tự động trên máy sạch.
 
 \subsection{Đóng góp của đề tài}
 \indent Nếu xếp các đóng góp theo mức độ hữu ích, bộ môi trường được đặt lên hàng đầu. Ba
@@ -77,8 +74,8 @@ một Unity Package Manager có thể cài đặt vào bất kỳ dự án nào,
 huấn luyện đã được chạy thực tế, một bộ công cụ Editor và một trình hướng dẫn cài đặt bảy
 bước có khả năng tự kiểm tra trạng thái. Điểm khác biệt so với việc chỉ công bố mã nguồn
 là ba môi trường này đã qua kiểm chứng: mỗi môi trường đã được thử nghiệm với năm thuật
-toán khác biệt về nguyên lý, nhờ đó người sử dụng có thể tin tưởng trước rằng môi trường
-học được, phân biệt được và không tạo lối tắt. Chính đồ án này sử dụng gói phần mềm đó thông qua ranh giới
+toán khác biệt về nguyên lý, nhờ đó có bằng chứng ban đầu rằng môi trường học được và không
+bộc lộ lối tắt trong các ca đã thử. Chính đồ án này sử dụng gói phần mềm đó thông qua ranh giới
 assembly như một dự án bên ngoài, nhờ vậy phần trình diễn trở thành một phép kiểm thử
 thường trực cho toàn bộ gói.
 
@@ -95,14 +92,11 @@ thuật toán không có sẵn vào Unity, gồm gói trainer mở rộng đăng
 vào chương trình huấn luyện của ML~Agents, và lớp bọc môi trường thông qua
 \texttt{mlagents\_envs} nhằm kết nối với Stable Baselines3.
 
-\indent Kết quả so sánh năm thuật toán, tuy chỉ là sản phẩm phụ của khâu kiểm chứng, vẫn
-mang giá trị tham khảo trực tiếp cho người phát triển game. Đáng chú ý nhất là một kết quả
-mang tính phủ định: trên bài toán hợp tác với tác nhân đồng nhất, PPO thường bám sát cả
-MAPPO lẫn MA-POCA trong khoảng chênh lệch chưa đến một phần trăm, cho thấy chi phí tích
-hợp một thuật toán đa tác nhân chuyên biệt chưa chắc đã tương xứng với lợi ích thu được.
-Đi kèm với đó là một kết quả gây bất ngờ theo chiều ngược lại: MAPPO vượt PPO một khoảng
-đáng kể ngay trên môi trường đơn tác nhân, nơi mà theo lý thuyết, cơ chế phê bình tập
-trung của MAPPO lẽ ra không phát huy tác dụng.
+\indent Kết quả thăm dò năm thuật toán tạo ra hai câu hỏi nghiên cứu có giá trị. Trên lần
+chạy Capture The Flag, PPO, MAPPO và MA-POCA đạt giá trị gần nhau; trên Cross The Road,
+lần chạy MAPPO lại cao hơn PPO dù cơ chế phê bình tập trung không được kỳ vọng tạo lợi thế
+trong môi trường đơn tác nhân. Cả hai quan sát cần được lặp nhiều seed trước khi chuyển
+thành kết luận về chi phí hay lợi ích của thuật toán đa tác nhân.
 
 \indent Đóng góp cuối cùng là ứng dụng trình diễn với ba chế độ chơi, cơ chế lựa chọn mô
 hình cho phép đặt cạnh nhau toàn bộ mười lăm chính sách đã huấn luyện, cùng hai tab số
@@ -110,8 +104,8 @@ liệu huấn luyện được nhúng trực tiếp trong game. Giá trị của
 cạnh giải trí, mà nằm ở vai trò là công cụ phát hiện lỗi đặc tả. Quan sát hành vi thực tế
 là cách duy nhất giúp phát hiện những sai sót mà đường cong phần thưởng không thể hiện
 được, đồng thời khép kín quãng đường từ một tệp cấu hình YAML đến một hành vi mà người
-chơi có thể cảm nhận trực tiếp: chính bảng xếp hạng ở Chương~\ref{ch:results} có thể được
-kiểm chứng lại bằng quan sát trực quan, thông qua việc cho hai mô hình huấn luyện bằng
+chơi có thể cảm nhận trực tiếp: chính các khác biệt mô tả ở Chương~\ref{ch:results} có thể
+được kiểm tra định tính, thông qua việc cho hai mô hình huấn luyện bằng
 thuật toán khác nhau cùng chạy trên một nhiệm vụ. Toàn bộ mã nguồn môi trường, cấu hình
 huấn luyện và dữ liệu kết quả đều được công bố dưới dạng mở.
 
@@ -120,20 +114,18 @@ huấn luyện và dữ liệu kết quả đều được công bố dưới d�
 \indent Hạn chế nặng nhất của đề tài nằm ở việc mỗi tổ hợp môi trường và thuật toán chỉ
 được chạy với đúng một seed. Điều này có nghĩa là mọi chênh lệch được báo
 cáo ở Chương~\ref{ch:results} đều chưa thể tách phần khác biệt do bản chất thuật toán ra
-khỏi phần khác biệt do may rủi của một lần khởi tạo tham số. Những khoảng cách lớn, chẳng
-hạn DQN xếp cuối trên Cross The Road hay SAC trên Capture The Flag, nhiều khả năng
-vẫn đứng vững. Tuy nhiên các thứ hạng sát nhau thì không nên được diễn giải như một kết
-luận có ý nghĩa thống kê. Đây là hệ quả của giới hạn về quỹ thời gian tính toán chứ không
-phải của một lựa chọn phương pháp luận.
+khỏi phần khác biệt do may rủi của một lần khởi tạo tham số. Ngay cả những khoảng cách
+lớn, chẳng hạn giá trị thấp của DQN trên Cross The Road hay lần chạy SAC không hội tụ trên
+Capture The Flag, cũng phải được xem là tín hiệu cần tái lập chứ chưa phải kết luận tổng
+quát. Độ lệch chuẩn theo thời gian trong một lần chạy không thay thế được phương sai giữa seed.
 
-\indent Hạn chế thứ hai nằm ở độ phân giải của phép đo. Ở Football Table, bốn thuật toán
-tự chơi kết thúc trong dải ELO từ $1237$ đến $1260$. Ở Capture The Flag, bốn thuật toán
-dẫn đầu nằm trong dải phần thưởng từ $0{,}800$ đến $0{,}840$. Cả hai khoảng cách này đều
-nhỏ hơn mức dao động vốn có của chính các đường cong huấn luyện, cho thấy ở cấu hình hiện
-tại, hai môi trường nêu trên chưa đủ khả năng phân biệt các thuật toán trong nhóm dẫn đầu.
-Chỉ riêng Cross The Road cho một phổ kết quả đủ rộng để việc xếp hạng mang ý nghĩa thực
-chất. Muốn hai môi trường còn lại phản ánh được nhiều thông tin hơn cần tăng độ khó của
-môi trường thay vì kéo dài thời gian huấn luyện.
+\indent Hạn chế thứ hai nằm ở độ phân giải của phép đo. Ở Football Table, bốn lần chạy
+self-play kết thúc trong dải ELO từ $1237$ đến $1260$, nhưng mỗi ELO được tính trước một
+kho đối thủ riêng nên không có chung thước chuẩn. Ở Capture The Flag, bốn lần chạy hoàn
+thành nhiệm vụ nằm trong dải phần thưởng từ $0{,}800$ đến $0{,}840$. Hai trường hợp này
+chưa cho phép phân biệt các thuật toán có kết quả gần nhau. Football Table cần ngân sách
+huấn luyện lớn hơn và một giao thức đối đầu cố định; Capture The Flag cần thêm tỷ lệ hoàn
+thành, thời gian hoàn thành trên tập episode cố định và nhiều seed.
 
 \indent Bên cạnh đó, còn một ô của lưới thực nghiệm nằm ngoài phạm vi so sánh chung: cấu
 hình DQN trên Football Table được chạy không kèm cơ chế tự chơi do ML~Agents báo lỗi khi
@@ -142,37 +134,55 @@ ELO tương ứng và được huấn luyện trong điều kiện khác biệt 
 còn lại, nên toàn bộ số liệu của nó trong môi trường này chỉ nên được xem như một tham
 chiếu độc lập, không mang tính so sánh trực tiếp.
 
-\indent Sau cùng, đề tài chưa giải thích được hai hiện tượng mà chính số liệu thực nghiệm
+\indent Đề tài cũng chưa giải thích được hai hiện tượng mà chính số liệu thực nghiệm
 đã cho thấy. Hiện tượng thứ nhất là MAPPO cho kết quả vượt trội so với PPO ngay trên môi
 trường đơn tác nhân, trong khi hai thuật toán này chỉ khác nhau ở thành phần phê bình tập
 trung, vốn về lý thuyết sẽ không phát huy tác dụng khi nhóm chỉ gồm một thành viên. Hiện
 tượng thứ hai là kiểu thất bại của SAC trên Capture The Flag, khi giá trị entropy sụt giảm
 gần về không rồi bật ngược lên đúng mức cực đại và duy trì ở đó cho đến khi kết thúc huấn
 luyện. Cả hai hiện tượng đều cần thêm thực nghiệm bổ sung mới có thể đưa ra kết luận rõ
-ràng, Đồng thời, với chỉ một seed cho mỗi ô thực nghiệm, khả năng hiện tượng thứ nhất
+ràng. Đồng thời, với chỉ một seed cho mỗi ô thực nghiệm, khả năng hiện tượng thứ nhất
 đơn thuần là dao động ngẫu nhiên vẫn chưa thể được loại trừ.
 
+\indent Hạn chế cuối cùng thuộc về kiểm thử và khả năng tái sử dụng. Các luồng đóng gói,
+cài đặt, nạp mô hình ONNX và hiển thị dữ liệu mới được kiểm tra thủ công trong Unity
+Editor trên máy phát triển. Đề tài chưa có ma trận kiểm thử bản build độc lập, kiểm thử cài
+gói vào dự án sạch, hay kiểm thử tự động phát hiện mô hình sai đặc tả và dữ liệu JSON lỗi.
+Vì vậy phạm vi đã xác nhận là nguyên mẫu trong cấu hình nêu ở Bảng~\ref{tab:hardware}, chưa
+phải bảo đảm tương thích trên mọi hệ điều hành và phần cứng.
+
 \subsection{Hướng phát triển}
-\indent Ưu tiên hàng đầu là tiến hành lặp lại toàn bộ 15 tổ hợp thực nghiệm với nhiều seed. Đây là điều kiện tiên quyết, bởi nếu chưa xác lập được phương sai giữa
-các lần chạy thì mọi kết luận so sánh trong đồ án vẫn chưa có cơ sở thống kê vững chắc.
-Song song với đó, cần nâng cao độ khó của hai môi trường Football Table và Capture The
-Flag, do ở cấu hình hiện tại chúng chưa đủ độ phân giải để phân tách rõ ràng hiệu năng
-giữa các thuật toán dẫn đầu. Riêng đối với Capture The Flag, hướng điều chỉnh cụ thể là
-bổ sung số lượng bài học trong chương trình huấn luyện hoặc gia tăng yêu cầu phối hợp
-chặt chẽ giữa hai tác nhân thay vì đơn thuần kéo dài thời lượng huấn luyện.
+\indent Ưu tiên hàng đầu là lặp lại toàn bộ tổ hợp có thể so sánh với tối thiểu năm seed
+độc lập, dùng cùng danh sách seed giữa các thuật toán. Cần báo cáo từng quỹ đạo, trung bình,
+độ lệch chuẩn và khoảng tin cậy giữa seed; sau đợt thí điểm mới phân tích công suất để quyết
+định có cần tăng số lần chạy hay không. DQN trên Football Table vẫn là nhánh tham chiếu riêng
+cho tới khi có giao thức self-play tương đương.
+
+\indent Với Football Table, cần tăng ngân sách vượt mức $1{,}6$ triệu bước, lưu snapshot
+định kỳ và tổ chức đánh giá vòng tròn trước cùng một tập đối thủ mốc gồm bot luật cùng các
+checkpoint cố định. Kết quả nên dùng tỷ lệ thắng, hòa, chênh lệch bàn và khoảng tin cậy,
+không dùng ELO nội bộ của các kho đối thủ khác nhau để xếp hạng. Với Capture The Flag, cần
+bổ sung đánh giá trên tập episode cố định và tăng yêu cầu phối hợp nếu bốn thuật toán tiếp
+tục bão hòa ở cùng mức sau khi đã lặp nhiều seed.
 
 \indent Tiếp theo, đồ án còn tồn đọng hai câu hỏi nghiên cứu chưa được giải đáp thỏa đáng.
-Thứ nhất, cần làm rõ nguyên nhân MAPPO cho kết quả vượt trội so với PPO ngay cả trên môi
+Thứ nhất, cần làm rõ vì sao lần chạy MAPPO cao hơn PPO ngay cả trên môi
 trường đơn tác nhân. Để trả lời, cần thiết kế một thực nghiệm đối chứng nhằm tách riêng
 vai trò của thành phần phê bình tập trung, thực hiện trên nhiều seed nhằm xác định
 đây là hiệu ứng có ý nghĩa thống kê hay chỉ là kết quả ngẫu nhiên từ một lần khởi tạo
 tham số. Thứ hai, cần xác định cơ chế đứng sau kiểu thất bại của SAC trên bài toán mang
-tính hợp tác. Giả thuyết phù hợp nhất với dữ liệu hiện có là bộ đệm phát lại đã lưu trữ
-lẫn lộn kinh nghiệm từ các giai đoạn khác nhau trong chương trình huấn luyện và phương
-án kiểm chứng trực tiếp là huấn luyện lại với các bộ đệm được tách riêng theo từng giai
-đoạn. Bên cạnh đó, ranh giới hiệu quả giữa cơ chế chia sẻ tham số và cơ chế attention
+tính hợp tác. Bộ đệm phát lại lưu lẫn kinh nghiệm từ các giai đoạn khác nhau là một giả
+thuyết cần kiểm tra bằng nhiều seed cho các đối chứng: không dùng curriculum, xóa hoặc tách
+bộ đệm khi chuyển bài, và thay đổi lịch entropy cùng tần suất cập nhật. Bên cạnh đó, ranh
+giới hiệu quả giữa cơ chế chia sẻ tham số và cơ chế attention
 cũng là vấn đề đáng khảo sát thêm, thông qua một môi trường hợp tác có hai tác nhân đảm
 nhận vai trò bất đối xứng, hoặc môi trường cho phép tác nhân rời khỏi nhóm giữa lượt chơi.
+
+\indent Ở phía sản phẩm, cần thiết lập kiểm thử tự động bằng Unity Test Framework cho cấu
+trúc gói và dữ liệu, sau đó chạy kiểm thử PlayMode trên bản build Windows độc lập. Ma trận
+tối thiểu phải bao gồm cài gói vào dự án sạch, import ba sample, nạp một ONNX liên tục và
+một ONNX rời rạc, phát hiện mô hình không tương thích, đọc dữ liệu huấn luyện, đổi scene và
+quay về menu. Quy trình phát hành chỉ được coi là hoàn tất khi các ca này chạy ngoài Editor.
 
 \indent Ở phạm vi dài hạn hơn, bộ thuật toán so sánh có thể được mở rộng với các phương
 pháp như DreamerV3 hoặc QMIX nhờ cơ chế trainer đã được thiết kế theo hướng mở rộng nên

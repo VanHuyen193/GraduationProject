@@ -308,8 +308,6 @@ huấn luyện đều chạy trên cùng một cấu hình máy, hệ số tăng
 thực, bước vật lý cố định $0{,}02$ giây tức $50$ bước vật lý mỗi giây mô
 phỏng.
 
-\subsubsection{Tích hợp với Unity ML-Agents}
-\label{sub:env-integration}
 \indent Nền tảng của cả ba môi trường là gói ML-Agents phiên bản 4.0.2 chạy trong Unity
 6000.3, theo kiến trúc mô phỏng và huấn luyện đã trình bày ở Mục~\ref{sub:mlarch}. Mỗi loại
 tác nhân có một lớp riêng kế thừa lớp \texttt{Agent} của ML-Agents, trong đó ba hàm quan
@@ -1437,7 +1435,16 @@ Flag, $1.600.000$ bước cho Football Table. Đây là điều
 kiện cần để mọi so sánh có nghĩa, bởi chênh lệch phần thưởng giữa hai thuật toán chỉ quy
 được cho bản thân thuật toán khi cả hai đã tiêu thụ cùng lượng kinh nghiệm. Việc ba môi
 trường có ngân sách khác nhau thì không sao, vì đề tài không so sánh chéo giữa các môi
-trường mà chỉ xếp hạng trong nội bộ từng môi trường.
+trường mà chỉ đối chiếu trong nội bộ từng môi trường.
+
+\indent Mỗi tổ hợp mới được chạy một lần với một seed. Vì vậy đơn vị lặp độc lập của thí
+nghiệm hiện có là một, chưa đủ để ước lượng phương sai giữa các lần khởi tạo. Độ lệch chuẩn
+của các điểm TensorBoard trong đoạn cuối chỉ mô tả mức dao động theo thời gian của chính
+lần chạy đó; các điểm liên tiếp còn phụ thuộc lẫn nhau và không được xem như các mẫu độc
+lập để kiểm định hơn kém giữa thuật toán. Toàn bộ so sánh ở Chương~\ref{ch:results} do đó
+mang tính mô tả và hình thành giả thuyết. Một kết luận so sánh chính thức cần lặp cùng cấu
+hình trên nhiều seed, báo cáo trung bình cùng độ lệch chuẩn hoặc khoảng tin cậy giữa seed,
+và công bố toàn bộ seed đã dùng.
 
 \indent Có đúng một ô của lưới không đem so trực tiếp với các ô cùng hàng được: lần chạy
 DQN trên Football Table. Thuật toán này đòi hỏi hành động rời rạc nên phải dùng bản dựng

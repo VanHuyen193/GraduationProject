@@ -190,10 +190,12 @@ với đầy đủ hệ thống vật lý, quan sát, hành động và phần t
 bước huấn luyện. Dữ liệu huấn luyện trong quá trình này được thu thập và trực quan hóa
 theo thời gian thực bằng công cụ TensorBoard.
 
-\indent Nhóm cuối là so sánh và đánh giá. Hiệu năng của các thuật toán được đối chiếu qua
+\indent Nhóm cuối là so sánh mô tả và đánh giá. Hiệu năng của các thuật toán được đối chiếu qua
 bốn tiêu chí định lượng: mức năng lực đạt được, tốc độ hội tụ, độ ổn định huấn luyện và
 độ dài lượt chơi, kết hợp thêm phân tích định tính về mức độ phù hợp giữa từng thuật
-toán và từng dạng môi trường.
+toán và từng dạng môi trường. Do mỗi tổ hợp mới có một seed, các đối chiếu này dùng để
+phát hiện xu hướng và vấn đề của môi trường, không được diễn giải như kiểm định hơn kém
+có ý nghĩa thống kê giữa các thuật toán.
 
 % ───────────────────────────────────────────────
 \subsection{Ý nghĩa khoa học và thực tiễn}
@@ -212,8 +214,9 @@ thẳng vào một dự án Unity bất kỳ, nên dùng ngay được làm nề
 tạo mà không phải dựng lại từ đầu, vốn là phần tốn kém nhất của một dự án học tăng cường.
 Quy trình thiết kế hàm phần thưởng và không gian quan sát trong môi trường ba chiều được
 trình bày ở đây cũng có giá trị tham khảo cho các nhóm phát triển game muốn tích hợp trí
-tuệ nhân tạo. Kết quả so sánh năm thuật toán giúp nhà phát triển có cơ sở chọn thuật toán hợp với từng cơ chế game mà không phải
-làm lại toàn bộ thực nghiệm.
+tuệ nhân tạo. Kết quả thăm dò năm thuật toán cung cấp giả thuyết ban đầu để nhà phát triển
+lựa chọn và thiết kế thực nghiệm nhiều seed cho cơ chế game của mình; nó không thay thế
+việc đánh giá lại trên bài toán đích.
 
 % ───────────────────────────────────────────────
 \subsection{Bố cục đồ án}
@@ -230,11 +233,11 @@ thiết kế ba môi trường game ba chiều trong Unity: không gian quan sá
 toán nằm ngoài bộ huấn luyện tích hợp sẵn của ML-Agents vào thực nghiệm, cùng thiết lập
 thực nghiệm và các tiêu chí đánh giá được sử dụng. 
 
-Sang Chương~\ref{ch:results}, $15$ lần huấn luyện được dùng để nghiệm thu ba môi trường đó:
+Sang Chương~\ref{ch:results}, $15$ lần huấn luyện một seed được dùng để nghiệm thu sơ bộ ba môi trường đó:
 kết quả của từng thuật toán trên
-từng môi trường được trình bày qua biểu đồ và bảng số liệu, rồi đối chiếu với nhau để xác
-nhận môi trường học được, phân biệt được và không có lối tắt, từ đó rút ra nhận xét về
-mức độ phù hợp giữa thuật toán và dạng bài toán.
+từng môi trường được trình bày qua biểu đồ và bảng số liệu, rồi đối chiếu để xác nhận khả
+năng học và dò lối tắt. Các chênh lệch giữa thuật toán chỉ được xem là quan sát thăm dò,
+đồng thời giới hạn của việc chưa ước lượng phương sai giữa seed được nêu rõ.
 
 \indent Chương~\ref{ch:app} khép lại phần nội dung chính với quá trình xây dựng ứng dụng
 trình diễn tương tác: kiến trúc hệ thống lựa chọn chế độ chơi, giao diện menu, cơ chế nạp

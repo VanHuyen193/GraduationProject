@@ -547,10 +547,17 @@ namespace GameHub
         {
             Text title = UIBuilder.CreateText(
                 compareView, "CompareTitle",
-                "So sánh reward cuối (mean 10% cuối) theo môi trường",
+                "Đối chiếu reward cuối (mean 10% cuối) theo môi trường",
                 24, TextColor, TextAnchor.MiddleCenter, FontStyle.Bold);
             UIBuilder.Place((RectTransform)title.transform,
                 new Vector2(0.5f, 1f), new Vector2(0, -200), new Vector2(1700, 34));
+
+            Text note = UIBuilder.CreateText(
+                compareView, "CompareNote",
+                "Kết quả một seed; DQN* trên Football là tham chiếu riêng, không self-play.",
+                15, MutedColor, TextAnchor.MiddleCenter);
+            UIBuilder.Place((RectTransform)note.transform,
+                new Vector2(0.5f, 1f), new Vector2(0, -236), new Vector2(1700, 26));
 
             float[] px = { -520f, 0f, 520f };
             for (int i = 0; i < allEnvs.Length; i++)
@@ -583,7 +590,7 @@ namespace GameHub
             float hi = 0.0001f;
             foreach (var a in data.algorithms)
             {
-                if (a != null && a.found)
+                if (a != null && a.found && !IsStandaloneReference(env, a))
                 {
                     hi = Mathf.Max(hi, a.meanLast10);
                 }
@@ -604,8 +611,9 @@ namespace GameHub
                     continue;
                 }
 
-                bool ok = a.found;
-                Color col = TrainingDataStore.ColorFor(a.algo);
+                bool standalone = IsStandaloneReference(env, a);
+                bool ok = a.found && !standalone;
+                Color col = standalone ? MutedColor : TrainingDataStore.ColorFor(a.algo);
                 float posX = startX + i * stepX;
 
                 float val = ok ? a.meanLast10 : 0f;
@@ -621,7 +629,8 @@ namespace GameHub
                 float cellW = count > 1 ? stepX - 6f : 120f;
 
                 Text valText = UIBuilder.CreateText(
-                    card, "V_" + a.algo, ok ? a.meanLast10.ToString("0.00") : "N/A",
+                    card, "V_" + a.algo,
+                    standalone ? "Riêng" : (ok ? a.meanLast10.ToString("0.00") : "N/A"),
                     16, ok ? TextColor : MutedColor,
                     TextAnchor.MiddleCenter, FontStyle.Bold);
                 UIBuilder.Place((RectTransform)valText.transform,
@@ -629,7 +638,7 @@ namespace GameHub
                     new Vector2(cellW, 26));
 
                 Text algoText = UIBuilder.CreateText(
-                    card, "A_" + a.algo, a.algo, 14, col,
+                    card, "A_" + a.algo, standalone ? a.algo + "*" : a.algo, 14, col,
                     TextAnchor.MiddleCenter, FontStyle.Bold);
                 UIBuilder.Place((RectTransform)algoText.transform,
                     new Vector2(0.5f, 0.5f), new Vector2(posX, baseY - maxH - 24),
@@ -644,7 +653,7 @@ namespace GameHub
             UIBuilder.Place(panel,
                 new Vector2(0.5f, 1f), new Vector2(0, -800), new Vector2(1560, 236));
 
-            // Năm thuật toán nên bảng xếp hạng liệt kê đủ năm vị trí, không cắt ở top 3.
+            // Liệt kê đủ vị trí quan sát; riêng DQN/Football bị loại khỏi RankFor.
             string[] headers = { "Môi trường", "Hạng nhất", "Hạng nhì", "Hạng ba",
                 "Hạng tư", "Hạng năm" };
             float[] cx = { -630, -360, -120, 120, 360, 600 };
@@ -702,7 +711,7 @@ namespace GameHub
             {
                 foreach (var a in data.algorithms)
                 {
-                    if (a != null && a.found)
+                    if (a != null && a.found && !IsStandaloneReference(env, a))
                     {
                         list.Add(new KeyValuePair<string, float>(a.algo, a.meanLast10));
                     }
@@ -710,6 +719,17 @@ namespace GameHub
             }
             list.Sort((p, q) => q.Value.CompareTo(p.Value));
             return list;
+        }
+
+        /// <summary>
+        /// DQN trên Football dùng scene rời rạc và không có self-play, nên chỉ là
+        /// tham chiếu độc lập; không đưa vào cột so sánh hay bảng xếp hạng self-play.
+        /// </summary>
+        private static bool IsStandaloneReference(GameEnvironment env, AlgoTraining data)
+        {
+            return env == GameEnvironment.Football
+                && data != null
+                && data.algo == "DQN";
         }
 
         // =====================================================

@@ -15,13 +15,12 @@ trường đã xây dựng, xoay quanh ba câu hỏi sau:
     \item Môi trường có học được không? Nếu không thuật toán nào tiến bộ, nguyên
     nhân nhiều khả năng nằm ở đặc tả, cụ thể là không gian quan sát thiếu thông tin hoặc
     hàm phần thưởng không dẫn đường, chứ không nằm ở thuật toán.
-    \item Môi trường có phân biệt được không? Nếu mọi thuật toán cùng về đích
-    ngang nhau ở mức tối đa thì hoặc môi trường quá dễ, hoặc tồn tại một lối tắt cho phép
-    thu phần thưởng mà không cần giải nhiệm vụ. Một môi trường dùng được phải tách các
-    hướng tiếp cận thành thứ hạng giải thích được bằng chính cơ chế của bài toán.
-    \item Kết quả có ổn định và tái lập được không? Đường cong huấn luyện phải hội
-    tụ thay vì dao động kéo dài, và mọi lần chạy trên cùng một môi trường phải so sánh được
-    với nhau.
+    \item Môi trường có tạo được tín hiệu đo đủ nhạy không? Nếu mọi thuật toán cùng về
+    đích ngang nhau ở mức tối đa thì môi trường có thể quá dễ hoặc tồn tại lối tắt. Với dữ
+    liệu một seed, câu hỏi này chỉ được trả lời ở mức mô tả; chưa thể suy ra thứ hạng tổng quát.
+    \item Kết quả có ổn định trong từng lần chạy không, và thiết kế nào cần được lặp lại
+    nhiều seed để kiểm tra tính tái lập? Đường cong hội tụ là bằng chứng về một lần chạy,
+    không thay thế phương sai giữa các lần khởi tạo độc lập.
 \end{itemize}
 
 \indent Công cụ để trả lời ba câu hỏi trên là mười lăm lần huấn luyện, tức lưới đầy đủ gồm
@@ -63,7 +62,8 @@ bước cho Cross The Road, $1.700.000$ bước cho Capture The Flag và $1.600.
 Football Table. Đây là điểm khác biệt so với các thực nghiệm sơ bộ trước đó, vốn để mỗi
 lần chạy có độ dài riêng. Việc thống nhất ngân sách bước là điều kiện cần để mọi so sánh
 trong chương có ý nghĩa, bởi chênh lệch phần thưởng giữa hai thuật toán chỉ có thể quy cho
-bản thân thuật toán khi cả hai đã tiêu thụ cùng một lượng kinh nghiệm.
+bản thân thuật toán khi cả hai đã tiêu thụ cùng một lượng kinh nghiệm. Đây là điều kiện
+cần nhưng chưa đủ; việc quy kết khác biệt còn đòi hỏi lặp lại trên nhiều seed.
 
 \indent Mỗi cảnh huấn luyện được nhân bản thành tám khu vực chạy song song. Cách làm này
 vừa tăng lượng kinh nghiệm thu được trên mỗi bước mô phỏng, vừa giảm tương quan giữa các
@@ -189,18 +189,17 @@ năm thuật toán, còn Bảng~\ref{tab:football_results} tổng hợp các ch�
         (0.010,2.149)(0.080,1.965)(0.160,2.854)(0.230,2.264)(0.310,2.222)(0.380,1.913)(0.460,2.369)(0.540,2.479)(0.610,1.535)(0.690,2.138)(0.760,2.064)(0.840,2.499)(0.910,1.590)(0.990,2.340)(1.070,2.115)(1.140,1.480)(1.220,2.051)(1.290,2.583)(1.370,1.197)(1.440,2.236)(1.520,1.150)(1.600,1.198)};
     \addplot[mappocolor, thick, mark=none] coordinates {
         (0.010,1.033)(0.080,1.784)(0.160,1.499)(0.230,2.782)(0.310,2.053)(0.380,1.722)(0.460,1.402)(0.540,1.589)(0.610,1.861)(0.690,1.761)(0.760,0.739)(0.840,2.212)(0.910,2.630)(0.990,1.083)(1.070,1.464)(1.140,2.196)(1.220,1.818)(1.290,1.545)(1.370,2.249)(1.440,2.353)(1.520,1.818)(1.600,1.623)};
-    \addplot[dqncolor, thick, mark=none] coordinates {
-        (0.010,1.915)(0.080,1.722)(0.160,1.871)(0.230,1.980)(0.310,1.779)(0.380,1.810)(0.460,1.811)(0.540,1.791)(0.610,1.763)(0.690,1.921)(0.760,1.916)(0.840,1.854)(0.910,1.739)(0.990,1.775)(1.070,1.925)(1.140,1.887)(1.220,1.889)(1.290,1.842)(1.370,1.923)(1.440,1.823)(1.520,1.890)(1.600,1.748)};
-    \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
+    \legend{PPO, SAC, MA-POCA, MAPPO}
     \end{axis}
     \end{tikzpicture}
-    \caption{Đường cong phần thưởng tích lũy trên môi trường Football Table}
+    \caption{Đường cong phần thưởng tích lũy của bốn thuật toán dùng self-play trên
+    môi trường Football Table}
     \label{fig:football_reward}
 \end{figure}
 
 \begin{table}[H]
 \centering
-\caption{Kết quả năm thuật toán trên môi trường Football Table}
+\caption{Kết quả bốn thuật toán self-play trên môi trường Football Table}
 \label{tab:football_results}
 \renewcommand{\arraystretch}{1.35}
 \tablefont
@@ -220,16 +219,36 @@ MA-POCA & 1,60M & $1{,}752$ & $2{,}867$ & $0{,}590$ & $1237$ \\
 \hline
 MAPPO & 1,60M & $2{,}117$ & $3{,}394$ & $0{,}486$ & $1260$ \\
 \hline
-DQN & 1,60M & $1{,}825$ & $2{,}028$ & $0{,}073$ & --- \\
-\hline
 \end{tabular}
 \end{table}
 
-\indent Xét theo ELO, thứ hạng đọc được là MAPPO ($1260$), PPO ($1259$), SAC ($1254$) rồi
-MA-POCA ($1237$). Có điều khoảng cách một điểm giữa MAPPO và PPO nhỏ hơn nhiều so với biên
-độ dao động của chính đường cong ELO trong quá trình huấn luyện, bởi riêng MAPPO đã dao động
-trong dải gần $20$ điểm ở đoạn cuối, nên số liệu hiện có không đủ để tách hai thuật toán này.
-Phân tách duy nhất đứng vững là MA-POCA tụt lại sau ba thuật toán còn lại.
+\begin{table}[H]
+\centering
+\caption{Kết quả tham chiếu riêng của DQN trên Football Table (không self-play)}
+\label{tab:football_dqn_reference}
+\renewcommand{\arraystretch}{1.35}
+\tablefont
+\begin{tabular}{|p{2.25cm}|>{\centering\arraybackslash}p{1.85cm}
+                |>{\centering\arraybackslash}p{2.2cm}
+                |>{\centering\arraybackslash}p{2.15cm}
+                |>{\centering\arraybackslash}p{1.95cm}
+                |>{\centering\arraybackslash}p{1.9cm}|}
+\hline
+\textbf{Thuật toán} & \textbf{Số bước} & \textbf{Reward TB (10\% cuối)} & \textbf{Reward tốt nhất} & \textbf{Độ lệch chuẩn} & \textbf{ELO cuối} \\
+\hline
+DQN & 1,60M & $1{,}825$ & $2{,}028$ & $0{,}073$ & Không áp dụng \\
+\hline
+\end{tabular}
+
+\vspace{0.15cm}
+{\footnotesize DQN dùng không gian hành động rời rạc và không bật self-play; hàng này
+không tham gia bất kỳ thứ tự hay phép so sánh trực tiếp nào với Bảng~\ref{tab:football_results}.}
+\end{table}
+
+\indent Trên một lần chạy, ELO cuối quan sát được lần lượt là MAPPO ($1260$), PPO ($1259$),
+SAC ($1254$) và MA-POCA ($1237$). Các con số chỉ mô tả bốn quỹ đạo đã chạy, không phải thứ
+hạng thuật toán: mỗi thuật toán mới có một seed, ELO của mỗi lần chạy lại dựa trên kho đối
+thủ riêng, và dao động ở đoạn cuối có cùng bậc với chênh lệch giữa các giá trị cuối.
 
 \indent Đáng nói hơn cả thứ hạng là chuyện biên độ chung quá hẹp. Cơ chế tự chơi tạo ra
 một chương trình học tự nhiên, độ khó của đối thủ tăng dần theo năng lực của tác nhân.
@@ -238,15 +257,10 @@ sách vẫn đang cải thiện. Mức tăng $60$ điểm trên thang khởi t�
 được rằng các tác nhân có tiến bộ so với phiên bản cũ của chính mình, chưa cho phép kết
 luận thuật toán nào mạnh hơn thuật toán nào.
 
-\indent Xét theo phần thưởng thì MAPPO đứng đầu ($2{,}117$), rồi tới SAC ($1{,}842$),
-MA-POCA ($1{,}752$) và PPO ($1{,}691$). Thứ tự này cần được kiểm tra trước khi đem dùng, bởi
-biên độ dao động của chính các đường cong đủ lớn để tự sinh ra một thứ hạng giả. Lấy sai số
-chuẩn của trung bình mười phần trăm cuối, tức độ lệch chuẩn chia cho căn bậc hai số bản ghi
-trong đoạn, rồi so sánh từng cặp, thì chỉ đúng một phân tách đứng vững: MAPPO hơn PPO
-$0{,}426$ điểm, ứng với $t = 2{,}95$. Ba cặp còn lại đều không tách được, kể cả khoảng cách
-$0{,}276$ giữa MAPPO và SAC ($t = 1{,}64$) lẫn khoảng cách $0{,}366$ giữa MAPPO và MA-POCA
-($t = 1{,}85$). Điều đọc được từ Bảng~\ref{tab:football_results} vì vậy chỉ là MAPPO hơn PPO;
-xếp MAPPO trên SAC hay MA-POCA thì số liệu chưa cho phép.
+\indent Phần thưởng trung bình mười phần trăm cuối của bốn lần chạy nằm trong dải
+$1{,}691$--$2{,}117$. Không tiến hành kiểm định trên các điểm TensorBoard trong cùng một
+lần chạy, vì chúng phụ thuộc theo thời gian và không phải các lần lặp độc lập. Do đó dữ liệu
+hiện có không cho phép khẳng định bất kỳ thuật toán nào hơn thuật toán nào trên Football Table.
 
 \indent Bản thân độ lớn của dao động mới là thứ đáng phân tích bởi nó vượt xa hai môi trường
 còn lại: hệ số biến thiên của bốn lần chạy tự chơi nằm trong dải $16$ đến $34$ phần trăm,
@@ -278,7 +292,7 @@ công thức dự đoán với giá trị đo được.
 
 \begin{table}[H]
 \centering
-\caption{Đối chiếu độ lệch chuẩn dự đoán và thực đo của đường cong phần thưởng trên
+\caption{Đối chiếu độ lệch chuẩn dự đoán và thực đo của bốn lần chạy self-play trên
 Football Table}
 \label{tab:football_variance}
 \renewcommand{\arraystretch}{1.35}
@@ -299,8 +313,6 @@ SAC & $0{,}510$ & $45$ & $0{,}446$ & $0{,}502$ & $-11\%$ \\
 MA-POCA & $0{,}495$ & $36$ & $0{,}497$ & $0{,}555$ & $-10\%$ \\
 \hline
 MAPPO & $0{,}506$ & $40$ & $0{,}474$ & $0{,}498$ & $-5\%$ \\
-\hline
-DQN (không tự chơi) & $0{,}484$ & $39$ & $0{,}479$ & $0{,}097$ & $+396\%$ \\
 \hline
 \end{tabular}
 
@@ -338,8 +350,9 @@ gộp số liệu, không thuộc về tính ổn định của môi trường.
 và Capture The Flag, hệ số biến thiên lớn là dấu hiệu của một lần chạy có vấn đề: SAC trên
 Capture The Flag đạt $115$ phần trăm và đó đúng là lần chạy thất bại, PPO trên Cross The Road
 đạt $17$ phần trăm còn DQN đạt $23$ phần trăm, đúng hai lần chạy mất ổn định và không hội tụ.
-Ở Football Table thì không suy luận như vậy được, vì cả năm lần chạy đều mang sẵn một mức
-nhiễu đo không thể loại bỏ do chính cơ chế tự chơi sinh ra.
+Ở Football Table thì không suy luận như vậy được đối với bốn lần chạy self-play, vì chúng
+mang sẵn một mức nhiễu đo lớn do chính cơ chế đối kháng sinh ra. DQN không thuộc nhận định
+này vì được huấn luyện theo điều kiện khác.
 
 \indent Nói vậy không có nghĩa phần thưởng ở môi trường này vô dụng. Nó vẫn mang thông tin,
 chỉ là thông tin về trạng thái cân bằng của cuộc đối đầu chứ không phải về tiến bộ theo thời
@@ -362,10 +375,10 @@ phạt thủng lưới cho cân đối hơn, bởi tỉ lệ ấy đến từ l�
 ở~\eqref{eq:football-threshold}; đổi nó đi sẽ kéo theo hậu quả nghiêm trọng hơn nhiều so với
 cái lợi của một đường cong nhìn mượt mắt.
 
-\indent Khác các thực nghiệm sơ bộ, năm lần chạy ở đây dùng chung ngân sách $1.600.000$ bước,
-nên so sánh phần thưởng tuyệt đối giữa bốn thuật toán tự chơi là hợp lệ.
-Hạn chế nằm ở chỗ khác: mỗi thuật toán chỉ có một lần chạy, không đủ nhiều hạt giống ngẫu
-nhiên để ước lượng phương sai giữa các lần chạy (Mục~\ref{sub:limits}).
+\indent Khác các thực nghiệm sơ bộ, bốn lần chạy self-play ở đây dùng chung ngân sách
+$1.600.000$ bước. Điều này làm cho mô tả trong từng lần chạy nhất quán hơn, nhưng chưa đủ
+để so sánh thuật toán vì mỗi cấu hình chỉ có một seed. Lần chạy DQN tuy có cùng ngân sách
+nhưng không cùng giao thức đối thủ và được giữ tách riêng như Bảng~\ref{tab:football_dqn_reference}.
 
 \indent Gộp mọi quan sát ở trên lại thì rút ra được một nhận định bao trùm: trong ba môi
 trường của đề tài, Football Table là môi trường khó nhất, và cái khó của nó thuộc về bản chất
@@ -394,11 +407,11 @@ thì phần lớn các lần chạy đều đã lên mặt bằng từ giữa qu
 câu hỏi nghiệm thu đặt ra ở đầu chương, Football Table trả lời rất tốt câu thứ nhất, bởi cả
 bốn thuật toán tự chơi đều tiến bộ so với chính mình với $R^{2}$ lên tới $0{,}96$. Nhưng nó
 trả lời yếu câu thứ hai: chính cơ chế tự chơi kéo mọi chính sách về thế cân bằng $50$ phần
-trăm, nên bốn thuật toán chen nhau trong dải ELO $1237$--$1260$ và chỉ một phân tách duy nhất
-đứng vững được về mặt thống kê. Đây là một đánh đổi cố hữu chứ không phải lỗi có thể sửa: cơ
-chế sinh ra được chương trình học tự động, đổi lại làm mất khả năng phân biệt. Vì vậy Football
-Table nên được dùng để kiểm chứng một môi trường có học được hay không, còn việc xếp hạng các
-thuật toán thì nên dựa vào Cross The Road, nơi thước đo sạch nhất trong cả ba.
+trăm, nên bốn lần chạy chen nhau trong dải ELO $1237$--$1260$ và dữ liệu một seed không cho
+phép phân tách chúng. Đây chưa phải bằng chứng rằng khác biệt không tồn tại; nó cho thấy giao
+thức đo hiện tại chưa đủ độ phân giải. Vì vậy Football Table phù hợp để kiểm tra tác nhân có
+tiến bộ trong self-play hay không, còn muốn so sánh thuật toán cần tăng ngân sách và đánh giá
+mọi chính sách trước cùng một tập đối thủ mốc cố định.
 
 % ═══════════════════════════════════════════════
 \subsection{Kết quả môi trường Cross The Road}
@@ -497,13 +510,13 @@ không phải dấu hiệu học nhanh. Kết quả này khớp với nhận đ�
 PPO khi gặp bài toán đơn tác nhân: không có phần thưởng nhóm thì thế mạnh phê bình tập
 trung chẳng có chỗ phát huy, trong khi chi phí của kiến trúc phức tạp hơn vẫn phải gánh.
 
-\indent MAPPO vượt PPO một khoảng đáng kể, $0{,}835$ so với $0{,}690$, dù hai thuật toán chỉ
+\indent Lần chạy MAPPO đạt $0{,}835$, cao hơn lần chạy PPO ở $0{,}690$, dù hai thuật toán chỉ
 khác nhau ở phần phê bình tập trung, thứ lẽ ra vô hiệu khi nhóm chỉ có một thành viên. Với đúng
 một lần chạy mỗi thuật
 toán thì cũng chưa loại trừ được khả năng đây chỉ là dao động ngẫu nhiên giữa các hạt
 giống. Nếu mở rộng thực nghiệm, đây là điểm đáng kiểm chứng trước tiên.
 
-\indent DQN xếp cuối, và cách biệt khá xa: $0{,}336$. Theo tiêu chí
+\indent Lần chạy DQN cho giá trị thấp nhất trong nhóm, $0{,}336$. Theo tiêu chí
 hội tụ dùng trong chương, đường cong của nó không đạt mốc ổn định nào trước khi hết ngân sách
 $2.000.000$ bước, tức thuật toán vẫn còn dao động lúc dừng. Cộng thêm thời gian chạy $148$ phút,
 gấp ba lần PPO, DQN là lựa chọn kém hiệu quả nhất trên môi
@@ -725,21 +738,21 @@ DQN & 1,70M & $0{,}800$ & $0{,}836$ & $\sim$1,04M & $2017{,}9$ \\
 \end{tabular}
 \end{table}
 
-\indent Kết quả chia thành hai nhóm rất rõ. MAPPO ($0{,}840$), MA-POCA ($0{,}838$), PPO
-($0{,}834$) và DQN ($0{,}800$) cùng về đích trong một dải rộng $0{,}04$; SAC đứng lẻ loi
-ở $0{,}183$. Khoảng cách giữa bốn thuật toán dẫn đầu còn nhỏ hơn dao động của chính các
-đường cong, nên ở cấu hình hiện tại môi trường này không phân biệt nổi chúng. Bằng chứng
+\indent Trong các lần chạy đã ghi nhận, kết quả tạo thành hai nhóm. MAPPO ($0{,}840$),
+MA-POCA ($0{,}838$), PPO ($0{,}834$) và DQN ($0{,}800$) cùng về đích trong một dải rộng
+$0{,}04$; lần chạy SAC đứng riêng ở $0{,}183$. Khoảng cách nhỏ giữa bốn giá trị đầu không
+được dùng để xếp hạng khi chưa có phương sai giữa seed. Bằng chứng
 đáng tin hơn phần thưởng nằm ở độ dài lượt chơi, trình bày trong
 Hình~\ref{fig:ctf_signals}.
 
-\indent Bốn thuật toán dẫn đầu đều kéo được độ dài lượt chơi xuống thấp, từ $153$ bước của
+\indent Bốn thuật toán hoàn thành nhiệm vụ đều kéo được độ dài lượt chơi xuống thấp, từ $153$ bước của
 MAPPO tới $2018$ bước của DQN, nghĩa là chúng đều học được cách kết thúc câu đố thay vì để hết
 giờ. MAPPO và MA-POCA xuống thấp nhất và sớm
 nhất, hợp lý vì cả hai đều có phê bình tập trung nhìn được quan sát của cả nhóm. Đáng chú
 ý là PPO thường, vốn chẳng có cơ chế nào dành riêng cho phối hợp, cũng đạt $0{,}834$ và
 rút lượt chơi xuống $293$ bước.
 
-\indent SAC là trường hợp thất bại duy nhất. Độ
+\indent Lần chạy SAC là trường hợp không hội tụ duy nhất. Độ
 dài lượt chơi của nó nằm ở trần $4999$ bước gần như suốt
 quá trình, hai tác nhân hầu như không bao giờ giải xong câu đố. Nhưng đường cong phần
 thưởng thì không hề phẳng: nó nhảy giữa $-0{,}018$ và $0{,}795$, với $11$ trên $44$ điểm đo
@@ -758,11 +771,13 @@ chạm trần thời gian, nên $60.000$ bước cuối chẳng có lượt nào
 ghi mới. Bản thân chuỗi phần thưởng thưa thớt của SAC, vỏn vẹn $44$ điểm so với $79$ điểm của
 MA-POCA và MAPPO, đã là một dấu hiệu thất bại.
 
-\indent Cơ chế đằng sau hiện tượng này thì đề tài chưa xác định được. Có một giả thuyết
-khớp với dữ liệu: bộ đệm phát lại của SAC lưu lẫn lộn kinh nghiệm của hai bài học trong
-chương trình học, khiến mạng phê bình phải khớp đồng thời hai chế độ phần thưởng khác
-nhau. Kiểm chứng giả thuyết đó đòi hỏi thêm thực nghiệm với bộ đệm tách riêng theo bài
-học, nằm ngoài phạm vi đã làm.
+\indent Cơ chế đằng sau hiện tượng này thì đề tài chưa xác định được. Bộ đệm phát lại lưu
+lẫn kinh nghiệm của hai bài trong chương trình học là một giả thuyết phù hợp với dữ liệu,
+nhưng chưa phải kết luận. Cần chạy lại nhiều seed và làm thí nghiệm loại trừ lần lượt ba
+yếu tố: bỏ chương trình học, xóa hoặc tách bộ đệm tại thời điểm chuyển bài, và thay đổi
+tần suất cập nhật cùng hệ số entropy. Các cấu hình đối chứng phải giữ nguyên ngân sách,
+kiến trúc mạng và seed tương ứng; khi đó mới xác định được thất bại đến từ bộ đệm, lịch
+entropy, hay chỉ từ một khởi tạo bất lợi.
 
 \begin{figure}[H]
     \centering
@@ -950,11 +965,11 @@ giới của SAC vẫn xa lạ y như lúc bắt đầu.
     \label{fig:ctf_curiosity}
 \end{figure}
 
-\indent Ở trường hợp SAC, bốn chỉ số độc lập cùng chỉ về một hướng. Entropy sụp xuống rồi
+\indent Ở lần chạy SAC đã ghi nhận, bốn chỉ số cùng chỉ về một hướng. Entropy sụp xuống rồi
 bật ngược lên mức cực đại thay vì giảm đều. Phần thưởng tò mò vẫn cao gấp hàng chục lần
 nhóm còn lại. Độ dài lượt chơi nằm ở trần thời gian. Và phần thưởng thì dao động, không
-hội tụ. Chừng đó đủ mạnh để kết luận SAC không hình thành nổi một chính sách ổn định trên bài
-toán hợp tác này.
+hội tụ. Chừng đó đủ để kết luận lần chạy này không hình thành được một chính sách ổn định;
+chưa đủ để kết luận tổng quát rằng SAC không phù hợp với mọi cấu hình của bài toán.
 
 % ═══════════════════════════════════════════════
 \subsection{Đánh giá tổng hợp}
@@ -967,8 +982,9 @@ $1.700.000$ bước mới ổn định, nhưng đạt $0{,}846$ và
 $0{,}835$. Hội tụ sớm ở đây là dấu hiệu của việc chốt vào phương án tầm thường, không phải
 của việc học nhanh. Còn DQN thì chẳng đạt mốc ổn định nào trong suốt ngân sách $2.000.000$ bước.
 
-\indent Ưu thế hiệu quả mẫu của SAC, thứ được nêu như một dự đoán ở Chương~2, hóa ra chỉ
-xuất hiện có điều kiện. Với cấu hình cập nhật mạng sau mỗi bước môi trường, SAC ổn định chỉ
+\indent Ưu thế hiệu quả mẫu của SAC, thứ được nêu như một dự đoán ở
+Chương~\ref{ch:theory}, hóa ra chỉ xuất hiện có điều kiện. Với cấu hình cập nhật mạng sau
+mỗi bước môi trường, SAC ổn định chỉ
 sau chừng $150.000$ bước. Giãn tần suất cập nhật xuống $1/20$ để thời gian chạy khả thi, mốc đó
 lùi tận $1.790.000$ bước. Vậy nên
 hiệu quả mẫu của thuật toán off-policy là một đại lượng đánh đổi được với thời gian tính
@@ -980,20 +996,17 @@ ngân sách bước, SAC chạy $139$ phút so với $48$ phút của PPO.
 cuối của năm thuật toán trên cả ba môi trường, cũng chính là đại lượng mà ứng dụng trình diễn
 dùng ở tab so sánh. 
 
-\indent Trên Capture The Flag, môi trường hợp tác vốn là đúng sân của các phương pháp đa tác
-nhân, bốn thuật toán về đích trong dải $0{,}04$, và PPO thường bám sát MAPPO. Cơ chế phê
-bình tập trung của MA-POCA và MAPPO không tạo nổi khác biệt đo được so với PPO ở bài toán
-này. Trên Cross The Road, môi trường đơn tác nhân nơi MAPPO lẽ ra suy biến thành PPO, thì
-MAPPO lại vượt PPO một khoảng lớn. Còn trên Football Table, biên độ ELO hẹp tới mức không
-phân định nổi bốn thuật toán tự chơi.
+\indent Trên Capture The Flag, bốn lần chạy hoàn thành nhiệm vụ nằm trong dải $0{,}04$;
+chưa thể kết luận PPO, MAPPO hay MA-POCA hơn kém nhau khi chưa lặp nhiều seed. Trên Cross
+The Road, lần chạy MAPPO đạt giá trị cao hơn PPO dù môi trường chỉ có một tác nhân; đây là
+một quan sát cần kiểm chứng, không phải bằng chứng cho lợi thế tổng quát. Còn trên Football
+Table, biên độ ELO hẹp và khác thước đối thủ nên không phân định được bốn thuật toán self-play.
 
-\indent Cái mà dữ liệu ủng hộ chắc chắn là một dạng khác của luận điểm trung tâm: sự phù
-hợp giữa thuật toán và môi trường có thật, nhưng nó lộ ra qua thất bại rõ hơn qua chiến
-thắng. SAC dẫn đầu Cross The Road rồi sụp đổ hoàn toàn ở Capture The Flag; chênh lệch giữa
-hai môi trường lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một môi trường. DQN
-xếp cuối Cross The Road nhưng lại nằm trong nhóm giải được câu đố ở Capture The Flag. Nói
-cách khác, chọn sai thuật toán cho một cơ chế game gây thiệt hại lớn hơn nhiều so với cái
-lợi của việc chọn đúng thuật toán tốt nhất trong nhóm khả dụng.
+\indent Dữ liệu gợi ra một giả thuyết thực dụng: tương tác giữa thuật toán và môi trường có
+thể mạnh hơn chênh lệch nhỏ trong một môi trường. Lần chạy SAC đạt giá trị cao trên Cross
+The Road nhưng không hội tụ ở Capture The Flag; DQN có giá trị thấp trên Cross The Road
+nhưng vẫn giải được Capture The Flag. Giả thuyết này cần được kiểm tra lại trên nhiều seed
+trước khi chuyển thành khuyến nghị chọn thuật toán.
 
 \begin{figure}[H]
     \centering
@@ -1014,7 +1027,7 @@ lợi của việc chọn đúng thuật toán tốt nhất trong nhóm khả d�
         % nhau thành "0,840,84"), nên xoay đứng: mỗi nhãn khi đó chỉ chiếm đúng bề
         % rộng một cột.
         nodes near coords,
-        nodes near coords style={font=\tiny, rotate=90, anchor=west,
+        nodes near coords style={font=\scriptsize, rotate=90, anchor=west,
             /pgf/number format/.cd, fixed, fixed zerofill, precision=3},
         grid=both, grid style={gray!20},
     ]
@@ -1022,19 +1035,20 @@ lợi của việc chọn đúng thuật toán tốt nhất trong nhóm khả d�
     \addplot[fill=saccolor] coordinates {(Football,1.842)(Coop,0.183)(Cross,0.846)};
     \addplot[fill=pocacolor] coordinates {(Football,1.752)(Coop,0.838)(Cross,0.556)};
     \addplot[fill=mappocolor] coordinates {(Football,2.117)(Coop,0.840)(Cross,0.835)};
-    \addplot[fill=dqncolor] coordinates {(Football,1.825)(Coop,0.800)(Cross,0.336)};
+    \addplot[fill=dqncolor] coordinates {(Coop,0.800)(Cross,0.336)};
     \legend{PPO, SAC, MA-POCA, MAPPO, DQN}
     \end{axis}
     \end{tikzpicture}
-    \caption{So sánh phần thưởng trung bình mười phần trăm cuối của năm thuật toán trên
-    ba môi trường}
+    \caption{Phần thưởng trung bình mười phần trăm cuối của các lần chạy; DQN trên
+    Football Table được loại khỏi biểu đồ vì không dùng self-play}
     \label{fig:success_bar}
 \end{figure}
 
-\indent Chiều cao các cột chỉ đem so được trong nội bộ từng môi trường, vì thang phần
+\indent Chiều cao các cột chỉ dùng để mô tả trong nội bộ từng môi trường, vì thang phần
 thưởng của ba môi trường vốn thiết kế khác nhau. Football Table đặt phần thưởng ghi bàn ở
 mức $+5$ nên thang lớn hơn hẳn; còn Cross The Road và Capture The Flag thì phần thưởng
-đã chuẩn hóa quanh mức một đơn vị cho mỗi lần hoàn thành nhiệm vụ.
+đã chuẩn hóa quanh mức một đơn vị cho mỗi lần hoàn thành nhiệm vụ. Ngay trong một môi
+trường, các cột cũng chưa phải thứ hạng thống kê vì mỗi cột chỉ đại diện cho một seed.
 
 \subsubsection{So sánh độ ổn định}
 \label{sub:stability}
@@ -1053,103 +1067,47 @@ luật đó không kéo sang Football Table: ở đó MA-POCA mới là kẻ dao
 chơi, độ lệch chuẩn phản ánh cả biến động của đối thủ chứ không riêng của chính sách đang
 học, nên ở môi trường đối kháng chỉ số này mất gần hết ý nghĩa so sánh.
 
-\subsubsection{Độ phân giải thống kê của ba môi trường}
+\subsubsection{Độ phân giải phép đo và giới hạn thống kê}
 \label{sub:power}
-\indent Ba tiểu mục trên đều so sánh các con số với nhau, nhưng chưa trả lời một câu hỏi
-đứng trước mọi so sánh: với mức nhiễu thực tế của số liệu, môi trường phân biệt nổi chênh
-lệch nhỏ tới đâu? Đây chính là câu hỏi nghiệm thu thứ ba đặt ra ở đầu chương, và nó trả lời
-được bằng phân tích công suất thống kê thay vì bằng cảm nhận khi nhìn đồ thị.
-
-\indent Cách làm như sau. Năng lực cuối của một lần chạy được ước lượng bằng trung bình mười
-phần trăm cuối, và sai số của ước lượng đó là $\mathrm{SE} = \sigma/\sqrt{m}$ với $\sigma$ là
-độ lệch chuẩn và $m$ là số bản ghi trong đoạn. Hai lần chạy tách được nhau khi khoảng cách
-giữa chúng vượt ngưỡng ý nghĩa, từ đó suy ra chênh lệch nhỏ nhất mà thiết kế hiện tại phát
-hiện được:
-\begin{equation}
-\Delta_{\min} = z_{1-\alpha/2}\sqrt{\mathrm{SE}_{1}^{2} + \mathrm{SE}_{2}^{2}} ,
-\label{eq:mde}
-\end{equation}
-lấy $\alpha = 0{,}05$ hai phía. Đại lượng đáng quan tâm không phải bản thân $\Delta_{\min}$,
-vì ba môi trường có thang phần thưởng khác nhau, mà là tỉ số giữa dải năng lực của năm thuật
-toán và $\Delta_{\min}$. Tỉ số này cho biết môi trường chia được dải năng lực thành bao nhiêu
-mức phân biệt được; tỉ số càng lớn thì môi trường càng là một dụng cụ đo tốt.
-Bảng~\ref{tab:power} trình bày kết quả.
+\indent Mỗi tổ hợp chỉ có một seed, vì vậy chưa thể thực hiện phân tích công suất hay kiểm
+định chênh lệch giữa thuật toán một cách hợp lệ. Các điểm TensorBoard liên tiếp trong cùng
+một đường cong phụ thuộc theo thời gian; lấy chúng làm mẫu lặp sẽ tạo ra hiện tượng giả lặp
+và đánh giá thấp bất định. Độ lệch chuẩn mười phần trăm cuối trong các bảng của chương chỉ
+được dùng để mô tả độ rung của một quỹ đạo huấn luyện, không phải phương sai giữa seed.
 
 \begin{table}[H]
 \centering
-\caption{Độ phân giải thống kê của ba môi trường}
+\caption{Giới hạn độ phân giải và phép đo cần bổ sung}
 \label{tab:power}
 \renewcommand{\arraystretch}{1.35}
 \tablefont
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{|p{3.5cm}|>{\centering\arraybackslash}p{2.3cm}
-                |>{\centering\arraybackslash}p{2.3cm}
-                |>{\centering\arraybackslash}p{2.2cm}
-                |>{\centering\arraybackslash}p{2.4cm}|}
+\begin{tabular}{|p{3.2cm}|p{4.7cm}|p{5.8cm}|}
 \hline
-\textbf{Môi trường} & \textbf{$\Delta_{\min}$} & \textbf{Dải năng lực} & \textbf{Tỉ số phân giải} & \textbf{Cặp tách được} \\
+\textbf{Môi trường} & \textbf{Quan sát hiện tại} & \textbf{Phép đo bổ sung cần thực hiện} \\
 \hline
-Football Table & $0{,}309$ & $0{,}426$ & $1{,}4$ & 2/10 \\
+Football Table & Bốn lần chạy self-play kết thúc trong dải ELO $1237$--$1260$; mỗi ELO dựa trên một kho đối thủ riêng. & Tăng ngân sách huấn luyện; lưu snapshot theo chu kỳ; đánh giá vòng tròn trước cùng tập đối thủ mốc cố định, báo cáo tỷ lệ thắng, hòa và chênh lệch bàn. \\
 \hline
-Cross The Road & $0{,}016$ & $0{,}510$ & $32{,}6$ & 9/10 \\
+Cross The Road & Dải reward quan sát rộng, nhưng chưa có phương sai giữa seed. & Lặp nhiều seed với cùng ngân sách; báo cáo trung bình, độ lệch chuẩn và khoảng tin cậy giữa seed. \\
 \hline
-Capture The Flag & $0{,}007$ & $0{,}658$ & $100{,}0$ & 8/10 \\
+Capture The Flag & Bốn lần chạy hoàn thành nhiệm vụ nằm trong dải $0{,}800$--$0{,}840$; một lần chạy SAC không hội tụ. & Lặp nhiều seed; đánh giá thêm tỷ lệ hoàn thành và số bước hoàn thành trên một bộ episode cố định; tách thí nghiệm chẩn đoán SAC. \\
 \hline
 \end{tabular}
-
-\vspace{0.15cm}
-{\footnotesize Ghi chú: ``cặp tách được'' đếm trên toàn bộ mười cặp thuật toán của mỗi môi
-trường. Dải năng lực là hiệu giữa phần thưởng trung bình mười phần trăm cuối cao nhất và
-thấp nhất.}
 \end{table}
 
-\indent Ba môi trường cho ba kết quả khác hẳn nhau. Football Table có tỉ số phân giải
-$1{,}4$, nghĩa là mức nhiễu của phép đo gần bằng đúng toàn bộ khoảng cách giữa thuật toán
-mạnh nhất và yếu nhất; chỉ hai trên mười cặp tách được, và một trong hai cặp ấy lại là cặp
-có DQN, vốn đã được nêu là không đặt ngang hàng để xếp hạng. Nói cách khác, xét theo phần
-thưởng thì môi trường này gần như không phân biệt được thuật toán nào với thuật toán nào.
-Kết quả đó khớp chính xác với phân tích ở Mục~4.1 và củng cố kết luận rằng Football Table là
-môi trường khó, đồng thời cho thấy vì sao mọi nhận định về nó phải dựa vào ELO.
+\indent Giao thức bổ sung tối thiểu là năm seed độc lập cho mỗi cấu hình, dùng cùng danh
+sách seed giữa các thuật toán để giảm nhiễu do môi trường. Nếu kết quả vẫn chồng lấn, số
+seed phải được tăng sau một phân tích công suất dựa trên \emph{phương sai giữa seed} thu từ
+đợt thí điểm này. Khi báo cáo cần vẽ trung bình cùng khoảng tin cậy giữa seed và công bố cả
+các quỹ đạo riêng; thứ hạng chỉ được nêu khi kết quả ổn định qua các lần chạy.
 
-\indent Cross The Road ngược lại: tỉ số $32{,}6$ và chín trên mười cặp tách được. Cặp duy
-nhất không tách được là SAC với MAPPO, đúng cặp mà Mục~4.2 đã nói khoảng cách $0{,}011$ còn
-nhỏ hơn biên độ dao động. Đây là bằng chứng định lượng cho nhận định rằng Cross The Road là
-môi trường cho phép so sánh sạch nhất trong ba môi trường của đề tài.
-
-\indent Capture The Flag có tỉ số cao nhất, $100{,}0$, nhưng con số này cần đọc kèm một lưu
-ý quan trọng. Nó lớn như vậy chủ yếu vì lần chạy SAC thất bại hoàn toàn, kéo dải năng lực
-rộng ra một cách giả tạo. Nếu chỉ xét bốn thuật toán giải được câu đố thì dải năng lực co
-lại còn $0{,}006$, tức chưa tới một lần $\Delta_{\min}$, và đúng hai cặp không tách được đều
-nằm trong nhóm này. Vậy nên Capture The Flag phân biệt cực tốt giữa ``giải được'' và ``thất
-bại'', nhưng gần như không phân biệt nổi bốn thuật toán cùng giải được.
-
-\indent Chiều ngược lại của phân tích công suất trả lời câu hỏi thực dụng hơn: muốn tách một
-chênh lệch đã quan sát được thì cần bao nhiêu hạt giống? Với kiểm định hai mẫu, mức ý nghĩa
-$\alpha = 0{,}05$ và lực $1 - \beta = 0{,}80$, số lần chạy cần cho mỗi nhóm là
-\begin{equation}
-n = \frac{2\left(z_{1-\alpha/2} + z_{1-\beta}\right)^{2}\sigma^{2}}{\Delta^{2}}
-  \approx \frac{15{,}7\,\sigma^{2}}{\Delta^{2}} .
-\label{eq:seeds-needed}
-\end{equation}
-Áp dụng cho ba khoảng cách gây tranh cãi nhất của chương: tách SAC khỏi MAPPO trên Cross The
-Road, nơi $\Delta = 0{,}012$, cần khoảng $72$ hạt giống mỗi thuật toán; tách MA-POCA khỏi
-MAPPO trên Capture The Flag, nơi $\Delta = 0{,}003$, cần khoảng $36$; còn tách MAPPO khỏi SAC
-trên Football Table cần khoảng $47$. Đối chiếu với thời gian chạy thực tế, một lần chạy đơn
-lẻ trên Cross The Road mất từ $48$ tới $148$ phút, nên riêng con số $72$ đã tương ứng nhiều
-tuần máy chạy liên tục cho đúng một ô của lưới.
-
-\indent Con số ấy cần được hiểu là \emph{cận dưới}, vì $\sigma$ dùng trong~\eqref{eq:seeds-needed}
-là độ lệch chuẩn đo được trong một lần chạy, chứ không phải giữa các seed. Trong học tăng cường sâu, phương sai giữa các seed hầu
-như luôn lớn hơn phương sai nội bộ một lần chạy~\cite{henderson2018matters}, nên số seed
-thực sự cần chỉ có thể nhiều hơn chứ không ít hơn.
-
-\indent Những phân tách mà chương này khẳng
-định gồm SAC thất bại trên Capture The Flag, DQN xếp cuối trên Cross The Road và nhóm dẫn
-đầu tách khỏi nhóm sau ở Cross The Road, đều có khoảng cách lớn hơn $\Delta_{\min}$ nhiều
-lần nên đứng vững ngay với một lần chạy. Những thứ hạng sát nút trong nội bộ nhóm dẫn đầu
-thì không bởi vì khoảng
-cách thật sự nhỏ tới mức cần hàng chục lần chạy mỗi ô để xác nhận. Đó là một kết luận về bản
-thân bài toán chứ không phải về quy mô thực nghiệm.
+\indent Riêng Football Table cần đổi cả ngân sách lẫn giao thức đánh giá. ELO nội bộ của
+hai lần self-play khác nhau không có chung thước chuẩn, nên không dùng giá trị cuối để xếp
+hạng trực tiếp. Phương án phù hợp là tăng ngân sách từ $1{,}6$ triệu bước cho tới khi đường
+học đạt mặt bằng, sau đó cho mọi snapshot cuối đấu cùng một tập đối thủ mốc gồm bot luật,
+checkpoint PPO cố định và các snapshot giữ lại từ nhiều giai đoạn. Mỗi cặp cần đủ nhiều
+trận với đổi bên sân; tỷ lệ thắng và chênh lệch bàn được báo cáo kèm khoảng tin cậy. Cách
+này tăng độ phân giải mà không phụ thuộc vào kho đối thủ riêng của từng lần huấn luyện.
 
 \subsubsection{Bằng chứng từ chỉ số huấn luyện nội tại}
 \indent Bên cạnh phần thưởng, các chỉ số nội tại của quá trình huấn luyện đưa thêm bằng
@@ -1223,76 +1181,61 @@ The Flag ($0{,}047$--$0{,}051$) so với Cross The Road ($0{,}006$--$0{,}025$), 
 thưởng nhóm vừa thưa vừa trì hoãn khiến việc ước lượng giá trị khó hơn nhiều.
 
 \subsubsection{Phân tích ưu nhược điểm từng thuật toán}
-\indent Bảng~\ref{tab:overall_ranking} tổng hợp thứ hạng của năm thuật toán trên từng
-môi trường.
+\indent Bảng~\ref{tab:overall_ranking} tổng hợp các nhóm kết quả quan sát được, không gán
+thứ hạng khi thiết kế một seed chưa cho phép suy luận hơn kém.
 
 \begin{table}[H]
 \centering
-\caption{Xếp hạng thuật toán theo từng môi trường}
+\caption{Tóm tắt kết quả quan sát theo từng môi trường}
 \label{tab:overall_ranking}
 \renewcommand{\arraystretch}{1.35}
 \tablefont
-\begin{tabular}{|p{2.7cm}|>{\centering\arraybackslash}p{1.95cm}
-                |>{\centering\arraybackslash}p{1.95cm}
-                |>{\centering\arraybackslash}p{1.95cm}
-                |>{\centering\arraybackslash}p{1.95cm}
-                |>{\centering\arraybackslash}p{1.95cm}|}
+\begin{tabular}{|p{3.0cm}|p{5.0cm}|p{5.3cm}|}
 \hline
-\textbf{Môi trường} & \textbf{Hạng 1} & \textbf{Hạng 2} & \textbf{Hạng 3} & \textbf{Hạng 4} & \textbf{Hạng 5} \\
+\textbf{Môi trường} & \textbf{Quan sát từ một seed} & \textbf{Cách diễn giải} \\
 \hline
-Football Table & MAPPO & PPO & SAC & MA-POCA & DQN (N/A) \\
+Football Table & PPO, SAC, MA-POCA và MAPPO đều tăng ELO trong self-play. & Không xếp hạng; DQN là tham chiếu riêng, không self-play. \\
 \hline
-Cross The Road & SAC & MAPPO & PPO & MA-POCA & DQN \\
+Cross The Road & SAC và MAPPO đạt reward cao; DQN có giá trị thấp nhất trong lần chạy đã ghi nhận. & Xu hướng thăm dò, cần lặp nhiều seed. \\
 \hline
-Capture The Flag & MAPPO & MA-POCA & PPO & DQN & SAC \\
+Capture The Flag & PPO, MA-POCA, MAPPO và DQN hoàn thành nhiệm vụ; lần chạy SAC không hội tụ. & Không phân hạng nhóm hoàn thành; cần chẩn đoán và lặp SAC. \\
 \hline
 \end{tabular}
 \end{table}
 
-\indent Thứ hạng ở Football Table xếp theo ELO cuối; hai môi trường còn lại xếp theo phần
-thưởng trung bình mười phần trăm cuối. Riêng DQN trên Football Table không xếp hạng được,
-vì chạy không có tự chơi nên chẳng có ELO.
+\indent DQN trên Football Table không xuất hiện trong bất kỳ thứ tự nào vì chạy với không
+gian hành động và giao thức đối thủ khác. Tương tự, khoảng $0{,}800$--$0{,}840$ của nhóm
+hoàn thành Capture The Flag không được chuyển thành thứ hạng. Những khác biệt lớn như lần
+chạy SAC không hội tụ hay giá trị DQN thấp trên Cross The Road là tín hiệu để ưu tiên thực
+nghiệm tiếp theo, nhưng vẫn cần tái lập trên nhiều seed trước khi khái quát hóa.
 
-\indent Bảng này phải đọc kèm một cảnh báo về độ phân giải. Ở Football Table, bốn thuật
-toán tự chơi chen nhau trong dải ELO $1237$--$1260$. Ở Capture The Flag, bốn thuật toán
-dẫn đầu nằm gọn trong dải phần thưởng $0{,}800$--$0{,}840$. Những khoảng cách ấy còn nhỏ
-hơn dao động của chính các đường cong, nên thứ tự trong nội bộ hai nhóm đó đừng coi là kết
-luận. Chỉ ba phân tách là thực sự vững: SAC thất bại trên Capture The Flag, DQN xếp cuối
-trên Cross The Road, và nhóm dẫn đầu tách khỏi nhóm sau ở Cross The Road.
+\indent MAPPO đạt giá trị quan sát cao ở cả ba môi trường, kể cả môi trường đơn tác nhân
+nơi cơ chế phê bình tập trung không được kỳ vọng tạo lợi thế. Đề tài chưa giải thích được
+cơ chế này, và với đúng một lần chạy cho mỗi ô thì chưa loại được yếu tố ngẫu nhiên.
 
-\indent MAPPO là thuật toán duy nhất góp mặt ở nhóm dẫn đầu cả ba môi trường: hạng nhất ở
-Football Table lẫn Capture The Flag, hạng nhì ở Cross The Road với khoảng cách không đáng
-kể so với SAC. Kết quả này vượt xa phạm vi mà thiết kế của MAPPO nhắm tới: thuật toán vốn
-được đề xuất cho bài toán hợp tác đa tác nhân, vậy mà chạy tốt cả ở môi trường đơn tác
-nhân lẫn đối kháng. Đề tài chưa giải thích được cơ chế đằng sau, và với đúng một lần chạy
-cho mỗi ô thì cũng chưa loại được yếu tố ngẫu nhiên.
-
-\indent PPO đóng vai một lựa chọn mặc định hợp lý. Nó chẳng dẫn đầu ở đâu, nhưng cũng
-không thất bại ở đâu, luôn nằm trong nhóm giữa hoặc nhóm đầu. Nhược điểm lộ ra trên Cross
+\indent PPO không thất bại trong ba lần chạy đã ghi nhận và vì vậy là một mốc khởi đầu
+hợp lý, nhưng dữ liệu hiện có chưa chứng minh nó ổn định hơn qua các seed. Nhược điểm lộ ra trên Cross
 The Road, nơi entropy tăng ngược và độ dài lượt chơi bùng nổ ở nửa sau: PPO có thể rời
 khỏi vùng nghiệm tốt rồi không tự quay lại được trong ngân sách đã cho.
 
-\indent SAC là thuật toán phân hóa mạnh nhất. Nó dẫn đầu Cross The Road ($0{,}846$), đứng
-thứ ba ở Football Table, rồi sụp đổ hoàn toàn trên Capture The Flag, nơi entropy gần như không
+\indent SAC là thuật toán có kết quả quan sát phân hóa mạnh nhất. Lần chạy Cross The Road
+đạt $0{,}846$, trong khi lần chạy Capture The Flag không hội tụ và entropy gần như không
 giảm, lượt chơi luôn chạm trần thời gian. Biên độ giữa thành công và thất bại của
 riêng SAC còn lớn hơn mọi chênh lệch giữa các thuật toán trong cùng một môi trường, nên
 khi chưa thử nghiệm trên bài toán cụ thể thì đây là lựa chọn rủi ro nhất.
 
-\indent MA-POCA cho kết quả trái hẳn kỳ vọng. Là thuật toán thiết kế riêng cho việc gán
-công lao nhóm, nó chỉ ngang bằng MAPPO và PPO ở môi trường hợp tác, lại xếp áp chót ở Cross
-The Road và cuối cùng trong nhóm tự chơi ở Football Table. Cơ chế phê bình dựa trên sự chú
-ý của nó không tạo nổi lợi thế nào đo được trong ba môi trường của đề tài.
+\indent MA-POCA không cho thấy lợi thế rõ trong các lần chạy đã ghi nhận, kể cả ở môi
+trường hợp tác. Đây là quan sát âm cần kiểm tra lại bằng nhiều seed, không phải bằng chứng
+rằng cơ chế phê bình dựa trên sự chú ý không có tác dụng.
 
-\indent DQN vừa yếu nhất xét toàn cục vừa khó triển khai nhất. Nó xếp cuối Cross The Road
-với khoảng cách lớn, chỉ chen được vào nhóm giữa ở Capture The Flag, còn trên Football
-Table thì cần một bản dựng riêng có không gian hành động rời rạc mà vẫn không ghép nổi với
-tự chơi. Ưu điểm duy nhất ghi nhận được là đường cong ổn định, nhưng sự ổn định đó đến từ việc
-chính sách ít thay đổi, chứ không từ chất lượng của chính sách.
+\indent DQN khó triển khai nhất trong phạm vi đề tài. Lần chạy Cross The Road đạt giá trị
+thấp, còn trên Capture The Flag tác nhân vẫn hoàn thành nhiệm vụ nhưng chậm hơn nhóm họ PPO.
+Trên Football Table, DQN cần bản dựng hành động rời rạc và không ghép được với self-play,
+nên kết quả chỉ được báo cáo riêng, không dùng để nhận xét vị trí tương đối.
 
 % ═══════════════════════════════════════════════
 \subsection{Thảo luận}
 
-\subsubsection{Khả năng ứng dụng trong phát triển game}
 \indent Từ kết quả thực nghiệm có thể rút ra một số hàm ý thực tiễn cho việc đưa học tăng
 cường vào phát triển game. Trước hết, việc lựa chọn thuật toán cần xuất phát từ cơ chế
 game cụ thể, thay vì tìm kiếm một thuật toán tốt nhất theo nghĩa chung. Đối với các thể
@@ -1301,20 +1244,17 @@ chẳng hạn game thể thao hay game đấu trường, nhóm thuật toán h�
 là lựa chọn hợp lý. Cơ chế này tự sinh ra đối thủ máy có trình độ tăng dần theo quá trình
 huấn luyện, nhờ đó người chơi nhận được trải nghiệm vừa đủ thử thách vừa cân bằng.
 
-\indent Đối với game điều hướng, né vật cản hoặc giải đố đơn tuyến, SAC đạt mức năng lực
-cao nhất trong phạm vi thực nghiệm, song đi kèm hai điều kiện. Thứ nhất, hiệu quả sử dụng
+\indent Đối với game điều hướng, né vật cản hoặc giải đố đơn tuyến, lần chạy SAC đạt mức
+năng lực cao trong phạm vi thực nghiệm, song đi kèm hai điều kiện. Thứ nhất, hiệu quả sử dụng
 dữ liệu của thuật toán này phụ thuộc vào tần suất cập nhật mạng. Thứ hai, thời gian chạy
 thực tế của nó cao gấp gần ba lần PPO trên cùng một ngân sách bước. Các nhóm phát triển có
 tài nguyên tính toán hạn chế cần cân nhắc kỹ hai yếu tố này trước khi lựa chọn SAC.
 
-\indent Đối với game hợp tác đòi hỏi nhiều nhân vật máy phối hợp với nhau, thực nghiệm cho
-một kết quả cần được lưu ý: PPO thường bám sát cả MAPPO lẫn MA-POCA, do đó công sức bỏ ra
-để tích hợp một thuật toán đa tác nhân chuyên biệt chưa chắc tương xứng với lợi ích thu
-được. Khuyến nghị mang tính thực dụng ở đây là khởi đầu bằng PPO nhằm thiết lập mốc so
-sánh, sau đó mới cân nhắc chuyển sang MAPPO nếu mốc này chưa đáp ứng yêu cầu. Ở chiều
-ngược lại, điều cần tránh thể hiện rõ hơn cả: không nên dùng thuật toán off policy như SAC
-cho bài toán hợp tác có phần thưởng nhóm thưa kết hợp chương trình huấn luyện nhiều bậc,
-bởi đây là cấu hình duy nhất trong toàn bộ đề tài dẫn tới thất bại hoàn toàn.
+\indent Đối với game hợp tác đòi hỏi nhiều nhân vật máy phối hợp với nhau, PPO là mốc so
+sánh hợp lý trước khi tích hợp thuật toán đa tác nhân chuyên biệt. Tuy nhiên, khoảng cách
+nhỏ giữa PPO, MAPPO và MA-POCA ở đây chưa chứng minh chúng tương đương. Tương tự, lần chạy
+SAC không hội tụ là lý do cần thận trọng với off-policy khi kết hợp phần thưởng nhóm thưa
+và chương trình học nhiều bậc, chứ chưa đủ để khuyến cáo loại bỏ SAC nói chung.
 
 \indent Ngoài phần hướng dẫn lựa chọn thuật toán, bản thân ba môi trường của đề tài cùng
 quy trình thiết kế không gian quan sát, không gian hành động và hàm phần thưởng cũng có
