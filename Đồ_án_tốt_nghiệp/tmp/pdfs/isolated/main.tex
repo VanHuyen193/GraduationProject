@@ -132,30 +132,10 @@
   {\MakeUppercase{Chương \thesection:}}{0.6em}{\MakeUppercase}
 \titlespacing*{\section}{0pt}{14pt}{10pt}
 
-% MỞ ĐẦU và KẾT LUẬN là các phần độc lập, không có số thứ tự hay nhãn “Chương”.
-% Chúng vẫn xuất hiện ở Mục lục, căn thẳng với lề trái.
-\newcommand{\specialsection}[1]{%
-  % Tạm bỏ nhãn và vùng dành cho số ở riêng dòng Mục lục của phần này.
-  \addtocontents{toc}{\protect\renewcommand{\protect\cftsecpresnum}{}}%
-  \addtocontents{toc}{\protect\setlength{\protect\cftsecnumwidth}{0pt}}%
-  \setcounter{subsection}{0}%
-  \begingroup
-  \titleformat{\section}
-    {\normalfont\fontsize{13pt}{22.5pt}\selectfont\bfseries\centering}
-    {}{0pt}{\MakeUppercase}%
-  \section*{#1}%
-  \endgroup
-  \addcontentsline{toc}{section}{\numberline{}#1}%
-  \addtocontents{toc}{\protect\renewcommand{\protect\cftsecpresnum}{CHƯƠNG~}}%
-  \addtocontents{toc}{\protect\setlength{\protect\cftsecnumwidth}{\protect\chaptertocnumwidth}}%
-}
-
 % Đồng bộ nhãn chương trong Mục lục với tiêu đề chương.
 \renewcommand{\cftsecpresnum}{CHƯƠNG~}
 \renewcommand{\cftsecaftersnum}{\space}
 \addtolength{\cftsecnumwidth}{5em}
-\newlength{\chaptertocnumwidth}
-\setlength{\chaptertocnumwidth}{\cftsecnumwidth}
 \renewcommand{\cftsecfont}{\bfseries}
 \titleformat{\subsection}
   {\normalfont\fontsize{13pt}{21pt}\selectfont\bfseries}{\thesubsection}{1em}{}
@@ -368,9 +348,9 @@
 
   % --- Cột trái: họ tên ở phần trên, ngành ở phần dưới (13pt, không in đậm) ---
   \node[rotate=-90, anchor=base west] at ($(bia)+(2.554cm,-3.552cm)$)
-      {\fontsize{13pt}{15pt}\selectfont\bfseries VĂN THỊ MINH HUYỀN};
+      {\fontsize{13pt}{15pt}\selectfont VĂN THỊ MINH HUYỀN};
   \node[rotate=-90, anchor=base west] at ($(bia)+(2.554cm,-16.644cm)$)
-      {\fontsize{13pt}{15pt}\selectfont\bfseries KHOA HỌC MÁY TÍNH};
+      {\fontsize{13pt}{15pt}\selectfont KHOA HỌC MÁY TÍNH};
 
   % --- Tên bộ và tên trường (13pt in đậm), tên trường có gạch chân 0,5pt ---
   \node[anchor=base] at ($(bia)+(12.114cm,-3.870cm)$)

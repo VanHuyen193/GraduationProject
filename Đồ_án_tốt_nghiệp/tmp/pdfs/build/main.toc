@@ -1,0 +1,124 @@
+\xpg@aux {}{vietnamese}
+\contentsline {section}{DANH MỤC TỪ VIẾT TẮT}{vii}{section*.1}%
+\contentsline {section}{\numberline {1}MỞ ĐẦU}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Lý do chọn đề tài}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Mục tiêu nghiên cứu}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Đối tượng và phạm vi nghiên cứu}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Tổng quan tài liệu và khoảng trống nghiên cứu}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Phương pháp nghiên cứu}{7}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Ý nghĩa khoa học và thực tiễn}{7}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Bố cục đồ án}{8}{subsection.1.7}%
+\contentsline {section}{\numberline {2}CƠ SỞ LÝ THUYẾT}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Trí tuệ nhân tạo trong game}{9}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}AI truyền thống}{9}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}AI học máy}{10}{subsubsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.2}Nền tảng Reinforcement Learning}{10}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Các khái niệm cơ bản}{10}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Markov Decision Process}{12}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Policy và Value Function}{12}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Học tăng cường sâu}{13}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Vai trò của mạng Neural Network trong RL}{14}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Phân loại: Policy-Based, Value-Based, Actor-Critic}{14}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Phần thưởng tò mò nội tại}{15}{subsubsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.4}Các thuật toán sử dụng trong đề tài}{17}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}PPO}{17}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}SAC}{19}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}MA-POCA}{20}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}MAPPO}{22}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}DQN}{23}{subsubsection.2.4.5}%
+\contentsline {subsubsection}{\numberline {2.4.6}Tổng kết và so sánh năm thuật toán}{25}{subsubsection.2.4.6}%
+\contentsline {subsection}{\numberline {2.5}Unity ML-Agents Toolkit}{26}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Kiến trúc tổng thể}{26}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2}Cơ chế Vật lý và Tính xác định trong Unity}{27}{subsubsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.5.3}Hệ thống Cảm biến và Tiền xử lý quan sát}{27}{subsubsection.2.5.3}%
+\contentsline {subsubsection}{\numberline {2.5.4}Cơ chế Hành vi và Gom nhóm quyết định}{28}{subsubsection.2.5.4}%
+\contentsline {subsubsection}{\numberline {2.5.5}Quy trình huấn luyện Agent}{28}{subsubsection.2.5.5}%
+\contentsline {subsubsection}{\numberline {2.5.6}Hỗ trợ thuật toán và giới hạn tích hợp sẵn}{29}{subsubsection.2.5.6}%
+\contentsline {section}{\numberline {3}THIẾT KẾ MÔI TRƯỜNG VÀ PHƯƠNG PHÁP THỰC NGHIỆM}{31}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tổng quan thiết kế hệ thống}{31}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Kiến trúc huấn luyện tổng thể}{31}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Không gian quan sát}{32}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Không gian hành động}{34}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Nguyên tắc thiết kế hàm phần thưởng}{35}{subsubsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.2}Bộ môi trường thực nghiệm}{38}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Môi trường Football Table}{42}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Mô tả bài toán}{42}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Không gian quan sát}{42}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Không gian hành động và cơ chế điều khiển}{43}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Hàm phần thưởng}{44}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}Điều kiện kết thúc lượt chơi}{46}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.6}Cấu hình huấn luyện}{46}{subsubsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.4}Môi trường Capture The Flag}{46}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Mô tả bài toán}{46}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Cửa ải khối vật cản}{47}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Không gian quan sát}{49}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.4}Không gian hành động và cơ chế điều khiển}{49}{subsubsection.3.4.4}%
+\contentsline {subsubsection}{\numberline {3.4.5}Cơ chế cửa và pha bàn giao}{50}{subsubsection.3.4.5}%
+\contentsline {subsubsection}{\numberline {3.4.6}Hàm phần thưởng}{51}{subsubsection.3.4.6}%
+\contentsline {subsubsection}{\numberline {3.4.7}Quá trình hiệu chỉnh hàm phần thưởng}{54}{subsubsection.3.4.7}%
+\contentsline {subsubsection}{\numberline {3.4.8}Điều kiện kết thúc lượt chơi}{56}{subsubsection.3.4.8}%
+\contentsline {subsubsection}{\numberline {3.4.9}Cấu hình huấn luyện và học theo chương trình}{57}{subsubsection.3.4.9}%
+\contentsline {subsection}{\numberline {3.5}Môi trường Cross The Road}{57}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}Mô tả bài toán}{57}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}Không gian quan sát}{58}{subsubsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.3}Không gian hành động và cơ chế điều khiển}{59}{subsubsection.3.5.3}%
+\contentsline {subsubsection}{\numberline {3.5.4}Hàm phần thưởng}{59}{subsubsection.3.5.4}%
+\contentsline {subsubsection}{\numberline {3.5.5}Điều kiện kết thúc lượt chơi}{61}{subsubsection.3.5.5}%
+\contentsline {subsubsection}{\numberline {3.5.6}Cấu hình huấn luyện}{61}{subsubsection.3.5.6}%
+\contentsline {subsection}{\numberline {3.6}Bảng tổng hợp đặc trưng ba môi trường}{61}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Triển khai thuật toán ngoài ML-Agents}{63}{subsection.3.7}%
+\contentsline {subsubsection}{\numberline {3.7.1}Hai thuật toán không có sẵn trong ML-Agents}{63}{subsubsection.3.7.1}%
+\contentsline {subsubsection}{\numberline {3.7.2}Bổ sung thuật toán bằng cơ chế trainer mở rộng}{63}{subsubsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.3}Kết nối thư viện ngoài qua Python Low-Level API}{64}{subsubsection.3.7.3}%
+\contentsline {subsubsection}{\numberline {3.7.4}Cấu trúc mã nguồn bổ sung}{64}{subsubsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.8}Thiết lập thực nghiệm}{65}{subsection.3.8}%
+\contentsline {subsubsection}{\numberline {3.8.1}Cấu hình phần cứng và phần mềm}{65}{subsubsection.3.8.1}%
+\contentsline {subsubsection}{\numberline {3.8.2}Tham số huấn luyện từng thuật toán}{66}{subsubsection.3.8.2}%
+\contentsline {subsubsection}{\numberline {3.8.3}Tiêu chí đánh giá}{67}{subsubsection.3.8.3}%
+\contentsline {section}{\numberline {4}KIỂM CHỨNG MÔI TRƯỜNG QUA THỰC NGHIỆM}{69}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Kết quả môi trường Football Table}{71}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Kết quả môi trường Cross The Road}{79}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Kết quả môi trường Capture The Flag}{84}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Đánh giá tổng hợp}{88}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}So sánh tốc độ hội tụ}{88}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}So sánh mức năng lực đạt được}{89}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}So sánh độ ổn định}{90}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Độ phân giải phép đo và giới hạn thống kê}{91}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}Bằng chứng từ chỉ số huấn luyện nội tại}{92}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.6}Phân tích ưu nhược điểm từng thuật toán}{94}{subsubsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.5}Thảo luận}{95}{subsection.4.5}%
+\contentsline {section}{\numberline {5}XÂY DỰNG ỨNG DỤNG TRÌNH DIỄN TƯƠNG TÁC}{97}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Mục tiêu và yêu cầu chức năng}{97}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Kiến trúc hệ thống}{98}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Giao diện menu và luồng sử dụng}{100}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Nạp mô hình ONNX tại thời gian chạy}{103}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Trực quan hóa kết quả huấn luyện trong ứng dụng}{105}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Đường ống dữ liệu từ TensorBoard vào game}{105}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}Tab THÔNG SỐ}{106}{subsubsection.5.5.2}%
+\contentsline {subsubsection}{\numberline {5.5.3}Tab SO SÁNH}{107}{subsubsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.6}Ba chế độ chơi trong từng môi trường}{108}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Cross The Road: trải nghiệm và quan sát chính sách}{109}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Capture The Flag: phối hợp người và máy}{110}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Football Table: đối đầu người với máy và máy với máy}{111}{subsubsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.7}Đóng gói ba môi trường thành gói dùng lại được}{113}{subsection.5.7}%
+\contentsline {subsubsection}{\numberline {5.7.1}Cấu trúc gói}{113}{subsubsection.5.7.1}%
+\contentsline {subsubsection}{\numberline {5.7.2}Gỡ phụ thuộc ngược từ môi trường vào ứng dụng}{114}{subsubsection.5.7.2}%
+\contentsline {subsubsection}{\numberline {5.7.3}Hướng dẫn cài đặt và sử dụng gói}{115}{subsubsection.5.7.3}%
+\contentsline {subsubsection}{\numberline {5.7.4}Yêu cầu phần mềm và phần cứng}{117}{subsubsection.5.7.4}%
+\contentsline {subsubsection}{\numberline {5.7.5}Thời gian huấn luyện dự kiến}{118}{subsubsection.5.7.5}%
+\contentsline {subsubsection}{\numberline {5.7.6}Giới hạn khi tái sử dụng}{119}{subsubsection.5.7.6}%
+\contentsline {subsubsection}{\numberline {5.7.7}Dự án tự dùng chính gói của mình}{121}{subsubsection.5.7.7}%
+\contentsline {subsection}{\numberline {5.8}Các vấn đề kỹ thuật và giải pháp}{121}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Kiểm thử ứng dụng và hạn chế}{124}{subsection.5.9}%
+\contentsline {section}{\numberline {6}KẾT LUẬN}{127}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Kết quả đạt được}{127}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Đóng góp của đề tài}{129}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Hạn chế}{130}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Hướng phát triển}{131}{subsection.6.4}%
+\contentsline {section}{PHỤ LỤC}{ix}{section*.53}%
+\contentsline {subsection}{Phụ lục A. Cấu hình huấn luyện PPO}{ix}{section*.54}%
+\contentsline {subsection}{Phụ lục B. Cấu hình huấn luyện SAC}{ix}{lstnumber.4.31}%
+\contentsline {subsection}{Phụ lục C. Cấu hình huấn luyện MA-POCA}{xi}{lstnumber.6.24}%
+\contentsline {subsection}{Phụ lục D. Cấu hình huấn luyện DQN}{xi}{lstnumber.7.29}%
+\contentsline {subsection}{Phụ lục E. Mã nguồn minh họa}{xii}{lstnumber.8.33}%
+\contentsline {subsection}{Phụ lục F. Kết quả TensorBoard}{xiii}{lstnumber.12.10}%

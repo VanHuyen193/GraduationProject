@@ -1,0 +1,32 @@
+\fontsize{13pt}{22.5pt}\selectfont
+\begin{center}
+    {\large\bfseries TÓM TẮT ĐỒ ÁN}
+\end{center}
+
+\vspace{0.5cm}
+
+\indent Trong một dự án học tăng cường cho game, phần việc nặng nhất hiện không còn nằm ở
+thuật toán. Các thư viện đã đóng gói sẵn những gì cần thiết. Cái còn lại, và cũng là cái
+khó, là môi trường: phải tự dựng, tự đặc tả, tự hiệu chỉnh. Đồ án này lấy chính khâu đó
+làm đối tượng nghiên cứu, cụ thể là bài toán xây dựng môi trường game ba chiều đủ chuẩn
+cho việc huấn luyện.
+
+\indent Ba môi trường đã được dựng trên nền tảng Unity ML-Agents, mỗi cái ứng với một
+dạng bài toán khác nhau. Football Table là bài toán đối kháng một-một với không gian hành
+động liên tục và cơ chế tự chơi. Capture The Flag đòi hỏi hai tác nhân hợp tác, dùng phần
+thưởng nhóm cùng chương trình học chia theo bậc. Cross The Road thì ngược lại, chỉ một tác
+nhân điều hướng nhưng phần thưởng rất thưa. Sản phẩm cuối được đóng thành một gói
+Unity Package Manager, kèm 15 cấu hình huấn luyện, bộ công cụ Editor và trình hướng dẫn
+cài đặt.
+
+\indent Đồ án đã cho chạy năm thuật toán PPO, SAC, MA-POCA, MAPPO và DQN trên cả ba
+môi trường với cùng ngân sách bước trong từng môi trường; các siêu tham số đặc thù được
+điều chỉnh theo từng thuật toán. Mười lăm lần chạy cho thấy cả ba môi trường đều có thể
+dạy được hành vi mục tiêu và không bộc lộ lối tắt khi quan sát trực tiếp. Ở các lần chạy
+đã ghi nhận, SAC đạt $0{,}846$ trên Cross The Road nhưng chỉ đạt $0{,}183$ trên Capture
+The Flag. Tuy nhiên, mỗi tổ hợp mới được chạy với một seed, nên các chênh lệch này là kết
+quả thăm dò chứ chưa phải bằng chứng thống kê để xếp hạng thuật toán. Riêng DQN trên
+Football Table được trình bày như tham chiếu độc lập vì không dùng self-play. Kèm theo đó,
+đồ án xây dựng một ứng dụng trình diễn nạp trực tiếp 15 mô hình ONNX đã huấn luyện để quan
+sát hành vi của các tác nhân.
+
